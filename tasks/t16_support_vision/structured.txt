@@ -1,0 +1,16 @@
+## Goal
+Write Python code that answers three questions about the data below.
+
+## Data
+Here is some League of Legends esports match data, one row per player:
+
+{DATA}
+
+## Requirements
+1. Put the data directly in the code as Python data structures. Do not read it from a file.
+2. Define a function `q1()` that returns the average vision score of players who won minus the average vision score of players who lost.
+3. Define a function `q2()` that returns the name of the player who placed the most wards.
+4. Define a function `q3()` that returns how many players bought at least 15 control wards.
+
+## Output
+Respond with only Python code.

@@ -1,0 +1,21 @@
+game,team,side,result,game_minutes
+G01,DN Freecs,blue,loss,34.1
+G01,Dplus KIA,red,win,34.1
+G02,BNK FEARX,blue,loss,40.1
+G02,Gen.G,red,win,40.1
+G03,Dplus KIA,blue,win,27.5
+G03,BNK FEARX,red,loss,27.5
+G04,DRX,blue,win,30.2
+G04,DN Freecs,red,loss,30.2
+G05,Hanwha Life Esports,blue,win,39.0
+G05,Gen.G,red,loss,39.0
+G06,Dplus KIA,blue,loss,30.0
+G06,Nongshim RedForce,red,win,30.0
+G07,DN Freecs,blue,win,33.9
+G07,OKSavingsBank BRION,red,loss,33.9
+G08,Dplus KIA,blue,win,37.2
+G08,KT Rolster,red,loss,37.2
+G09,Gen.G,blue,win,28.9
+G09,Hanwha Life Esports,red,loss,28.9
+G10,KT Rolster,blue,loss,35.1
+G10,Hanwha Life Esports,red,win,35.1

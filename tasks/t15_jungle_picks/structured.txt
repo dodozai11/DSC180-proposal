@@ -1,0 +1,16 @@
+## Goal
+Write Python code that answers three questions about the data below.
+
+## Data
+Here is some League of Legends esports match data, one row per player:
+
+{DATA}
+
+## Requirements
+1. Put the data directly in the code as Python data structures. Do not read it from a file.
+2. Define a function `q1()` that returns the number of different champions played.
+3. Define a function `q2()` that returns the name of the champion with the best win rate among champions played at least twice (return None if no champion was played twice).
+4. Define a function `q3()` that returns the average number of deaths in games that were lost.
+
+## Output
+Respond with only Python code.

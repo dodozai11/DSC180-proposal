@@ -1,0 +1,5 @@
+hey, I've got some League of Legends esports match data here, one row per player:
+
+{DATA}
+
+can you write some Python to look at it? I want q3() to tell me which champion got picked the most, and q1() to return the name of the player with the highest KDA, which is (kills + assists) divided by max(deaths, 1). And q2() should be the average number of kills in the games that were won. Please put the data right in the code as Python data structures instead of reading it from a file. Just send back the Python code, nothing else.

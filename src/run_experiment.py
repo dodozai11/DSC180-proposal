@@ -21,8 +21,9 @@ sys.path.insert(0, str(ROOT))
 import config  # noqa: E402
 from evaluate import extract_code, run_tests  # noqa: E402
 
-FORMATS = ["structured", "informal"]
-COLUMNS = ["task_id", "format", "run", "model", "input_tokens", "output_tokens",
+FORMATS = ["structured", "informal"]           # instruction format
+DATA_FORMATS = ["csv", "xml", "prose"]         # how the data is written (Experiment 2 tasks only)
+COLUMNS = ["task_id", "format", "data_format", "run", "model", "input_tokens", "output_tokens",
            "tests_passed", "tests_total", "passed_all", "stop_reason", "timestamp"]
 
 # Rough per-call token guesses, used only for the cost estimate of paid models.
@@ -32,34 +33,82 @@ PRICES = {"claude-haiku-4-5": (1.00, 5.00)}
 
 
 def load_tasks():
-    """Return {task_id: {"dir": Path, "structured": str, "informal": str}}."""
+    """Return {task_id: {"dir": Path, "structured": str, "informal": str, "data": {data_format: text}}}.
+
+    Experiment 1 tasks have no data files, so their only data format is "none".
+    Experiment 2 tasks have data_csv.txt / data_xml.txt / data_prose.txt, and their
+    prompt templates contain a {DATA} placeholder where the data is inserted.
+    """
     tasks = {}
     for task_dir in sorted((ROOT / config.TASKS_DIR).glob("t*")):
-        if task_dir.is_dir():
-            tasks[task_dir.name] = {
-                "dir": task_dir,
-                "structured": (task_dir / "structured.txt").read_text(encoding="utf-8"),
-                "informal": (task_dir / "informal.txt").read_text(encoding="utf-8"),
-            }
+        if not task_dir.is_dir():
+            continue
+        data = {}
+        for data_format in DATA_FORMATS:
+            path = task_dir / f"data_{data_format}.txt"
+            if path.exists():
+                data[data_format] = path.read_text(encoding="utf-8").strip()
+        tasks[task_dir.name] = {
+            "dir": task_dir,
+            "structured": (task_dir / "structured.txt").read_text(encoding="utf-8"),
+            "informal": (task_dir / "informal.txt").read_text(encoding="utf-8"),
+            "data": data or {"none": None},
+        }
     return tasks
 
 
-def build_plan(task_ids):
-    """Every (task_id, format, run) combination, shuffled in a reproducible order."""
-    plan = [(task_id, fmt, run)
-            for task_id in task_ids
+def build_prompt(task, fmt, data_format):
+    """The instruction template for `fmt`, with the data inserted if the task has any."""
+    template = task[fmt]
+    if data_format == "none":
+        return template
+    return template.replace("{DATA}", task["data"][data_format])
+
+
+def build_plan(tasks):
+    """Every (task_id, format, data_format, run) combination, shuffled in a reproducible order."""
+    plan = [(task_id, fmt, data_format, run)
+            for task_id, task in tasks.items()
             for fmt in FORMATS
+            for data_format in task["data"]
             for run in range(1, config.N_RUNS + 1)]
     random.Random(config.SEED).shuffle(plan)
     return plan
 
 
+def migrate_results(results_path, raw_dir):
+    """One-time upgrade of files written before the data_format column existed.
+
+    Adds data_format="none" to old rows, and renames old raw files from
+    task__format__runN__model.txt to task__format__none__runN__model.txt.
+    Does nothing if everything is already up to date.
+    """
+    if results_path.exists():
+        with open(results_path, newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        if rows and "data_format" not in rows[0]:
+            for row in rows:
+                row["data_format"] = "none"
+            with open(results_path, "w", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=COLUMNS)
+                writer.writeheader()
+                writer.writerows(rows)
+            print(f"migrated {len(rows)} existing rows: added data_format=none")
+    if raw_dir.exists():
+        for path in raw_dir.glob("*.txt"):
+            parts = path.stem.split("__")
+            if len(parts) == 4:  # old name without data_format
+                parts.insert(2, "none")
+                path.rename(path.with_name("__".join(parts) + ".txt"))
+
+
 def load_done(results_path):
-    """Set of (task_id, format, run, model) already in the CSV, so we can resume."""
+    """Set of (task_id, format, data_format, run, model) already in the CSV, so we can resume."""
     if not results_path.exists():
         return set()
     with open(results_path, newline="", encoding="utf-8") as f:
-        return {(r["task_id"], r["format"], int(r["run"]), r["model"]) for r in csv.DictReader(f)}
+        return {(r["task_id"], r["format"], r["data_format"], int(r["run"]), r["model"])
+                for r in csv.DictReader(f)}
 
 
 def append_row(results_path, row):
@@ -89,7 +138,7 @@ def call_ollama(prompt, run):
         options={
             "temperature": config.TEMPERATURE,
             "num_predict": config.MAX_TOKENS,  # Ollama's name for max_tokens
-            "num_ctx": 8192,                   # room for prompt + longest allowed answer
+            "num_ctx": 16384,                  # room for prompt (incl. data) + longest allowed answer
             "seed": config.SEED + run,         # a different seed for each run number
         },
     )
@@ -174,13 +223,14 @@ def main():
     results_path = ROOT / config.RESULTS_PATH
     raw_dir = ROOT / config.RAW_DIR
 
+    migrate_results(results_path, raw_dir)
     tasks = load_tasks()
     plan = build_plan(tasks)
     done = load_done(results_path)
-    todo = [(t, f, r) for (t, f, r) in plan if (t, f, r, config.MODEL) not in done]
+    todo = [(t, f, d, r) for (t, f, d, r) in plan if (t, f, d, r, config.MODEL) not in done]
 
     print(f"provider={config.PROVIDER}  model={config.MODEL}  "
-          f"tasks={len(tasks)}  formats={len(FORMATS)}  runs={config.N_RUNS}")
+          f"tasks={len(tasks)}  formats={len(FORMATS)}  data formats={DATA_FORMATS}  runs={config.N_RUNS}")
     print(f"planned={len(plan)}  already done={len(plan) - len(todo)}  calls to make={len(todo)}")
     if config.PROVIDER == "ollama":
         print("cost: free (runs locally)")
@@ -192,8 +242,8 @@ def main():
     if args.dry_run:
         print(f"\ntemperature={config.TEMPERATURE}  max_tokens={config.MAX_TOKENS}  seed={config.SEED}")
         print("first planned calls:")
-        for task_id, fmt, run in todo[:10]:
-            print(f"  {task_id:<20} {fmt:<11} run {run}")
+        for task_id, fmt, data_format, run in todo[:10]:
+            print(f"  {task_id:<20} {fmt:<11} {data_format:<6} run {run}")
         print("\n(dry run: no model calls made)")
         return
 
@@ -209,16 +259,17 @@ def main():
     raw_dir.mkdir(parents=True, exist_ok=True)
     safe_model = config.MODEL.replace(":", "-").replace("/", "-")  # ":" isn't allowed in Windows filenames
 
-    for i, (task_id, fmt, run) in enumerate(todo, start=1):
+    for i, (task_id, fmt, data_format, run) in enumerate(todo, start=1):
         task = tasks[task_id]
+        label = f"[{i}/{len(todo)}] {task_id} {fmt} {data_format} run{run}"
         try:
-            result = call_model(task[fmt], run)
+            result = call_model(build_prompt(task, fmt, data_format), run)
         except errors as e:
-            print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: call failed, skipping ({e})")
+            print(f"{label}: call failed, skipping ({e})")
             continue
 
         # Save the raw reply so any result can be inspected later.
-        raw_name = f"{task_id}__{fmt}__run{run}__{safe_model}.txt"
+        raw_name = f"{task_id}__{fmt}__{data_format}__run{run}__{safe_model}.txt"
         (raw_dir / raw_name).write_text(result["text"], encoding="utf-8")
 
         passed, total = run_tests(extract_code(result["text"]), task["dir"], config.TEST_TIMEOUT)
@@ -226,6 +277,7 @@ def main():
         append_row(results_path, {
             "task_id": task_id,
             "format": fmt,
+            "data_format": data_format,
             "run": run,
             "model": config.MODEL,
             "input_tokens": result["input_tokens"],
@@ -236,8 +288,8 @@ def main():
             "stop_reason": result["stop_reason"],
             "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })
-        print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: "
-              f"in={result['input_tokens']} out={result['output_tokens']} tests={passed}/{total}")
+        print(f"{label}: in={result['input_tokens']} out={result['output_tokens']} tests={passed}/{total}",
+              flush=True)
 
     print(f"\nDone. Results in {config.RESULTS_PATH}")
 

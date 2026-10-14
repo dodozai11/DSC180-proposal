@@ -1,0 +1,16 @@
+## Goal
+Write Python code that answers three questions about the data below.
+
+## Data
+Here is some League of Legends esports match data, one row per team per game:
+
+{DATA}
+
+## Requirements
+1. Put the data directly in the code as Python data structures. Do not read it from a file.
+2. Define a function `q1()` that returns the win rate of teams that took the first dragon, as a number between 0 and 1.
+3. Define a function `q2()` that returns the average number of barons taken by winning teams.
+4. Define a function `q3()` that returns the total number of towers destroyed across all rows.
+
+## Output
+Respond with only Python code.

@@ -1,0 +1,37 @@
+ROWS = [{'game': 'G01', 'team': 'DN Freecs', 'side': 'blue', 'result': 'loss', 'game_minutes': 34.1},
+ {'game': 'G01', 'team': 'Dplus KIA', 'side': 'red', 'result': 'win', 'game_minutes': 34.1},
+ {'game': 'G02', 'team': 'BNK FEARX', 'side': 'blue', 'result': 'loss', 'game_minutes': 40.1},
+ {'game': 'G02', 'team': 'Gen.G', 'side': 'red', 'result': 'win', 'game_minutes': 40.1},
+ {'game': 'G03', 'team': 'Dplus KIA', 'side': 'blue', 'result': 'win', 'game_minutes': 27.5},
+ {'game': 'G03', 'team': 'BNK FEARX', 'side': 'red', 'result': 'loss', 'game_minutes': 27.5},
+ {'game': 'G04', 'team': 'DRX', 'side': 'blue', 'result': 'win', 'game_minutes': 30.2},
+ {'game': 'G04', 'team': 'DN Freecs', 'side': 'red', 'result': 'loss', 'game_minutes': 30.2},
+ {'game': 'G05', 'team': 'Hanwha Life Esports', 'side': 'blue', 'result': 'win', 'game_minutes': 39.0},
+ {'game': 'G05', 'team': 'Gen.G', 'side': 'red', 'result': 'loss', 'game_minutes': 39.0},
+ {'game': 'G06', 'team': 'Dplus KIA', 'side': 'blue', 'result': 'loss', 'game_minutes': 30.0},
+ {'game': 'G06', 'team': 'Nongshim RedForce', 'side': 'red', 'result': 'win', 'game_minutes': 30.0},
+ {'game': 'G07', 'team': 'DN Freecs', 'side': 'blue', 'result': 'win', 'game_minutes': 33.9},
+ {'game': 'G07', 'team': 'OKSavingsBank BRION', 'side': 'red', 'result': 'loss', 'game_minutes': 33.9},
+ {'game': 'G08', 'team': 'Dplus KIA', 'side': 'blue', 'result': 'win', 'game_minutes': 37.2},
+ {'game': 'G08', 'team': 'KT Rolster', 'side': 'red', 'result': 'loss', 'game_minutes': 37.2},
+ {'game': 'G09', 'team': 'Gen.G', 'side': 'blue', 'result': 'win', 'game_minutes': 28.9},
+ {'game': 'G09', 'team': 'Hanwha Life Esports', 'side': 'red', 'result': 'loss', 'game_minutes': 28.9},
+ {'game': 'G10', 'team': 'KT Rolster', 'side': 'blue', 'result': 'loss', 'game_minutes': 35.1},
+ {'game': 'G10', 'team': 'Hanwha Life Esports', 'side': 'red', 'result': 'win', 'game_minutes': 35.1}]
+
+
+def q1():
+    blue = [r for r in ROWS if r['side'] == 'blue']
+    return sum(r['result'] == 'win' for r in blue) / len(blue)
+
+
+def q2():
+    wins = [r['game_minutes'] for r in ROWS if r['side'] == 'red' and r['result'] == 'win']
+    return sum(wins) / len(wins) if wins else 0.0
+
+
+def q3():
+    wins = {}
+    for r in ROWS:
+        wins[r['team']] = wins.get(r['team'], 0) + (r['result'] == 'win')
+    return max(wins, key=wins.get)

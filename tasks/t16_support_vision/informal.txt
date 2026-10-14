@@ -1,0 +1,5 @@
+hey, I've got some League of Legends esports match data here, one row per player:
+
+{DATA}
+
+can you write me some Python? I'd like q2() to return the name of the player who placed the most wards, and q3() to count how many players bought at least 15 control wards. Also q1() should return the average vision score of the players who won minus the average for the players who lost. Please put the data right in the code as Python data structures instead of reading it from a file. Just send back the Python code, nothing else.

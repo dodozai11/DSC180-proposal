@@ -1,8 +1,11 @@
 # DSC180-proposal: Prompt format vs. token usage
 
-**Research question:** Does prompt format (structured vs. informal) affect token usage when an LLM writes Python code for the same requirements?
+An exploratory study of how properties of a prompt relate to the tokens an LLM uses when it writes Python code. There are two experiments, and they share one pipeline and one results table:
 
-## Design
+- **Experiment 1:** does **instruction format** (structured vs. informal) change token usage on 10 small coding tasks? Correctness is checked with hidden unit tests.
+- **Experiment 2:** does **data format** (CSV vs. XML vs. prose) change token usage when the prompt contains a dataset the model must put into its code? It's crossed with instruction format, on 6 tasks using real League of Legends esports data. This experiment measures **token usage only**: answers aren't graded, and a validity check flags responses that skipped the data.
+
+## Design: Experiment 1
 
 | | |
 |---|---|
@@ -14,16 +17,32 @@
 | **Tasks** | 10 small Python tasks (4–8 requirements each, 58 requirements total). Each has both prompt formats with exactly the same requirements, and both ask for only Python code |
 | **Repetitions** | every task × format is run N times (default 5) in a randomized but reproducible order. That's 100 calls by default |
 
+## Design: Experiment 2
+
+| | |
+|---|---|
+| **Independent variables** | `data_format`: the same 20 rows written as `csv`, `xml`, or `prose` (one templated sentence per row). **Crossed with** the instruction `format` (`structured` / `informal`) |
+| **Dependent variables** | `input_tokens` and `output_tokens` |
+| **Task** | "here's my data, write me a script": the model must write Python that **contains the data** and defines `q1()`, `q2()`, `q3()`, each answering a question about it |
+| **Validity check** (not grading) | 2 tests: `q1`–`q3` run without crashing, and every row's identifier (game id, team or player name) appears in the code. `tests_passed`/`tests_total` hold these 2 checks for Experiment 2 rows, so `passed_all` means "valid response" |
+| **Tasks** | 6 tasks (`t11`–`t16`), each with its own 20-row sample from a different league. 3 use team rows (side win rate, gold lead at 15, objectives); 3 use player rows (mid-lane KDA, jungle picks, support vision) |
+| **Repetitions** | 6 tasks × 3 data formats × 2 instruction formats × 5 runs = 180 calls |
+| **Data source** | [Oracle's Elixir](https://oracleselixir.com) 2025 LoL esports match data. Only the 6 × 20-row samples are committed, not the full file |
+
 ## Repo layout
 
 ```
 config.py                 every experiment setting (provider, model, N, temperature, seed, ...)
 tasks/tNN_<name>/
-    structured.txt        prompt, structured format
-    informal.txt          prompt, informal format
-    test_solution.py      hidden tests, one per requirement (never shown to the model)
+    structured.txt        prompt, structured format (Experiment 2: a template with a {DATA} slot)
+    informal.txt          prompt, informal format (Experiment 2: a template with a {DATA} slot)
+    test_solution.py      hidden tests (Experiment 2: the 2 validity checks)
     reference.py          a known-correct solution, used only to check the tests
-    checklist.md          where each requirement appears in both prompts, and its test
+    checklist.md          where each requirement appears in both prompts
+    sample.json           Experiment 2 only: the 20 canonical rows
+    data_csv.txt          Experiment 2 only: those rows as CSV
+    data_xml.txt          Experiment 2 only: ... as XML
+    data_prose.txt        Experiment 2 only: ... as prose
 src/
     run_experiment.py     calls the model and appends one row per call to data/results.csv
     evaluate.py           extracts code from a response and runs the hidden tests
@@ -33,6 +52,7 @@ data/
     raw/                  the raw text of every response (git-ignored)
 notebooks/eda.ipynb       analysis: tables, plots, paired statistics
 scripts/make_notebook.py  builds notebooks/eda.ipynb (the notebook's text and code live here)
+scripts/make_data_tasks.py builds the Experiment 2 tasks from the Oracle's Elixir file
 ```
 
 ## Setup
@@ -81,20 +101,21 @@ You can also edit `eda.ipynb` directly, but the next run of the script overwrite
 
 ### Resuming
 
-Each row is written to `data/results.csv` as soon as its call finishes. If the run stops (crash, Ctrl+C, Ollama closed), run the same command again. Rows already in the CSV, matched on `(task_id, format, run, model)`, are skipped, so nothing is duplicated. A call that fails is skipped without writing a row, so the next run retries it. The same mechanism lets you raise `N_RUNS` later and only run the new repetitions.
+Each row is written to `data/results.csv` as soon as its call finishes. If the run stops (crash, Ctrl+C, Ollama closed), run the same command again. Rows already in the CSV, matched on `(task_id, format, data_format, run, model)`, are skipped, so nothing is duplicated. A call that fails is skipped without writing a row, so the next run retries it. The same mechanism lets you raise `N_RUNS` later and only run the new repetitions.
 
 ### Output columns (`data/results.csv`)
 
 | column | meaning |
 |---|---|
 | `task_id` | task folder name, e.g. `t04_password` |
-| `format` | `structured` or `informal` |
+| `format` | instruction format: `structured` or `informal` |
+| `data_format` | `none` (Experiment 1), or `csv` / `xml` / `prose` (Experiment 2) |
 | `run` | repetition number, 1..N |
 | `model` | model used |
 | `input_tokens` | tokens in the system prompt + user prompt (Ollama's `prompt_eval_count`) |
 | `output_tokens` | tokens the model generated (Ollama's `eval_count`) |
-| `tests_passed`, `tests_total` | hidden tests passed / total for that task |
-| `passed_all` | `True` if every test passed |
+| `tests_passed`, `tests_total` | Experiment 1: hidden tests passed / total. Experiment 2: validity checks passed / 2 |
+| `passed_all` | Experiment 1: every test passed. Experiment 2: the response is valid |
 | `stop_reason` | `stop` normally; `length` would mean the answer was cut off |
 | `timestamp` | UTC time of the call |
 
@@ -121,6 +142,17 @@ The code also supports Claude through Anthropic's paid API, for checking whether
 3. Run as above. Claude rows go into the same CSV under their own model name, and set `MODEL` at the top of the notebook to analyze them.
 
 Keep `claude-haiku-4-5`. Newer Claude models always use extended thinking and reject custom temperatures, so they'd break the controls.
+
+## Regenerating the Experiment 2 tasks
+
+The data tasks are built from the full Oracle's Elixir file, which isn't in the repo. Download the 2025 match data from https://oracleselixir.com, place it next to the repo folder (or pass `--source`), then run:
+
+```bash
+python scripts/make_data_tasks.py
+python src/check_tasks.py
+```
+
+Sampling uses a fixed seed, so the same source file always produces the same 20-row samples. `check_tasks.py` confirms that every row appears in all three data formats.
 
 ## Adding or changing a task
 

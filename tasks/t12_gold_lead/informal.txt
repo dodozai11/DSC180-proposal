@@ -1,0 +1,5 @@
+hey, I've got some League of Legends esports match data here, one row per team per game:
+
+{DATA}
+
+could you write some Python for it? I'm curious how many teams won even though they were behind in gold at 15 minutes, so make that q2(). Then q3() should give the win rate of teams that were ahead in gold at 15 minutes, as a number between 0 and 1, and q1() should return the average gold difference at 15 minutes of the winning teams. Please put the data right in the code as Python data structures instead of reading it from a file. Just send back the Python code, nothing else.

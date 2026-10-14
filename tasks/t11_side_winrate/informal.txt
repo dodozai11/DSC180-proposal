@@ -1,0 +1,5 @@
+hey, I've got some League of Legends esports match data here, one row per team per game:
+
+{DATA}
+
+can you write me some Python that answers a few things about it? I'd like a function q2() that gives the average length in minutes of the games the red-side team won, and q1() should return the win rate of blue-side teams as a number between 0 and 1. Oh, and q3() should return the name of the team with the most wins. Please put the data right in the code as Python data structures instead of reading it from a file. Just send back the Python code, nothing else.
