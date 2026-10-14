@@ -1,13 +1,18 @@
 from solution import word_frequencies
 
 
+def wf(*args, **kwargs):
+    """Call the solution and turn each item into a tuple, so only R3 checks the exact type."""
+    return [tuple(item) for item in word_frequencies(*args, **kwargs)]
+
+
 def test_r1_case_insensitive_lowercase():
-    assert word_frequencies("The the THE") == [("the", 3)]
+    assert wf("The the THE") == [("the", 3)]
 
 
 def test_r2_punctuation_removed():
-    assert word_frequencies("hi! hi. hi,") == [("hi", 3)]
-    assert word_frequencies("yes? yes; yes:") == [("yes", 3)]
+    assert wf("hi! hi. hi,") == [("hi", 3)]
+    assert wf("yes? yes; yes:") == [("yes", 3)]
 
 
 def test_r3_list_of_tuples():
@@ -18,15 +23,15 @@ def test_r3_list_of_tuples():
 
 
 def test_r4_sorted_by_count_then_alphabetically():
-    assert word_frequencies("b a b c a") == [("a", 2), ("b", 2), ("c", 1)]
-    assert word_frequencies("z y y") == [("y", 2), ("z", 1)]
+    assert wf("b a b c a") == [("a", 2), ("b", 2), ("c", 1)]
+    assert wf("z y y") == [("y", 2), ("z", 1)]
 
 
 def test_r5_top_k():
-    assert word_frequencies("b a b c a", top_k=2) == [("a", 2), ("b", 2)]
-    assert word_frequencies("b a b c a", top_k=None) == [("a", 2), ("b", 2), ("c", 1)]
+    assert wf("b a b c a", top_k=2) == [("a", 2), ("b", 2)]
+    assert wf("b a b c a", top_k=None) == [("a", 2), ("b", 2), ("c", 1)]
 
 
 def test_r6_empty_text():
-    assert word_frequencies("") == []
-    assert word_frequencies("   ") == []
+    assert wf("") == []
+    assert wf("   ") == []

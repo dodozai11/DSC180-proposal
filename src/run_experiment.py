@@ -2,7 +2,7 @@
 
 Usage:
     python src/run_experiment.py            # run (resumes automatically)
-    python src/run_experiment.py --dry-run  # show what would run; no API calls, no key needed
+    python src/run_experiment.py --dry-run  # show what would run; no model calls
 """
 
 import argparse
@@ -25,7 +25,7 @@ FORMATS = ["structured", "informal"]
 COLUMNS = ["task_id", "format", "run", "model", "input_tokens", "output_tokens",
            "tests_passed", "tests_total", "passed_all", "stop_reason", "timestamp"]
 
-# Rough per-call token guesses, used only for the cost estimate printed before starting.
+# Rough per-call token guesses, used only for the cost estimate of paid models.
 EST_INPUT_TOKENS, EST_OUTPUT_TOKENS = 250, 400
 # USD per million tokens (input, output). Only used for the estimate.
 PRICES = {"claude-haiku-4-5": (1.00, 5.00)}
@@ -72,9 +72,47 @@ def append_row(results_path, row):
         writer.writerow(row)
 
 
-def call_model(client, prompt):
-    """One API call with the fixed controls. Returns the response object."""
-    return client.messages.create(
+# --- Model calls -------------------------------------------------------------
+# Each provider has its own small function, and both return the same dict:
+#   {"text": ..., "input_tokens": ..., "output_tokens": ..., "stop_reason": ...}
+
+def call_ollama(prompt, run):
+    """One call to a local Ollama model with the fixed controls."""
+    import ollama
+
+    response = ollama.chat(
+        model=config.MODEL,
+        messages=[
+            {"role": "system", "content": config.SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
+        options={
+            "temperature": config.TEMPERATURE,
+            "num_predict": config.MAX_TOKENS,  # Ollama's name for max_tokens
+            "num_ctx": 8192,                   # room for prompt + longest allowed answer
+            "seed": config.SEED + run,         # a different seed for each run number
+        },
+    )
+    return {
+        "text": response.message.content,
+        "input_tokens": response.prompt_eval_count,   # tokens in system + user prompt
+        "output_tokens": response.eval_count,         # tokens the model generated
+        "stop_reason": response.done_reason,          # "stop" normally, "length" if cut off
+    }
+
+
+_anthropic_client = None
+
+
+def call_anthropic(prompt, run):
+    """One call to Claude via the paid API with the fixed controls."""
+    global _anthropic_client
+    import anthropic
+
+    if _anthropic_client is None:
+        _anthropic_client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
+
+    response = _anthropic_client.messages.create(
         model=config.MODEL,
         max_tokens=config.MAX_TOKENS,
         system=config.SYSTEM_PROMPT,
@@ -85,14 +123,54 @@ def call_model(client, prompt):
         # No `thinking` parameter -> no extended thinking.
         # No `cache_control` anywhere -> no prompt caching.
     )
+    usage = response.usage
+    if (usage.cache_read_input_tokens or 0) > 0 or (usage.cache_creation_input_tokens or 0) > 0:
+        print("  WARNING: prompt caching was used on this call; input_tokens may be affected")
+    return {
+        "text": "".join(block.text for block in response.content if block.type == "text"),
+        "input_tokens": usage.input_tokens,
+        "output_tokens": usage.output_tokens,
+        "stop_reason": response.stop_reason,  # "end_turn" normally, "max_tokens" if cut off
+    }
 
+
+def call_model(prompt, run):
+    if config.PROVIDER == "ollama":
+        return call_ollama(prompt, run)
+    if config.PROVIDER == "anthropic":
+        return call_anthropic(prompt, run)
+    raise ValueError(f"Unknown PROVIDER in config.py: {config.PROVIDER!r}")
+
+
+def call_errors():
+    """The exceptions that mean "this call failed, skip it and retry on the next resume"."""
+    if config.PROVIDER == "ollama":
+        import ollama
+        return (ollama.ResponseError, ConnectionError)
+    import anthropic
+    return (anthropic.APIStatusError, anthropic.APIConnectionError)
+
+
+def check_ollama_ready():
+    """Stop early with a clear message if Ollama isn't running or the model isn't downloaded."""
+    import ollama
+
+    try:
+        ollama.show(config.MODEL)
+    except ConnectionError:
+        sys.exit("Can't reach Ollama. Start the Ollama app, then run this again.")
+    except ollama.ResponseError:
+        sys.exit(f"Model {config.MODEL!r} isn't downloaded. Run:  ollama pull {config.MODEL}")
+
+
+# --- Main --------------------------------------------------------------------
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dry-run", action="store_true", help="show the plan; make no API calls")
+    parser.add_argument("--dry-run", action="store_true", help="show the plan; make no model calls")
     args = parser.parse_args()
 
-    load_dotenv(ROOT / ".env")  # puts ANTHROPIC_API_KEY from .env into the environment
+    load_dotenv(ROOT / ".env")  # puts ANTHROPIC_API_KEY from .env into the environment (if used)
     results_path = ROOT / config.RESULTS_PATH
     raw_dir = ROOT / config.RAW_DIR
 
@@ -101,10 +179,13 @@ def main():
     done = load_done(results_path)
     todo = [(t, f, r) for (t, f, r) in plan if (t, f, r, config.MODEL) not in done]
 
-    in_price, out_price = PRICES.get(config.MODEL, (None, None))
-    print(f"model={config.MODEL}  tasks={len(tasks)}  formats={len(FORMATS)}  runs={config.N_RUNS}")
+    print(f"provider={config.PROVIDER}  model={config.MODEL}  "
+          f"tasks={len(tasks)}  formats={len(FORMATS)}  runs={config.N_RUNS}")
     print(f"planned={len(plan)}  already done={len(plan) - len(todo)}  calls to make={len(todo)}")
-    if in_price is not None:
+    if config.PROVIDER == "ollama":
+        print("cost: free (runs locally)")
+    elif config.MODEL in PRICES:
+        in_price, out_price = PRICES[config.MODEL]
         cost = len(todo) * (EST_INPUT_TOKENS * in_price + EST_OUTPUT_TOKENS * out_price) / 1_000_000
         print(f"rough cost estimate: ${cost:.2f}")
 
@@ -113,59 +194,50 @@ def main():
         print("first planned calls:")
         for task_id, fmt, run in todo[:10]:
             print(f"  {task_id:<20} {fmt:<11} run {run}")
-        print("\n(dry run: no API calls made)")
+        print("\n(dry run: no model calls made)")
         return
 
     if not todo:
         print("Nothing to do.")
         return
 
-    import anthropic  # imported here so --dry-run works even without the SDK set up
+    if config.PROVIDER == "ollama":
+        check_ollama_ready()
 
-    client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
+    errors = call_errors()
     results_path.parent.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
+    safe_model = config.MODEL.replace(":", "-").replace("/", "-")  # ":" isn't allowed in Windows filenames
 
     for i, (task_id, fmt, run) in enumerate(todo, start=1):
         task = tasks[task_id]
         try:
-            response = call_model(client, task[fmt])
-        except anthropic.RateLimitError as e:
-            print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: rate limited, skipping ({e})")
+            result = call_model(task[fmt], run)
+        except errors as e:
+            print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: call failed, skipping ({e})")
             continue
-        except anthropic.APIStatusError as e:
-            print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: API error {e.status_code}, skipping ({e})")
-            continue
-        except anthropic.APIConnectionError as e:
-            print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: connection error, skipping ({e})")
-            continue
-
-        usage = response.usage
-        if (usage.cache_read_input_tokens or 0) > 0 or (usage.cache_creation_input_tokens or 0) > 0:
-            print("  WARNING: prompt caching was used on this call; input_tokens may be affected")
 
         # Save the raw reply so any result can be inspected later.
-        text = "".join(block.text for block in response.content if block.type == "text")
-        raw_name = f"{task_id}__{fmt}__run{run}__{config.MODEL}.txt"
-        (raw_dir / raw_name).write_text(text, encoding="utf-8")
+        raw_name = f"{task_id}__{fmt}__run{run}__{safe_model}.txt"
+        (raw_dir / raw_name).write_text(result["text"], encoding="utf-8")
 
-        passed, total = run_tests(extract_code(text), task["dir"], config.TEST_TIMEOUT)
+        passed, total = run_tests(extract_code(result["text"]), task["dir"], config.TEST_TIMEOUT)
 
         append_row(results_path, {
             "task_id": task_id,
             "format": fmt,
             "run": run,
             "model": config.MODEL,
-            "input_tokens": usage.input_tokens,
-            "output_tokens": usage.output_tokens,
+            "input_tokens": result["input_tokens"],
+            "output_tokens": result["output_tokens"],
             "tests_passed": passed,
             "tests_total": total,
             "passed_all": passed == total,
-            "stop_reason": response.stop_reason,
+            "stop_reason": result["stop_reason"],
             "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })
         print(f"[{i}/{len(todo)}] {task_id} {fmt} run{run}: "
-              f"in={usage.input_tokens} out={usage.output_tokens} tests={passed}/{total}")
+              f"in={result['input_tokens']} out={result['output_tokens']} tests={passed}/{total}")
 
     print(f"\nDone. Results in {config.RESULTS_PATH}")
 

@@ -7,16 +7,17 @@
 | | |
 |---|---|
 | **Independent variable** | prompt format: `structured` (labeled sections: Goal, Input, Requirements as bullets, Output) or `informal` (one casual paragraph with the requirements scattered through it) |
-| **Dependent variables** | `input_tokens` and `output_tokens`, taken from the API response's `usage` field |
+| **Dependent variables** | `input_tokens` and `output_tokens`, the exact counts the model reports with every response |
 | **Secondary check** | how many hidden unit tests the returned code passes (one test per requirement), so token differences can be compared against correctness |
-| **Controls** | same model, temperature, `max_tokens`, and system prompt on every call; no prompt caching; no extended thinking |
+| **Controls** | same model, temperature, max output tokens, and system prompt on every call; no extended thinking |
+| **Model** | `qwen2.5-coder:7b`, an open-source coding model run locally with [Ollama](https://ollama.com). It's free, and anyone can rerun the study with exactly the same model weights |
 | **Tasks** | 10 small Python tasks (4–8 requirements each, 58 requirements total). Each has both prompt formats with exactly the same requirements, and both ask for only Python code |
 | **Repetitions** | every task × format is run N times (default 5) in a randomized but reproducible order. That's 100 calls by default |
 
 ## Repo layout
 
 ```
-config.py                 every experiment setting (model, N, temperature, max_tokens, seed, ...)
+config.py                 every experiment setting (provider, model, N, temperature, seed, ...)
 tasks/tNN_<name>/
     structured.txt        prompt, structured format
     informal.txt          prompt, informal format
@@ -24,9 +25,9 @@ tasks/tNN_<name>/
     reference.py          a known-correct solution, used only to check the tests
     checklist.md          where each requirement appears in both prompts, and its test
 src/
-    run_experiment.py     calls the API and appends one row per call to data/results.csv
+    run_experiment.py     calls the model and appends one row per call to data/results.csv
     evaluate.py           extracts code from a response and runs the hidden tests
-    check_tasks.py        sanity-checks every task (run this before spending money)
+    check_tasks.py        sanity-checks every task
 data/
     results.csv           the dataset (created by run_experiment.py)
     raw/                  the raw text of every response (git-ignored)
@@ -35,49 +36,42 @@ notebooks/eda.ipynb       analysis: tables, plots, paired statistics
 
 ## Setup
 
-Requires Python 3.10 or newer.
+1. **Python 3.10 or newer**, then install the packages:
+   ```bash
+   python -m venv .venv
+   # Windows:      .venv\Scripts\activate
+   # macOS/Linux:  source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+2. **Ollama:** install it from https://ollama.com and start the app. Then download the model, about 4.7 GB:
+   ```bash
+   ollama pull qwen2.5-coder:7b
+   ```
+   A GPU makes it much faster, but it also runs on a CPU.
 
-```bash
-python -m venv .venv
-# Windows:      .venv\Scripts\activate
-# macOS/Linux:  source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Then copy `.env.example` to `.env` and paste in your Anthropic API key:
-
-```
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-`.env` is git-ignored, and the code never contains the key. The SDK reads it from the environment.
+No API key or account is needed.
 
 ## Running the experiment
 
-Run all commands from the repo root.
+Run all commands from the repo root. Everything is free.
 
 ```bash
 # 1. Check the tasks: each reference solution must pass all its tests, and an empty solution none.
 python src/check_tasks.py
 
-# 2. Preview what will run. Makes no API calls and needs no key.
+# 2. Preview what will run.
 python src/run_experiment.py --dry-run
 
-# 3. (Recommended) Smoke test: set N_RUNS = 1 in config.py, run, then look at data/results.csv.
+# 3. Run. Prints one line per call: input tokens, output tokens, tests passed.
 python src/run_experiment.py
 
-# 4. Full run: set N_RUNS back to 5 and run again. Already-finished rows are skipped.
-python src/run_experiment.py
-
-# 5. Analyze.
+# 4. Analyze.
 jupyter notebook notebooks/eda.ipynb
 ```
 
-Before each run, the runner prints how many calls are planned, already done, and still to make, plus a rough cost estimate. The default 100 calls on Claude Haiku 4.5 cost roughly $0.25.
-
 ### Resuming
 
-Each row is written to `data/results.csv` as soon as its call finishes. If the run stops (crash, Ctrl+C, network problem), run the same command again. Rows already in the CSV, matched on `(task_id, format, run, model)`, are skipped, so nothing is duplicated. A call that fails with an API error is skipped without writing a row, so the next run retries it.
+Each row is written to `data/results.csv` as soon as its call finishes. If the run stops (crash, Ctrl+C, Ollama closed), run the same command again. Rows already in the CSV, matched on `(task_id, format, run, model)`, are skipped, so nothing is duplicated. A call that fails is skipped without writing a row, so the next run retries it. The same mechanism lets you raise `N_RUNS` later and only run the new repetitions.
 
 ### Output columns (`data/results.csv`)
 
@@ -86,11 +80,12 @@ Each row is written to `data/results.csv` as soon as its call finishes. If the r
 | `task_id` | task folder name, e.g. `t04_password` |
 | `format` | `structured` or `informal` |
 | `run` | repetition number, 1..N |
-| `model` | model ID used |
-| `input_tokens`, `output_tokens` | from the API's `usage` field |
+| `model` | model used |
+| `input_tokens` | tokens in the system prompt + user prompt (Ollama's `prompt_eval_count`) |
+| `output_tokens` | tokens the model generated (Ollama's `eval_count`) |
 | `tests_passed`, `tests_total` | hidden tests passed / total for that task |
 | `passed_all` | `True` if every test passed |
-| `stop_reason` | `end_turn` normally; `max_tokens` would mean the answer was cut off |
+| `stop_reason` | `stop` normally; `length` would mean the answer was cut off |
 | `timestamp` | UTC time of the call |
 
 ## How grading works
@@ -101,20 +96,37 @@ Each row is written to `data/results.csv` as soon as its call finishes. If the r
 
 ## Reproducibility notes
 
-- **Model:** `claude-haiku-4-5`. When the `thinking` parameter is left out, it runs with no extended thinking, and it accepts `temperature`, so both controls hold. Newer models (Claude Sonnet 5.5, Opus 5.5) always use thinking and reject custom temperatures, so switching to them would break the controls.
-- **Temperature:** 1.0, the API default. At 0 the repeated runs would be nearly identical. Because the Anthropic Python SDK 1.x no longer has a `temperature` argument, it's sent in the request body (`extra_body`). The API still accepts it for Haiku 4.5.
-- **Order:** calls are shuffled with `SEED = 42`, so the same config always produces the same order.
-- **Caching:** no `cache_control` is sent. The runner prints a warning if the API ever reports cached tokens.
-- **Versions:** pinned in `requirements.txt`.
-- Model outputs are not deterministic even at a fixed temperature, so re-running produces new samples rather than identical rows. The analysis uses per-task means to account for this.
+- **Model:** `qwen2.5-coder:7b` through Ollama. This model has no hidden "thinking" step, so `output_tokens` is exactly the visible answer.
+- **Temperature:** 0.7, Qwen's recommended default. It's above 0, so the 5 runs of a prompt differ and show natural variability.
+- **Seeds:** call order is shuffled with `SEED = 42`, and each call gets the seed `SEED + run`. Rerunning gets close to the same answers, but not always identical ones: the GPU and Ollama's internal cache can change results slightly. In testing, the first call after the model loaded sometimes differed from later calls with the same seed.
+- **Prompt caching:** Ollama reuses work for repeated prompt prefixes internally, but we checked that its reported `input_tokens` always counts the full prompt, whatever the call order.
+- **Versions:** the Python packages are pinned in `requirements.txt`. Record your Ollama version (`ollama --version`) in your report. This study was built with Ollama 0.40.3.
+
+## Optional: run the same experiment on Claude
+
+The code also supports Claude through Anthropic's paid API, for checking whether results carry over to a commercial model. The default 100 calls on Claude Haiku 4.5 cost roughly $0.25.
+
+1. Copy `.env.example` to `.env` and add your API key. `.env` is git-ignored, and the code never contains the key.
+2. In `config.py`, set `PROVIDER = "anthropic"` and `MODEL = "claude-haiku-4-5"`. Leave the other settings as they are, so both models run under the same conditions.
+3. Run as above. Claude rows go into the same CSV under their own model name, and set `MODEL` at the top of the notebook to analyze them.
+
+Keep `claude-haiku-4-5`. Newer Claude models always use extended thinking and reject custom temperatures, so they'd break the controls.
 
 ## Adding or changing a task
 
-Create `tasks/t11_<name>/` with the same five files. The runner picks up every `tasks/t*/` folder automatically. Run `python src/check_tasks.py` to confirm the new task is consistent. If you change any prompt, update its `checklist.md` so the two formats still list the same requirements.
+Create `tasks/t11_<name>/` with the same five files. The runner picks up every `tasks/t*/` folder automatically. Run `python src/check_tasks.py` to confirm the new task is consistent. If you change any prompt, update its `checklist.md` so the two formats still list the same requirements, and delete that task's old rows from `data/results.csv`.
+
+## Cleaning up afterwards
+
+- Remove the model, about 4.7 GB: `ollama rm qwen2.5-coder:7b`
+- Uninstall Ollama: Windows Settings → Apps → Ollama. Then delete `%USERPROFILE%\.ollama` if it's still there.
+- Delete the `.venv` folder, about 1 GB. Recreate it later with `pip install -r requirements.txt`.
+
+Your results in `data/results.csv` and the notebook aren't affected.
 
 ## Limitations
 
-- One model at one temperature.
+- One small open-source model at one temperature. Larger commercial models may respond to prompt format differently (see the optional Claude run above).
 - One prompt pair per task, so the particular wording of each informal paragraph is mixed in with the effect of "informality" itself.
 - 10 tasks give limited statistical power. The notebook reports bootstrap confidence intervals alongside the Wilcoxon test.
 - The two formats' prompts aren't exactly the same length. The notebook measures this gap as a possible confound.
