@@ -1,0 +1,15 @@
+## Goal
+Write a function that converts a Roman numeral to an integer.
+
+## Input
+`roman_to_int(s: str) -> int`
+
+## Requirements
+1. Support the symbols I=1, V=5, X=10, L=50, C=100, D=500, M=1000, adding their values (for example "LVIII" = 58).
+2. Handle the subtractive pairs IV=4, IX=9, XL=40, XC=90, CD=400, CM=900 (for example "MCMXCIV" = 1994).
+3. Accept lowercase letters as well as uppercase (for example "xiv" = 14).
+4. If the string contains any character that is not a Roman numeral symbol, raise a ValueError.
+5. If the string is empty, raise a ValueError.
+
+## Output
+The integer value. Respond with only Python code.

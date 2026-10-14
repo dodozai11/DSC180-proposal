@@ -1,0 +1,15 @@
+## Goal
+Write a function that builds a FizzBuzz list.
+
+## Input
+`fizzbuzz_list(n: int) -> list[str]`
+
+## Requirements
+1. Return a list of strings with one entry for each number from 1 to n, in order. A number that is not a multiple of 3 or 5 appears as the number written as a string (for example "7").
+2. A multiple of 3 (but not of 5) becomes "Fizz".
+3. A multiple of 5 (but not of 3) becomes "Buzz".
+4. A multiple of both 3 and 5 becomes "FizzBuzz".
+5. If n is 0 or negative, return an empty list.
+
+## Output
+A list of strings. Respond with only Python code.

@@ -1,0 +1,18 @@
+## Goal
+Write a function that totals spending per category from a list of transactions.
+
+## Input
+`summarize_transactions(rows: list[dict], start_date: str | None = None, end_date: str | None = None) -> dict[str, float]`
+Each row is a dict with the keys "date" (a "YYYY-MM-DD" string), "category" (a string), and "amount" (a number).
+
+## Requirements
+1. Return a dict that maps each category to the sum of its amounts.
+2. Categories are case-insensitive: use the lowercase category name as the key, so "Food" and "food" are combined.
+3. Negative amounts (refunds) reduce the category total.
+4. Round each total to 2 decimal places.
+5. Skip any row that has no "amount" key.
+6. If `start_date` and/or `end_date` are given, only include rows whose date is between them, inclusive. Either one may be None, meaning no limit on that side.
+7. If there are no rows to include, return an empty dict.
+
+## Output
+A dict of category -> total. Respond with only Python code.

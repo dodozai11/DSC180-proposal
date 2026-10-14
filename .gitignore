@@ -1,0 +1,13 @@
+# secrets
+.env
+
+# Python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# raw API responses (large, regenerable from a run)
+data/raw/

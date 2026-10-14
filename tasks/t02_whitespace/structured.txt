@@ -1,0 +1,14 @@
+## Goal
+Write a function that cleans up the whitespace in a piece of text.
+
+## Input
+`normalize_whitespace(text: str) -> str`
+
+## Requirements
+1. Replace every run of two or more spaces with a single space.
+2. Treat tabs and newlines as whitespace too: any mix of spaces, tabs, and newlines between words becomes a single space.
+3. Remove all whitespace from the start and the end of the text.
+4. If `text` is not a string, raise a TypeError.
+
+## Output
+The cleaned string. Respond with only Python code.
