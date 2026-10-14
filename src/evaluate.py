@@ -4,6 +4,7 @@ Usage (manual check of one file against one task):
     python src/evaluate.py tasks/t11_side_winrate path/to/response.txt
 """
 
+import os
 import re
 import shutil
 import subprocess
@@ -34,10 +35,12 @@ def count_tests(test_file):
     return len(re.findall(r"^def test_", text, re.MULTILINE))
 
 
-def run_tests(code, task_dir, timeout):
+def run_tests(code, task_dir, timeout, data_format=None):
     """Run the task's tests against `code`. Returns (tests_passed, tests_total).
 
     Crashes, syntax errors, and timeouts all count as 0 passed.
+    `data_format` (csv/xml/prose) is passed to the tests as the DATA_FORMAT environment
+    variable; parse-task tests use it to pick their hidden data file.
     """
     test_file = Path(task_dir) / "test_solution.py"
     total = count_tests(test_file)
@@ -47,6 +50,9 @@ def run_tests(code, task_dir, timeout):
         tmp = Path(tmp)
         (tmp / "solution.py").write_text(code, encoding="utf-8")
         shutil.copy(test_file, tmp / "test_solution.py")
+        for hidden in Path(task_dir).glob("hidden_*.txt"):  # parse tasks only
+            shutil.copy(hidden, tmp / hidden.name)
+        env = dict(os.environ, DATA_FORMAT=data_format or "")
 
         try:
             subprocess.run(
@@ -57,6 +63,7 @@ def run_tests(code, task_dir, timeout):
                 timeout=timeout,
                 capture_output=True,
                 stdin=subprocess.DEVNULL,  # code that calls input() fails instead of hanging
+                env=env,
             )
         except subprocess.TimeoutExpired:
             return 0, total

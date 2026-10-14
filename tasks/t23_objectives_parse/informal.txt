@@ -1,0 +1,5 @@
+hey, here's a sample of some League of Legends esports match data, one row per team per game:
+
+{DATA}
+
+I want some Python to dig into it. First, q3(text) should just add up the towers destroyed across all of it. q1(text) should return the win rate of teams that took the first dragon, as a number between 0 and 1, and q2(text) should give the average number of barons the winning teams took. Each function should take the data as one string called text, in exactly the format above but possibly with different rows, and parse it itself instead of hard-coding the data. Just send back the Python code, nothing else.

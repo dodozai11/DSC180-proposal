@@ -38,6 +38,7 @@ def load_tasks():
 
     Each task has data_csv.txt / data_xml.txt / data_prose.txt (the same rows in each
     format), and its prompt templates contain a {DATA} placeholder where the data goes.
+    Copy tasks (t11-t16) and parse tasks (t21-t26) are handled the same way here.
     """
     tasks = {}
     for task_dir in sorted((ROOT / config.TASKS_DIR).glob("t*")):
@@ -242,7 +243,7 @@ def main():
         raw_name = f"{task_id}__{fmt}__{data_format}__run{run}__{safe_model}.txt"
         (raw_dir / raw_name).write_text(result["text"], encoding="utf-8")
 
-        passed, total = run_tests(extract_code(result["text"]), task["dir"], config.TEST_TIMEOUT)
+        passed, total = run_tests(extract_code(result["text"]), task["dir"], config.TEST_TIMEOUT, data_format)
 
         append_row(results_path, {
             "task_id": task_id,

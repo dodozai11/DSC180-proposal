@@ -40,7 +40,8 @@ def main():
             missing += 1
             continue
         task_dir = ROOT / config.TASKS_DIR / row["task_id"]
-        passed, total = run_tests(extract_code(raw.read_text(encoding="utf-8")), task_dir, config.TEST_TIMEOUT)
+        passed, total = run_tests(extract_code(raw.read_text(encoding="utf-8")), task_dir, config.TEST_TIMEOUT,
+                                  row["data_format"])
         new = {"tests_passed": str(passed), "tests_total": str(total), "passed_all": str(passed == total)}
         if any(row[k] != v for k, v in new.items()):
             print(f"{row['task_id']} {row['format']} {row['data_format']} run{row['run']}: "

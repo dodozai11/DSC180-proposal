@@ -1,0 +1,21 @@
+game,team,result,first_dragon,dragons,barons,towers
+G01,Gen.G Scholars,win,no,2,2,11
+G01,DRX Academy,loss,yes,2,0,1
+G02,DRX Academy,loss,no,0,0,0
+G02,Dplus KIA Youth,win,yes,4,0,8
+G03,Hanwha Life Esports Academy,win,no,2,1,9
+G03,DN Freecs Academy,loss,yes,3,0,5
+G04,Hanwha Life Esports Academy,loss,no,1,0,0
+G04,KT Rolster Academy,win,yes,4,1,10
+G05,DN Freecs Academy,win,no,2,1,10
+G05,DRX Academy,loss,yes,2,0,4
+G06,Dplus KIA Youth,win,no,2,1,8
+G06,Nongshim RedForce Academy,loss,yes,3,0,4
+G07,DRX Academy,loss,yes,1,0,2
+G07,Hanwha Life Esports Academy,win,no,4,1,9
+G08,Hanwha Life Esports Academy,win,no,2,1,10
+G08,Nongshim RedForce Academy,loss,yes,2,0,2
+G09,DN Freecs Academy,win,no,2,0,9
+G09,DRX Academy,loss,yes,1,0,2
+G10,Gen.G Scholars,win,no,2,1,11
+G10,DN Freecs Academy,loss,yes,2,0,4

@@ -1,0 +1,21 @@
+game,team,side,result,game_minutes
+G01,Vitality.Bee,blue,loss,53.4
+G01,Ici Japon Corp. Esport,red,win,53.4
+G02,Karmine Corp Blue,blue,win,27.1
+G02,Ici Japon Corp. Esport,red,loss,27.1
+G03,Gentle Mates,blue,win,36.4
+G03,Solary,red,loss,36.4
+G04,BK ROG Esports,blue,win,31.0
+G04,Karmine Corp Blue,red,loss,31.0
+G05,Gentle Mates,blue,win,54.1
+G05,Vitality.Bee,red,loss,54.1
+G06,Joblife,blue,loss,29.7
+G06,Ici Japon Corp. Esport,red,win,29.7
+G07,Solary,blue,loss,29.9
+G07,Ici Japon Corp. Esport,red,win,29.9
+G08,Team BDS Academy,blue,loss,33.0
+G08,Ici Japon Corp. Esport,red,win,33.0
+G09,Solary,blue,loss,41.3
+G09,Gentle Mates,red,win,41.3
+G10,Galions,blue,win,34.8
+G10,Karmine Corp Blue,red,loss,34.8

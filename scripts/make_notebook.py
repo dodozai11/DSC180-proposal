@@ -37,11 +37,13 @@ md("""
 """)
 
 code("""
+import ast
 import html
 import json
 import re
 import sys
 import textwrap
+import unicodedata
 from pathlib import Path
 
 import numpy as np
@@ -76,14 +78,18 @@ plt.rcParams.update({
 responses = pd.read_csv(RESULTS_CSV)
 responses = responses[responses["model"] == MODEL].copy()
 responses["total_tokens"] = responses["input_tokens"] + responses["output_tokens"]
-valid = responses[responses["passed_all"]].copy()   # code runs and contains all the data
-print(f"{len(responses)} rows for {MODEL}, {len(valid)} valid")
+
+is_parse = responses["task_id"].str.endswith("_parse")
+copy_rows = responses[~is_parse].copy()    # sections 1-4: the code contains the data
+parse_rows = responses[is_parse].copy()    # sections 5-7: the code receives the data as text
+valid = copy_rows[copy_rows["passed_all"]].copy()   # code runs and contains all the data
+print(f"{len(copy_rows)} copy rows ({len(valid)} valid), {len(parse_rows)} parse rows")
 responses.head()
 """)
 
 code("""
 TASKS_DIR = Path("../tasks")
-TASK_IDS = sorted(p.name for p in TASKS_DIR.glob("t*") if p.is_dir())
+TASK_IDS = sorted(p.name for p in TASKS_DIR.glob("t*") if p.is_dir() and not p.name.endswith("_parse"))
 
 def read_task_file(task_id, name):
     return (TASKS_DIR / task_id / name).read_text(encoding="utf-8")
@@ -119,7 +125,7 @@ for task_id in TASK_IDS:
     data_rows.append(row)
 data_table = pd.DataFrame(data_rows).set_index("task_id")
 
-input_by_format = responses.groupby(["task_id", "data_format"])["input_tokens"].mean().unstack()
+input_by_format = copy_rows.groupby(["task_id", "data_format"])["input_tokens"].mean().unstack()
 for d in DATA_FORMATS:
     data_table[f"{d} input tokens"] = input_by_format[d].round(0)
 data_table
@@ -204,11 +210,72 @@ display(styles.groupby(["data_format", "style"])["output_tokens"].agg(["count", 
 """)
 
 md("""
+## 5. Parse version: tokens by data format
+
+The code receives the data as text (`q1(text)`) instead of containing it.
+""")
+code("""
+def prompt_names(task_id):
+    for node in ast.parse((TASKS_DIR / task_id / "test_solution.py").read_text(encoding="utf-8")).body:
+        if isinstance(node, ast.Assign) and node.targets[0].id == "PROMPT_NAMES":
+            return ast.literal_eval(node.value)
+
+def normalize(text):
+    return unicodedata.normalize("NFKD", str(text)).encode("ascii", "ignore").decode().lower()
+
+def saved_code(r):
+    path = Path("../data/raw") / f"{r.task_id}__{r.format}__{r.data_format}__run{r.run}__{safe_model}.txt"
+    return extract_code(path.read_text(encoding="utf-8"))
+
+parse_rows["code_text"] = [saved_code(r) for r in parse_rows.itertuples()]
+parse_rows["copied"] = [sum(normalize(n) in normalize(code_text) for n in prompt_names(task_id)) > 2
+                        for task_id, code_text in zip(parse_rows["task_id"], parse_rows["code_text"])]
+attempts = parse_rows[~parse_rows["copied"]].copy()   # responses that didn't copy the data
+print(f"{len(attempts)} of {len(parse_rows)} parse responses didn't copy the data")
+attempts.groupby("data_format")[["input_tokens", "output_tokens", "total_tokens"]].agg(["mean", "median"]).round(0).loc[DATA_FORMATS]
+""")
+
+md("## 6. Copy vs parse: output tokens")
+code("""
+copy_means = valid.groupby(["task_id", "data_format"])["output_tokens"].mean()
+twin_ids = attempts["task_id"].str.removesuffix("_parse").str.replace("t2", "t1", n=1)
+parse_means = attempts.assign(task_id=twin_ids).groupby(["task_id", "data_format"])["output_tokens"].mean()
+copy_vs_parse = pd.DataFrame({"copy": copy_means, "parse": parse_means}).dropna().groupby("data_format").mean().loc[DATA_FORMATS].round(0)
+copy_vs_parse["parse / copy"] = (copy_vs_parse["parse"] / copy_vs_parse["copy"]).round(2)
+
+fig, ax = plt.subplots(figsize=(6.5, 3.2))
+y = np.arange(len(DATA_FORMATS))
+ax.hlines(y, copy_vs_parse["parse"], copy_vs_parse["copy"], color="#d8d7d1", linewidth=3, zorder=1)
+ax.scatter(copy_vs_parse["copy"], y, s=70, color="#8a8984", zorder=2, label="copy")
+for i, d in enumerate(DATA_FORMATS):
+    ax.scatter(copy_vs_parse.loc[d, "parse"], i, s=70, color=DATA_COLORS[d], marker=DATA_MARKERS[d], zorder=3,
+               edgecolor="white", linewidth=1)
+ax.scatter([], [], s=70, color="#52514e", marker="D", label="parse (colored by format)")
+ax.set_yticks(y, DATA_FORMATS)
+ax.set_xlabel("mean output tokens")
+ax.set_title("Output tokens: copy vs parse", loc="left")
+ax.grid(axis="y", visible=False)
+ax.legend(frameon=False, loc="upper left", bbox_to_anchor=(1.01, 1), fontsize=8)
+plt.show()
+copy_vs_parse
+""")
+
+md("## 7. Parse version: did the code run on new data?")
+code("""
+parse_rows["code ran on new data"] = parse_rows["passed_all"] | ((parse_rows["tests_passed"] == 1) & parse_rows["copied"])
+parse_rows["uses pandas"] = parse_rows["code_text"].str.contains("import pandas")
+parse_rows["uses removed pandas call"] = parse_rows["code_text"].str.contains("compat.StringIO")
+parse_rows.groupby("data_format")[["code ran on new data", "uses pandas", "uses removed pandas call"]].mean().round(2).loc[DATA_FORMATS]
+""")
+
+md("""
 ## Summary
 
 - XML: about 2.3× the input tokens of CSV, about 50% more total tokens.
 - Prose: more input than CSV, least output; CSV and prose about even in total.
 - Output is driven by storage style: dicts with keys ≈ 1,120 output tokens, tuples ≈ 730.
+- Parse version: output drops to 23–39% of the copy version; CSV needs the least parsing code (≈240 tokens).
+- Parse version: XML code ran on new data 82% of the time, CSV and prose 52%; many CSV failures use a removed pandas call.
 """)
 
 

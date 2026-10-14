@@ -16,7 +16,16 @@ An exploratory study of how the **format of data in a prompt** relates to the to
 | **Controls** | same model, temperature, max output tokens, and system prompt on every call; no extended thinking |
 | **Model** | `qwen2.5-coder:7b`, an open-source coding model run locally with [Ollama](https://ollama.com). It's free, and anyone can rerun the study with exactly the same model weights |
 | **Repetitions** | 6 tasks × 3 data formats × 2 instruction formats × 5 runs = 180 calls, in a randomized but reproducible order |
+| **Parse version** | the same 6 tasks again (`t21`–`t26`), but each function receives the data as text (`q1(text)`) and must parse it instead of copying it. Another 180 calls. See below |
 | **Data source** | [Oracle's Elixir](https://oracleselixir.com) 2025 LoL esports match data. Only the 6 × 20-row samples are committed, not the full file |
+
+## Parse version (`t21`–`t26`)
+
+The same data, questions and instruction styles as the copy tasks, but the prompt asks for functions that take the data as a text string in the format shown and parse it ("do not hard-code the data"). The grader passes the data in, so nothing has to be copied into the code.
+
+- **Validity:** (1) `q1`–`q3` run without crashing on a **hidden 20-row sample from another league**, in the same data format, and (2) the code contains at most 2 of the prompt sample's names, i.e. it didn't copy the data. This shows the code runs on new data; it doesn't prove the answers are correct.
+- **How the data format reaches the tests:** `src/evaluate.py` sets the `DATA_FORMAT` environment variable and copies the task's `hidden_*.txt` files next to the test.
+- **Files:** each `t2X_<name>_parse` folder has the same `sample.json` and `data_*.txt` as its copy-task twin, plus `hidden.json` and `hidden_<format>.txt`.
 
 ## Repo layout
 
@@ -88,7 +97,7 @@ python scripts/make_notebook.py
 jupyter nbconvert --to notebook --execute --inplace notebooks/eda1.ipynb
 ```
 
-You can also edit `eda1.ipynb` directly, but the next run of the script overwrites those edits. Section 4 of the notebook reads the saved responses in `data/raw/`, so it needs a local run.
+You can also edit `eda1.ipynb` directly, but the next run of the script overwrites those edits. Sections 4–7 of the notebook read the saved responses in `data/raw/`, so they need a local run.
 
 ### Resuming
 

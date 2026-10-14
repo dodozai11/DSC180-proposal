@@ -1,0 +1,16 @@
+## Goal
+Write Python functions that answer three questions about data in the format below.
+
+## Data
+Here is a sample of some League of Legends esports match data, one row per team per game:
+
+{DATA}
+
+## Requirements
+1. Each function takes one argument, `text`: a string containing data in exactly the format shown above, possibly with different rows. Parse it inside the function. Do not hard-code the data.
+2. Define a function `q1(text)` that returns the win rate of teams that took the first dragon, as a number between 0 and 1.
+3. Define a function `q2(text)` that returns the average number of barons taken by winning teams.
+4. Define a function `q3(text)` that returns the total number of towers destroyed across all rows.
+
+## Output
+Respond with only Python code.

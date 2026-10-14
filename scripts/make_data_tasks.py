@@ -1,8 +1,13 @@
-"""Create the data tasks (t11-t16) from the Oracle's Elixir 2025 match data.
+"""Create the data tasks from the Oracle's Elixir 2025 match data.
+
+Copy tasks (t11-t16): the model must write the data into its code.
+Parse tasks (t21-t26): the same data and questions, but each function receives the data
+as a text string in the shown format and must parse it.
 
 Each task gets 20 rows of real League of Legends esports data, written out three ways
 (CSV, XML, prose) from the same canonical rows, plus two instruction templates
 (structured / informal) with a {DATA} placeholder where the data goes.
+Parse tasks also get a hidden 20-row sample from another league, used by their tests.
 
 Usage (needs the Oracle's Elixir CSV, which is not committed):
     python scripts/make_data_tasks.py
@@ -30,6 +35,13 @@ N_PLAYERS = 20      # player tasks: 20 different players
 EMBED_RULE_STRUCTURED = "Put the data directly in the code as Python data structures. Do not read it from a file."
 EMBED_RULE_INFORMAL = "Please put the data right in the code as Python data structures instead of reading it from a file."
 
+PARSE_RULE_STRUCTURED = ("Each function takes one argument, `text`: a string containing data in exactly the format "
+                         "shown above, possibly with different rows. Parse it inside the function. "
+                         "Do not hard-code the data.")
+PARSE_RULE_INFORMAL = ("Each function should take the data as one string called text, in exactly the format above "
+                       "but possibly with different rows, and parse it itself instead of hard-coding the data.")
+DATA_FORMATS = ["csv", "xml", "prose"]
+
 # Words used in the prose version for values that read badly as-is.
 PROSE_RESULT = {"win": "won", "loss": "lost"}
 PROSE_FIRST_DRAGON = {"yes": "took the first dragon", "no": "did not take the first dragon"}
@@ -45,7 +57,7 @@ PROSE_FIRST_DRAGON = {"yes": "took the first dragon", "no": "did not take the fi
 
 TASKS = [
     {
-        "id": "t11_side_winrate", "kind": "team", "league": "LCK",
+        "id": "t11_side_winrate", "hidden_league": "LFL", "kind": "team", "league": "LCK",
         "columns": ["game", "team", "side", "result", "game_minutes"],
         "ids": ["game", "team"],
         "prose": lambda r: (f"In game {r['game']}, {r['team']} played on the {r['side']} side and "
@@ -64,7 +76,7 @@ TASKS = [
                      "the name of the team with the most wins."),
     },
     {
-        "id": "t12_gold_lead", "kind": "team", "league": "LEC",
+        "id": "t12_gold_lead", "hidden_league": "LCK", "kind": "team", "league": "LEC",
         "columns": ["game", "team", "side", "result", "gold_diff_15"],
         "ids": ["game", "team"],
         "prose": lambda r: (f"In game {r['game']}, {r['team']} played on the {r['side']} side and "
@@ -83,7 +95,7 @@ TASKS = [
                      "gold difference at 15 minutes of the winning teams."),
     },
     {
-        "id": "t13_objectives", "kind": "team", "league": "LAS",
+        "id": "t13_objectives", "hidden_league": "LEC", "kind": "team", "league": "LAS",
         "columns": ["game", "team", "result", "first_dragon", "dragons", "barons", "towers"],
         "ids": ["game", "team"],
         "prose": lambda r: (f"In game {r['game']}, {r['team']} {PROSE_RESULT[r['result']]}; they "
@@ -102,7 +114,7 @@ TASKS = [
                      "between 0 and 1, and q2() should give the average number of barons the winning teams took."),
     },
     {
-        "id": "t14_mid_kda", "kind": "player", "position": "mid", "league": "NLC",
+        "id": "t14_mid_kda", "hidden_league": "LJL", "kind": "player", "position": "mid", "league": "NLC",
         "columns": ["player", "team", "champion", "kills", "deaths", "assists", "result"],
         "ids": ["player"],
         "prose": lambda r: (f"{r['player']} of {r['team']} played {r['champion']} in mid and "
@@ -122,7 +134,7 @@ TASKS = [
                      "were won."),
     },
     {
-        "id": "t15_jungle_picks", "kind": "player", "position": "jng", "league": "LJL",
+        "id": "t15_jungle_picks", "hidden_league": "EM", "kind": "player", "position": "jng", "league": "LJL",
         "columns": ["player", "champion", "result", "deaths"],
         "ids": ["player"],
         "prose": lambda r: (f"{r['player']} played {r['champion']} in the jungle and "
@@ -144,7 +156,7 @@ TASKS = [
                      "(or None if no champion was played twice)."),
     },
     {
-        "id": "t16_support_vision", "kind": "player", "position": "sup", "league": "EM",
+        "id": "t16_support_vision", "hidden_league": "LJL", "kind": "player", "position": "sup", "league": "EM",
         "columns": ["player", "team", "result", "vision_score", "wards_placed", "control_wards"],
         "ids": ["player"],
         "prose": lambda r: (f"{r['player']} of {r['team']} {PROSE_RESULT[r['result']]} with a vision score of "
@@ -171,6 +183,14 @@ INTRO = {
     "team": "Here is some League of Legends esports match data, one row per team per game:",
     "player": "Here is some League of Legends esports match data, one row per player:",
 }
+INTRO_PARSE = {
+    "team": "Here is a sample of some League of Legends esports match data, one row per team per game:",
+    "player": "Here is a sample of some League of Legends esports match data, one row per player:",
+}
+INTRO_INFORMAL_PARSE = {
+    "team": "hey, here's a sample of some League of Legends esports match data, one row per team per game:",
+    "player": "hey, here's a sample of some League of Legends esports match data, one row per player:",
+}
 INTRO_INFORMAL = {
     "team": "hey, I've got some League of Legends esports match data here, one row per team per game:",
     "player": "hey, I've got some League of Legends esports match data here, one row per player:",
@@ -187,9 +207,12 @@ def load_source(path):
     return df[df["datacompleteness"] == "complete"]
 
 
-def team_rows(df, league):
-    """10 random games from the league, both teams' rows, in date order."""
+def team_rows(df, league, exclude_names=()):
+    """10 random games from the league, both teams' rows, in date order (skipping games with excluded teams)."""
     teams = df[(df["position"] == "team") & (df["league"] == league)]
+    if exclude_names:
+        bad_games = teams.loc[teams["teamname"].isin(exclude_names), "gameid"]
+        teams = teams[~teams["gameid"].isin(bad_games)]
     game_ids = pd.Series(sorted(teams["gameid"].unique())).sample(N_TEAM_GAMES, random_state=SEED)
     picked = teams[teams["gameid"].isin(game_ids)].sort_values(["date", "side"])
     game_number = {gid: f"G{i:02d}" for i, gid in enumerate(picked["gameid"].unique(), start=1)}
@@ -210,9 +233,11 @@ def team_rows(df, league):
     return rows
 
 
-def player_rows(df, league, position):
+def player_rows(df, league, position, exclude_names=()):
     """20 different players from the league at one position (one game each), in date order."""
     players = df[(df["position"] == position) & (df["league"] == league)].drop_duplicates("playername")
+    if exclude_names:
+        players = players[~players["playername"].isin(exclude_names) & ~players["teamname"].isin(exclude_names)]
     picked = players.sample(N_PLAYERS, random_state=SEED).sort_values("date")
     rows = []
     for _, r in picked.iterrows():
@@ -251,6 +276,15 @@ def render_xml(rows, columns):
         lines.append(f"  <{item}>{fields}</{item}>")
     lines.append(f"</{root}>")
     return "\n".join(lines)
+
+
+def render_all(rows, task):
+    """The same rows in every data format: {format: text}."""
+    return {
+        "csv": render_csv(rows, task["columns"]),
+        "xml": render_xml(rows, task["columns"]),
+        "prose": render_prose(rows, task["prose"]),
+    }
 
 
 def render_prose(rows, sentence):
@@ -359,9 +393,7 @@ def write_task(task, rows):
 
     files = {
         "sample.json": json.dumps(shown, indent=2, ensure_ascii=False) + "\n",
-        "data_csv.txt": render_csv(shown, task["columns"]) + "\n",
-        "data_xml.txt": render_xml(shown, task["columns"]) + "\n",
-        "data_prose.txt": render_prose(shown, task["prose"]) + "\n",
+        **{f"data_{fmt}.txt": text + "\n" for fmt, text in render_all(shown, task).items()},
         "structured.txt": structured_template(task),
         "informal.txt": informal_template(task),
         "test_solution.py": test_file(identifiers(shown, task)),
@@ -371,6 +403,136 @@ def write_task(task, rows):
     for name, text in files.items():
         (folder / name).write_text(text, encoding="utf-8")
     print(f"wrote {folder.relative_to(ROOT)} ({len(shown)} rows)")
+
+
+# --- Experiment 3: parse tasks ------------------------------------------------------------------
+
+def parse_id(task):
+    """t11_side_winrate -> t21_side_winrate_parse"""
+    return "t2" + task["id"][2:] + "_parse"
+
+
+def as_parse_question(text):
+    """`q1()` returns ... -> `q1(text)` returns ..."""
+    return text.replace("()`", "(text)`", 1)
+
+
+def structured_parse_template(task):
+    reqs = [PARSE_RULE_STRUCTURED] + [
+        "Define a function " + as_parse_question(q).replace("(text)` returns", "(text)` that returns", 1)
+        for q, _ in task["questions"]
+    ]
+    numbered = "\n".join(f"{i}. {text}" for i, text in enumerate(reqs, start=1))
+    return (f"## Goal\nWrite Python functions that answer three questions about data in the format below.\n\n"
+            f"## Data\n{INTRO_PARSE[task['kind']]}\n\n{{DATA}}\n\n"
+            f"## Requirements\n{numbered}\n\n"
+            f"## Output\nRespond with only Python code.\n")
+
+
+def informal_parse_template(task):
+    paragraph = task["informal"]
+    for i in (1, 2, 3):
+        paragraph = paragraph.replace(f"q{i}()", f"q{i}(text)")
+    return (f"{INTRO_INFORMAL_PARSE[task['kind']]}\n\n{{DATA}}\n\n"
+            f"{paragraph} {PARSE_RULE_INFORMAL} Just send back the Python code, nothing else.\n")
+
+
+def names(rows, task):
+    """Team/player names in the rows (game ids like G01 are excluded: every sample has them)."""
+    found = []
+    for r in rows:
+        for c in task["ids"]:
+            if c != "game" and r[c] not in found:
+                found.append(r[c])
+    return found
+
+
+def parse_test_file(prompt_names):
+    return f'''"""Validity checks for this parse task. Answers are NOT graded (the parse tasks measure tokens).
+
+test_runs_on_new_data: q1, q2, q3 run without crashing on a hidden 20-row sample from another
+                       league, in the same data format as the prompt (DATA_FORMAT env variable)
+test_not_hard_coded:   at most 2 of the prompt sample's names appear in the code
+                       (a name in an example comment is fine; copying the data is not)
+"""
+import os
+import unicodedata
+from pathlib import Path
+
+HERE = Path(__file__).parent
+SOLUTION = HERE / "solution.py"
+PROMPT_NAMES = {pprint.pformat(prompt_names, width=100)}
+
+
+def normalize(text):
+    """Lowercase and strip accents, so 'Shōnen' and 'Shonen' both count."""
+    return unicodedata.normalize("NFKD", str(text)).encode("ascii", "ignore").decode().lower()
+
+
+def test_runs_on_new_data():
+    import solution  # imported here, so a crash only fails this test
+
+    text = (HERE / f"hidden_{{os.environ['DATA_FORMAT']}}.txt").read_text(encoding="utf-8").strip()
+    for name in ("q1", "q2", "q3"):
+        getattr(solution, name)(text)
+
+
+def test_not_hard_coded():
+    source = normalize(SOLUTION.read_text(encoding="utf-8"))
+    found = [n for n in PROMPT_NAMES if normalize(n) in source]
+    assert len(found) <= 2, f"the code contains the prompt's data: {{found[:5]}}"
+'''
+
+
+PARSE_REFERENCE = """def q1(text):
+    # Minimal non-hard-coded solution, used only to check that the tests work.
+    return len(text.strip().splitlines())
+
+
+def q2(text):
+    return len(text)
+
+
+def q3(text):
+    return text.split()[0] if text.split() else None
+"""
+
+
+def parse_checklist_file(task):
+    lines = [f"# {parse_id(task)} checklist", "",
+             f"Parse-mode twin of {task['id']}: same data and questions, but each function receives the data as text.",
+             "Answers are not graded; the tests only check that the code runs on new data and doesn't copy the data.", "",
+             "| Item | Requirement | Structured | Informal |", "|---|---|---|---|",
+             f"| P | functions take `text` and parse it; don't hard-code the data | Requirements #1 | \"{PARSE_RULE_INFORMAL}\" |"]
+    for i, (text, _) in enumerate(task["questions"], start=1):
+        lines.append(f"| Q{i} | {as_parse_question(text)} | Requirements #{i + 1} | describes q{i}(text) in the paragraph |")
+    lines += ["", "Shared by both: the same intro line, the same {DATA} block in the same position, "
+              "\"only Python code\"."]
+    return "\n".join(lines) + "\n"
+
+
+def write_parse_task(task, rows, hidden_rows):
+    folder = ROOT / "tasks" / parse_id(task)
+    folder.mkdir(parents=True, exist_ok=True)
+    shown = [{c: r[c] for c in task["columns"]} for r in rows]
+    hidden = [{c: r[c] for c in task["columns"]} for r in hidden_rows]
+    shared = set(names(shown, task)) & set(names(hidden, task))
+    assert not shared, f"hidden sample shares names with the prompt sample: {shared}"
+
+    files = {
+        "sample.json": json.dumps(shown, indent=2, ensure_ascii=False) + "\n",
+        "hidden.json": json.dumps(hidden, indent=2, ensure_ascii=False) + "\n",
+        **{f"data_{fmt}.txt": text + "\n" for fmt, text in render_all(shown, task).items()},
+        **{f"hidden_{fmt}.txt": text + "\n" for fmt, text in render_all(hidden, task).items()},
+        "structured.txt": structured_parse_template(task),
+        "informal.txt": informal_parse_template(task),
+        "test_solution.py": parse_test_file(names(shown, task)),
+        "reference.py": PARSE_REFERENCE,
+        "checklist.md": parse_checklist_file(task),
+    }
+    for name, text in files.items():
+        (folder / name).write_text(text, encoding="utf-8")
+    print(f"wrote {folder.relative_to(ROOT)} ({len(shown)} rows + {len(hidden)} hidden rows from {task['hidden_league']})")
 
 
 def main():
@@ -385,6 +547,14 @@ def main():
         else:
             rows = player_rows(df, task["league"], task["position"])
         write_task(task, rows)
+
+        shown = [{c: r[c] for c in task["columns"]} for r in rows]
+        exclude = names(shown, task)
+        if task["kind"] == "team":
+            hidden_rows = team_rows(df, task["hidden_league"], exclude)
+        else:
+            hidden_rows = player_rows(df, task["hidden_league"], task["position"], exclude)
+        write_parse_task(task, rows, hidden_rows)
 
 
 if __name__ == "__main__":
