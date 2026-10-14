@@ -22,12 +22,13 @@ import config  # noqa: E402
 from evaluate import extract_code, run_tests  # noqa: E402
 
 FORMATS = ["structured", "informal"]           # instruction format
-DATA_FORMATS = ["csv", "xml", "prose"]         # how the data is written (Experiment 2 tasks only)
+DATA_FORMATS = ["csv", "xml", "prose"]         # how the data is written in the prompt
 COLUMNS = ["task_id", "format", "data_format", "run", "model", "input_tokens", "output_tokens",
            "tests_passed", "tests_total", "passed_all", "stop_reason", "timestamp"]
 
-# Rough per-call token guesses, used only for the cost estimate of paid models.
-EST_INPUT_TOKENS, EST_OUTPUT_TOKENS = 250, 400
+# Rough per-call token guesses (prompt with 20 rows of data; answer that copies the data),
+# used only for the cost estimate of paid models.
+EST_INPUT_TOKENS, EST_OUTPUT_TOKENS = 800, 1000
 # USD per million tokens (input, output). Only used for the estimate.
 PRICES = {"claude-haiku-4-5": (1.00, 5.00)}
 
@@ -35,9 +36,8 @@ PRICES = {"claude-haiku-4-5": (1.00, 5.00)}
 def load_tasks():
     """Return {task_id: {"dir": Path, "structured": str, "informal": str, "data": {data_format: text}}}.
 
-    Experiment 1 tasks have no data files, so their only data format is "none".
-    Experiment 2 tasks have data_csv.txt / data_xml.txt / data_prose.txt, and their
-    prompt templates contain a {DATA} placeholder where the data is inserted.
+    Each task has data_csv.txt / data_xml.txt / data_prose.txt (the same rows in each
+    format), and its prompt templates contain a {DATA} placeholder where the data goes.
     """
     tasks = {}
     for task_dir in sorted((ROOT / config.TASKS_DIR).glob("t*")):
@@ -52,17 +52,14 @@ def load_tasks():
             "dir": task_dir,
             "structured": (task_dir / "structured.txt").read_text(encoding="utf-8"),
             "informal": (task_dir / "informal.txt").read_text(encoding="utf-8"),
-            "data": data or {"none": None},
+            "data": data,
         }
     return tasks
 
 
 def build_prompt(task, fmt, data_format):
-    """The instruction template for `fmt`, with the data inserted if the task has any."""
-    template = task[fmt]
-    if data_format == "none":
-        return template
-    return template.replace("{DATA}", task["data"][data_format])
+    """The instruction template for `fmt`, with the data inserted in `data_format`."""
+    return task[fmt].replace("{DATA}", task["data"][data_format])
 
 
 def build_plan(tasks):
@@ -74,32 +71,6 @@ def build_plan(tasks):
             for run in range(1, config.N_RUNS + 1)]
     random.Random(config.SEED).shuffle(plan)
     return plan
-
-
-def migrate_results(results_path, raw_dir):
-    """One-time upgrade of files written before the data_format column existed.
-
-    Adds data_format="none" to old rows, and renames old raw files from
-    task__format__runN__model.txt to task__format__none__runN__model.txt.
-    Does nothing if everything is already up to date.
-    """
-    if results_path.exists():
-        with open(results_path, newline="", encoding="utf-8") as f:
-            rows = list(csv.DictReader(f))
-        if rows and "data_format" not in rows[0]:
-            for row in rows:
-                row["data_format"] = "none"
-            with open(results_path, "w", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=COLUMNS)
-                writer.writeheader()
-                writer.writerows(rows)
-            print(f"migrated {len(rows)} existing rows: added data_format=none")
-    if raw_dir.exists():
-        for path in raw_dir.glob("*.txt"):
-            parts = path.stem.split("__")
-            if len(parts) == 4:  # old name without data_format
-                parts.insert(2, "none")
-                path.rename(path.with_name("__".join(parts) + ".txt"))
 
 
 def load_done(results_path):
@@ -223,7 +194,6 @@ def main():
     results_path = ROOT / config.RESULTS_PATH
     raw_dir = ROOT / config.RAW_DIR
 
-    migrate_results(results_path, raw_dir)
     tasks = load_tasks()
     plan = build_plan(tasks)
     done = load_done(results_path)

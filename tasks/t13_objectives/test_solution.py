@@ -1,4 +1,4 @@
-"""Validity checks for this data task. Answers are NOT graded (Experiment 2 measures tokens).
+"""Validity checks for this data task. Answers are NOT graded (the experiment measures tokens).
 
 test_runs:          q1, q2, q3 exist and run without crashing
 test_data_embedded: every game id / name from the data appears in the code,

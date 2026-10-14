@@ -1,4 +1,4 @@
-"""Create the Experiment 2 data tasks (t11-t16) from the Oracle's Elixir 2025 match data.
+"""Create the data tasks (t11-t16) from the Oracle's Elixir 2025 match data.
 
 Each task gets 20 rows of real League of Legends esports data, written out three ways
 (CSV, XML, prose) from the same canonical rows, plus two instruction templates
@@ -296,7 +296,7 @@ def identifiers(rows, task):
 
 
 def test_file(ids):
-    return f'''"""Validity checks for this data task. Answers are NOT graded (Experiment 2 measures tokens).
+    return f'''"""Validity checks for this data task. Answers are NOT graded (the experiment measures tokens).
 
 test_runs:          q1, q2, q3 exist and run without crashing
 test_data_embedded: every game id / name from the data appears in the code,

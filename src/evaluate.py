@@ -1,7 +1,7 @@
 """Grade a model response: pull out the Python code and run the task's hidden tests.
 
 Usage (manual check of one file against one task):
-    python src/evaluate.py tasks/t04_password path/to/response.txt
+    python src/evaluate.py tasks/t11_side_winrate path/to/response.txt
 """
 
 import re

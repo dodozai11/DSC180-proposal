@@ -1,58 +1,48 @@
-# DSC180-proposal: Prompt format vs. token usage
+# DSC180-proposal: Data format vs. token usage
 
-An exploratory study of how properties of a prompt relate to the tokens an LLM uses when it writes Python code. There are two experiments, and they share one pipeline and one results table:
+An exploratory study of how the **format of data in a prompt** relates to the tokens an LLM uses when it writes Python code for that data.
 
-- **Experiment 1:** does **instruction format** (structured vs. informal) change token usage on 10 small coding tasks? Correctness is checked with hidden unit tests.
-- **Experiment 2:** does **data format** (CSV vs. XML vs. prose) change token usage when the prompt contains a dataset the model must put into its code? It's crossed with instruction format, on 6 tasks using real League of Legends esports data. This experiment measures **token usage only**: answers aren't graded, and a validity check flags responses that skipped the data.
+**Question:** when someone pastes a dataset into a prompt and asks for a script, does writing the data as CSV, XML, or prose change the number of input and output tokens? And does the wording of the instructions (structured vs. informal) matter? The experiment measures **token usage only**: answers aren't graded, and a validity check flags responses that skipped the work.
 
-## Design: Experiment 1
+## Design
 
 | | |
 |---|---|
-| **Independent variable** | prompt format: `structured` (labeled sections: Goal, Input, Requirements as bullets, Output) or `informal` (one casual paragraph with the requirements scattered through it) |
+| **Independent variables** | `data_format`: the same 20 rows written as `csv`, `xml`, or `prose` (one templated sentence per row). **Crossed with** the instruction `format`: `structured` (labeled sections, numbered requirements) or `informal` (one casual paragraph) |
 | **Dependent variables** | `input_tokens` and `output_tokens`, the exact counts the model reports with every response |
-| **Secondary check** | how many hidden unit tests the returned code passes (one test per requirement), so token differences can be compared against correctness |
+| **Task** | "here's my data, write me a script": the model must write Python that **contains the data** and defines `q1()`, `q2()`, `q3()`, each answering a question about it |
+| **Validity check** (not grading) | 2 independent tests: `q1`–`q3` run without crashing, and every row's identifier (game id, team or player name) appears in the code. `tests_passed`/`tests_total` hold these 2 checks, so `passed_all` means "valid response" |
+| **Tasks** | 6 tasks (`t11`–`t16`), each with its own 20-row sample from a different league. 3 use team rows (side win rate, gold lead at 15, objectives); 3 use player rows (mid-lane KDA, jungle picks, support vision) |
 | **Controls** | same model, temperature, max output tokens, and system prompt on every call; no extended thinking |
 | **Model** | `qwen2.5-coder:7b`, an open-source coding model run locally with [Ollama](https://ollama.com). It's free, and anyone can rerun the study with exactly the same model weights |
-| **Tasks** | 10 small Python tasks (4–8 requirements each, 58 requirements total). Each has both prompt formats with exactly the same requirements, and both ask for only Python code |
-| **Repetitions** | every task × format is run N times (default 5) in a randomized but reproducible order. That's 100 calls by default |
-
-## Design: Experiment 2
-
-| | |
-|---|---|
-| **Independent variables** | `data_format`: the same 20 rows written as `csv`, `xml`, or `prose` (one templated sentence per row). **Crossed with** the instruction `format` (`structured` / `informal`) |
-| **Dependent variables** | `input_tokens` and `output_tokens` |
-| **Task** | "here's my data, write me a script": the model must write Python that **contains the data** and defines `q1()`, `q2()`, `q3()`, each answering a question about it |
-| **Validity check** (not grading) | 2 tests: `q1`–`q3` run without crashing, and every row's identifier (game id, team or player name) appears in the code. `tests_passed`/`tests_total` hold these 2 checks for Experiment 2 rows, so `passed_all` means "valid response" |
-| **Tasks** | 6 tasks (`t11`–`t16`), each with its own 20-row sample from a different league. 3 use team rows (side win rate, gold lead at 15, objectives); 3 use player rows (mid-lane KDA, jungle picks, support vision) |
-| **Repetitions** | 6 tasks × 3 data formats × 2 instruction formats × 5 runs = 180 calls |
+| **Repetitions** | 6 tasks × 3 data formats × 2 instruction formats × 5 runs = 180 calls, in a randomized but reproducible order |
 | **Data source** | [Oracle's Elixir](https://oracleselixir.com) 2025 LoL esports match data. Only the 6 × 20-row samples are committed, not the full file |
 
 ## Repo layout
 
 ```
-config.py                 every experiment setting (provider, model, N, temperature, seed, ...)
+config.py                  every experiment setting (provider, model, N, temperature, seed, ...)
 tasks/tNN_<name>/
-    structured.txt        prompt, structured format (Experiment 2: a template with a {DATA} slot)
-    informal.txt          prompt, informal format (Experiment 2: a template with a {DATA} slot)
-    test_solution.py      hidden tests (Experiment 2: the 2 validity checks)
-    reference.py          a known-correct solution, used only to check the tests
-    checklist.md          where each requirement appears in both prompts
-    sample.json           Experiment 2 only: the 20 canonical rows
-    data_csv.txt          Experiment 2 only: those rows as CSV
-    data_xml.txt          Experiment 2 only: ... as XML
-    data_prose.txt        Experiment 2 only: ... as prose
+    structured.txt         prompt template, structured format, with a {DATA} slot
+    informal.txt           prompt template, informal format, with a {DATA} slot
+    sample.json            the 20 canonical rows
+    data_csv.txt           those rows as CSV
+    data_xml.txt           ... as XML
+    data_prose.txt         ... as prose
+    test_solution.py       the 2 validity checks (never shown to the model)
+    reference.py           a correct solution with the data embedded, used only to check the tests
+    checklist.md           where each question appears in both templates
 src/
-    run_experiment.py     calls the model and appends one row per call to data/results.csv
-    evaluate.py           extracts code from a response and runs the hidden tests
-    check_tasks.py        sanity-checks every task
+    run_experiment.py      calls the model and appends one row per call to data/results.csv
+    evaluate.py            extracts code from a response and runs the checks
+    check_tasks.py         sanity-checks every task
+    regrade.py             re-scores saved responses after a test change (no model calls)
 data/
-    results.csv           the dataset (created by run_experiment.py)
-    raw/                  the raw text of every response (git-ignored)
-notebooks/eda.ipynb       analysis: tables, plots, paired statistics
-scripts/make_notebook.py  builds notebooks/eda.ipynb (the notebook's text and code live here)
-scripts/make_data_tasks.py builds the Experiment 2 tasks from the Oracle's Elixir file
+    results.csv            the dataset (created by run_experiment.py)
+    raw/                   the raw text of every response (git-ignored)
+notebooks/eda.ipynb        analysis: tables, plots, paired statistics
+scripts/make_notebook.py   builds notebooks/eda.ipynb (the notebook's text and code live here)
+scripts/make_data_tasks.py builds the tasks from the Oracle's Elixir file
 ```
 
 ## Setup
@@ -77,13 +67,14 @@ No API key or account is needed.
 Run all commands from the repo root. Everything is free.
 
 ```bash
-# 1. Check the tasks: each reference solution must pass all its tests, and an empty solution none.
+# 1. Check the tasks: each reference passes both checks, an empty solution none,
+#    and every row appears in all three data formats.
 python src/check_tasks.py
 
 # 2. Preview what will run.
 python src/run_experiment.py --dry-run
 
-# 3. Run. Prints one line per call: input tokens, output tokens, tests passed.
+# 3. Run. Prints one line per call: input tokens, output tokens, checks passed.
 python src/run_experiment.py
 
 # 4. Analyze.
@@ -97,7 +88,7 @@ python scripts/make_notebook.py
 jupyter nbconvert --to notebook --execute --inplace notebooks/eda.ipynb
 ```
 
-You can also edit `eda.ipynb` directly, but the next run of the script overwrites those edits.
+You can also edit `eda.ipynb` directly, but the next run of the script overwrites those edits. Section 7 of the notebook reads the saved responses in `data/raw/`, so it needs a local run.
 
 ### Resuming
 
@@ -107,21 +98,23 @@ Each row is written to `data/results.csv` as soon as its call finishes. If the r
 
 | column | meaning |
 |---|---|
-| `task_id` | task folder name, e.g. `t04_password` |
+| `task_id` | task folder name, e.g. `t11_side_winrate` |
 | `format` | instruction format: `structured` or `informal` |
-| `data_format` | `none` (Experiment 1), or `csv` / `xml` / `prose` (Experiment 2) |
+| `data_format` | `csv`, `xml`, or `prose` |
 | `run` | repetition number, 1..N |
 | `model` | model used |
 | `input_tokens` | tokens in the system prompt + user prompt (Ollama's `prompt_eval_count`) |
 | `output_tokens` | tokens the model generated (Ollama's `eval_count`) |
-| `tests_passed`, `tests_total` | Experiment 1: hidden tests passed / total. Experiment 2: validity checks passed / 2 |
-| `passed_all` | Experiment 1: every test passed. Experiment 2: the response is valid |
+| `tests_passed`, `tests_total` | validity checks passed / 2 |
+| `passed_all` | `True` if the response is valid (both checks passed) |
 | `stop_reason` | `stop` normally; `length` would mean the answer was cut off |
 | `timestamp` | UTC time of the call |
 
-## How grading works
+## How the validity check works
 
-`src/evaluate.py` takes the code from the response (the contents of the markdown code fence if there is one, otherwise the whole reply). It saves it as `solution.py` in a fresh temporary folder next to that task's `test_solution.py`, and runs pytest in a separate process with a timeout (`TEST_TIMEOUT` in `config.py`). Code that fails to import, crashes, or times out counts as 0 tests passed.
+`src/evaluate.py` takes the code from the response (the contents of the markdown code fence if there is one, otherwise the whole reply). It saves it as `solution.py` in a fresh temporary folder next to the task's `test_solution.py`, and runs pytest in a separate process with a timeout (`TEST_TIMEOUT` in `config.py`). The "data embedded" check reads the code as text without running it, so code that crashes still gets credit for containing the data. Code that crashes or times out fails the "runs" check.
+
+If a task's tests change after a run, `python src/regrade.py [task_id ...]` re-scores the saved responses in `data/raw/` without calling the model again.
 
 **Safety note:** this runs code written by the model on your computer. The tasks are small pure functions, and the subprocess has a timeout, but don't point this at untrusted prompts.
 
@@ -133,30 +126,26 @@ Each row is written to `data/results.csv` as soon as its call finishes. If the r
 - **Prompt caching:** Ollama reuses work for repeated prompt prefixes internally, but we checked that its reported `input_tokens` always counts the full prompt, whatever the call order.
 - **Versions:** the Python packages are pinned in `requirements.txt`. Record your Ollama version (`ollama --version`) in your report. This study was built with Ollama 0.40.3.
 
-## Optional: run the same experiment on Claude
+## Regenerating the tasks
 
-The code also supports Claude through Anthropic's paid API, for checking whether results carry over to a commercial model. The default 100 calls on Claude Haiku 4.5 cost roughly $0.25.
-
-1. Copy `.env.example` to `.env` and add your API key. `.env` is git-ignored, and the code never contains the key.
-2. In `config.py`, set `PROVIDER = "anthropic"` and `MODEL = "claude-haiku-4-5"`. Leave the other settings as they are, so both models run under the same conditions.
-3. Run as above. Claude rows go into the same CSV under their own model name, and set `MODEL` at the top of the notebook to analyze them.
-
-Keep `claude-haiku-4-5`. Newer Claude models always use extended thinking and reject custom temperatures, so they'd break the controls.
-
-## Regenerating the Experiment 2 tasks
-
-The data tasks are built from the full Oracle's Elixir file, which isn't in the repo. Download the 2025 match data from https://oracleselixir.com, place it next to the repo folder (or pass `--source`), then run:
+The tasks are built from the full Oracle's Elixir file, which isn't in the repo. Download the 2025 match data from https://oracleselixir.com, place it next to the repo folder (or pass `--source`), then run:
 
 ```bash
 python scripts/make_data_tasks.py
 python src/check_tasks.py
 ```
 
-Sampling uses a fixed seed, so the same source file always produces the same 20-row samples. `check_tasks.py` confirms that every row appears in all three data formats.
+Sampling uses a fixed seed, so the same source file always produces the same 20-row samples. `check_tasks.py` confirms that every row appears in all three data formats. If you change a task's prompt or data, delete that task's old rows from `data/results.csv` before re-running it.
 
-## Adding or changing a task
+## Optional: run the same experiment on Claude
 
-Create `tasks/t11_<name>/` with the same five files. The runner picks up every `tasks/t*/` folder automatically. Run `python src/check_tasks.py` to confirm the new task is consistent. If you change any prompt, update its `checklist.md` so the two formats still list the same requirements, and delete that task's old rows from `data/results.csv`.
+The code also supports Claude through Anthropic's paid API, for checking whether results carry over to a commercial model. The 180 calls on Claude Haiku 4.5 would cost roughly $1, because each answer contains the copied data (about 1,000 output tokens).
+
+1. Copy `.env.example` to `.env` and add your API key. `.env` is git-ignored, and the code never contains the key.
+2. In `config.py`, set `PROVIDER = "anthropic"` and `MODEL = "claude-haiku-4-5"`. Leave the other settings as they are, so both models run under the same conditions.
+3. Run as above. Claude rows go into the same CSV under their own model name. Set `MODEL` at the top of the notebook to analyze them.
+
+Keep `claude-haiku-4-5`. Newer Claude models always use extended thinking and reject custom temperatures, so they'd break the controls.
 
 ## Cleaning up afterwards
 
@@ -168,7 +157,8 @@ Your results in `data/results.csv` and the notebook aren't affected.
 
 ## Limitations
 
-- One small open-source model at one temperature. Larger commercial models may respond to prompt format differently (see the optional Claude run above).
-- One prompt pair per task, so the particular wording of each informal paragraph is mixed in with the effect of "informality" itself.
-- 10 tasks give limited statistical power. The notebook reports bootstrap confidence intervals alongside the Wilcoxon test.
-- The two formats' prompts aren't exactly the same length. The notebook measures this gap as a possible confound.
+- One small open-source model at one temperature. Larger commercial models may respond differently (see the optional Claude run above).
+- 6 tasks of 20 rows each. With 6 tasks the smallest possible Wilcoxon p-value is 0.03, so the notebook leans on bootstrap confidence intervals and direction consistency across tasks.
+- Prose is built from one fixed sentence template per row, which is less varied than real writing.
+- The task makes the model copy the data into its code, which inflates output tokens. The results apply to "put my data in a script" requests, not to coding in general.
+- Answers aren't graded: the validity check shows the code runs and contains every row's name, not that it's correct or that every column was copied.
