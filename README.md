@@ -51,6 +51,8 @@ data/
     raw/                   the raw text of every response (git-ignored)
 notebooks/eda1.ipynb       analysis: tables and plots by data format
 scripts/make_notebook.py   builds notebooks/eda1.ipynb (the notebook's text and code live here)
+notebooks/eda2.ipynb       statistical follow-up: permutation tests, instruction style, variability, validity
+scripts/make_notebook_eda2.py  builds notebooks/eda2.ipynb (reads only data/results.csv)
 scripts/make_data_tasks.py builds the tasks from the Oracle's Elixir file
 ```
 
