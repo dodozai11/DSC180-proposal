@@ -1,0 +1,79 @@
+```python
+data = [
+    {"player": "Forest", "champion": "Viego", "result": "win", "deaths": 3},
+    {"player": "Popon", "champion": "Vi", "result": "win", "deaths": 0},
+    {"player": "Racon", "champion": "Nocturne", "result": "win", "deaths": 1},
+    {"player": "HALdesu", "champion": "Bel'Veth", "result": "loss", "deaths": 4},
+    {"player": "Norwegian", "champion": "Viego", "result": "win", "deaths": 0},
+    {"player": "VEL Skinny", "champion": "Vi", "result": "loss", "deaths": 5},
+    {"player": "Brucee", "champion": "Skarner", "result": "win", "deaths": 1},
+    {"player": "89", "champion": "Vi", "result": "loss", "deaths": 6},
+    {"player": "DM SUISEI", "champion": "Mordekaiser", "result": "win", "deaths": 2},
+    {"player": "RPG Shawshank", "champion": "Xin Zhao", "result": "loss", "deaths": 5},
+    {"player": "EL", "champion": "Zyra", "result": "win", "deaths": 0},
+    {"player": "DG hatinyang", "champion": "Xin Zhao", "result": "win", "deaths": 4},
+    {"player": "Sassappel", "champion": "Vi", "result": "win", "deaths": 3},
+    {"player": "Kiwi", "champion": "Viego", "result": "win", "deaths": 3},
+    {"player": "Mutton", "champion": "Vi", "result": "loss", "deaths": 6},
+    {"player": "DG socceryakyu", "champion": "Nocturne", "result": "win", "deaths": 3},
+    {"player": "HNS Skinny", "champion": "Xin Zhao", "result": "loss", "deaths": 6},
+    {"player": "VLY hachim1", "champion": "Vi", "result": "win", "deaths": 5},
+    {"player": "SQG Lunatic", "champion": "Yone", "result": "loss", "deaths": 5},
+    {"player": "QTD Van1", "champion": "Vi", "result": "win", "deaths": 2},
+]
+
+
+def q1():
+    """Returns the number of different champions played."""
+    champions = set(row["champion"] for row in data)
+    return len(champions)
+
+
+def q2():
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = {}
+    
+    for row in data:
+        champion = row["champion"]
+        if champion not in champion_stats:
+            champion_stats[champion] = {"wins": 0, "total": 0}
+        
+        champion_stats[champion]["total"] += 1
+        if row["result"] == "win":
+            champion_stats[champion]["wins"] += 1
+    
+    # Filter champions played at least twice
+    champions_at_least_twice = {
+        champ: stats for champ, stats in champion_stats.items() if stats["total"] >= 2
+    }
+    
+    if not champions_at_least_twice:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        champions_at_least_twice.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"]
+    )
+    
+    return best_champion[0]
+
+
+def q3():
+    """Returns the average number of deaths in games that were lost."""
+    lost_games = [row for row in data if row["result"] == "loss"]
+    
+    if not lost_games:
+        return 0
+    
+    total_deaths = sum(row["deaths"] for row in lost_games)
+    average_deaths = total_deaths / len(lost_games)
+    
+    return average_deaths
+
+
+if __name__ == "__main__":
+    print(f"Q1: {q1()}")
+    print(f"Q2: {q2()}")
+    print(f"Q3: {q3()}")
+```

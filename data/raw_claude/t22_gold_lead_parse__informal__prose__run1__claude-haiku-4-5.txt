@@ -1,0 +1,119 @@
+
+```python
+import re
+from anthropic import Anthropic
+
+client = Anthropic()
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    conversation_history = []
+    
+    # First turn: send data and ask for q1
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Parse this League of Legends esports match data and calculate the average gold difference at 15 minutes of the winning teams.
+
+Data:
+{text}
+
+Please extract:
+1. For each game, identify which team won
+2. Get that team's gold difference at 15 minutes
+3. Calculate the average of these gold differences
+
+Return ONLY a single number (can be decimal) representing the average."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1000,
+        messages=conversation_history
+    )
+    
+    result = response.content[0].text.strip()
+    conversation_history.append({
+        "role": "assistant",
+        "content": result
+    })
+    
+    try:
+        return float(result)
+    except:
+        return float(result.split('\n')[-1])
+
+def q2(text):
+    """Return the number of teams that won even though they were behind in gold at 15 minutes."""
+    conversation_history = []
+    
+    # First turn: send data and ask for q2
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Parse this League of Legends esports match data and count how many teams won even though they were behind in gold at 15 minutes.
+
+Data:
+{text}
+
+Please:
+1. For each game, identify which team won
+2. Check if that winning team had a negative gold difference (meaning they were behind)
+3. Count how many winning teams were behind in gold
+
+Return ONLY a single integer representing the count."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1000,
+        messages=conversation_history
+    )
+    
+    result = response.content[0].text.strip()
+    conversation_history.append({
+        "role": "assistant",
+        "content": result
+    })
+    
+    try:
+        return int(result)
+    except:
+        return int(result.split('\n')[-1])
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    conversation_history = []
+    
+    # First turn: send data and ask for q3
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Parse this League of Legends esports match data and calculate the win rate of teams that were ahead in gold at 15 minutes.
+
+Data:
+{text}
+
+Please:
+1. For each game, find teams that had a positive gold difference (ahead in gold)
+2. Count how many of those teams won
+3. Count total teams that were ahead in gold
+4. Calculate win rate as (wins / total ahead in gold)
+
+Return ONLY a single number between 0 and 1 representing the win rate."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1000,
+        messages=conversation_history
+    )
+    
+    result = response.content[0].text.strip()
+    conversation_history.append({
+        "role": "assistant",
+        "content": result
+    })
+    
+    try:
+        return float(result)
+    except:
+        return float(result.split('\n')[-1])
+```

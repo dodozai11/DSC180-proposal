@@ -1,0 +1,98 @@
+
+```python
+import anthropic
+import csv
+import io
+
+def q1(text: str) -> int:
+    """Count how many different champions were played."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and count how many different champions were played. Return only the integer count, nothing else.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    return int(message.content[0].text.strip())
+
+
+def q2(text: str) -> str | None:
+    """Among champions played at least twice, return the one with the best win rate."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data. Find all champions that were played at least twice. Among those, calculate the win rate for each (wins / total games). Return the name of the champion with the highest win rate. If no champion was played twice, return "None". Return only the champion name or "None", nothing else.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return None if result == "None" else result
+
+
+def q3(text: str) -> float:
+    """Calculate the average number of deaths in games that were lost."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data. Find all rows where result is "loss". Calculate the average number of deaths for those rows. Return only the number as a float, nothing else.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    return float(message.content[0].text.strip())
+
+
+# Test with the provided data
+if __name__ == "__main__":
+    test_data = """player,champion,result,deaths
+Forest,Viego,win,3
+Popon,Vi,win,0
+Racon,Nocturne,win,1
+HALdesu,Bel'Veth,loss,4
+Norwegian,Viego,win,0
+VEL Skinny,Vi,loss,5
+Brucee,Skarner,win,1
+89,Vi,loss,6
+DM SUISEI,Mordekaiser,win,2
+RPG Shawshank,Xin Zhao,loss,5
+EL,Zyra,win,0
+DG hatinyang,Xin Zhao,win,4
+Sassappel,Vi,win,3
+Kiwi,Viego,win,3
+Mutton,Vi,loss,6
+DG socceryakyu,Nocturne,win,3
+HNS Skinny,Xin Zhao,loss,6
+VLY hachim1,Vi,win,5
+SQG Lunatic,Yone,loss,5
+QTD Van1,Vi,win,2"""
+    
+    print("Q1 (Different champions):", q1(test_data))
+    print("Q2 (Best win rate champion):", q2(test_data))
+    print("Q3 (Average deaths in losses):", q3(test_data))
+```

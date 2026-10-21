@@ -1,0 +1,40 @@
+
+```python
+import pandas as pd
+
+# Data as Python data structures
+data = {
+    'player': ['Nemesis', 'Harbo', 'Ronaldo', 'Perkz', 'Lofti', 'Bissejr15', 'Zuhy', 'D1verse', 'Knighter', 'Sencux', 'Zoiren', 'Zwyroo', 'Congolese', 'Scuffed', 'Air', 'Hunt', 'Forslund', 'Valiant', 'Daggur', 'qqr'],
+    'team': ['Los Ratones', 'Lundqvist Lightside', 'Verdant', 'Ruddy Esports', 'Venomcrest Esports', 'DMG Esports', 'KAOS e-sport', 'Rich Gang', 'Venomcrest Esports', 'Verdant', 'KAOS e-sport', 'NORD Esports', 'Ruddy Esports', 'KAOS e-sport', 'Venomcrest Esports', 'Bulldog Esports', 'B2U', 'CNG Royal', 'AaB Esport', 'Brod n Friends'],
+    'champion': ['Galio', 'Ryze', 'Yone', 'Orianna', 'Orianna', 'Hwei', 'Azir', "Vel'Koz", 'Tristana', 'Aurora', 'Aurora', 'Ahri', 'Orianna', 'Ryze', 'Taliyah', 'Akali', 'Corki', 'Yasuo', 'Hwei', 'Akali'],
+    'kills': [2, 2, 0, 3, 5, 5, 0, 2, 9, 6, 2, 6, 1, 5, 9, 7, 10, 2, 7, 11],
+    'deaths': [0, 4, 5, 3, 2, 1, 4, 8, 2, 0, 7, 0, 4, 6, 6, 3, 0, 5, 5, 3],
+    'assists': [14, 4, 2, 3, 8, 1, 1, 2, 8, 7, 3, 10, 5, 16, 21, 3, 2, 3, 15, 3],
+    'result': ['win', 'loss', 'loss', 'loss', 'win', 'loss', 'loss', 'loss', 'win', 'win', 'loss', 'win', 'loss', 'loss', 'win', 'loss', 'win', 'loss', 'win', 'loss']
+}
+
+df = pd.DataFrame(data)
+
+def q1():
+    """Return the name of the player with the highest KDA"""
+    df['kda'] = (df['kills'] + df['assists']) / df['deaths'].apply(lambda x: max(x, 1))
+    highest_kda_player = df.loc[df['kda'].idxmax(), 'player']
+    return highest_kda_player
+
+def q2():
+    """Return the average number of kills in the games that were won"""
+    won_games = df[df['result'] == 'win']
+    avg_kills = won_games['kills'].mean()
+    return avg_kills
+
+def q3():
+    """Return which champion got picked the most"""
+    champion_counts = df['champion'].value_counts()
+    most_picked_champion = champion_counts.idxmax()
+    return most_picked_champion
+
+# Test the functions
+print("Q1 - Player with highest KDA:", q1())
+print("Q2 - Average kills in won games:", q2())
+print("Q3 - Most picked champion:", q3())
+```

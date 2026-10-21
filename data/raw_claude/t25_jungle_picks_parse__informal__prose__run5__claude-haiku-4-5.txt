@@ -1,0 +1,108 @@
+
+```python
+import re
+from collections import defaultdict
+from anthropic import Anthropic
+
+client = Anthropic()
+conversation_history = []
+
+def parse_match_data(text):
+    """Parse the match data from text format."""
+    matches = []
+    lines = text.strip().split('\n')
+    
+    for line in lines:
+        # Pattern: Name played Champion in role and result, dying X times
+        pattern = r'(.+?)\s+played\s+(.+?)\s+in\s+the\s+(\w+)\s+and\s+(won|lost),\s+dying\s+(\d+)\s+times'
+        match = re.search(pattern, line)
+        if match:
+            player, champion, role, result, deaths = match.groups()
+            matches.append({
+                'player': player.strip(),
+                'champion': champion.strip(),
+                'role': role,
+                'result': result,
+                'deaths': int(deaths)
+            })
+    
+    return matches
+
+def q1(text):
+    """Count how many different champions were played."""
+    matches = parse_match_data(text)
+    champions = set()
+    for match in matches:
+        champions.add(match['champion'])
+    return len(champions)
+
+def q2(text):
+    """Among champions played at least twice, return the one with the best win rate."""
+    matches = parse_match_data(text)
+    
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for match in matches:
+        champion = match['champion']
+        champion_stats[champion]['total'] += 1
+        if match['result'] == 'won':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    candidates = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(candidates.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+def q3(text):
+    """Calculate the average number of deaths in games that were lost."""
+    matches = parse_match_data(text)
+    
+    lost_matches = [match for match in matches if match['result'] == 'lost']
+    
+    if not lost_matches:
+        return 0
+    
+    total_deaths = sum(match['deaths'] for match in lost_matches)
+    return total_deaths / len(lost_matches)
+
+def chat(user_message):
+    """Send a message and get a response using multi-turn conversation."""
+    conversation_history.append({
+        "role": "user",
+        "content": user_message
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=8096,
+        system="""You are a helpful assistant that analyzes League of Legends esports match data. 
+        You have access to three functions:
+        - q1(text): Returns the count of different champions played
+        - q2(text): Returns the champion with the best win rate among those played at least twice
+        - q3(text): Returns the average number of deaths in lost games
+        
+        When the user provides match data, parse it and answer their questions using these functions.""",
+        messages=conversation_history
+    )
+    
+    assistant_message = response.content[0].text
+    conversation_history.append({
+        "role": "assistant",
+        "content": assistant_message
+    })
+    
+    return assistant_message
+
+if __name__ == "__main__":
+    # Test with the provided data
+    test_data = """Forest played Viego in the jungle and won, dying 3 times. Popon played Vi in the jungle and won, dying 0 times. Racon played Nocturne in the jungle and won, dying 1 times. HALdesu played Bel'Veth in the jungle and lost, dying 4 times. Norwegian played Viego in the jungle and won, dying 0 times. VEL Skinny played Vi in the jungle and lost, dying 5 times. Brucee played Skarner in the jungle and won, dying 1 times. 89 played Vi in the jungle and lost, dying 6 times. DM SUISEI played Mordekaiser in the jungle and won, dying 2 times. RPG Shawshank played Xin Zhao in the jungle and lost, dying 5 times. EL played Zyra in the jungle and won, dying 0 times. DG hatinyang played Xin Zhao in the jungle and won, dying 4 times. Sassappel played Vi in the jungle and won, dying 3 times. Kiwi played Viego in the jungle and won, dying 3 times. Mutton played Vi in the jungle and lost, dying 6 times. DG socceryakyu played Nocturne in the jungle and won, dying 3 times. HNS Skinny played Xin Zhao in the jungle and lost, dying 6 times. VLY hachim1 played Vi in the jungle and won, dying 5 times. SQG Lunatic played Yone in the jungle and lost, dying 5 times. QTD Van1 played Vi in the jungle and won, dying 2 times."""
+    
+    print(f"Q1 (Different champions): {q1(test_data)}")
+    print(f"Q2 (Best win rate champion with 2+ plays): {q2(test_data)}")
+    print(f"Q3 (Average deaths in lost games): {q3(test_data):.2f}")
+```

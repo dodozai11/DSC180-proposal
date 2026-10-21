@@ -1,0 +1,85 @@
+
+```python
+import re
+import anthropic
+
+
+def q1(text: str) -> float:
+    """Return the win rate of blue-side teams as a number between 0 and 1."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse the following League of Legends match data and calculate the win rate of blue-side teams.
+
+Data:
+{text}
+
+Please analyze this data and return ONLY a single number between 0 and 1 representing the win rate of blue-side teams (wins / total games played on blue side). Do not include any explanation, just the number."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2(text: str) -> float:
+    """Return the average length in minutes of the games the red-side team won."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse the following League of Legends match data and calculate the average length in minutes of games where the red-side team won.
+
+Data:
+{text}
+
+Please analyze this data and return ONLY a single number representing the average game length (in minutes) for games won by the red-side team. Do not include any explanation, just the number."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q3(text: str) -> str:
+    """Return the name of the team with the most wins."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse the following League of Legends match data and find the team with the most wins.
+
+Data:
+{text}
+
+Please analyze this data and return ONLY the name of the team with the most wins. Do not include any explanation, just the team name."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return result
+
+
+if __name__ == "__main__":
+    sample_data = """In game G01, DN Freecs played on the blue side and lost; the game lasted 34.1 minutes. In game G01, Dplus KIA played on the red side and won; the game lasted 34.1 minutes. In game G02, BNK FEARX played on the blue side and lost; the game lasted 40.1 minutes. In game G02, Gen.G played on the red side and won; the game lasted 40.1 minutes. In game G03, Dplus KIA played on the blue side and won; the game lasted 27.5 minutes. In game G03, BNK FEARX played on the red side and lost; the game lasted 27.5 minutes. In game G04, DRX played on the blue side and won; the game lasted 30.2 minutes. In game G04, DN Freecs played on the red side and lost; the game lasted 30.2 minutes. In game G05, Hanwha Life Esports played on the blue side and won; the game lasted 39.0 minutes. In game G05, Gen.G played on the red side and lost; the game lasted 39.0 minutes. In game G06, Dplus KIA played on the blue side and lost; the game lasted 30.0 minutes. In game G06, Nongshim RedForce played on the red side and won; the game lasted 30.0 minutes. In game G07, DN Freecs played on the blue side and won; the game lasted 33.9 minutes. In game G07, OKSavingsBank BRION played on the red side and lost; the game lasted 33.9 minutes. In game G08, Dplus KIA played on the blue side and won; the game lasted 37.2 minutes. In game G08, KT Rolster played on the red side and lost; the game lasted 37.2 minutes. In game G09, Gen.G played on the blue side and won; the game lasted 28.9 minutes. In game G09, Hanwha Life Esports played on the red side and lost; the game lasted 28.9 minutes. In game G10, KT Rolster played on the blue side and lost; the game lasted 35.1 minutes. In game G10, Hanwha Life Esports played on the red side and won; the game lasted 35.1 minutes."""
+    
+    print(f"Q1 (Blue-side win rate): {q1(sample_data)}")
+    print(f"Q2 (Avg length of red-side wins): {q2(sample_data)}")
+    print(f"Q3 (Team with most wins): {q3(sample_data)}")
+```

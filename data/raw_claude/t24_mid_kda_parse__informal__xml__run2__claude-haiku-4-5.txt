@@ -1,0 +1,104 @@
+
+```python
+import anthropic
+import re
+
+
+def q1(text: str) -> str:
+    """Return the name of the player with the highest KDA."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find the player with the highest KDA.
+KDA is calculated as (kills + assists) / max(deaths, 1).
+
+Data:
+{text}
+
+Return ONLY the player's name, nothing else."""
+            }
+        ]
+    )
+    
+    return message.content[0].text.strip()
+
+
+def q2(text: str) -> str:
+    """Return the average number of kills in the games that were won."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average number of kills in games that were won (where result="win").
+
+Data:
+{text}
+
+Return ONLY the numerical average, rounded to 2 decimal places, nothing else."""
+            }
+        ]
+    )
+    
+    return message.content[0].text.strip()
+
+
+def q3(text: str) -> str:
+    """Return which champion got picked the most."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find which champion was picked the most times.
+
+Data:
+{text}
+
+Return ONLY the champion name, nothing else."""
+            }
+        ]
+    )
+    
+    return message.content[0].text.strip()
+
+
+if __name__ == "__main__":
+    sample_data = """<rows>
+  <row><player>Nemesis</player><team>Los Ratones</team><champion>Galio</champion><kills>2</kills><deaths>0</deaths><assists>14</assists><result>win</result></row>
+  <row><player>Harbo</player><team>Lundqvist Lightside</team><champion>Ryze</champion><kills>2</kills><deaths>4</deaths><assists>4</assists><result>loss</result></row>
+  <row><player>Ronaldo</player><team>Verdant</team><champion>Yone</champion><kills>0</kills><deaths>5</deaths><assists>2</assists><result>loss</result></row>
+  <row><player>Perkz</player><team>Ruddy Esports</team><champion>Orianna</champion><kills>3</kills><deaths>3</deaths><assists>3</assists><result>loss</result></row>
+  <row><player>Lofti</player><team>Venomcrest Esports</team><champion>Orianna</champion><kills>5</kills><deaths>2</deaths><assists>8</assists><result>win</result></row>
+  <row><player>Bissejr15</player><team>DMG Esports</team><champion>Hwei</champion><kills>5</kills><deaths>1</deaths><assists>1</assists><result>loss</result></row>
+  <row><player>Zuhy</player><team>KAOS e-sport</team><champion>Azir</champion><kills>0</kills><deaths>4</deaths><assists>1</assists><result>loss</result></row>
+  <row><player>D1verse</player><team>Rich Gang</team><champion>Vel'Koz</champion><kills>2</kills><deaths>8</deaths><assists>2</assists><result>loss</result></row>
+  <row><player>Knighter</player><team>Venomcrest Esports</team><champion>Tristana</champion><kills>9</kills><deaths>2</deaths><assists>8</assists><result>win</result></row>
+  <row><player>Sencux</player><team>Verdant</team><champion>Aurora</champion><kills>6</kills><deaths>0</deaths><assists>7</assists><result>win</result></row>
+  <row><player>Zoiren</player><team>KAOS e-sport</team><champion>Aurora</champion><kills>2</kills><deaths>7</deaths><assists>3</assists><result>loss</result></row>
+  <row><player>Zwyroo</player><team>NORD Esports</team><champion>Ahri</champion><kills>6</kills><deaths>0</deaths><assists>10</assists><result>win</result></row>
+  <row><player>Congolese</player><team>Ruddy Esports</team><champion>Orianna</champion><kills>1</kills><deaths>4</deaths><assists>5</assists><result>loss</result></row>
+  <row><player>Scuffed</player><team>KAOS e-sport</team><champion>Ryze</champion><kills>5</kills><deaths>6</deaths><assists>16</assists><result>loss</result></row>
+  <row><player>Air</player><team>Venomcrest Esports</team><champion>Taliyah</champion><kills>9</kills><deaths>6</deaths><assists>21</assists><result>win</result></row>
+  <row><player>Hunt</player><team>Bulldog Esports</team><champion>Akali</champion><kills>7</kills><deaths>3</deaths><assists>3</assists><result>loss</result></row>
+  <row><player>Forslund</player><team>B2U</team><champion>Corki</champion><kills>10</kills><deaths>0</deaths><assists>2</assists><result>win</result></row>
+  <row><player>Valiant</player><team>CNG Royal</team><champion>Yasuo</champion><kills>2</kills><deaths>5</deaths><assists>3</assists><result>loss</result></row>
+  <row><player>Daggur</player><team>AaB Esport</team><champion>Hwei</champion><kills>7</kills><deaths>5</deaths><assists>15</assists><result>win</result></row>
+  <row><player>qqr</player><team>Brod n Friends</team><champion>Akali</champion><kills>11</kills><deaths>3</deaths><assists>3</assists><result>loss</result></row>
+</rows>"""
+    
+    print("Q1 - Player with highest KDA:", q1(sample_data))
+    print("Q2 - Average kills in won games:", q2(sample_data))
+    print("Q3 - Most picked champion:", q3(sample_data))
+```

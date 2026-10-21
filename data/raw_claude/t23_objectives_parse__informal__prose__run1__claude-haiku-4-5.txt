@@ -1,0 +1,81 @@
+
+```python
+import re
+from anthropic import Anthropic
+
+def q1(text: str) -> float:
+    """Return the win rate of teams that took the first dragon."""
+    client = Anthropic()
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the win rate of teams that took the first dragon.
+
+Data:
+{text}
+
+Return ONLY a single number between 0 and 1 representing the win rate (wins / total games where a team took first dragon). No other text."""
+            }
+        ]
+    )
+    
+    result = response.content[0].text.strip()
+    return float(result)
+
+def q2(text: str) -> float:
+    """Return the average number of barons the winning teams took."""
+    client = Anthropic()
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average number of barons that winning teams took.
+
+Data:
+{text}
+
+Return ONLY a single number representing the average barons for winning teams. No other text."""
+            }
+        ]
+    )
+    
+    result = response.content[0].text.strip()
+    return float(result)
+
+def q3(text: str) -> int:
+    """Return the total number of towers destroyed across all games."""
+    client = Anthropic()
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and sum up all the towers destroyed across all games.
+
+Data:
+{text}
+
+Return ONLY a single integer representing the total towers destroyed. No other text."""
+            }
+        ]
+    )
+    
+    result = response.content[0].text.strip()
+    return int(result)
+
+if __name__ == "__main__":
+    sample_data = """In game G01, Gen.G Scholars won; they did not take the first dragon and finished with 2 dragons, 2 barons and 11 towers. In game G01, DRX Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 1 towers. In game G02, DRX Academy lost; they did not take the first dragon and finished with 0 dragons, 0 barons and 0 towers. In game G02, Dplus KIA Youth won; they took the first dragon and finished with 4 dragons, 0 barons and 8 towers. In game G03, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 9 towers. In game G03, DN Freecs Academy lost; they took the first dragon and finished with 3 dragons, 0 barons and 5 towers. In game G04, Hanwha Life Esports Academy lost; they did not take the first dragon and finished with 1 dragons, 0 barons and 0 towers. In game G04, KT Rolster Academy won; they took the first dragon and finished with 4 dragons, 1 barons and 10 towers. In game G05, DN Freecs Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 10 towers. In game G05, DRX Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 4 towers. In game G06, Dplus KIA Youth won; they did not take the first dragon and finished with 2 dragons, 1 barons and 8 towers. In game G06, Nongshim RedForce Academy lost; they took the first dragon and finished with 3 dragons, 0 barons and 4 towers. In game G07, DRX Academy lost; they took the first dragon and finished with 1 dragons, 0 barons and 2 towers. In game G07, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 4 dragons, 1 barons and 9 towers. In game G08, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 10 towers. In game G08, Nongshim RedForce Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 2 towers. In game G09, DN Freecs Academy won; they did not take the first dragon and finished with 2 dragons, 0 barons and 9 towers. In game G09, DRX Academy lost; they took the first dragon and finished with 1 dragons, 0 barons and 2 towers. In game G10, Gen.G Scholars won; they did not take the first dragon and finished with 2 dragons, 1 barons and 11 towers. In game G10, DN Freecs Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 4 towers."""
+    
+    print(f"Q1 (First dragon win rate): {q1(sample_data)}")
+    print(f"Q2 (Average barons for winning teams): {q2(sample_data)}")
+    print(f"Q3 (Total towers): {q3(sample_data)}")
+```

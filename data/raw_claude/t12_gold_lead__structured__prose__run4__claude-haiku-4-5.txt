@@ -1,0 +1,52 @@
+```python
+# Data structure: list of dictionaries, one per team per game
+matches = [
+    {"game": "G01", "team": "GiantX", "side": "blue", "result": "loss", "gold_diff_15": 1060},
+    {"game": "G01", "team": "Movistar KOI", "side": "red", "result": "win", "gold_diff_15": -1060},
+    {"game": "G02", "team": "Movistar KOI", "side": "blue", "result": "win", "gold_diff_15": 2660},
+    {"game": "G02", "team": "GiantX", "side": "red", "result": "loss", "gold_diff_15": -2660},
+    {"game": "G03", "team": "Karmine Corp", "side": "blue", "result": "win", "gold_diff_15": 75},
+    {"game": "G03", "team": "Fnatic", "side": "red", "result": "loss", "gold_diff_15": -75},
+    {"game": "G04", "team": "Movistar KOI", "side": "blue", "result": "win", "gold_diff_15": -2285},
+    {"game": "G04", "team": "Fnatic", "side": "red", "result": "loss", "gold_diff_15": 2285},
+    {"game": "G05", "team": "SK Gaming", "side": "blue", "result": "loss", "gold_diff_15": -2251},
+    {"game": "G05", "team": "Team Vitality", "side": "red", "result": "win", "gold_diff_15": 2251},
+    {"game": "G06", "team": "Team Heretics", "side": "blue", "result": "loss", "gold_diff_15": -4163},
+    {"game": "G06", "team": "GiantX", "side": "red", "result": "win", "gold_diff_15": 4163},
+    {"game": "G07", "team": "Team Heretics", "side": "blue", "result": "loss", "gold_diff_15": -556},
+    {"game": "G07", "team": "GiantX", "side": "red", "result": "win", "gold_diff_15": 556},
+    {"game": "G08", "team": "GiantX", "side": "blue", "result": "loss", "gold_diff_15": 1777},
+    {"game": "G08", "team": "Karmine Corp", "side": "red", "result": "win", "gold_diff_15": -1777},
+    {"game": "G09", "team": "Team Heretics", "side": "blue", "result": "loss", "gold_diff_15": -3144},
+    {"game": "G09", "team": "Team Vitality", "side": "red", "result": "win", "gold_diff_15": 3144},
+    {"game": "G10", "team": "Movistar KOI", "side": "blue", "result": "loss", "gold_diff_15": -1096},
+    {"game": "G10", "team": "G2 Esports", "side": "red", "result": "win", "gold_diff_15": 1096},
+]
+
+def q1():
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    winning_teams = [match for match in matches if match["result"] == "win"]
+    gold_diffs = [match["gold_diff_15"] for match in winning_teams]
+    return sum(gold_diffs) / len(gold_diffs)
+
+def q2():
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    count = 0
+    for match in matches:
+        if match["result"] == "win" and match["gold_diff_15"] < 0:
+            count += 1
+    return count
+
+def q3():
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    ahead_in_gold = [match for match in matches if match["gold_diff_15"] > 0]
+    if len(ahead_in_gold) == 0:
+        return 0.0
+    wins = sum(1 for match in ahead_in_gold if match["result"] == "win")
+    return wins / len(ahead_in_gold)
+
+# Print results
+print(f"Q1 - Average gold difference of winning teams: {q1()}")
+print(f"Q2 - Teams that won with negative gold difference: {q2()}")
+print(f"Q3 - Win rate of teams ahead in gold at 15 min: {q3()}")
+```

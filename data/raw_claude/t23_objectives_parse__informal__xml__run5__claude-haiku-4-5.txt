@@ -1,0 +1,75 @@
+
+```python
+import anthropic
+import re
+from xml.etree import ElementTree as ET
+
+
+def q1(text: str) -> float:
+    """Return the win rate of teams that took the first dragon."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the win rate of teams that took the first dragon (first_dragon="yes"). 
+Return ONLY a single number between 0 and 1 representing the win rate.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2(text: str) -> float:
+    """Return the average number of barons the winning teams took."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average number of barons taken by winning teams (result="win").
+Return ONLY a single number representing the average.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q3(text: str) -> int:
+    """Return the total number of towers destroyed across all games."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and sum up all the towers destroyed across all teams and games.
+Return ONLY a single integer representing the total number of towers.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return int(result)
+```

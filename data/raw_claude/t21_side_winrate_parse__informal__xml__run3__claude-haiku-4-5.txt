@@ -1,0 +1,76 @@
+
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Return the win rate of blue-side teams as a number between 0 and 1."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    blue_games = []
+    for row in root.findall("row"):
+        if row.find("side").text == "blue":
+            blue_games.append(row)
+    
+    if not blue_games:
+        return 0.0
+    
+    blue_wins = sum(1 for row in blue_games if row.find("result").text == "win")
+    return blue_wins / len(blue_games)
+
+def q2(text):
+    """Return the average length in minutes of games the red-side team won."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    red_wins = []
+    for row in root.findall("row"):
+        if row.find("side").text == "red" and row.find("result").text == "win":
+            game_minutes = float(row.find("game_minutes").text)
+            red_wins.append(game_minutes)
+    
+    if not red_wins:
+        return 0.0
+    
+    return sum(red_wins) / len(red_wins)
+
+def q3(text):
+    """Return the name of the team with the most wins."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    team_wins = {}
+    for row in root.findall("row"):
+        if row.find("result").text == "win":
+            team = row.find("team").text
+            team_wins[team] = team_wins.get(team, 0) + 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+
+
+# Test with the provided data
+test_data = """<row><game>G01</game><team>DN Freecs</team><side>blue</side><result>loss</result><game_minutes>34.1</game_minutes></row>
+  <row><game>G01</game><team>Dplus KIA</team><side>red</side><result>win</result><game_minutes>34.1</game_minutes></row>
+  <row><game>G02</game><team>BNK FEARX</team><side>blue</side><result>loss</result><game_minutes>40.1</game_minutes></row>
+  <row><game>G02</game><team>Gen.G</team><side>red</side><result>win</result><game_minutes>40.1</game_minutes></row>
+  <row><game>G03</game><team>Dplus KIA</team><side>blue</side><result>win</result><game_minutes>27.5</game_minutes></row>
+  <row><game>G03</game><team>BNK FEARX</team><side>red</side><result>loss</result><game_minutes>27.5</game_minutes></row>
+  <row><game>G04</game><team>DRX</team><side>blue</side><result>win</result><game_minutes>30.2</game_minutes></row>
+  <row><game>G04</game><team>DN Freecs</team><side>red</side><result>loss</result><game_minutes>30.2</game_minutes></row>
+  <row><game>G05</game><team>Hanwha Life Esports</team><side>blue</side><result>win</result><game_minutes>39.0</game_minutes></row>
+  <row><game>G05</game><team>Gen.G</team><side>red</side><result>loss</result><game_minutes>39.0</game_minutes></row>
+  <row><game>G06</game><team>Dplus KIA</team><side>blue</side><result>loss</result><game_minutes>30.0</game_minutes></row>
+  <row><game>G06</game><team>Nongshim RedForce</team><side>red</side><result>win</result><game_minutes>30.0</game_minutes></row>
+  <row><game>G07</game><team>DN Freecs</team><side>blue</side><result>win</result><game_minutes>33.9</game_minutes></row>
+  <row><game>G07</game><team>OKSavingsBank BRION</team><side>red</side><result>loss</result><game_minutes>33.9</game_minutes></row>
+  <row><game>G08</game><team>Dplus KIA</team><side>blue</side><result>win</result><game_minutes>37.2</game_minutes></row>
+  <row><game>G08</game><team>KT Rolster</team><side>red</side><result>loss</result><game_minutes>37.2</game_minutes></row>
+  <row><game>G09</game><team>Gen.G</team><side>blue</side><result>win</result><game_minutes>28.9</game_minutes></row>
+  <row><game>G09</game><team>Hanwha Life Esports</team><side>red</side><result>loss</result><game_minutes>28.9</game_minutes></row>
+  <row><game>G10</game><team>KT Rolster</team><side>blue</side><result>loss</result><game_minutes>35.1</game_minutes></row>
+  <row><game>G10</game><team>Hanwha Life Esports</team><side>red</side><result>win</result><game_minutes>35.1</game_minutes></row>"""
+
+print(f"Q1 (Blue-side win rate): {q1(test_data)}")
+print(f"Q2 (Average game length for red-side wins): {q2(test_data)}")
+print(f"Q3 (Team with most wins): {q3(test_data)}")
+```

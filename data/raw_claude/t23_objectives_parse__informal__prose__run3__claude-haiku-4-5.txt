@@ -1,0 +1,69 @@
+
+```python
+import re
+from anthropic import Anthropic
+
+client = Anthropic()
+
+def parse_matches(text):
+    """Parse match data from text and return list of match records."""
+    matches = []
+    
+    # Pattern to match each game line
+    pattern = r"In game (\w+), ([\w\s]+?) (won|lost); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\."
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team = match.group(2)
+        result = match.group(3)
+        first_dragon = match.group(4) == "took"
+        dragons = int(match.group(5))
+        barons = int(match.group(6))
+        towers = int(match.group(7))
+        
+        matches.append({
+            'game': game_id,
+            'team': team,
+            'won': result == 'won',
+            'first_dragon': first_dragon,
+            'dragons': dragons,
+            'barons': barons,
+            'towers': towers
+        })
+    
+    return matches
+
+def q1(text):
+    """Return win rate of teams that took the first dragon."""
+    matches = parse_matches(text)
+    
+    first_dragon_teams = [m for m in matches if m['first_dragon']]
+    if not first_dragon_teams:
+        return 0.0
+    
+    wins = sum(1 for m in first_dragon_teams if m['won'])
+    return wins / len(first_dragon_teams)
+
+def q2(text):
+    """Return average number of barons the winning teams took."""
+    matches = parse_matches(text)
+    
+    winning_teams = [m for m in matches if m['won']]
+    if not winning_teams:
+        return 0.0
+    
+    total_barons = sum(m['barons'] for m in winning_teams)
+    return total_barons / len(winning_teams)
+
+def q3(text):
+    """Return total towers destroyed across all matches."""
+    matches = parse_matches(text)
+    return sum(m['towers'] for m in matches)
+
+# Test with the provided data
+test_data = """In game G01, Gen.G Scholars won; they did not take the first dragon and finished with 2 dragons, 2 barons and 11 towers. In game G01, DRX Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 1 towers. In game G02, DRX Academy lost; they did not take the first dragon and finished with 0 dragons, 0 barons and 0 towers. In game G02, Dplus KIA Youth won; they took the first dragon and finished with 4 dragons, 0 barons and 8 towers. In game G03, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 9 towers. In game G03, DN Freecs Academy lost; they took the first dragon and finished with 3 dragons, 0 barons and 5 towers. In game G04, Hanwha Life Esports Academy lost; they did not take the first dragon and finished with 1 dragons, 0 barons and 0 towers. In game G04, KT Rolster Academy won; they took the first dragon and finished with 4 dragons, 1 barons and 10 towers. In game G05, DN Freecs Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 10 towers. In game G05, DRX Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 4 towers. In game G06, Dplus KIA Youth won; they did not take the first dragon and finished with 2 dragons, 1 barons and 8 towers. In game G06, Nongshim RedForce Academy lost; they took the first dragon and finished with 3 dragons, 0 barons and 4 towers. In game G07, DRX Academy lost; they took the first dragon and finished with 1 dragons, 0 barons and 2 towers. In game G07, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 4 dragons, 1 barons and 9 towers. In game G08, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 10 towers. In game G08, Nongshim RedForce Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 2 towers. In game G09, DN Freecs Academy won; they did not take the first dragon and finished with 2 dragons, 0 barons and 9 towers. In game G09, DRX Academy lost; they took the first dragon and finished with 1 dragons, 0 barons and 2 towers. In game G10, Gen.G Scholars won; they did not take the first dragon and finished with 2 dragons, 1 barons and 11 towers. In game G10, DN Freecs Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 4 towers."""
+
+print(f"Q1 (First dragon win rate): {q1(test_data)}")
+print(f"Q2 (Average barons for winners): {q2(test_data)}")
+print(f"Q3 (Total towers): {q3(test_data)}")
+```

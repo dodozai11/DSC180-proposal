@@ -1,0 +1,87 @@
+
+```python
+import anthropic
+import re
+
+
+def q1(text: str) -> float:
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average gold difference at 15 minutes for the winning teams.
+
+Data:
+{text}
+
+Return ONLY a single number (the average, can be negative or positive). No other text."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2(text: str) -> int:
+    """Return the number of teams that won even though they were behind in gold at 15 minutes."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and count how many teams won despite having a NEGATIVE gold difference at 15 minutes (meaning they were behind in gold).
+
+Data:
+{text}
+
+Return ONLY a single integer. No other text."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return int(result)
+
+
+def q3(text: str) -> float:
+    """Return the win rate of teams that were ahead in gold at 15 minutes, as a number between 0 and 1."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the win rate of teams that had a POSITIVE gold difference at 15 minutes (meaning they were ahead in gold).
+
+Win rate = (wins among teams ahead in gold) / (total teams ahead in gold)
+
+Data:
+{text}
+
+Return ONLY a single decimal number between 0 and 1 (e.g., 0.85). No other text."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+if __name__ == "__main__":
+    sample_data = """In game G01, GiantX played on the blue side and lost, with a gold difference of 1060 at 15 minutes. In game G01, Movistar KOI played on the red side and won, with a gold difference of -1060 at 15 minutes. In game G02, Movistar KOI played on the blue side and won, with a gold difference of 2660 at 15 minutes. In game G02, GiantX played on the red side and lost, with a gold difference of -2660 at 15 minutes. In game G03, Karmine Corp played on the blue side and won, with a gold difference of 75 at 15 minutes. In game G03, Fnatic played on the red side and lost, with a gold difference of -75 at 15 minutes. In game G04, Movistar KOI played on the blue side and won, with a gold difference of -2285 at 15 minutes. In game G04, Fnatic played on the red side and lost, with a gold difference of 2285 at 15 minutes. In game G05, SK Gaming played on the blue side and lost, with a gold difference of -2251 at 15 minutes. In game G05, Team Vitality played on the red side and won, with a gold difference of 2251 at 15 minutes. In game G06, Team Heretics played on the blue side and lost, with a gold difference of -4163 at 15 minutes. In game G06, GiantX played on the red side and won, with a gold difference of 4163 at 15 minutes. In game G07, Team Heretics played on the blue side and lost, with a gold difference of -556 at 15 minutes. In game G07, GiantX played on the red side and won, with a gold difference of 556 at 15 minutes. In game G08, GiantX played on the blue side and lost, with a gold difference of 1777 at 15 minutes. In game G08, Karmine Corp played on the red side and won, with a gold difference of -1777 at 15 minutes. In game G09, Team Heretics played on the blue side and lost, with a gold difference of -3144 at 15 minutes. In game G09, Team Vitality played on the red side and won, with a gold difference of 3144 at 15 minutes. In game G10, Movistar KOI played on the blue side and lost, with a gold difference of -1096 at 15 minutes. In game G10, G2 Esports played on the red side and won, with a gold difference of 1096 at 15 minutes."""
+    
+    print(f"Q1 (Average gold difference of winning teams): {q1(sample_data)}")
+    print(f"Q2 (Teams that won despite being behind in gold): {q2(sample_data)}")
+    print(f"Q3 (Win rate of teams ahead in gold at 15 min): {q3(sample_data)}")
+```

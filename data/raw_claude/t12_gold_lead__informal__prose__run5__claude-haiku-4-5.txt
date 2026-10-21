@@ -1,0 +1,88 @@
+
+```python
+import anthropic
+
+# League of Legends esports match data
+matches = [
+    {"game": "G01", "team": "GiantX", "side": "blue", "result": "loss", "gold_diff": 1060},
+    {"game": "G01", "team": "Movistar KOI", "side": "red", "result": "win", "gold_diff": -1060},
+    {"game": "G02", "team": "Movistar KOI", "side": "blue", "result": "win", "gold_diff": 2660},
+    {"game": "G02", "team": "GiantX", "side": "red", "result": "loss", "gold_diff": -2660},
+    {"game": "G03", "team": "Karmine Corp", "side": "blue", "result": "win", "gold_diff": 75},
+    {"game": "G03", "team": "Fnatic", "side": "red", "result": "loss", "gold_diff": -75},
+    {"game": "G04", "team": "Movistar KOI", "side": "blue", "result": "win", "gold_diff": -2285},
+    {"game": "G04", "team": "Fnatic", "side": "red", "result": "loss", "gold_diff": 2285},
+    {"game": "G05", "team": "SK Gaming", "side": "blue", "result": "loss", "gold_diff": -2251},
+    {"game": "G05", "team": "Team Vitality", "side": "red", "result": "win", "gold_diff": 2251},
+    {"game": "G06", "team": "Team Heretics", "side": "blue", "result": "loss", "gold_diff": -4163},
+    {"game": "G06", "team": "GiantX", "side": "red", "result": "win", "gold_diff": 4163},
+    {"game": "G07", "team": "Team Heretics", "side": "blue", "result": "loss", "gold_diff": -556},
+    {"game": "G07", "team": "GiantX", "side": "red", "result": "win", "gold_diff": 556},
+    {"game": "G08", "team": "GiantX", "side": "blue", "result": "loss", "gold_diff": 1777},
+    {"game": "G08", "team": "Karmine Corp", "side": "red", "result": "win", "gold_diff": -1777},
+    {"game": "G09", "team": "Team Heretics", "side": "blue", "result": "loss", "gold_diff": -3144},
+    {"game": "G09", "team": "Team Vitality", "side": "red", "result": "win", "gold_diff": 3144},
+    {"game": "G10", "team": "Movistar KOI", "side": "blue", "result": "loss", "gold_diff": -1096},
+    {"game": "G10", "team": "G2 Esports", "side": "red", "result": "win", "gold_diff": 1096},
+]
+
+def q1():
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    winning_teams = [match for match in matches if match["result"] == "win"]
+    if not winning_teams:
+        return 0
+    total_gold_diff = sum(match["gold_diff"] for match in winning_teams)
+    return total_gold_diff / len(winning_teams)
+
+def q2():
+    """Return how many teams won even though they were behind in gold at 15 minutes."""
+    wins_while_behind = [
+        match for match in matches 
+        if match["result"] == "win" and match["gold_diff"] < 0
+    ]
+    return len(wins_while_behind)
+
+def q3():
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    teams_ahead = [match for match in matches if match["gold_diff"] > 0]
+    if not teams_ahead:
+        return 0
+    wins_ahead = [match for match in teams_ahead if match["result"] == "win"]
+    return len(wins_ahead) / len(teams_ahead)
+
+def main():
+    """Use Claude to verify the calculations."""
+    client = anthropic.Anthropic()
+    
+    # Prepare the data for Claude
+    data_str = str(matches)
+    
+    prompt = f"""Given this League of Legends esports match data:
+{data_str}
+
+Please verify these calculations:
+1. q1(): Average gold difference at 15 minutes of winning teams
+2. q2(): Number of teams that won despite being behind in gold at 15 minutes
+3. q3(): Win rate of teams that were ahead in gold at 15 minutes (0-1)
+
+For each, show your calculation step by step."""
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    print("Claude's verification:")
+    print(message.content[0].text)
+    print("\n" + "="*50)
+    print("Our calculated results:")
+    print(f"q1() = {q1()}")
+    print(f"q2() = {q2()}")
+    print(f"q3() = {q3()}")
+
+if __name__ == "__main__":
+    main()
+```

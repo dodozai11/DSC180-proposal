@@ -1,0 +1,48 @@
+
+```python
+import pandas as pd
+
+# Data as Python data structures
+data = {
+    'game': ['G01', 'G01', 'G02', 'G02', 'G03', 'G03', 'G04', 'G04', 'G05', 'G05', 
+             'G06', 'G06', 'G07', 'G07', 'G08', 'G08', 'G09', 'G09', 'G10', 'G10'],
+    'team': ['Gen.G Scholars', 'DRX Academy', 'DRX Academy', 'Dplus KIA Youth', 
+             'Hanwha Life Esports Academy', 'DN Freecs Academy', 'Hanwha Life Esports Academy', 
+             'KT Rolster Academy', 'DN Freecs Academy', 'DRX Academy', 'Dplus KIA Youth', 
+             'Nongshim RedForce Academy', 'DRX Academy', 'Hanwha Life Esports Academy', 
+             'Hanwha Life Esports Academy', 'Nongshim RedForce Academy', 'DN Freecs Academy', 
+             'DRX Academy', 'Gen.G Scholars', 'DN Freecs Academy'],
+    'result': ['win', 'loss', 'loss', 'win', 'win', 'loss', 'loss', 'win', 'win', 'loss', 
+               'win', 'loss', 'loss', 'win', 'win', 'loss', 'win', 'loss', 'win', 'loss'],
+    'first_dragon': ['no', 'yes', 'no', 'yes', 'no', 'yes', 'no', 'yes', 'no', 'yes', 
+                     'no', 'yes', 'yes', 'no', 'no', 'yes', 'no', 'yes', 'no', 'yes'],
+    'dragons': [2, 2, 0, 4, 2, 3, 1, 4, 2, 2, 2, 3, 1, 4, 2, 2, 2, 1, 2, 2],
+    'barons': [2, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0],
+    'towers': [11, 1, 0, 8, 9, 5, 0, 10, 10, 4, 8, 4, 2, 9, 10, 2, 9, 2, 11, 4]
+}
+
+df = pd.DataFrame(data)
+
+def q1():
+    """Return the win rate of teams that took the first dragon"""
+    first_dragon_teams = df[df['first_dragon'] == 'yes']
+    if len(first_dragon_teams) == 0:
+        return 0
+    wins = len(first_dragon_teams[first_dragon_teams['result'] == 'win'])
+    return wins / len(first_dragon_teams)
+
+def q2():
+    """Return the average number of barons the winning teams took"""
+    winning_teams = df[df['result'] == 'win']
+    if len(winning_teams) == 0:
+        return 0
+    return winning_teams['barons'].mean()
+
+def q3():
+    """Return the total towers destroyed across all games"""
+    return df['towers'].sum()
+
+print(f"q1() - Win rate of teams with first dragon: {q1()}")
+print(f"q2() - Average barons by winning teams: {q2()}")
+print(f"q3() - Total towers destroyed: {q3()}")
+```

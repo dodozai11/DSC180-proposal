@@ -1,0 +1,73 @@
+
+```python
+import re
+
+# Parse the data
+data = """J3rkie of ZennIT lost with a vision score of 80, 44 wards placed and 12 control wards bought. JACTROLL of Zero Tenacity lost with a vision score of 107, 47 wards placed and 7 control wards bought. Peto of Nightbirds lost with a vision score of 220, 114 wards placed and 27 control wards bought. Rekkles of Los Ratones won with a vision score of 252, 119 wards placed and 32 control wards bought. Prime of Ici Japon Corp. Esport lost with a vision score of 112, 58 wards placed and 23 control wards bought. Shredder of Macko Esports won with a vision score of 114, 49 wards placed and 8 control wards bought. Nsurr of Karmine Corp Blue won with a vision score of 141, 53 wards placed and 13 control wards bought. Tockimo of E WIE EINFACH E-SPORTS lost with a vision score of 113, 71 wards placed and 16 control wards bought. Piero of Karmine Corp Blue won with a vision score of 112, 56 wards placed and 13 control wards bought. Centu of Gamespace Mediterranean College Esports lost with a vision score of 140, 58 wards placed and 16 control wards bought. Mahonix of GMBLERS Esports lost with a vision score of 91, 46 wards placed and 16 control wards bought. Visdom of Kaufland Hangry Knights lost with a vision score of 96, 70 wards placed and 16 control wards bought. Brizz of aNc Legends lost with a vision score of 99, 51 wards placed and 16 control wards bought. Vlaren of SPIKE Syndicate lost with a vision score of 86, 45 wards placed and 10 control wards bought. Speedy1 of Team Insidious lost with a vision score of 95, 43 wards placed and 12 control wards bought. Max1 of eSuba lost with a vision score of 50, 30 wards placed and 8 control wards bought. Rutzou of Odivelas Sports Club won with a vision score of 111, 48 wards placed and 13 control wards bought. Zoelys of Galions won with a vision score of 59, 26 wards placed and 9 control wards bought. Sparz of GnG Amazigh won with a vision score of 144, 71 wards placed and 16 control wards bought. Farfetch of ULF Esports won with a vision score of 121, 54 wards placed and 12 control wards bought."""
+
+# Split by periods to get individual player records
+records = data.split('. ')
+
+players = []
+for record in records:
+    record = record.strip()
+    if not record:
+        continue
+    
+    # Extract player name (first word before "of")
+    name_match = re.match(r'(\S+) of', record)
+    if not name_match:
+        continue
+    name = name_match.group(1)
+    
+    # Extract outcome (won or lost)
+    outcome_match = re.search(r'\b(won|lost)\b', record)
+    outcome = outcome_match.group(1) if outcome_match else None
+    
+    # Extract vision score
+    vision_match = re.search(r'vision score of (\d+)', record)
+    vision_score = int(vision_match.group(1)) if vision_match else 0
+    
+    # Extract wards placed
+    wards_match = re.search(r'(\d+) wards placed', record)
+    wards_placed = int(wards_match.group(1)) if wards_match else 0
+    
+    # Extract control wards bought
+    control_wards_match = re.search(r'(\d+) control wards bought', record)
+    control_wards_bought = int(control_wards_match.group(1)) if control_wards_match else 0
+    
+    players.append({
+        'name': name,
+        'outcome': outcome,
+        'vision_score': vision_score,
+        'wards_placed': wards_placed,
+        'control_wards_bought': control_wards_bought
+    })
+
+
+def q1():
+    """Return the average vision score of winners minus average of losers"""
+    winners = [p['vision_score'] for p in players if p['outcome'] == 'won']
+    losers = [p['vision_score'] for p in players if p['outcome'] == 'lost']
+    
+    avg_winners = sum(winners) / len(winners) if winners else 0
+    avg_losers = sum(losers) / len(losers) if losers else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2():
+    """Return the name of the player who placed the most wards"""
+    return max(players, key=lambda p: p['wards_placed'])['name']
+
+
+def q3():
+    """Count how many players bought at least 15 control wards"""
+    return sum(1 for p in players if p['control_wards_bought'] >= 15)
+
+
+if __name__ == "__main__":
+    print(f"q1(): {q1()}")
+    print(f"q2(): {q2()}")
+    print(f"q3(): {q3()}")
+```

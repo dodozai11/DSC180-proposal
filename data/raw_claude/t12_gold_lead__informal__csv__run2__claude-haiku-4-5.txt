@@ -1,0 +1,96 @@
+
+```python
+import anthropic
+
+data = [
+    ("G01", "GiantX", "blue", "loss", 1060),
+    ("G01", "Movistar KOI", "red", "win", -1060),
+    ("G02", "Movistar KOI", "blue", "win", 2660),
+    ("G02", "GiantX", "red", "loss", -2660),
+    ("G03", "Karmine Corp", "blue", "win", 75),
+    ("G03", "Fnatic", "red", "loss", -75),
+    ("G04", "Movistar KOI", "blue", "win", -2285),
+    ("G04", "Fnatic", "red", "loss", 2285),
+    ("G05", "SK Gaming", "blue", "loss", -2251),
+    ("G05", "Team Vitality", "red", "win", 2251),
+    ("G06", "Team Heretics", "blue", "loss", -4163),
+    ("G06", "GiantX", "red", "win", 4163),
+    ("G07", "Team Heretics", "blue", "loss", -556),
+    ("G07", "GiantX", "red", "win", 556),
+    ("G08", "GiantX", "blue", "loss", 1777),
+    ("G08", "Karmine Corp", "red", "win", -1777),
+    ("G09", "Team Heretics", "blue", "loss", -3144),
+    ("G09", "Team Vitality", "red", "win", 3144),
+    ("G10", "Movistar KOI", "blue", "loss", -1096),
+    ("G10", "G2 Esports", "red", "win", 1096),
+]
+
+
+def q1():
+    client = anthropic.Anthropic()
+    
+    prompt = f"""Given this League of Legends esports match data (game, team, side, result, gold_diff_15):
+{data}
+
+Calculate the average gold difference at 15 minutes of the winning teams.
+Return only the numerical answer."""
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2():
+    client = anthropic.Anthropic()
+    
+    prompt = f"""Given this League of Legends esports match data (game, team, side, result, gold_diff_15):
+{data}
+
+Count how many teams won even though they were behind in gold at 15 minutes (negative gold_diff_15).
+Return only the numerical answer."""
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return int(result)
+
+
+def q3():
+    client = anthropic.Anthropic()
+    
+    prompt = f"""Given this League of Legends esports match data (game, team, side, result, gold_diff_15):
+{data}
+
+Calculate the win rate of teams that were ahead in gold at 15 minutes (positive gold_diff_15).
+Return only the numerical answer as a decimal between 0 and 1."""
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+if __name__ == "__main__":
+    print(f"q1() - Average gold difference of winning teams: {q1()}")
+    print(f"q2() - Teams that won despite being behind in gold: {q2()}")
+    print(f"q3() - Win rate of teams ahead in gold at 15min: {q3()}")
+```

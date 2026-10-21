@@ -1,0 +1,67 @@
+
+```python
+import re
+
+# Parse the data
+data = """J3rkie of ZennIT lost with a vision score of 80, 44 wards placed and 12 control wards bought. JACTROLL of Zero Tenacity lost with a vision score of 107, 47 wards placed and 7 control wards bought. Peto of Nightbirds lost with a vision score of 220, 114 wards placed and 27 control wards bought. Rekkles of Los Ratones won with a vision score of 252, 119 wards placed and 32 control wards bought. Prime of Ici Japon Corp. Esport lost with a vision score of 112, 58 wards placed and 23 control wards bought. Shredder of Macko Esports won with a vision score of 114, 49 wards placed and 8 control wards bought. Nsurr of Karmine Corp Blue won with a vision score of 141, 53 wards placed and 13 control wards bought. Tockimo of E WIE EINFACH E-SPORTS lost with a vision score of 113, 71 wards placed and 16 control wards bought. Piero of Karmine Corp Blue won with a vision score of 112, 56 wards placed and 13 control wards bought. Centu of Gamespace Mediterranean College Esports lost with a vision score of 140, 58 wards placed and 16 control wards bought. Mahonix of GMBLERS Esports lost with a vision score of 91, 46 wards placed and 16 control wards bought. Visdom of Kaufland Hangry Knights lost with a vision score of 96, 70 wards placed and 16 control wards bought. Brizz of aNc Legends lost with a vision score of 99, 51 wards placed and 16 control wards bought. Vlaren of SPIKE Syndicate lost with a vision score of 86, 45 wards placed and 10 control wards bought. Speedy1 of Team Insidious lost with a vision score of 95, 43 wards placed and 12 control wards bought. Max1 of eSuba lost with a vision score of 50, 30 wards placed and 8 control wards bought. Rutzou of Odivelas Sports Club won with a vision score of 111, 48 wards placed and 13 control wards bought. Zoelys of Galions won with a vision score of 59, 26 wards placed and 9 control wards bought. Sparz of GnG Amazigh won with a vision score of 144, 71 wards placed and 16 control wards bought. Farfetch of ULF Esports won with a vision score of 121, 54 wards placed and 12 control wards bought."""
+
+# Split by periods to get individual player records
+records = [r.strip() for r in data.split('.') if r.strip()]
+
+players = []
+for record in records:
+    # Extract player name (first word before "of")
+    name_match = re.match(r'(\S+)\s+of', record)
+    if not name_match:
+        continue
+    
+    name = name_match.group(1)
+    
+    # Extract result (won or lost)
+    result_match = re.search(r'(won|lost)', record)
+    result = result_match.group(1) if result_match else None
+    
+    # Extract vision score
+    vision_match = re.search(r'vision score of (\d+)', record)
+    vision_score = int(vision_match.group(1)) if vision_match else 0
+    
+    # Extract wards placed
+    wards_match = re.search(r'(\d+) wards placed', record)
+    wards_placed = int(wards_match.group(1)) if wards_match else 0
+    
+    # Extract control wards bought
+    control_match = re.search(r'(\d+) control wards bought', record)
+    control_wards = int(control_match.group(1)) if control_match else 0
+    
+    players.append({
+        'name': name,
+        'result': result,
+        'vision_score': vision_score,
+        'wards_placed': wards_placed,
+        'control_wards': control_wards
+    })
+
+def q1():
+    """Return the average vision score of the players who won minus the average for the players who lost."""
+    won_players = [p for p in players if p['result'] == 'won']
+    lost_players = [p for p in players if p['result'] == 'lost']
+    
+    avg_won = sum(p['vision_score'] for p in won_players) / len(won_players) if won_players else 0
+    avg_lost = sum(p['vision_score'] for p in lost_players) / len(lost_players) if lost_players else 0
+    
+    return avg_won - avg_lost
+
+def q2():
+    """Return the name of the player who placed the most wards."""
+    max_player = max(players, key=lambda p: p['wards_placed'])
+    return max_player['name']
+
+def q3():
+    """Count how many players bought at least 15 control wards."""
+    return sum(1 for p in players if p['control_wards'] >= 15)
+
+if __name__ == "__main__":
+    print(f"Q1 (Vision score difference): {q1()}")
+    print(f"Q2 (Most wards placed): {q2()}")
+    print(f"Q3 (Players with 15+ control wards): {q3()}")
+```

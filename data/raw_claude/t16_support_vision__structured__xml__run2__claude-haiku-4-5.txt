@@ -1,0 +1,46 @@
+```python
+data = [
+    {"player": "J3rkie", "team": "ZennIT", "result": "loss", "vision_score": 80, "wards_placed": 44, "control_wards": 12},
+    {"player": "JACTROLL", "team": "Zero Tenacity", "result": "loss", "vision_score": 107, "wards_placed": 47, "control_wards": 7},
+    {"player": "Peto", "team": "Nightbirds", "result": "loss", "vision_score": 220, "wards_placed": 114, "control_wards": 27},
+    {"player": "Rekkles", "team": "Los Ratones", "result": "win", "vision_score": 252, "wards_placed": 119, "control_wards": 32},
+    {"player": "Prime", "team": "Ici Japon Corp. Esport", "result": "loss", "vision_score": 112, "wards_placed": 58, "control_wards": 23},
+    {"player": "Shredder", "team": "Macko Esports", "result": "win", "vision_score": 114, "wards_placed": 49, "control_wards": 8},
+    {"player": "Nsurr", "team": "Karmine Corp Blue", "result": "win", "vision_score": 141, "wards_placed": 53, "control_wards": 13},
+    {"player": "Tockimo", "team": "E WIE EINFACH E-SPORTS", "result": "loss", "vision_score": 113, "wards_placed": 71, "control_wards": 16},
+    {"player": "Piero", "team": "Karmine Corp Blue", "result": "win", "vision_score": 112, "wards_placed": 56, "control_wards": 13},
+    {"player": "Centu", "team": "Gamespace Mediterranean College Esports", "result": "loss", "vision_score": 140, "wards_placed": 58, "control_wards": 16},
+    {"player": "Mahonix", "team": "GMBLERS Esports", "result": "loss", "vision_score": 91, "wards_placed": 46, "control_wards": 16},
+    {"player": "Visdom", "team": "Kaufland Hangry Knights", "result": "loss", "vision_score": 96, "wards_placed": 70, "control_wards": 16},
+    {"player": "Brizz", "team": "aNc Legends", "result": "loss", "vision_score": 99, "wards_placed": 51, "control_wards": 16},
+    {"player": "Vlaren", "team": "SPIKE Syndicate", "result": "loss", "vision_score": 86, "wards_placed": 45, "control_wards": 10},
+    {"player": "Speedy1", "team": "Team Insidious", "result": "loss", "vision_score": 95, "wards_placed": 43, "control_wards": 12},
+    {"player": "Max1", "team": "eSuba", "result": "loss", "vision_score": 50, "wards_placed": 30, "control_wards": 8},
+    {"player": "Rutzou", "team": "Odivelas Sports Club", "result": "win", "vision_score": 111, "wards_placed": 48, "control_wards": 13},
+    {"player": "Zoelys", "team": "Galions", "result": "win", "vision_score": 59, "wards_placed": 26, "control_wards": 9},
+    {"player": "Sparz", "team": "GnG Amazigh", "result": "win", "vision_score": 144, "wards_placed": 71, "control_wards": 16},
+    {"player": "Farfetch", "team": "ULF Esports", "result": "win", "vision_score": 121, "wards_placed": 54, "control_wards": 12},
+]
+
+def q1():
+    wins = [player for player in data if player["result"] == "win"]
+    losses = [player for player in data if player["result"] == "loss"]
+    
+    avg_vision_wins = sum(player["vision_score"] for player in wins) / len(wins)
+    avg_vision_losses = sum(player["vision_score"] for player in losses) / len(losses)
+    
+    return avg_vision_wins - avg_vision_losses
+
+def q2():
+    player_with_most_wards = max(data, key=lambda x: x["wards_placed"])
+    return player_with_most_wards["player"]
+
+def q3():
+    count = sum(1 for player in data if player["control_wards"] >= 15)
+    return count
+
+if __name__ == "__main__":
+    print(f"Q1: {q1()}")
+    print(f"Q2: {q2()}")
+    print(f"Q3: {q3()}")
+```

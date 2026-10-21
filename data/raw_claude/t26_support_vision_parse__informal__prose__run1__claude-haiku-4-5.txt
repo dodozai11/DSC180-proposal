@@ -1,0 +1,180 @@
+
+```python
+import re
+from anthropic import Anthropic
+
+client = Anthropic()
+
+def q1(text: str) -> float:
+    """Return the average vision score of winners minus average of losers."""
+    conversation_history = []
+    
+    # First turn: ask Claude to parse the data
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Parse this League of Legends match data and extract for each player:
+1. Their name
+2. Whether they won or lost
+3. Their vision score
+
+Data:
+{text}
+
+Return the data as a Python list of dictionaries with keys: 'name', 'result', 'vision_score'
+Only return the Python code to create this list, nothing else."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=2000,
+        messages=conversation_history
+    )
+    
+    assistant_message = response.content[0].text
+    conversation_history.append({
+        "role": "assistant",
+        "content": assistant_message
+    })
+    
+    # Execute the code to get the parsed data
+    namespace = {}
+    exec(assistant_message, namespace)
+    players = namespace.get('players', [])
+    
+    # Second turn: ask Claude to calculate the averages
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Given this parsed player data:
+{players}
+
+Calculate:
+1. Average vision score for players who won
+2. Average vision score for players who lost
+3. Return the difference (winners_avg - losers_avg)
+
+Return only a single float number."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=100,
+        messages=conversation_history
+    )
+    
+    result_text = response.content[0].text.strip()
+    return float(result_text)
+
+
+def q2(text: str) -> str:
+    """Return the name of the player who placed the most wards."""
+    conversation_history = []
+    
+    # First turn: ask Claude to parse the data
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Parse this League of Legends match data and extract for each player:
+1. Their name
+2. Number of wards placed
+
+Data:
+{text}
+
+Return the data as a Python list of dictionaries with keys: 'name', 'wards_placed'
+Only return the Python code to create this list, nothing else."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=2000,
+        messages=conversation_history
+    )
+    
+    assistant_message = response.content[0].text
+    conversation_history.append({
+        "role": "assistant",
+        "content": assistant_message
+    })
+    
+    # Execute the code to get the parsed data
+    namespace = {}
+    exec(assistant_message, namespace)
+    players = namespace.get('players', [])
+    
+    # Second turn: ask Claude to find the player with most wards
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Given this parsed player data:
+{players}
+
+Find the player who placed the most wards and return only their name."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=100,
+        messages=conversation_history
+    )
+    
+    return response.content[0].text.strip()
+
+
+def q3(text: str) -> int:
+    """Count how many players bought at least 15 control wards."""
+    conversation_history = []
+    
+    # First turn: ask Claude to parse the data
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Parse this League of Legends match data and extract for each player:
+1. Their name
+2. Number of control wards bought
+
+Data:
+{text}
+
+Return the data as a Python list of dictionaries with keys: 'name', 'control_wards_bought'
+Only return the Python code to create this list, nothing else."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=2000,
+        messages=conversation_history
+    )
+    
+    assistant_message = response.content[0].text
+    conversation_history.append({
+        "role": "assistant",
+        "content": assistant_message
+    })
+    
+    # Execute the code to get the parsed data
+    namespace = {}
+    exec(assistant_message, namespace)
+    players = namespace.get('players', [])
+    
+    # Second turn: ask Claude to count players with at least 15 control wards
+    conversation_history.append({
+        "role": "user",
+        "content": f"""Given this parsed player data:
+{players}
+
+Count how many players bought at least 15 control wards and return only the count as an integer."""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=100,
+        messages=conversation_history
+    )
+    
+    return int(response.content[0].text.strip())
+
+
+if __name__ == "__main__":
+    sample_data = """J3rkie of ZennIT lost with a vision score of 80, 44 wards placed and 12 control wards bought. JACTROLL of Zero Tenacity lost with a vision score of 107, 47 wards placed and 7 control wards bought. Peto of Nightbirds lost with a vision score of 220, 114 wards placed and 27 control wards bought. Rekkles of Los Ratones won with a vision score of 252, 119 wards placed and 32 control wards bought. Prime of Ici Japon Corp. Esport lost with a vision score of 112, 58 wards placed and 23 control wards bought. Shredder of Macko Esports won with a vision score of 114, 49 wards placed and 8 control wards bought. Nsurr of Karmine Corp Blue won with a vision score of 141, 53 wards placed and 13 control wards bought. Tockimo of E WIE EINFACH E-SPORTS lost with a vision score of 113, 71 wards placed and 16 control wards bought. Piero of Karmine Corp Blue won with a vision score of 112, 56 wards placed and 13 control wards bought. Centu of Gamespace Mediterranean College Esports lost with a vision score of 140, 58 wards placed and 16 control wards bought. Mahonix of GMBLERS Esports lost with a vision score of 91, 46 wards placed and 16 control wards bought. Visdom of Kaufland Hangry Knights lost with a vision score of 96, 70 wards placed and 16 control wards bought. Brizz of aNc Legends lost with a vision score of 99, 51 wards placed and 16 control wards bought. Vlaren of SPIKE Syndicate lost with a vision score of 86, 45 wards placed and 10 control wards bought. Speedy1 of Team Insidious lost with a vision score of 95, 43 wards placed and 12 control wards bought. Max1 of eSuba lost with a vision score of 50, 30 wards placed and 8 control wards bought. Rutzou of Odivelas Sports Club won with a vision score of 111, 48 wards placed and 13 control wards bought. Zoelys of Galions won with a vision score of 59, 26 wards placed and 9 control wards bought. Sparz of GnG Amazigh won with a vision score of 144, 71 wards placed and 16 control wards bought. Farfetch of ULF Esports won with a vision score of 121, 54 wards placed and 12 control wards bought."""
+    
+    print("Q1 (Vision score difference):", q1(sample_data))
+    print("Q2 (Most wards placed):", q2(sample_data))
+    print("Q3 (Control wards >= 15):", q3(sample_data))
+```

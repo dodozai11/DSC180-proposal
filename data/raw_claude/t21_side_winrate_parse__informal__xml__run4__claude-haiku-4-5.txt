@@ -1,0 +1,85 @@
+
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Return the win rate of blue-side teams as a number between 0 and 1."""
+    blue_wins = 0
+    blue_total = 0
+    
+    # Find all rows with side='blue'
+    pattern = r'<side>blue</side>.*?<result>(\w+)</result>'
+    matches = re.findall(pattern, text)
+    
+    for result in matches:
+        blue_total += 1
+        if result == 'win':
+            blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    """Return the average length in minutes of games the red-side team won."""
+    red_win_times = []
+    
+    # Find all games
+    game_pattern = r'<game>(\w+)</game>.*?<team>(.*?)</team>.*?<side>red</side>.*?<result>(\w+)</result>.*?<game_minutes>([\d.]+)</game_minutes>'
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team, result, minutes = match
+        if result == 'win':
+            red_win_times.append(float(minutes))
+    
+    if len(red_win_times) == 0:
+        return 0
+    return sum(red_win_times) / len(red_win_times)
+
+
+def q3(text):
+    """Return the name of the team with the most wins."""
+    team_wins = defaultdict(int)
+    
+    # Find all rows with result='win'
+    pattern = r'<team>(.*?)</team>.*?<result>win</result>'
+    matches = re.findall(pattern, text)
+    
+    for team in matches:
+        team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+
+
+# Test with the provided data
+test_data = """  <row><game>G01</game><team>DN Freecs</team><side>blue</side><result>loss</result><game_minutes>34.1</game_minutes></row>
+  <row><game>G01</game><team>Dplus KIA</team><side>red</side><result>win</result><game_minutes>34.1</game_minutes></row>
+  <row><game>G02</game><team>BNK FEARX</team><side>blue</side><result>loss</result><game_minutes>40.1</game_minutes></row>
+  <row><game>G02</game><team>Gen.G</team><side>red</side><result>win</result><game_minutes>40.1</game_minutes></row>
+  <row><game>G03</game><team>Dplus KIA</team><side>blue</side><result>win</result><game_minutes>27.5</game_minutes></row>
+  <row><game>G03</game><team>BNK FEARX</team><side>red</side><result>loss</result><game_minutes>27.5</game_minutes></row>
+  <row><game>G04</game><team>DRX</team><side>blue</side><result>win</result><game_minutes>30.2</game_minutes></row>
+  <row><game>G04</game><team>DN Freecs</team><side>red</side><result>loss</result><game_minutes>30.2</game_minutes></row>
+  <row><game>G05</game><team>Hanwha Life Esports</team><side>blue</side><result>win</result><game_minutes>39.0</game_minutes></row>
+  <row><game>G05</game><team>Gen.G</team><side>red</side><result>loss</result><game_minutes>39.0</game_minutes></row>
+  <row><game>G06</game><team>Dplus KIA</team><side>blue</side><result>loss</result><game_minutes>30.0</game_minutes></row>
+  <row><game>G06</game><team>Nongshim RedForce</team><side>red</side><result>win</result><game_minutes>30.0</game_minutes></row>
+  <row><game>G07</game><team>DN Freecs</team><side>blue</side><result>win</result><game_minutes>33.9</game_minutes></row>
+  <row><game>G07</game><team>OKSavingsBank BRION</team><side>red</side><result>loss</result><game_minutes>33.9</game_minutes></row>
+  <row><game>G08</game><team>Dplus KIA</team><side>blue</side><result>win</result><game_minutes>37.2</game_minutes></row>
+  <row><game>G08</game><team>KT Rolster</team><side>red</side><result>loss</result><game_minutes>37.2</game_minutes></row>
+  <row><game>G09</game><team>Gen.G</team><side>blue</side><result>win</result><game_minutes>28.9</game_minutes></row>
+  <row><game>G09</game><team>Hanwha Life Esports</team><side>red</side><result>loss</result><game_minutes>28.9</game_minutes></row>
+  <row><game>G10</game><team>KT Rolster</team><side>blue</side><result>loss</result><game_minutes>35.1</game_minutes></row>
+  <row><game>G10</game><team>Hanwha Life Esports</team><side>red</side><result>win</result><game_minutes>35.1</game_minutes></row>"""
+
+print(f"Q1 - Blue-side win rate: {q1(test_data)}")
+print(f"Q2 - Average game length for red-side wins: {q2(test_data)}")
+print(f"Q3 - Team with most wins: {q3(test_data)}")
+```

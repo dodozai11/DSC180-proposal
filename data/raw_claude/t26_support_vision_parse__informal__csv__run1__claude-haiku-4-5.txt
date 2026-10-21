@@ -1,0 +1,99 @@
+
+```python
+import anthropic
+import json
+
+
+def q1(text: str) -> float:
+    """Return the average vision score of winners minus average of losers."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and calculate the average vision score of players who won minus the average vision score of players who lost. Return ONLY a single number (can be decimal).
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2(text: str) -> str:
+    """Return the name of the player who placed the most wards."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and find the player who placed the most wards. Return ONLY the player's name, nothing else.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return result
+
+
+def q3(text: str) -> int:
+    """Count how many players bought at least 15 control wards."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and count how many players bought at least 15 control wards. Return ONLY a single integer.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return int(result)
+
+
+if __name__ == "__main__":
+    sample_data = """player,team,result,vision_score,wards_placed,control_wards
+J3rkie,ZennIT,loss,80,44,12
+JACTROLL,Zero Tenacity,loss,107,47,7
+Peto,Nightbirds,loss,220,114,27
+Rekkles,Los Ratones,win,252,119,32
+Prime,Ici Japon Corp. Esport,loss,112,58,23
+Shredder,Macko Esports,win,114,49,8
+Nsurr,Karmine Corp Blue,win,141,53,13
+Tockimo,E WIE EINFACH E-SPORTS,loss,113,71,16
+Piero,Karmine Corp Blue,win,112,56,13
+Centu,Gamespace Mediterranean College Esports,loss,140,58,16
+Mahonix,GMBLERS Esports,loss,91,46,16
+Visdom,Kaufland Hangry Knights,loss,96,70,16
+Brizz,aNc Legends,loss,99,51,16
+Vlaren,SPIKE Syndicate,loss,86,45,10
+Speedy1,Team Insidious,loss,95,43,12
+Max1,eSuba,loss,50,30,8
+Rutzou,Odivelas Sports Club,win,111,48,13
+Zoelys,Galions,win,59,26,9
+Sparz,GnG Amazigh,win,144,71,16
+Farfetch,ULF Esports,win,121,54,12"""
+    
+    print("Q1 (avg vision winner - avg vision loser):", q1(sample_data))
+    print("Q2 (player with most wards):", q2(sample_data))
+    print("Q3 (players with 15+ control wards):", q3(sample_data))
+```

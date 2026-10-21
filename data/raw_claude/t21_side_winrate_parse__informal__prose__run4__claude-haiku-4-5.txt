@@ -1,0 +1,126 @@
+
+```python
+import re
+from anthropic import Anthropic
+
+client = Anthropic()
+
+def parse_match_data(text):
+    """Parse match data from the text format."""
+    matches = []
+    pattern = r'In game (\w+), (.+?) played on the (blue|red) side and (won|lost); the game lasted ([\d.]+) minutes\.'
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team = match.group(2)
+        side = match.group(3)
+        result = match.group(4)
+        duration = float(match.group(5))
+        
+        matches.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'result': result,
+            'duration': duration
+        })
+    
+    return matches
+
+def q1(text):
+    """Return the win rate of blue-side teams as a number between 0 and 1."""
+    matches = parse_match_data(text)
+    
+    blue_matches = [m for m in matches if m['side'] == 'blue']
+    if not blue_matches:
+        return 0.0
+    
+    blue_wins = sum(1 for m in blue_matches if m['result'] == 'won')
+    return blue_wins / len(blue_matches)
+
+def q2(text):
+    """Return the average length in minutes of games the red-side team won."""
+    matches = parse_match_data(text)
+    
+    red_wins = [m for m in matches if m['side'] == 'red' and m['result'] == 'won']
+    if not red_wins:
+        return 0.0
+    
+    total_duration = sum(m['duration'] for m in red_wins)
+    return total_duration / len(red_wins)
+
+def q3(text):
+    """Return the name of the team with the most wins."""
+    matches = parse_match_data(text)
+    
+    team_wins = {}
+    for m in matches:
+        if m['result'] == 'won':
+            team_wins[m['team']] = team_wins.get(m['team'], 0) + 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+
+def interactive_analysis():
+    """Interactive analysis using Claude API for verification."""
+    conversation_history = []
+    
+    sample_text = """In game G01, DN Freecs played on the blue side and lost; the game lasted 34.1 minutes. In game G01, Dplus KIA played on the red side and won; the game lasted 34.1 minutes. In game G02, BNK FEARX played on the blue side and lost; the game lasted 40.1 minutes. In game G02, Gen.G played on the red side and won; the game lasted 40.1 minutes. In game G03, Dplus KIA played on the blue side and won; the game lasted 27.5 minutes. In game G03, BNK FEARX played on the red side and lost; the game lasted 27.5 minutes. In game G04, DRX played on the blue side and won; the game lasted 30.2 minutes. In game G04, DN Freecs played on the red side and lost; the game lasted 30.2 minutes. In game G05, Hanwha Life Esports played on the blue side and won; the game lasted 39.0 minutes. In game G05, Gen.G played on the red side and lost; the game lasted 39.0 minutes. In game G06, Dplus KIA played on the blue side and lost; the game lasted 30.0 minutes. In game G06, Nongshim RedForce played on the red side and won; the game lasted 30.0 minutes. In game G07, DN Freecs played on the blue side and won; the game lasted 33.9 minutes. In game G07, OKSavingsBank BRION played on the red side and lost; the game lasted 33.9 minutes. In game G08, Dplus KIA played on the blue side and won; the game lasted 37.2 minutes. In game G08, KT Rolster played on the red side and lost; the game lasted 37.2 minutes. In game G09, Gen.G played on the blue side and won; the game lasted 28.9 minutes. In game G09, Hanwha Life Esports played on the red side and lost; the game lasted 28.9 minutes. In game G10, KT Rolster played on the blue side and lost; the game lasted 35.1 minutes. In game G10, Hanwha Life Esports played on the red side and won; the game lasted 35.1 minutes."""
+    
+    # Get answers from our functions
+    answer1 = q1(sample_text)
+    answer2 = q2(sample_text)
+    answer3 = q3(sample_text)
+    
+    print(f"Q1 - Blue side win rate: {answer1}")
+    print(f"Q2 - Average game length for red-side wins: {answer2}")
+    print(f"Q3 - Team with most wins: {answer3}")
+    
+    # Use Claude to verify our answers
+    conversation_history.append({
+        "role": "user",
+        "content": f"""I have parsed League of Legends esports match data. Here are my answers:
+Q1 - Blue side win rate: {answer1}
+Q2 - Average game length for red-side wins: {answer2:.1f} minutes
+Q3 - Team with most wins: {answer3}
+
+Can you verify these are correct based on this data:
+{sample_text}"""
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        system="You are a helpful assistant that verifies data analysis results.",
+        messages=conversation_history
+    )
+    
+    verification = response.content[0].text
+    print(f"\nClaude's verification:\n{verification}")
+    
+    conversation_history.append({
+        "role": "assistant",
+        "content": verification
+    })
+    
+    # Follow-up question
+    conversation_history.append({
+        "role": "user",
+        "content": "What insights can you draw from this data about blue side vs red side performance?"
+    })
+    
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        system="You are a helpful assistant analyzing League of Legends esports data.",
+        messages=conversation_history
+    )
+    
+    insights = response.content[0].text
+    print(f"\nInsights:\n{insights}")
+
+if __name__ == "__main__":
+    interactive_analysis()
+```

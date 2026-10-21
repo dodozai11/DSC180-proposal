@@ -1,0 +1,80 @@
+
+```python
+import re
+import anthropic
+
+
+def q1(text: str) -> float:
+    """Return the average vision score of winners minus average vision score of losers."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate:
+The average vision score of players who won MINUS the average vision score of players who lost.
+
+Data:
+{text}
+
+Return only the numerical result as a decimal number, nothing else."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2(text: str) -> str:
+    """Return the name of the player who placed the most wards."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find:
+The name of the player who placed the most wards.
+
+Data:
+{text}
+
+Return only the player's name, nothing else."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return result
+
+
+def q3(text: str) -> int:
+    """Count how many players bought at least 15 control wards."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and count:
+How many players bought at least 15 control wards.
+
+Data:
+{text}
+
+Return only the count as a number, nothing else."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return int(result)
+```

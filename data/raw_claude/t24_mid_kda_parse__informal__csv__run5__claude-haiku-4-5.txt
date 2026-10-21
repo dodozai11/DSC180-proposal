@@ -1,0 +1,89 @@
+
+```python
+import anthropic
+import csv
+import io
+
+
+def q1(text: str) -> str:
+    """Find the player with the highest KDA (kills + assists) / max(deaths, 1)"""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    max_kda = -1
+    best_player = None
+    
+    for row in reader:
+        kills = int(row['kills'])
+        deaths = int(row['deaths'])
+        assists = int(row['assists'])
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = row['player']
+    
+    return best_player
+
+
+def q2(text: str) -> float:
+    """Calculate the average number of kills in games that were won"""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    total_kills = 0
+    win_count = 0
+    
+    for row in reader:
+        if row['result'] == 'win':
+            total_kills += int(row['kills'])
+            win_count += 1
+    
+    if win_count == 0:
+        return 0.0
+    
+    return total_kills / win_count
+
+
+def q3(text: str) -> str:
+    """Find the champion that was picked the most"""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    champion_counts = {}
+    
+    for row in reader:
+        champion = row['champion']
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    most_picked = max(champion_counts, key=champion_counts.get)
+    return most_picked
+
+
+# Test with the provided data
+sample_data = """player,team,champion,kills,deaths,assists,result
+Nemesis,Los Ratones,Galio,2,0,14,win
+Harbo,Lundqvist Lightside,Ryze,2,4,4,loss
+Ronaldo,Verdant,Yone,0,5,2,loss
+Perkz,Ruddy Esports,Orianna,3,3,3,loss
+Lofti,Venomcrest Esports,Orianna,5,2,8,win
+Bissejr15,DMG Esports,Hwei,5,1,1,loss
+Zuhy,KAOS e-sport,Azir,0,4,1,loss
+D1verse,Rich Gang,Vel'Koz,2,8,2,loss
+Knighter,Venomcrest Esports,Tristana,9,2,8,win
+Sencux,Verdant,Aurora,6,0,7,win
+Zoiren,KAOS e-sport,Aurora,2,7,3,loss
+Zwyroo,NORD Esports,Ahri,6,0,10,win
+Congolese,Ruddy Esports,Orianna,1,4,5,loss
+Scuffed,KAOS e-sport,Ryze,5,6,16,loss
+Air,Venomcrest Esports,Taliyah,9,6,21,win
+Hunt,Bulldog Esports,Akali,7,3,3,loss
+Forslund,B2U,Corki,10,0,2,win
+Valiant,CNG Royal,Yasuo,2,5,3,loss
+Daggur,AaB Esport,Hwei,7,5,15,win
+qqr,Brod n Friends,Akali,11,3,3,loss"""
+
+print(f"Q1 - Player with highest KDA: {q1(sample_data)}")
+print(f"Q2 - Average kills in won games: {q2(sample_data)}")
+print(f"Q3 - Most picked champion: {q3(sample_data)}")
+```

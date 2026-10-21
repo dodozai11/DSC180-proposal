@@ -1,0 +1,119 @@
+
+```python
+import anthropic
+from collections import defaultdict
+
+# Data as Python data structures
+data = [
+    {"player": "Forest", "champion": "Viego", "result": "win", "deaths": 3},
+    {"player": "Popon", "champion": "Vi", "result": "win", "deaths": 0},
+    {"player": "Racon", "champion": "Nocturne", "result": "win", "deaths": 1},
+    {"player": "HALdesu", "champion": "Bel'Veth", "result": "loss", "deaths": 4},
+    {"player": "Norwegian", "champion": "Viego", "result": "win", "deaths": 0},
+    {"player": "VEL Skinny", "champion": "Vi", "result": "loss", "deaths": 5},
+    {"player": "Brucee", "champion": "Skarner", "result": "win", "deaths": 1},
+    {"player": "89", "champion": "Vi", "result": "loss", "deaths": 6},
+    {"player": "DM SUISEI", "champion": "Mordekaiser", "result": "win", "deaths": 2},
+    {"player": "RPG Shawshank", "champion": "Xin Zhao", "result": "loss", "deaths": 5},
+    {"player": "EL", "champion": "Zyra", "result": "win", "deaths": 0},
+    {"player": "DG hatinyang", "champion": "Xin Zhao", "result": "win", "deaths": 4},
+    {"player": "Sassappel", "champion": "Vi", "result": "win", "deaths": 3},
+    {"player": "Kiwi", "champion": "Viego", "result": "win", "deaths": 3},
+    {"player": "Mutton", "champion": "Vi", "result": "loss", "deaths": 6},
+    {"player": "DG socceryakyu", "champion": "Nocturne", "result": "win", "deaths": 3},
+    {"player": "HNS Skinny", "champion": "Xin Zhao", "result": "loss", "deaths": 6},
+    {"player": "VLY hachim1", "champion": "Vi", "result": "win", "deaths": 5},
+    {"player": "SQG Lunatic", "champion": "Yone", "result": "loss", "deaths": 5},
+    {"player": "QTD Van1", "champion": "Vi", "result": "win", "deaths": 2},
+]
+
+def q1():
+    """Count how many different champions were played"""
+    champions = set()
+    for row in data:
+        champions.add(row["champion"])
+    return len(champions)
+
+def q2():
+    """Among champions played at least twice, return the one with the best win rate"""
+    champion_stats = defaultdict(lambda: {"wins": 0, "losses": 0})
+    
+    for row in data:
+        champion = row["champion"]
+        if row["result"] == "win":
+            champion_stats[champion]["wins"] += 1
+        else:
+            champion_stats[champion]["losses"] += 1
+    
+    # Filter champions played at least twice
+    champions_twice = {champ: stats for champ, stats in champion_stats.items() 
+                       if stats["wins"] + stats["losses"] >= 2}
+    
+    if not champions_twice:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = None
+    best_win_rate = -1
+    
+    for champ, stats in champions_twice.items():
+        total_games = stats["wins"] + stats["losses"]
+        win_rate = stats["wins"] / total_games
+        if win_rate > best_win_rate:
+            best_win_rate = win_rate
+            best_champion = champ
+    
+    return best_champion
+
+def q3():
+    """Average number of deaths in games that were lost"""
+    losses = [row["deaths"] for row in data if row["result"] == "loss"]
+    if not losses:
+        return 0
+    return sum(losses) / len(losses)
+
+def main():
+    client = anthropic.Anthropic()
+    
+    # Prepare the data summary for Claude
+    data_summary = f"""
+    League of Legends esports match data (20 rows):
+    - Total matches: {len(data)}
+    - Wins: {sum(1 for row in data if row['result'] == 'win')}
+    - Losses: {sum(1 for row in data if row['result'] == 'loss')}
+    
+    Questions to answer:
+    1. How many different champions were played?
+    2. Among champions played at least twice, which has the best win rate?
+    3. What is the average number of deaths in games that were lost?
+    """
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Based on this League of Legends esports data analysis:
+
+{data_summary}
+
+Using Python data analysis:
+- Q1: Different champions count = {q1()}
+- Q2: Champion with best win rate (played 2+ times) = {q2()}
+- Q3: Average deaths in losses = {q3():.2f}
+
+Please verify these results make sense and provide a brief analysis of the data patterns."""
+            }
+        ]
+    )
+    
+    print("Q1 - Different champions played:", q1())
+    print("Q2 - Champion with best win rate (2+ games):", q2())
+    print("Q3 - Average deaths in losses:", f"{q3():.2f}")
+    print("\nClaude's Analysis:")
+    print(message.content[0].text)
+
+if __name__ == "__main__":
+    main()
+```

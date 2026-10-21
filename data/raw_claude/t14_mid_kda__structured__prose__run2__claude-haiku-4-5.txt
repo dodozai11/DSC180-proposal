@@ -1,0 +1,59 @@
+```python
+# Data structure containing all player match data
+players_data = [
+    {"name": "Nemesis", "team": "Los Ratones", "champion": "Galio", "kills": 2, "deaths": 0, "assists": 14, "won": True},
+    {"name": "Harbo", "team": "Lundqvist Lightside", "champion": "Ryze", "kills": 2, "deaths": 4, "assists": 4, "won": False},
+    {"name": "Ronaldo", "team": "Verdant", "champion": "Yone", "kills": 0, "deaths": 5, "assists": 2, "won": False},
+    {"name": "Perkz", "team": "Ruddy Esports", "champion": "Orianna", "kills": 3, "deaths": 3, "assists": 3, "won": False},
+    {"name": "Lofti", "team": "Venomcrest Esports", "champion": "Orianna", "kills": 5, "deaths": 2, "assists": 8, "won": True},
+    {"name": "Bissejr15", "team": "DMG Esports", "champion": "Hwei", "kills": 5, "deaths": 1, "assists": 1, "won": False},
+    {"name": "Zuhy", "team": "KAOS e-sport", "champion": "Azir", "kills": 0, "deaths": 4, "assists": 1, "won": False},
+    {"name": "D1verse", "team": "Rich Gang", "champion": "Vel'Koz", "kills": 2, "deaths": 8, "assists": 2, "won": False},
+    {"name": "Knighter", "team": "Venomcrest Esports", "champion": "Tristana", "kills": 9, "deaths": 2, "assists": 8, "won": True},
+    {"name": "Sencux", "team": "Verdant", "champion": "Aurora", "kills": 6, "deaths": 0, "assists": 7, "won": True},
+    {"name": "Zoiren", "team": "KAOS e-sport", "champion": "Aurora", "kills": 2, "deaths": 7, "assists": 3, "won": False},
+    {"name": "Zwyroo", "team": "NORD Esports", "champion": "Ahri", "kills": 6, "deaths": 0, "assists": 10, "won": True},
+    {"name": "Congolese", "team": "Ruddy Esports", "champion": "Orianna", "kills": 1, "deaths": 4, "assists": 5, "won": False},
+    {"name": "Scuffed", "team": "KAOS e-sport", "champion": "Ryze", "kills": 5, "deaths": 6, "assists": 16, "won": False},
+    {"name": "Air", "team": "Venomcrest Esports", "champion": "Taliyah", "kills": 9, "deaths": 6, "assists": 21, "won": True},
+    {"name": "Hunt", "team": "Bulldog Esports", "champion": "Akali", "kills": 7, "deaths": 3, "assists": 3, "won": False},
+    {"name": "Forslund", "team": "B2U", "champion": "Corki", "kills": 10, "deaths": 0, "assists": 2, "won": True},
+    {"name": "Valiant", "team": "CNG Royal", "champion": "Yasuo", "kills": 2, "deaths": 5, "assists": 3, "won": False},
+    {"name": "Daggur", "team": "AaB Esport", "champion": "Hwei", "kills": 7, "deaths": 5, "assists": 15, "won": True},
+    {"name": "qqr", "team": "Brod n Friends", "champion": "Akali", "kills": 11, "deaths": 3, "assists": 3, "won": False},
+]
+
+def q1():
+    """Returns the name of the player with the highest KDA"""
+    def calculate_kda(player):
+        kda = (player["kills"] + player["assists"]) / max(player["deaths"], 1)
+        return kda
+    
+    highest_kda_player = max(players_data, key=calculate_kda)
+    return highest_kda_player["name"]
+
+def q2():
+    """Returns the average number of kills in games that were won"""
+    won_games = [player for player in players_data if player["won"]]
+    if not won_games:
+        return 0
+    
+    total_kills = sum(player["kills"] for player in won_games)
+    average_kills = total_kills / len(won_games)
+    return average_kills
+
+def q3():
+    """Returns the name of the most-picked champion"""
+    champion_counts = {}
+    for player in players_data:
+        champion = player["champion"]
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    most_picked_champion = max(champion_counts, key=champion_counts.get)
+    return most_picked_champion
+
+# Print results
+print(f"Q1 - Player with highest KDA: {q1()}")
+print(f"Q2 - Average kills in won games: {q2()}")
+print(f"Q3 - Most-picked champion: {q3()}")
+```

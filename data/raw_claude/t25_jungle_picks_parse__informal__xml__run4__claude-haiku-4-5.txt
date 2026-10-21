@@ -1,0 +1,94 @@
+
+```python
+import anthropic
+import xml.etree.ElementTree as ET
+
+
+def q1(text: str) -> int:
+    """Count how many different champions were played."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    champions = set()
+    for row in root.findall("row"):
+        champion = row.find("champion").text
+        champions.add(champion)
+    return len(champions)
+
+
+def q2(text: str) -> str | None:
+    """Return the champion with the best win rate among those played at least twice, or None."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    champion_stats = {}
+    for row in root.findall("row"):
+        champion = row.find("champion").text
+        result = row.find("result").text
+        
+        if champion not in champion_stats:
+            champion_stats[champion] = {"wins": 0, "total": 0}
+        
+        champion_stats[champion]["total"] += 1
+        if result == "win":
+            champion_stats[champion]["wins"] += 1
+    
+    # Filter champions played at least twice
+    candidates = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats["total"] >= 2
+    }
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        candidates.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"]
+    )
+    
+    return best_champion[0]
+
+
+def q3(text: str) -> float:
+    """Return the average number of deaths in games that were lost."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    losses = []
+    for row in root.findall("row"):
+        result = row.find("result").text
+        if result == "loss":
+            deaths = int(row.find("deaths").text)
+            losses.append(deaths)
+    
+    if not losses:
+        return 0.0
+    
+    return sum(losses) / len(losses)
+
+
+# Test with the provided data
+if __name__ == "__main__":
+    test_data = """<row><player>Forest</player><champion>Viego</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Popon</player><champion>Vi</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>Racon</player><champion>Nocturne</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>HALdesu</player><champion>Bel'Veth</champion><result>loss</result><deaths>4</deaths></row>
+  <row><player>Norwegian</player><champion>Viego</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>VEL Skinny</player><champion>Vi</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>Brucee</player><champion>Skarner</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>89</player><champion>Vi</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>DM SUISEI</player><champion>Mordekaiser</champion><result>win</result><deaths>2</deaths></row>
+  <row><player>RPG Shawshank</player><champion>Xin Zhao</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>EL</player><champion>Zyra</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>DG hatinyang</player><champion>Xin Zhao</champion><result>win</result><deaths>4</deaths></row>
+  <row><player>Sassappel</player><champion>Vi</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Kiwi</player><champion>Viego</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Mutton</player><champion>Vi</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>DG socceryakyu</player><champion>Nocturne</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>HNS Skinny</player><champion>Xin Zhao</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>VLY hachim1</player><champion>Vi</champion><result>win</result><deaths>5</deaths></row>
+  <row><player>SQG Lunatic</player><champion>Yone</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>QTD Van1</player><champion>Vi</champion><result>win</result><deaths>2</deaths></row>"""
+    
+    print(f"Q1 (Different champions): {q1(test_data)}")
+    print(f"Q2 (Best win rate champion played 2+ times): {q2(test_data)}")
+    print(f"Q3 (Average deaths in losses): {q3(test_data):.2f}")
+```

@@ -1,0 +1,85 @@
+
+```python
+import anthropic
+import json
+
+# Data as Python data structures
+data = [
+    {"game": "G01", "team": "Gen.G Scholars", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 2, "towers": 11},
+    {"game": "G01", "team": "DRX Academy", "result": "loss", "first_dragon": "yes", "dragons": 2, "barons": 0, "towers": 1},
+    {"game": "G02", "team": "DRX Academy", "result": "loss", "first_dragon": "no", "dragons": 0, "barons": 0, "towers": 0},
+    {"game": "G02", "team": "Dplus KIA Youth", "result": "win", "first_dragon": "yes", "dragons": 4, "barons": 0, "towers": 8},
+    {"game": "G03", "team": "Hanwha Life Esports Academy", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 1, "towers": 9},
+    {"game": "G03", "team": "DN Freecs Academy", "result": "loss", "first_dragon": "yes", "dragons": 3, "barons": 0, "towers": 5},
+    {"game": "G04", "team": "Hanwha Life Esports Academy", "result": "loss", "first_dragon": "no", "dragons": 1, "barons": 0, "towers": 0},
+    {"game": "G04", "team": "KT Rolster Academy", "result": "win", "first_dragon": "yes", "dragons": 4, "barons": 1, "towers": 10},
+    {"game": "G05", "team": "DN Freecs Academy", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 1, "towers": 10},
+    {"game": "G05", "team": "DRX Academy", "result": "loss", "first_dragon": "yes", "dragons": 2, "barons": 0, "towers": 4},
+    {"game": "G06", "team": "Dplus KIA Youth", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 1, "towers": 8},
+    {"game": "G06", "team": "Nongshim RedForce Academy", "result": "loss", "first_dragon": "yes", "dragons": 3, "barons": 0, "towers": 4},
+    {"game": "G07", "team": "DRX Academy", "result": "loss", "first_dragon": "yes", "dragons": 1, "barons": 0, "towers": 2},
+    {"game": "G07", "team": "Hanwha Life Esports Academy", "result": "win", "first_dragon": "no", "dragons": 4, "barons": 1, "towers": 9},
+    {"game": "G08", "team": "Hanwha Life Esports Academy", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 1, "towers": 10},
+    {"game": "G08", "team": "Nongshim RedForce Academy", "result": "loss", "first_dragon": "yes", "dragons": 2, "barons": 0, "towers": 2},
+    {"game": "G09", "team": "DN Freecs Academy", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 0, "towers": 9},
+    {"game": "G09", "team": "DRX Academy", "result": "loss", "first_dragon": "yes", "dragons": 1, "barons": 0, "towers": 2},
+    {"game": "G10", "team": "Gen.G Scholars", "result": "win", "first_dragon": "no", "dragons": 2, "barons": 1, "towers": 11},
+    {"game": "G10", "team": "DN Freecs Academy", "result": "loss", "first_dragon": "yes", "dragons": 2, "barons": 0, "towers": 4},
+]
+
+def q1():
+    """Return the win rate of teams that took the first dragon"""
+    first_dragon_teams = [row for row in data if row["first_dragon"] == "yes"]
+    if not first_dragon_teams:
+        return 0
+    wins = sum(1 for row in first_dragon_teams if row["result"] == "win")
+    return wins / len(first_dragon_teams)
+
+def q2():
+    """Return the average number of barons the winning teams took"""
+    winning_teams = [row for row in data if row["result"] == "win"]
+    if not winning_teams:
+        return 0
+    total_barons = sum(row["barons"] for row in winning_teams)
+    return total_barons / len(winning_teams)
+
+def q3():
+    """Add up the towers destroyed across all games"""
+    return sum(row["towers"] for row in data)
+
+# Use Claude to verify the answers
+client = anthropic.Anthropic()
+
+# Prepare the data for Claude
+data_json = json.dumps(data, indent=2)
+
+prompt = f"""Given this League of Legends esports match data:
+
+{data_json}
+
+Please answer these three questions:
+1. What is the win rate of teams that took the first dragon? (as a number between 0 and 1)
+2. What is the average number of barons the winning teams took?
+3. What is the total number of towers destroyed across all games?
+
+Provide the answers in this format:
+q1: [answer]
+q2: [answer]
+q3: [answer]"""
+
+message = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": prompt}
+    ]
+)
+
+print("Claude's verification:")
+print(message.content[0].text)
+print("\n" + "="*50)
+print("Our calculated answers:")
+print(f"q1: {q1()}")
+print(f"q2: {q2()}")
+print(f"q3: {q3()}")
+```

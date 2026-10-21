@@ -1,0 +1,78 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first dragon."""
+    first_dragon_teams = []
+    
+    # Parse the text to extract game data
+    game_pattern = r'In game (\w+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\.'
+    
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team_name, first_dragon, dragons, barons, towers = match
+        took_first_dragon = first_dragon == "took"
+        
+        # Check if team won by looking for "won" after the team name
+        # We need to find the outcome for this team
+        outcome_pattern = rf'In game {game_id}, {re.escape(team_name)} (won|lost)'
+        outcome_match = re.search(outcome_pattern, text)
+        
+        if outcome_match:
+            won = outcome_match.group(1) == "won"
+            if took_first_dragon:
+                first_dragon_teams.append(won)
+    
+    if not first_dragon_teams:
+        return 0
+    
+    win_rate = sum(first_dragon_teams) / len(first_dragon_teams)
+    return win_rate
+
+
+def q2(text):
+    """Returns the average number of barons taken by winning teams."""
+    winning_teams_barons = []
+    
+    # Parse the text to extract game data
+    game_pattern = r'In game (\w+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\.'
+    
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team_name, first_dragon, dragons, barons, towers = match
+        barons = int(barons)
+        
+        # Check if team won
+        outcome_pattern = rf'In game {game_id}, {re.escape(team_name)} (won|lost)'
+        outcome_match = re.search(outcome_pattern, text)
+        
+        if outcome_match:
+            won = outcome_match.group(1) == "won"
+            if won:
+                winning_teams_barons.append(barons)
+    
+    if not winning_teams_barons:
+        return 0
+    
+    average_barons = sum(winning_teams_barons) / len(winning_teams_barons)
+    return average_barons
+
+
+def q3(text):
+    """Returns the total number of towers destroyed across all rows."""
+    total_towers = 0
+    
+    # Parse the text to extract game data
+    game_pattern = r'In game (\w+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\.'
+    
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team_name, first_dragon, dragons, barons, towers = match
+        towers = int(towers)
+        total_towers += towers
+    
+    return total_towers
+```

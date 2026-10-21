@@ -1,0 +1,48 @@
+```python
+data = [
+    ("G01", "Gen.G Scholars", "win", "no", 2, 2, 11),
+    ("G01", "DRX Academy", "loss", "yes", 2, 0, 1),
+    ("G02", "DRX Academy", "loss", "no", 0, 0, 0),
+    ("G02", "Dplus KIA Youth", "win", "yes", 4, 0, 8),
+    ("G03", "Hanwha Life Esports Academy", "win", "no", 2, 1, 9),
+    ("G03", "DN Freecs Academy", "loss", "yes", 3, 0, 5),
+    ("G04", "Hanwha Life Esports Academy", "loss", "no", 1, 0, 0),
+    ("G04", "KT Rolster Academy", "win", "yes", 4, 1, 10),
+    ("G05", "DN Freecs Academy", "win", "no", 2, 1, 10),
+    ("G05", "DRX Academy", "loss", "yes", 2, 0, 4),
+    ("G06", "Dplus KIA Youth", "win", "no", 2, 1, 8),
+    ("G06", "Nongshim RedForce Academy", "loss", "yes", 3, 0, 4),
+    ("G07", "DRX Academy", "loss", "yes", 1, 0, 2),
+    ("G07", "Hanwha Life Esports Academy", "win", "no", 4, 1, 9),
+    ("G08", "Hanwha Life Esports Academy", "win", "no", 2, 1, 10),
+    ("G08", "Nongshim RedForce Academy", "loss", "yes", 2, 0, 2),
+    ("G09", "DN Freecs Academy", "win", "no", 2, 0, 9),
+    ("G09", "DRX Academy", "loss", "yes", 1, 0, 2),
+    ("G10", "Gen.G Scholars", "win", "no", 2, 1, 11),
+    ("G10", "DN Freecs Academy", "loss", "yes", 2, 0, 4),
+]
+
+
+def q1():
+    first_dragon_teams = [row for row in data if row[3] == "yes"]
+    wins = sum(1 for row in first_dragon_teams if row[2] == "win")
+    total = len(first_dragon_teams)
+    return wins / total if total > 0 else 0
+
+
+def q2():
+    winning_teams = [row for row in data if row[2] == "win"]
+    total_barons = sum(row[5] for row in winning_teams)
+    count = len(winning_teams)
+    return total_barons / count if count > 0 else 0
+
+
+def q3():
+    return sum(row[6] for row in data)
+
+
+if __name__ == "__main__":
+    print(f"Q1 (Win rate of teams with first dragon): {q1()}")
+    print(f"Q2 (Average barons by winning teams): {q2()}")
+    print(f"Q3 (Total towers destroyed): {q3()}")
+```

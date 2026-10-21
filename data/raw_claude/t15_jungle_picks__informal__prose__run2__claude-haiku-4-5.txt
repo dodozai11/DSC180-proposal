@@ -1,0 +1,148 @@
+
+```python
+import json
+from anthropic import Anthropic
+
+# Data structure for the matches
+matches = [
+    {"player": "Forest", "champion": "Viego", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "Popon", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 0},
+    {"player": "Racon", "champion": "Nocturne", "role": "jungle", "result": "won", "deaths": 1},
+    {"player": "HALdesu", "champion": "Bel'Veth", "role": "jungle", "result": "lost", "deaths": 4},
+    {"player": "Norwegian", "champion": "Viego", "role": "jungle", "result": "won", "deaths": 0},
+    {"player": "VEL Skinny", "champion": "Vi", "role": "jungle", "result": "lost", "deaths": 5},
+    {"player": "Brucee", "champion": "Skarner", "role": "jungle", "result": "won", "deaths": 1},
+    {"player": "89", "champion": "Vi", "role": "jungle", "result": "lost", "deaths": 6},
+    {"player": "DM SUISEI", "champion": "Mordekaiser", "role": "jungle", "result": "won", "deaths": 2},
+    {"player": "RPG Shawshank", "champion": "Xin Zhao", "role": "jungle", "result": "lost", "deaths": 5},
+    {"player": "EL", "champion": "Zyra", "role": "jungle", "result": "won", "deaths": 0},
+    {"player": "DG hatinyang", "champion": "Xin Zhao", "role": "jungle", "result": "won", "deaths": 4},
+    {"player": "Sassappel", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "Kiwi", "champion": "Viego", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "Mutton", "champion": "Vi", "role": "jungle", "result": "lost", "deaths": 6},
+    {"player": "DG socceryakyu", "champion": "Nocturne", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "HNS Skinny", "champion": "Xin Zhao", "role": "jungle", "result": "lost", "deaths": 6},
+    {"player": "VLY hachim1", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 5},
+    {"player": "SQG Lunatic", "champion": "Yone", "role": "jungle", "result": "lost", "deaths": 5},
+    {"player": "QTD Van1", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 2},
+]
+
+
+def q1():
+    """Count how many different champions were played"""
+    champions = set(match["champion"] for match in matches)
+    return len(champions)
+
+
+def q2():
+    """Among champions played at least twice, return the one with the best win rate"""
+    champion_stats = {}
+    
+    for match in matches:
+        champion = match["champion"]
+        if champion not in champion_stats:
+            champion_stats[champion] = {"wins": 0, "total": 0}
+        
+        champion_stats[champion]["total"] += 1
+        if match["result"] == "won":
+            champion_stats[champion]["wins"] += 1
+    
+    # Filter champions played at least twice
+    champions_at_least_twice = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats["total"] >= 2
+    }
+    
+    if not champions_at_least_twice:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        champions_at_least_twice.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"]
+    )
+    
+    return best_champion[0]
+
+
+def q3():
+    """Calculate the average number of deaths in the games that were lost"""
+    lost_games = [match for match in matches if match["result"] == "lost"]
+    
+    if not lost_games:
+        return 0
+    
+    total_deaths = sum(match["deaths"] for match in lost_games)
+    return total_deaths / len(lost_games)
+
+
+def main():
+    client = Anthropic()
+    conversation_history = []
+    
+    # Initial message to Claude with context about the data and functions
+    system_message = """You are a helpful assistant analyzing League of Legends esports match data. 
+The user has defined three functions:
+- q1(): Returns the count of different champions played
+- q2(): Returns the champion with the best win rate among those played at least twice (or None)
+- q3(): Returns the average number of deaths in games that were lost
+
+The data contains 20 matches with player names, champions, role (all jungle), results (won/lost), and death counts.
+
+When the user asks questions about the data, help them understand the results from these functions."""
+    
+    print("League of Legends Match Data Analysis")
+    print("=====================================")
+    print("I can help you analyze the match data using three functions:")
+    print("- q1(): Count of different champions played")
+    print("- q2(): Champion with best win rate (min 2 games)")
+    print("- q3(): Average deaths in lost games")
+    print("\nType 'quit' to exit.")
+    print()
+    
+    while True:
+        user_input = input("You: ").strip()
+        
+        if user_input.lower() == 'quit':
+            break
+        
+        if not user_input:
+            continue
+        
+        # Add user message to history
+        conversation_history.append({
+            "role": "user",
+            "content": user_input
+        })
+        
+        # Prepare context about function results
+        function_results = {
+            "q1_result": q1(),
+            "q2_result": q2(),
+            "q3_result": q3()
+        }
+        
+        context = f"\nCurrent function results:\n- q1() = {function_results['q1_result']}\n- q2() = {function_results['q2_result']}\n- q3() = {function_results['q3_result']:.2f}"
+        
+        # Get response from Claude
+        response = client.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            max_tokens=1024,
+            system=system_message + context,
+            messages=conversation_history
+        )
+        
+        assistant_message = response.content[0].text
+        
+        # Add assistant response to history
+        conversation_history.append({
+            "role": "assistant",
+            "content": assistant_message
+        })
+        
+        print(f"Assistant: {assistant_message}\n")
+
+
+if __name__ == "__main__":
+    main()
+```

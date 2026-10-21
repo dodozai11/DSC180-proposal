@@ -1,0 +1,96 @@
+
+```python
+import json
+import re
+from anthropic import Anthropic
+
+client = Anthropic()
+
+# Parse the match data
+matches = []
+games = {}
+
+# Raw data
+data_text = """In game G01, Gen.G Scholars won; they did not take the first dragon and finished with 2 dragons, 2 barons and 11 towers. In game G01, DRX Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 1 towers. In game G02, DRX Academy lost; they did not take the first dragon and finished with 0 dragons, 0 barons and 0 towers. In game G02, Dplus KIA Youth won; they took the first dragon and finished with 4 dragons, 0 barons and 8 towers. In game G03, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 9 towers. In game G03, DN Freecs Academy lost; they took the first dragon and finished with 3 dragons, 0 barons and 5 towers. In game G04, Hanwha Life Esports Academy lost; they did not take the first dragon and finished with 1 dragons, 0 barons and 0 towers. In game G04, KT Rolster Academy won; they took the first dragon and finished with 4 dragons, 1 barons and 10 towers. In game G05, DN Freecs Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 10 towers. In game G05, DRX Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 4 towers. In game G06, Dplus KIA Youth won; they did not take the first dragon and finished with 2 dragons, 1 barons and 8 towers. In game G06, Nongshim RedForce Academy lost; they took the first dragon and finished with 3 dragons, 0 barons and 4 towers. In game G07, DRX Academy lost; they took the first dragon and finished with 1 dragons, 0 barons and 2 towers. In game G07, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 4 dragons, 1 barons and 9 towers. In game G08, Hanwha Life Esports Academy won; they did not take the first dragon and finished with 2 dragons, 1 barons and 10 towers. In game G08, Nongshim RedForce Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 2 towers. In game G09, DN Freecs Academy won; they did not take the first dragon and finished with 2 dragons, 0 barons and 9 towers. In game G09, DRX Academy lost; they took the first dragon and finished with 1 dragons, 0 barons and 2 towers. In game G10, Gen.G Scholars won; they did not take the first dragon and finished with 2 dragons, 1 barons and 11 towers. In game G10, DN Freecs Academy lost; they took the first dragon and finished with 2 dragons, 0 barons and 4 towers."""
+
+# Parse the data using Claude
+conversation_history = []
+
+# First, ask Claude to parse the data
+conversation_history.append({
+    "role": "user",
+    "content": f"""Parse this League of Legends match data and return it as a JSON array. Each element should have: game_id, team, won (boolean), first_dragon (boolean), dragons, barons, towers.
+
+Data: {data_text}
+
+Return only valid JSON array, no other text."""
+})
+
+response = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=2000,
+    messages=conversation_history
+)
+
+parsed_response = response.content[0].text
+conversation_history.append({
+    "role": "assistant",
+    "content": parsed_response
+})
+
+# Extract JSON from response
+json_match = re.search(r'\[.*\]', parsed_response, re.DOTALL)
+if json_match:
+    matches = json.loads(json_match.group())
+
+def q1():
+    """Return the win rate of teams that took the first dragon"""
+    first_dragon_teams = [m for m in matches if m['first_dragon']]
+    if not first_dragon_teams:
+        return 0
+    wins = sum(1 for m in first_dragon_teams if m['won'])
+    return wins / len(first_dragon_teams)
+
+def q2():
+    """Return the average number of barons the winning teams took"""
+    winning_teams = [m for m in matches if m['won']]
+    if not winning_teams:
+        return 0
+    total_barons = sum(m['barons'] for m in winning_teams)
+    return total_barons / len(winning_teams)
+
+def q3():
+    """Add up the towers destroyed across all matches"""
+    return sum(m['towers'] for m in matches)
+
+# Ask Claude to verify our functions
+conversation_history.append({
+    "role": "user",
+    "content": f"""Based on the parsed data, answer these questions:
+1. What is the win rate of teams that took the first dragon? (as a decimal between 0 and 1)
+2. What is the average number of barons the winning teams took?
+3. What is the total number of towers destroyed across all matches?
+
+Please provide the answers as JSON with keys "q1", "q2", "q3"."""
+})
+
+response = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=500,
+    messages=conversation_history
+)
+
+verification_response = response.content[0].text
+
+# Extract JSON from verification response
+json_match = re.search(r'\{.*\}', verification_response, re.DOTALL)
+if json_match:
+    verification_data = json.loads(json_match.group())
+    print(f"Q1 (First dragon win rate): {q1()}")
+    print(f"Q2 (Average barons for winners): {q2()}")
+    print(f"Q3 (Total towers): {q3()}")
+    print(f"\nVerification from Claude:")
+    print(f"Q1: {verification_data.get('q1')}")
+    print(f"Q2: {verification_data.get('q2')}")
+    print(f"Q3: {verification_data.get('q3')}")
+```

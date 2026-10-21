@@ -1,0 +1,84 @@
+
+```python
+import anthropic
+import json
+import re
+
+
+def q1(text: str) -> str:
+    """Return the name of the player with the highest KDA."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find the player with the highest KDA.
+KDA is calculated as (kills + assists) / max(deaths, 1).
+
+Data:
+{text}
+
+Return ONLY the player's name, nothing else."""
+            }
+        ]
+    )
+    
+    return message.content[0].text.strip()
+
+
+def q2(text: str) -> float:
+    """Return the average number of kills in the games that were won."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average number of kills in games that were won.
+
+Data:
+{text}
+
+Return ONLY a number (the average), nothing else."""
+            }
+        ]
+    )
+    
+    return float(message.content[0].text.strip())
+
+
+def q3(text: str) -> str:
+    """Return the champion that got picked the most."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find which champion was picked the most.
+
+Data:
+{text}
+
+Return ONLY the champion name, nothing else."""
+            }
+        ]
+    )
+    
+    return message.content[0].text.strip()
+
+
+if __name__ == "__main__":
+    sample_data = """Nemesis of Los Ratones played Galio in mid and won with 2 kills, 0 deaths and 14 assists. Harbo of Lundqvist Lightside played Ryze in mid and lost with 2 kills, 4 deaths and 4 assists. Ronaldo of Verdant played Yone in mid and lost with 0 kills, 5 deaths and 2 assists. Perkz of Ruddy Esports played Orianna in mid and lost with 3 kills, 3 deaths and 3 assists. Lofti of Venomcrest Esports played Orianna in mid and won with 5 kills, 2 deaths and 8 assists. Bissejr15 of DMG Esports played Hwei in mid and lost with 5 kills, 1 deaths and 1 assists. Zuhy of KAOS e-sport played Azir in mid and lost with 0 kills, 4 deaths and 1 assists. D1verse of Rich Gang played Vel'Koz in mid and lost with 2 kills, 8 deaths and 2 assists. Knighter of Venomcrest Esports played Tristana in mid and won with 9 kills, 2 deaths and 8 assists. Sencux of Verdant played Aurora in mid and won with 6 kills, 0 deaths and 7 assists. Zoiren of KAOS e-sport played Aurora in mid and lost with 2 kills, 7 deaths and 3 assists. Zwyroo of NORD Esports played Ahri in mid and won with 6 kills, 0 deaths and 10 assists. Congolese of Ruddy Esports played Orianna in mid and lost with 1 kills, 4 deaths and 5 assists. Scuffed of KAOS e-sport played Ryze in mid and lost with 5 kills, 6 deaths and 16 assists. Air of Venomcrest Esports played Taliyah in mid and won with 9 kills, 6 deaths and 21 assists. Hunt of Bulldog Esports played Akali in mid and lost with 7 kills, 3 deaths and 3 assists. Forslund of B2U played Corki in mid and won with 10 kills, 0 deaths and 2 assists. Valiant of CNG Royal played Yasuo in mid and lost with 2 kills, 5 deaths and 3 assists. Daggur of AaB Esport played Hwei in mid and won with 7 kills, 5 deaths and 15 assists. qqr of Brod n Friends played Akali in mid and lost with 11 kills, 3 deaths and 3 assists."""
+    
+    print("Q1 - Player with highest KDA:", q1(sample_data))
+    print("Q2 - Average kills in won games:", q2(sample_data))
+    print("Q3 - Most picked champion:", q3(sample_data))
+```

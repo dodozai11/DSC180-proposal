@@ -1,0 +1,78 @@
+
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    for match in re.finditer(r'<champion>([^<]+)</champion>', text):
+        champions.add(match.group(1))
+    return len(champions)
+
+def q2(text):
+    """Returns the name of the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    # Parse each row
+    for match in re.finditer(r'<player>([^<]+)</player>.*?<champion>([^<]+)</champion>.*?<result>([^<]+)</result>', text):
+        champion = match.group(2)
+        result = match.group(3)
+        champion_stats[champion]['total'] += 1
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(eligible_champions.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    losses = []
+    
+    for match in re.finditer(r'<result>([^<]+)</result>.*?<deaths>(\d+)</deaths>', text):
+        result = match.group(1)
+        deaths = int(match.group(2))
+        if result == 'loss':
+            losses.append(deaths)
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+
+
+# Test with the provided data
+sample_data = """<rows>
+  <row><player>Forest</player><champion>Viego</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Popon</player><champion>Vi</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>Racon</player><champion>Nocturne</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>HALdesu</player><champion>Bel'Veth</champion><result>loss</result><deaths>4</deaths></row>
+  <row><player>Norwegian</player><champion>Viego</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>VEL Skinny</player><champion>Vi</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>Brucee</player><champion>Skarner</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>89</player><champion>Vi</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>DM SUISEI</player><champion>Mordekaiser</champion><result>win</result><deaths>2</deaths></row>
+  <row><player>RPG Shawshank</player><champion>Xin Zhao</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>EL</player><champion>Zyra</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>DG hatinyang</player><champion>Xin Zhao</champion><result>win</result><deaths>4</deaths></row>
+  <row><player>Sassappel</player><champion>Vi</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Kiwi</player><champion>Viego</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Mutton</player><champion>Vi</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>DG socceryakyu</player><champion>Nocturne</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>HNS Skinny</player><champion>Xin Zhao</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>VLY hachim1</player><champion>Vi</champion><result>win</result><deaths>5</deaths></row>
+  <row><player>SQG Lunatic</player><champion>Yone</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>QTD Van1</player><champion>Vi</champion><result>win</result><deaths>2</deaths></row>
+</rows>"""
+
+print("Q1 - Number of different champions:", q1(sample_data))
+print("Q2 - Champion with best win rate (played at least twice):", q2(sample_data))
+print("Q3 - Average deaths in lost games:", q3(sample_data))
+```

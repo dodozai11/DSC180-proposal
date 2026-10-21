@@ -1,0 +1,47 @@
+```python
+data = [
+    ("G01", "GiantX", "blue", "loss", 1060),
+    ("G01", "Movistar KOI", "red", "win", -1060),
+    ("G02", "Movistar KOI", "blue", "win", 2660),
+    ("G02", "GiantX", "red", "loss", -2660),
+    ("G03", "Karmine Corp", "blue", "win", 75),
+    ("G03", "Fnatic", "red", "loss", -75),
+    ("G04", "Movistar KOI", "blue", "win", -2285),
+    ("G04", "Fnatic", "red", "loss", 2285),
+    ("G05", "SK Gaming", "blue", "loss", -2251),
+    ("G05", "Team Vitality", "red", "win", 2251),
+    ("G06", "Team Heretics", "blue", "loss", -4163),
+    ("G06", "GiantX", "red", "win", 4163),
+    ("G07", "Team Heretics", "blue", "loss", -556),
+    ("G07", "GiantX", "red", "win", 556),
+    ("G08", "GiantX", "blue", "loss", 1777),
+    ("G08", "Karmine Corp", "red", "win", -1777),
+    ("G09", "Team Heretics", "blue", "loss", -3144),
+    ("G09", "Team Vitality", "red", "win", 3144),
+    ("G10", "Movistar KOI", "blue", "loss", -1096),
+    ("G10", "G2 Esports", "red", "win", 1096),
+]
+
+
+def q1():
+    winning_teams = [row for row in data if row[3] == "win"]
+    total_gold_diff = sum(row[4] for row in winning_teams)
+    return total_gold_diff / len(winning_teams)
+
+
+def q2():
+    winning_teams = [row for row in data if row[3] == "win"]
+    wins_with_negative_gold = sum(1 for row in winning_teams if row[4] < 0)
+    return wins_with_negative_gold
+
+
+def q3():
+    teams_ahead_in_gold = [row for row in data if row[4] > 0]
+    wins_with_positive_gold = sum(1 for row in teams_ahead_in_gold if row[3] == "win")
+    return wins_with_positive_gold / len(teams_ahead_in_gold)
+
+
+print(f"Q1: {q1()}")
+print(f"Q2: {q2()}")
+print(f"Q3: {q3()}")
+```

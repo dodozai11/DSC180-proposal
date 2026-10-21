@@ -1,0 +1,102 @@
+
+```python
+import anthropic
+import json
+
+
+def q1(text: str) -> str:
+    """Return the name of the player with the highest KDA"""
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find the player with the highest KDA.
+KDA is calculated as (kills + assists) / max(deaths, 1).
+Return ONLY the player's name, nothing else.
+
+Data:
+{text}""",
+            }
+        ],
+    )
+    return message.content[0].text.strip()
+
+
+def q2(text: str) -> str:
+    """Return the average number of kills in games that were won"""
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average number of kills
+in games that were won (result = 'win').
+Return ONLY the numerical average value, nothing else.
+
+Data:
+{text}""",
+            }
+        ],
+    )
+    return message.content[0].text.strip()
+
+
+def q3(text: str) -> str:
+    """Return which champion got picked the most"""
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find which champion was picked the most.
+Return ONLY the champion name, nothing else.
+
+Data:
+{text}""",
+            }
+        ],
+    )
+    return message.content[0].text.strip()
+
+
+if __name__ == "__main__":
+    sample_data = """player,team,champion,kills,deaths,assists,result
+Nemesis,Los Ratones,Galio,2,0,14,win
+Harbo,Lundqvist Lightside,Ryze,2,4,4,loss
+Ronaldo,Verdant,Yone,0,5,2,loss
+Perkz,Ruddy Esports,Orianna,3,3,3,loss
+Lofti,Venomcrest Esports,Orianna,5,2,8,win
+Bissejr15,DMG Esports,Hwei,5,1,1,loss
+Zuhy,KAOS e-sport,Azir,0,4,1,loss
+D1verse,Rich Gang,Vel'Koz,2,8,2,loss
+Knighter,Venomcrest Esports,Tristana,9,2,8,win
+Sencux,Verdant,Aurora,6,0,7,win
+Zoiren,KAOS e-sport,Aurora,2,7,3,loss
+Zwyroo,NORD Esports,Ahri,6,0,10,win
+Congolese,Ruddy Esports,Orianna,1,4,5,loss
+Scuffed,KAOS e-sport,Ryze,5,6,16,loss
+Air,Venomcrest Esports,Taliyah,9,6,21,win
+Hunt,Bulldog Esports,Akali,7,3,3,loss
+Forslund,B2U,Corki,10,0,2,win
+Valiant,CNG Royal,Yasuo,2,5,3,loss
+Daggur,AaB Esport,Hwei,7,5,15,win
+qqr,Brod n Friends,Akali,11,3,3,loss"""
+
+    print("Q1 - Player with highest KDA:")
+    print(q1(sample_data))
+    print()
+
+    print("Q2 - Average kills in won games:")
+    print(q2(sample_data))
+    print()
+
+    print("Q3 - Most picked champion:")
+    print(q3(sample_data))
+```

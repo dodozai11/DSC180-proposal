@@ -1,0 +1,121 @@
+
+```python
+import anthropic
+
+# Data structured as list of dictionaries
+matches = [
+    {"player": "Forest", "champion": "Viego", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "Popon", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 0},
+    {"player": "Racon", "champion": "Nocturne", "role": "jungle", "result": "won", "deaths": 1},
+    {"player": "HALdesu", "champion": "Bel'Veth", "role": "jungle", "result": "lost", "deaths": 4},
+    {"player": "Norwegian", "champion": "Viego", "role": "jungle", "result": "won", "deaths": 0},
+    {"player": "VEL Skinny", "champion": "Vi", "role": "jungle", "result": "lost", "deaths": 5},
+    {"player": "Brucee", "champion": "Skarner", "role": "jungle", "result": "won", "deaths": 1},
+    {"player": "89", "champion": "Vi", "role": "jungle", "result": "lost", "deaths": 6},
+    {"player": "DM SUISEI", "champion": "Mordekaiser", "role": "jungle", "result": "won", "deaths": 2},
+    {"player": "RPG Shawshank", "champion": "Xin Zhao", "role": "jungle", "result": "lost", "deaths": 5},
+    {"player": "EL", "champion": "Zyra", "role": "jungle", "result": "won", "deaths": 0},
+    {"player": "DG hatinyang", "champion": "Xin Zhao", "role": "jungle", "result": "won", "deaths": 4},
+    {"player": "Sassappel", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "Kiwi", "champion": "Viego", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "Mutton", "champion": "Vi", "role": "jungle", "result": "lost", "deaths": 6},
+    {"player": "DG socceryakyu", "champion": "Nocturne", "role": "jungle", "result": "won", "deaths": 3},
+    {"player": "HNS Skinny", "champion": "Xin Zhao", "role": "jungle", "result": "lost", "deaths": 6},
+    {"player": "VLY hachim1", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 5},
+    {"player": "SQG Lunatic", "champion": "Yone", "role": "jungle", "result": "lost", "deaths": 5},
+    {"player": "QTD Van1", "champion": "Vi", "role": "jungle", "result": "won", "deaths": 2},
+]
+
+
+def q1():
+    """Count how many different champions were played"""
+    unique_champions = set(match["champion"] for match in matches)
+    return len(unique_champions)
+
+
+def q2():
+    """Among champions played at least twice, return the one with the best win rate"""
+    champion_stats = {}
+    
+    for match in matches:
+        champion = match["champion"]
+        if champion not in champion_stats:
+            champion_stats[champion] = {"wins": 0, "total": 0}
+        
+        champion_stats[champion]["total"] += 1
+        if match["result"] == "won":
+            champion_stats[champion]["wins"] += 1
+    
+    # Filter champions played at least twice
+    candidates = {
+        champ: stats for champ, stats in champion_stats.items() 
+        if stats["total"] >= 2
+    }
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        candidates.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"]
+    )
+    
+    return best_champion[0]
+
+
+def q3():
+    """Average number of deaths in games that were lost"""
+    lost_games = [match for match in matches if match["result"] == "lost"]
+    
+    if not lost_games:
+        return 0
+    
+    total_deaths = sum(match["deaths"] for match in lost_games)
+    return total_deaths / len(lost_games)
+
+
+# Use Claude to verify our answers
+def verify_with_claude():
+    client = anthropic.Anthropic()
+    
+    data_summary = f"""
+    Total matches: {len(matches)}
+    Unique champions: {q1()}
+    Champion with best win rate (played 2+ times): {q2()}
+    Average deaths in lost games: {q3():.2f}
+    """
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""I have League of Legends match data and computed these statistics:
+{data_summary}
+
+Can you verify these calculations are correct based on the data provided?
+
+Data:
+{matches}
+
+Please confirm if:
+1. The count of unique champions is correct
+2. The champion with best win rate (among those played 2+ times) is correct
+3. The average deaths in lost games is correct"""
+            }
+        ]
+    )
+    
+    print("Claude's Verification:")
+    print(message.content[0].text)
+
+
+if __name__ == "__main__":
+    print(f"Q1 - Unique champions: {q1()}")
+    print(f"Q2 - Best win rate champion (2+ plays): {q2()}")
+    print(f"Q3 - Avg deaths in lost games: {q3():.2f}")
+    print()
+    verify_with_claude()
+```

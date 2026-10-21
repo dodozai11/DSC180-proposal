@@ -1,0 +1,70 @@
+```python
+# Data structure
+players = [
+    {"name": "Forest", "champion": "Viego", "position": "jungle", "won": True, "deaths": 3},
+    {"name": "Popon", "champion": "Vi", "position": "jungle", "won": True, "deaths": 0},
+    {"name": "Racon", "champion": "Nocturne", "position": "jungle", "won": True, "deaths": 1},
+    {"name": "HALdesu", "champion": "Bel'Veth", "position": "jungle", "won": False, "deaths": 4},
+    {"name": "Norwegian", "champion": "Viego", "position": "jungle", "won": True, "deaths": 0},
+    {"name": "VEL Skinny", "champion": "Vi", "position": "jungle", "won": False, "deaths": 5},
+    {"name": "Brucee", "champion": "Skarner", "position": "jungle", "won": True, "deaths": 1},
+    {"name": "89", "champion": "Vi", "position": "jungle", "won": False, "deaths": 6},
+    {"name": "DM SUISEI", "champion": "Mordekaiser", "position": "jungle", "won": True, "deaths": 2},
+    {"name": "RPG Shawshank", "champion": "Xin Zhao", "position": "jungle", "won": False, "deaths": 5},
+    {"name": "EL", "champion": "Zyra", "position": "jungle", "won": True, "deaths": 0},
+    {"name": "DG hatinyang", "champion": "Xin Zhao", "position": "jungle", "won": True, "deaths": 4},
+    {"name": "Sassappel", "champion": "Vi", "position": "jungle", "won": True, "deaths": 3},
+    {"name": "Kiwi", "champion": "Viego", "position": "jungle", "won": True, "deaths": 3},
+    {"name": "Mutton", "champion": "Vi", "position": "jungle", "won": False, "deaths": 6},
+    {"name": "DG socceryakyu", "champion": "Nocturne", "position": "jungle", "won": True, "deaths": 3},
+    {"name": "HNS Skinny", "champion": "Xin Zhao", "position": "jungle", "won": False, "deaths": 6},
+    {"name": "VLY hachim1", "champion": "Vi", "position": "jungle", "won": True, "deaths": 5},
+    {"name": "SQG Lunatic", "champion": "Yone", "position": "jungle", "won": False, "deaths": 5},
+    {"name": "QTD Van1", "champion": "Vi", "position": "jungle", "won": True, "deaths": 2},
+]
+
+
+def q1():
+    """Returns the number of different champions played."""
+    champions = set(player["champion"] for player in players)
+    return len(champions)
+
+
+def q2():
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = {}
+    
+    for player in players:
+        champion = player["champion"]
+        if champion not in champion_stats:
+            champion_stats[champion] = {"wins": 0, "total": 0}
+        champion_stats[champion]["total"] += 1
+        if player["won"]:
+            champion_stats[champion]["wins"] += 1
+    
+    # Filter champions played at least twice
+    champions_twice = {champ: stats for champ, stats in champion_stats.items() if stats["total"] >= 2}
+    
+    if not champions_twice:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(champions_twice.items(), key=lambda x: x[1]["wins"] / x[1]["total"])
+    return best_champion[0]
+
+
+def q3():
+    """Returns the average number of deaths in games that were lost."""
+    lost_games = [player["deaths"] for player in players if not player["won"]]
+    
+    if not lost_games:
+        return 0
+    
+    return sum(lost_games) / len(lost_games)
+
+
+if __name__ == "__main__":
+    print(f"Q1: {q1()}")
+    print(f"Q2: {q2()}")
+    print(f"Q3: {q3()}")
+```

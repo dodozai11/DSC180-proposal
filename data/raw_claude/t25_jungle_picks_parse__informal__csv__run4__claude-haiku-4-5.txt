@@ -1,0 +1,105 @@
+
+```python
+import anthropic
+import csv
+from io import StringIO
+
+
+def q1(text: str) -> int:
+    """Count how many different champions were played."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and count how many different champions were played.
+
+Data:
+{text}
+
+Return ONLY a single integer representing the count of unique champions. No explanation, just the number."""
+            }
+        ]
+    )
+    
+    return int(message.content[0].text.strip())
+
+
+def q2(text: str) -> str | None:
+    """Among champions played at least twice, return the one with the best win rate."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and find the champion with the best win rate among those played at least twice.
+
+Data:
+{text}
+
+Return ONLY the champion name, or "None" if no champion was played twice. No explanation, just the answer."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return None if result == "None" else result
+
+
+def q3(text: str) -> float:
+    """Calculate the average number of deaths in games that were lost."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and calculate the average number of deaths in games that were lost.
+
+Data:
+{text}
+
+Return ONLY a single number representing the average deaths in lost games. No explanation, just the number."""
+            }
+        ]
+    )
+    
+    return float(message.content[0].text.strip())
+
+
+# Test with the provided sample data
+if __name__ == "__main__":
+    sample_data = """player,champion,result,deaths
+Forest,Viego,win,3
+Popon,Vi,win,0
+Racon,Nocturne,win,1
+HALdesu,Bel'Veth,loss,4
+Norwegian,Viego,win,0
+VEL Skinny,Vi,loss,5
+Brucee,Skarner,win,1
+89,Vi,loss,6
+DM SUISEI,Mordekaiser,win,2
+RPG Shawshank,Xin Zhao,loss,5
+EL,Zyra,win,0
+DG hatinyang,Xin Zhao,win,4
+Sassappel,Vi,win,3
+Kiwi,Viego,win,3
+Mutton,Vi,loss,6
+DG socceryakyu,Nocturne,win,3
+HNS Skinny,Xin Zhao,loss,6
+VLY hachim1,Vi,win,5
+SQG Lunatic,Yone,loss,5
+QTD Van1,Vi,win,2"""
+    
+    print(f"Q1 - Unique champions: {q1(sample_data)}")
+    print(f"Q2 - Best win rate champion (played 2+): {q2(sample_data)}")
+    print(f"Q3 - Average deaths in losses: {q3(sample_data)}")
+```

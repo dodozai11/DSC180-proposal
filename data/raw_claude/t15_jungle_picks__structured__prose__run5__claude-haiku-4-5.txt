@@ -1,0 +1,66 @@
+```python
+data = [
+    {"player": "Forest", "champion": "Viego", "role": "jungle", "won": True, "deaths": 3},
+    {"player": "Popon", "champion": "Vi", "role": "jungle", "won": True, "deaths": 0},
+    {"player": "Racon", "champion": "Nocturne", "role": "jungle", "won": True, "deaths": 1},
+    {"player": "HALdesu", "champion": "Bel'Veth", "role": "jungle", "won": False, "deaths": 4},
+    {"player": "Norwegian", "champion": "Viego", "role": "jungle", "won": True, "deaths": 0},
+    {"player": "VEL Skinny", "champion": "Vi", "role": "jungle", "won": False, "deaths": 5},
+    {"player": "Brucee", "champion": "Skarner", "role": "jungle", "won": True, "deaths": 1},
+    {"player": "89", "champion": "Vi", "role": "jungle", "won": False, "deaths": 6},
+    {"player": "DM SUISEI", "champion": "Mordekaiser", "role": "jungle", "won": True, "deaths": 2},
+    {"player": "RPG Shawshank", "champion": "Xin Zhao", "role": "jungle", "won": False, "deaths": 5},
+    {"player": "EL", "champion": "Zyra", "role": "jungle", "won": True, "deaths": 0},
+    {"player": "DG hatinyang", "champion": "Xin Zhao", "role": "jungle", "won": True, "deaths": 4},
+    {"player": "Sassappel", "champion": "Vi", "role": "jungle", "won": True, "deaths": 3},
+    {"player": "Kiwi", "champion": "Viego", "role": "jungle", "won": True, "deaths": 3},
+    {"player": "Mutton", "champion": "Vi", "role": "jungle", "won": False, "deaths": 6},
+    {"player": "DG socceryakyu", "champion": "Nocturne", "role": "jungle", "won": True, "deaths": 3},
+    {"player": "HNS Skinny", "champion": "Xin Zhao", "role": "jungle", "won": False, "deaths": 6},
+    {"player": "VLY hachim1", "champion": "Vi", "role": "jungle", "won": True, "deaths": 5},
+    {"player": "SQG Lunatic", "champion": "Yone", "role": "jungle", "won": False, "deaths": 5},
+    {"player": "QTD Van1", "champion": "Vi", "role": "jungle", "won": True, "deaths": 2},
+]
+
+def q1():
+    champions = set(row["champion"] for row in data)
+    return len(champions)
+
+def q2():
+    champion_stats = {}
+    for row in data:
+        champion = row["champion"]
+        if champion not in champion_stats:
+            champion_stats[champion] = {"wins": 0, "total": 0}
+        champion_stats[champion]["total"] += 1
+        if row["won"]:
+            champion_stats[champion]["wins"] += 1
+    
+    champions_at_least_twice = {
+        champ: stats for champ, stats in champion_stats.items() if stats["total"] >= 2
+    }
+    
+    if not champions_at_least_twice:
+        return None
+    
+    best_champion = max(
+        champions_at_least_twice.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"]
+    )
+    
+    return best_champion[0]
+
+def q3():
+    lost_games = [row for row in data if not row["won"]]
+    if not lost_games:
+        return 0
+    
+    total_deaths = sum(row["deaths"] for row in lost_games)
+    average_deaths = total_deaths / len(lost_games)
+    
+    return average_deaths
+
+print(q1())
+print(q2())
+print(q3())
+```

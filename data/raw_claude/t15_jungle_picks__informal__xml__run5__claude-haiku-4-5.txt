@@ -1,0 +1,87 @@
+
+```python
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+
+xml_data = """<rows>
+  <row><player>Forest</player><champion>Viego</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Popon</player><champion>Vi</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>Racon</player><champion>Nocturne</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>HALdesu</player><champion>Bel'Veth</champion><result>loss</result><deaths>4</deaths></row>
+  <row><player>Norwegian</player><champion>Viego</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>VEL Skinny</player><champion>Vi</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>Brucee</player><champion>Skarner</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>89</player><champion>Vi</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>DM SUISEI</player><champion>Mordekaiser</champion><result>win</result><deaths>2</deaths></row>
+  <row><player>RPG Shawshank</player><champion>Xin Zhao</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>EL</player><champion>Zyra</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>DG hatinyang</player><champion>Xin Zhao</champion><result>win</result><deaths>4</deaths></row>
+  <row><player>Sassappel</player><champion>Vi</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Kiwi</player><champion>Viego</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Mutton</player><champion>Vi</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>DG socceryakyu</player><champion>Nocturne</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>HNS Skinny</player><champion>Xin Zhao</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>VLY hachim1</player><champion>Vi</champion><result>win</result><deaths>5</deaths></row>
+  <row><player>SQG Lunatic</player><champion>Yone</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>QTD Van1</player><champion>Vi</champion><result>win</result><deaths>2</deaths></row>
+</rows>"""
+
+root = ET.fromstring(xml_data)
+
+data = []
+for row in root.findall('row'):
+    player = row.find('player').text
+    champion = row.find('champion').text
+    result = row.find('result').text
+    deaths = int(row.find('deaths').text)
+    data.append({
+        'player': player,
+        'champion': champion,
+        'result': result,
+        'deaths': deaths
+    })
+
+def q1():
+    champions = set()
+    for row in data:
+        champions.add(row['champion'])
+    return len(champions)
+
+def q2():
+    champion_stats = defaultdict(lambda: {'wins': 0, 'losses': 0})
+    
+    for row in data:
+        champion = row['champion']
+        if row['result'] == 'win':
+            champion_stats[champion]['wins'] += 1
+        else:
+            champion_stats[champion]['losses'] += 1
+    
+    best_champion = None
+    best_win_rate = -1
+    
+    for champion, stats in champion_stats.items():
+        total_games = stats['wins'] + stats['losses']
+        if total_games >= 2:
+            win_rate = stats['wins'] / total_games
+            if win_rate > best_win_rate:
+                best_win_rate = win_rate
+                best_champion = champion
+    
+    return best_champion
+
+def q3():
+    loss_deaths = []
+    for row in data:
+        if row['result'] == 'loss':
+            loss_deaths.append(row['deaths'])
+    
+    if len(loss_deaths) == 0:
+        return 0
+    
+    return sum(loss_deaths) / len(loss_deaths)
+
+print(f"Q1 - Number of different champions: {q1()}")
+print(f"Q2 - Champion with best win rate (played at least twice): {q2()}")
+print(f"Q3 - Average deaths in lost games: {q3()}")
+```

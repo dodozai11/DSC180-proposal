@@ -1,0 +1,127 @@
+
+```python
+import anthropic
+import json
+
+# Data structure for the match data
+matches = [
+    {"game": "G01", "blue_team": "DN Freecs", "blue_side": True, "blue_won": False, "duration": 34.1},
+    {"game": "G01", "red_team": "Dplus KIA", "blue_side": False, "red_won": True, "duration": 34.1},
+    {"game": "G02", "blue_team": "BNK FEARX", "blue_side": True, "blue_won": False, "duration": 40.1},
+    {"game": "G02", "red_team": "Gen.G", "blue_side": False, "red_won": True, "duration": 40.1},
+    {"game": "G03", "blue_team": "Dplus KIA", "blue_side": True, "blue_won": True, "duration": 27.5},
+    {"game": "G03", "red_team": "BNK FEARX", "blue_side": False, "red_won": False, "duration": 27.5},
+    {"game": "G04", "blue_team": "DRX", "blue_side": True, "blue_won": True, "duration": 30.2},
+    {"game": "G04", "red_team": "DN Freecs", "blue_side": False, "red_won": False, "duration": 30.2},
+    {"game": "G05", "blue_team": "Hanwha Life Esports", "blue_side": True, "blue_won": True, "duration": 39.0},
+    {"game": "G05", "red_team": "Gen.G", "blue_side": False, "red_won": False, "duration": 39.0},
+    {"game": "G06", "blue_team": "Dplus KIA", "blue_side": True, "blue_won": False, "duration": 30.0},
+    {"game": "G06", "red_team": "Nongshim RedForce", "blue_side": False, "red_won": True, "duration": 30.0},
+    {"game": "G07", "blue_team": "DN Freecs", "blue_side": True, "blue_won": True, "duration": 33.9},
+    {"game": "G07", "red_team": "OKSavingsBank BRION", "blue_side": False, "red_won": False, "duration": 33.9},
+    {"game": "G08", "blue_team": "Dplus KIA", "blue_side": True, "blue_won": True, "duration": 37.2},
+    {"game": "G08", "red_team": "KT Rolster", "blue_side": False, "red_won": False, "duration": 37.2},
+    {"game": "G09", "blue_team": "Gen.G", "blue_side": True, "blue_won": True, "duration": 28.9},
+    {"game": "G09", "red_team": "Hanwha Life Esports", "blue_side": False, "red_won": False, "duration": 28.9},
+    {"game": "G10", "blue_team": "KT Rolster", "blue_side": True, "blue_won": False, "duration": 35.1},
+    {"game": "G10", "red_team": "Hanwha Life Esports", "blue_side": False, "red_won": True, "duration": 35.1},
+]
+
+# Reformat data into a cleaner structure
+games = {}
+for match in matches:
+    game_id = match["game"]
+    if game_id not in games:
+        games[game_id] = {"duration": match["duration"]}
+    
+    if "blue_team" in match:
+        games[game_id]["blue_team"] = match["blue_team"]
+        games[game_id]["blue_won"] = match["blue_won"]
+    else:
+        games[game_id]["red_team"] = match["red_team"]
+        games[game_id]["red_won"] = match["red_won"]
+
+
+def q1():
+    """Return the win rate of blue-side teams as a number between 0 and 1"""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Given this League of Legends match data, calculate the win rate of blue-side teams.
+
+Match data (each game has a duration and blue/red team results):
+{json.dumps(games, indent=2)}
+
+Calculate: (number of blue-side wins) / (total number of games)
+
+Return only a single number between 0 and 1 representing the win rate. No explanation needed."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2():
+    """Return the average length in minutes of the games the red-side team won"""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Given this League of Legends match data, calculate the average game duration for games where the red-side team won.
+
+Match data (each game has a duration and blue/red team results):
+{json.dumps(games, indent=2)}
+
+Calculate: sum of durations where red_won is true, divided by count of games where red_won is true
+
+Return only a single number representing the average duration in minutes. No explanation needed."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q3():
+    """Return the name of the team with the most wins"""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Given this League of Legends match data, find which team has the most wins across all games.
+
+Match data (each game has a duration and blue/red team results):
+{json.dumps(games, indent=2)}
+
+Count wins for each team (a team wins if either blue_won=true when they are blue_team, or red_won=true when they are red_team).
+
+Return only the team name with the most wins. No explanation needed."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return result
+
+
+if __name__ == "__main__":
+    print(f"Q1 - Blue-side win rate: {q1()}")
+    print(f"Q2 - Average duration of red-side wins: {q2()} minutes")
+    print(f"Q3 - Team with most wins: {q3()}")
+```

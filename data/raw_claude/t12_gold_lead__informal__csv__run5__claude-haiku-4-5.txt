@@ -1,0 +1,45 @@
+
+```python
+import pandas as pd
+
+# Data as Python data structures
+data = {
+    'game': ['G01', 'G01', 'G02', 'G02', 'G03', 'G03', 'G04', 'G04', 'G05', 'G05', 
+             'G06', 'G06', 'G07', 'G07', 'G08', 'G08', 'G09', 'G09', 'G10', 'G10'],
+    'team': ['GiantX', 'Movistar KOI', 'Movistar KOI', 'GiantX', 'Karmine Corp', 'Fnatic',
+             'Movistar KOI', 'Fnatic', 'SK Gaming', 'Team Vitality', 'Team Heretics', 'GiantX',
+             'Team Heretics', 'GiantX', 'GiantX', 'Karmine Corp', 'Team Heretics', 'Team Vitality',
+             'Movistar KOI', 'G2 Esports'],
+    'side': ['blue', 'red', 'blue', 'red', 'blue', 'red', 'blue', 'red', 'blue', 'red',
+             'blue', 'red', 'blue', 'red', 'blue', 'red', 'blue', 'red', 'blue', 'red'],
+    'result': ['loss', 'win', 'win', 'loss', 'win', 'loss', 'win', 'loss', 'loss', 'win',
+               'loss', 'win', 'loss', 'win', 'loss', 'win', 'loss', 'win', 'loss', 'win'],
+    'gold_diff_15': [1060, -1060, 2660, -2660, 75, -75, -2285, 2285, -2251, 2251,
+                     -4163, 4163, -556, 556, 1777, -1777, -3144, 3144, -1096, 1096]
+}
+
+df = pd.DataFrame(data)
+
+def q1():
+    """Return the average gold difference at 15 minutes of the winning teams"""
+    winning_teams = df[df['result'] == 'win']
+    return winning_teams['gold_diff_15'].mean()
+
+def q2():
+    """Return how many teams won even though they were behind in gold at 15 minutes"""
+    behind_and_won = df[(df['gold_diff_15'] < 0) & (df['result'] == 'win')]
+    return len(behind_and_won)
+
+def q3():
+    """Return the win rate of teams that were ahead in gold at 15 minutes"""
+    ahead_teams = df[df['gold_diff_15'] > 0]
+    if len(ahead_teams) == 0:
+        return 0
+    ahead_and_won = len(ahead_teams[ahead_teams['result'] == 'win'])
+    return ahead_and_won / len(ahead_teams)
+
+if __name__ == "__main__":
+    print(f"Q1 - Average gold difference of winning teams: {q1():.2f}")
+    print(f"Q2 - Teams that won while behind in gold: {q2()}")
+    print(f"Q3 - Win rate of teams ahead in gold: {q3():.4f}")
+```

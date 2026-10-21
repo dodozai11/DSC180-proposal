@@ -1,0 +1,114 @@
+
+```python
+from anthropic import Anthropic
+
+client = Anthropic()
+conversation_history = []
+
+# Data as Python data structures
+data = [
+    {"player": "Forest", "champion": "Viego", "result": "win", "deaths": 3},
+    {"player": "Popon", "champion": "Vi", "result": "win", "deaths": 0},
+    {"player": "Racon", "champion": "Nocturne", "result": "win", "deaths": 1},
+    {"player": "HALdesu", "champion": "Bel'Veth", "result": "loss", "deaths": 4},
+    {"player": "Norwegian", "champion": "Viego", "result": "win", "deaths": 0},
+    {"player": "VEL Skinny", "champion": "Vi", "result": "loss", "deaths": 5},
+    {"player": "Brucee", "champion": "Skarner", "result": "win", "deaths": 1},
+    {"player": "89", "champion": "Vi", "result": "loss", "deaths": 6},
+    {"player": "DM SUISEI", "champion": "Mordekaiser", "result": "win", "deaths": 2},
+    {"player": "RPG Shawshank", "champion": "Xin Zhao", "result": "loss", "deaths": 5},
+    {"player": "EL", "champion": "Zyra", "result": "win", "deaths": 0},
+    {"player": "DG hatinyang", "champion": "Xin Zhao", "result": "win", "deaths": 4},
+    {"player": "Sassappel", "champion": "Vi", "result": "win", "deaths": 3},
+    {"player": "Kiwi", "champion": "Viego", "result": "win", "deaths": 3},
+    {"player": "Mutton", "champion": "Vi", "result": "loss", "deaths": 6},
+    {"player": "DG socceryakyu", "champion": "Nocturne", "result": "win", "deaths": 3},
+    {"player": "HNS Skinny", "champion": "Xin Zhao", "result": "loss", "deaths": 6},
+    {"player": "VLY hachim1", "champion": "Vi", "result": "win", "deaths": 5},
+    {"player": "SQG Lunatic", "champion": "Yone", "result": "loss", "deaths": 5},
+    {"player": "QTD Van1", "champion": "Vi", "result": "win", "deaths": 2},
+]
+
+
+def chat_with_claude(user_message: str) -> str:
+    """Send a message to Claude and get a response."""
+    conversation_history.append({"role": "user", "content": user_message})
+
+    response = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=8096,
+        system="You are a helpful assistant that writes Python code. When asked to analyze data or solve problems, provide Python code that can be executed.",
+        messages=conversation_history,
+    )
+
+    assistant_message = response.content[0].text
+    conversation_history.append({"role": "assistant", "content": assistant_message})
+
+    return assistant_message
+
+
+def q1() -> int:
+    """Count how many different champions were played."""
+    champions = set()
+    for row in data:
+        champions.add(row["champion"])
+    return len(champions)
+
+
+def q2() -> str | None:
+    """Among champions played at least twice, return the one with the best win rate."""
+    from collections import defaultdict
+
+    champion_stats = defaultdict(lambda: {"wins": 0, "total": 0})
+
+    for row in data:
+        champion = row["champion"]
+        champion_stats[champion]["total"] += 1
+        if row["result"] == "win":
+            champion_stats[champion]["wins"] += 1
+
+    # Filter champions played at least twice
+    eligible_champions = {
+        champ: stats
+        for champ, stats in champion_stats.items()
+        if stats["total"] >= 2
+    }
+
+    if not eligible_champions:
+        return None
+
+    # Find champion with best win rate
+    best_champion = max(
+        eligible_champions.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"],
+    )[0]
+
+    return best_champion
+
+
+def q3() -> float:
+    """Calculate the average number of deaths in games that were lost."""
+    losses = [row["deaths"] for row in data if row["result"] == "loss"]
+    if not losses:
+        return 0.0
+    return sum(losses) / len(losses)
+
+
+if __name__ == "__main__":
+    # Test the functions
+    print(f"Q1 - Number of different champions: {q1()}")
+    print(f"Q2 - Champion with best win rate (played at least twice): {q2()}")
+    print(f"Q3 - Average deaths in losses: {q3()}")
+
+    # Interactive chat with Claude
+    print("\n--- Chat with Claude ---")
+    response = chat_with_claude(
+        "I have League of Legends match data. Can you help me analyze it?"
+    )
+    print(f"Claude: {response}")
+
+    response = chat_with_claude(
+        "I need to find the win rate for each champion. How would you approach this?"
+    )
+    print(f"Claude: {response}")
+```

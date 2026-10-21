@@ -1,0 +1,89 @@
+
+```python
+import anthropic
+import re
+
+
+def q1(text: str) -> float:
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports match data and calculate the average gold difference at 15 minutes of the winning teams.
+
+Data:
+{text}
+
+Please:
+1. Parse each game to identify which team won
+2. For each winning team, get their gold difference at 15 minutes
+3. Calculate the average of these gold differences
+4. Return ONLY the number (float) as the answer, nothing else."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+
+
+def q2(text: str) -> int:
+    """Return how many teams won even though they were behind in gold at 15 minutes."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports match data and count how many teams won even though they were behind in gold at 15 minutes.
+
+Data:
+{text}
+
+Please:
+1. Parse each game to identify which team won
+2. For each winning team, check if their gold difference at 15 minutes was negative (meaning they were behind)
+3. Count how many winning teams had a negative gold difference at 15 minutes
+4. Return ONLY the count as a number, nothing else."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return int(result)
+
+
+def q3(text: str) -> float:
+    """Return the win rate of teams that were ahead in gold at 15 minutes, as a number between 0 and 1."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports match data and calculate the win rate of teams that were ahead in gold at 15 minutes.
+
+Data:
+{text}
+
+Please:
+1. Parse each game to identify all teams that had a positive gold difference at 15 minutes (ahead in gold)
+2. For each such team, check if they won
+3. Calculate the win rate as: (number of wins) / (total number of teams ahead in gold)
+4. Return ONLY the win rate as a decimal number between 0 and 1, nothing else."""
+            }
+        ]
+    )
+    
+    result = message.content[0].text.strip()
+    return float(result)
+```

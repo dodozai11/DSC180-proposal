@@ -1,0 +1,53 @@
+```python
+import pandas as pd
+from collections import Counter
+
+# Data as Python data structures
+data = [
+    {"game": "G01", "team": "DN Freecs", "side": "blue", "result": "loss", "game_minutes": 34.1},
+    {"game": "G01", "team": "Dplus KIA", "side": "red", "result": "win", "game_minutes": 34.1},
+    {"game": "G02", "team": "BNK FEARX", "side": "blue", "result": "loss", "game_minutes": 40.1},
+    {"game": "G02", "team": "Gen.G", "side": "red", "result": "win", "game_minutes": 40.1},
+    {"game": "G03", "team": "Dplus KIA", "side": "blue", "result": "win", "game_minutes": 27.5},
+    {"game": "G03", "team": "BNK FEARX", "side": "red", "result": "loss", "game_minutes": 27.5},
+    {"game": "G04", "team": "DRX", "side": "blue", "result": "win", "game_minutes": 30.2},
+    {"game": "G04", "team": "DN Freecs", "side": "red", "result": "loss", "game_minutes": 30.2},
+    {"game": "G05", "team": "Hanwha Life Esports", "side": "blue", "result": "win", "game_minutes": 39.0},
+    {"game": "G05", "team": "Gen.G", "side": "red", "result": "loss", "game_minutes": 39.0},
+    {"game": "G06", "team": "Dplus KIA", "side": "blue", "result": "loss", "game_minutes": 30.0},
+    {"game": "G06", "team": "Nongshim RedForce", "side": "red", "result": "win", "game_minutes": 30.0},
+    {"game": "G07", "team": "DN Freecs", "side": "blue", "result": "win", "game_minutes": 33.9},
+    {"game": "G07", "team": "OKSavingsBank BRION", "side": "red", "result": "loss", "game_minutes": 33.9},
+    {"game": "G08", "team": "Dplus KIA", "side": "blue", "result": "win", "game_minutes": 37.2},
+    {"game": "G08", "team": "KT Rolster", "side": "red", "result": "loss", "game_minutes": 37.2},
+    {"game": "G09", "team": "Gen.G", "side": "blue", "result": "win", "game_minutes": 28.9},
+    {"game": "G09", "team": "Hanwha Life Esports", "side": "red", "result": "loss", "game_minutes": 28.9},
+    {"game": "G10", "team": "KT Rolster", "side": "blue", "result": "loss", "game_minutes": 35.1},
+    {"game": "G10", "team": "Hanwha Life Esports", "side": "red", "result": "win", "game_minutes": 35.1},
+]
+
+df = pd.DataFrame(data)
+
+def q1():
+    """Return the win rate of blue-side teams"""
+    blue_games = df[df["side"] == "blue"]
+    blue_wins = len(blue_games[blue_games["result"] == "win"])
+    blue_total = len(blue_games)
+    return blue_wins / blue_total
+
+def q2():
+    """Return the average length in minutes of games won by red-side team"""
+    red_wins = df[(df["side"] == "red") & (df["result"] == "win")]
+    return red_wins["game_minutes"].mean()
+
+def q3():
+    """Return the name of the team with the most wins"""
+    wins = df[df["result"] == "win"]["team"]
+    win_counts = Counter(wins)
+    return win_counts.most_common(1)[0][0]
+
+# Print results
+print(f"Q1 - Blue-side win rate: {q1()}")
+print(f"Q2 - Average game length for red-side wins: {q2()}")
+print(f"Q3 - Team with most wins: {q3()}")
+```

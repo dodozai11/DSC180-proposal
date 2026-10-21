@@ -1,0 +1,99 @@
+
+```python
+import anthropic
+
+# Data structure for the match data
+matches = [
+    {"player": "Nemesis", "team": "Los Ratones", "champion": "Galio", "role": "mid", "result": "won", "kills": 2, "deaths": 0, "assists": 14},
+    {"player": "Harbo", "team": "Lundqvist Lightside", "champion": "Ryze", "role": "mid", "result": "lost", "kills": 2, "deaths": 4, "assists": 4},
+    {"player": "Ronaldo", "team": "Verdant", "champion": "Yone", "role": "mid", "result": "lost", "kills": 0, "deaths": 5, "assists": 2},
+    {"player": "Perkz", "team": "Ruddy Esports", "champion": "Orianna", "role": "mid", "result": "lost", "kills": 3, "deaths": 3, "assists": 3},
+    {"player": "Lofti", "team": "Venomcrest Esports", "champion": "Orianna", "role": "mid", "result": "won", "kills": 5, "deaths": 2, "assists": 8},
+    {"player": "Bissejr15", "team": "DMG Esports", "champion": "Hwei", "role": "mid", "result": "lost", "kills": 5, "deaths": 1, "assists": 1},
+    {"player": "Zuhy", "team": "KAOS e-sport", "champion": "Azir", "role": "mid", "result": "lost", "kills": 0, "deaths": 4, "assists": 1},
+    {"player": "D1verse", "team": "Rich Gang", "champion": "Vel'Koz", "role": "mid", "result": "lost", "kills": 2, "deaths": 8, "assists": 2},
+    {"player": "Knighter", "team": "Venomcrest Esports", "champion": "Tristana", "role": "mid", "result": "won", "kills": 9, "deaths": 2, "assists": 8},
+    {"player": "Sencux", "team": "Verdant", "champion": "Aurora", "role": "mid", "result": "won", "kills": 6, "deaths": 0, "assists": 7},
+    {"player": "Zoiren", "team": "KAOS e-sport", "champion": "Aurora", "role": "mid", "result": "lost", "kills": 2, "deaths": 7, "assists": 3},
+    {"player": "Zwyroo", "team": "NORD Esports", "champion": "Ahri", "role": "mid", "result": "won", "kills": 6, "deaths": 0, "assists": 10},
+    {"player": "Congolese", "team": "Ruddy Esports", "champion": "Orianna", "role": "mid", "result": "lost", "kills": 1, "deaths": 4, "assists": 5},
+    {"player": "Scuffed", "team": "KAOS e-sport", "champion": "Ryze", "role": "mid", "result": "lost", "kills": 5, "deaths": 6, "assists": 16},
+    {"player": "Air", "team": "Venomcrest Esports", "champion": "Taliyah", "role": "mid", "result": "won", "kills": 9, "deaths": 6, "assists": 21},
+    {"player": "Hunt", "team": "Bulldog Esports", "champion": "Akali", "role": "mid", "result": "lost", "kills": 7, "deaths": 3, "assists": 3},
+    {"player": "Forslund", "team": "B2U", "champion": "Corki", "role": "mid", "result": "won", "kills": 10, "deaths": 0, "assists": 2},
+    {"player": "Valiant", "team": "CNG Royal", "champion": "Yasuo", "role": "mid", "result": "lost", "kills": 2, "deaths": 5, "assists": 3},
+    {"player": "Daggur", "team": "AaB Esport", "champion": "Hwei", "role": "mid", "result": "won", "kills": 7, "deaths": 5, "assists": 15},
+    {"player": "qqr", "team": "Brod n Friends", "champion": "Akali", "role": "mid", "result": "lost", "kills": 11, "deaths": 3, "assists": 3},
+]
+
+def q1():
+    """Return the name of the player with the highest KDA"""
+    best_player = None
+    best_kda = 0
+    
+    for match in matches:
+        kda = (match["kills"] + match["assists"]) / max(match["deaths"], 1)
+        if kda > best_kda:
+            best_kda = kda
+            best_player = match["player"]
+    
+    return best_player
+
+def q2():
+    """Return the average number of kills in games that were won"""
+    won_matches = [m for m in matches if m["result"] == "won"]
+    if not won_matches:
+        return 0
+    
+    total_kills = sum(m["kills"] for m in won_matches)
+    return total_kills / len(won_matches)
+
+def q3():
+    """Return the champion that got picked the most"""
+    champion_counts = {}
+    
+    for match in matches:
+        champion = match["champion"]
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    most_picked = max(champion_counts, key=champion_counts.get)
+    return most_picked
+
+def main():
+    client = anthropic.Anthropic()
+    
+    # Get the results
+    q1_result = q1()
+    q2_result = q2()
+    q3_result = q3()
+    
+    # Prepare the data for Claude
+    data_summary = f"""
+    League of Legends Match Data Analysis Results:
+    
+    Q1 - Player with highest KDA: {q1_result}
+    Q2 - Average kills in won games: {q2_result:.2f}
+    Q3 - Most picked champion: {q3_result}
+    
+    The data contains {len(matches)} mid lane player records from various esports teams.
+    """
+    
+    # Use Claude to provide additional insights
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": f"Here's some League of Legends esports data analysis:\n{data_summary}\n\nPlease provide a brief summary of these findings."}
+        ]
+    )
+    
+    print("Query Results:")
+    print(f"Q1 - Player with highest KDA: {q1_result}")
+    print(f"Q2 - Average kills in won games: {q2_result:.2f}")
+    print(f"Q3 - Most picked champion: {q3_result}")
+    print("\nClaude's Analysis:")
+    print(message.content[0].text)
+
+if __name__ == "__main__":
+    main()
+```

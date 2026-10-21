@@ -1,0 +1,64 @@
+```python
+# Data structure for League of Legends esports match data
+players = [
+    {"name": "Nemesis", "team": "Los Ratones", "champion": "Galio", "position": "mid", "result": "won", "kills": 2, "deaths": 0, "assists": 14},
+    {"name": "Harbo", "team": "Lundqvist Lightside", "champion": "Ryze", "position": "mid", "result": "lost", "kills": 2, "deaths": 4, "assists": 4},
+    {"name": "Ronaldo", "team": "Verdant", "champion": "Yone", "position": "mid", "result": "lost", "kills": 0, "deaths": 5, "assists": 2},
+    {"name": "Perkz", "team": "Ruddy Esports", "champion": "Orianna", "position": "mid", "result": "lost", "kills": 3, "deaths": 3, "assists": 3},
+    {"name": "Lofti", "team": "Venomcrest Esports", "champion": "Orianna", "position": "mid", "result": "won", "kills": 5, "deaths": 2, "assists": 8},
+    {"name": "Bissejr15", "team": "DMG Esports", "champion": "Hwei", "position": "mid", "result": "lost", "kills": 5, "deaths": 1, "assists": 1},
+    {"name": "Zuhy", "team": "KAOS e-sport", "champion": "Azir", "position": "mid", "result": "lost", "kills": 0, "deaths": 4, "assists": 1},
+    {"name": "D1verse", "team": "Rich Gang", "champion": "Vel'Koz", "position": "mid", "result": "lost", "kills": 2, "deaths": 8, "assists": 2},
+    {"name": "Knighter", "team": "Venomcrest Esports", "champion": "Tristana", "position": "mid", "result": "won", "kills": 9, "deaths": 2, "assists": 8},
+    {"name": "Sencux", "team": "Verdant", "champion": "Aurora", "position": "mid", "result": "won", "kills": 6, "deaths": 0, "assists": 7},
+    {"name": "Zoiren", "team": "KAOS e-sport", "champion": "Aurora", "position": "mid", "result": "lost", "kills": 2, "deaths": 7, "assists": 3},
+    {"name": "Zwyroo", "team": "NORD Esports", "champion": "Ahri", "position": "mid", "result": "won", "kills": 6, "deaths": 0, "assists": 10},
+    {"name": "Congolese", "team": "Ruddy Esports", "champion": "Orianna", "position": "mid", "result": "lost", "kills": 1, "deaths": 4, "assists": 5},
+    {"name": "Scuffed", "team": "KAOS e-sport", "champion": "Ryze", "position": "mid", "result": "lost", "kills": 5, "deaths": 6, "assists": 16},
+    {"name": "Air", "team": "Venomcrest Esports", "champion": "Taliyah", "position": "mid", "result": "won", "kills": 9, "deaths": 6, "assists": 21},
+    {"name": "Hunt", "team": "Bulldog Esports", "champion": "Akali", "position": "mid", "result": "lost", "kills": 7, "deaths": 3, "assists": 3},
+    {"name": "Forslund", "team": "B2U", "champion": "Corki", "position": "mid", "result": "won", "kills": 10, "deaths": 0, "assists": 2},
+    {"name": "Valiant", "team": "CNG Royal", "champion": "Yasuo", "position": "mid", "result": "lost", "kills": 2, "deaths": 5, "assists": 3},
+    {"name": "Daggur", "team": "AaB Esport", "champion": "Hwei", "position": "mid", "result": "won", "kills": 7, "deaths": 5, "assists": 15},
+    {"name": "qqr", "team": "Brod n Friends", "champion": "Akali", "position": "mid", "result": "lost", "kills": 11, "deaths": 3, "assists": 3},
+]
+
+def q1():
+    """Returns the name of the player with the highest KDA"""
+    max_kda = -1
+    best_player = None
+    
+    for player in players:
+        kda = (player["kills"] + player["assists"]) / max(player["deaths"], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player["name"]
+    
+    return best_player
+
+def q2():
+    """Returns the average number of kills in games that were won"""
+    won_games = [player for player in players if player["result"] == "won"]
+    
+    if not won_games:
+        return 0
+    
+    total_kills = sum(player["kills"] for player in won_games)
+    return total_kills / len(won_games)
+
+def q3():
+    """Returns the name of the most-picked champion"""
+    champion_counts = {}
+    
+    for player in players:
+        champion = player["champion"]
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    most_picked = max(champion_counts, key=champion_counts.get)
+    return most_picked
+
+# Print answers
+print(f"Q1 - Player with highest KDA: {q1()}")
+print(f"Q2 - Average kills in won games: {q2()}")
+print(f"Q3 - Most-picked champion: {q3()}")
+```

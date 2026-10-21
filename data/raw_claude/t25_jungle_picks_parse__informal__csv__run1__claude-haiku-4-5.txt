@@ -1,0 +1,82 @@
+
+```python
+import anthropic
+import csv
+from io import StringIO
+from collections import defaultdict
+
+
+def q1(text: str) -> int:
+    """Count how many different champions were played."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(StringIO(text))
+    champions = set()
+    for row in reader:
+        champions.add(row['champion'])
+    return len(champions)
+
+
+def q2(text: str) -> str | None:
+    """Among champions played at least twice, return the name of the one with the best win rate."""
+    reader = csv.DictReader(StringIO(text))
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for row in reader:
+        champion = row['champion']
+        result = row['result']
+        champion_stats[champion]['total'] += 1
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not eligible:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(eligible.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text: str) -> float:
+    """Calculate the average number of deaths in games that were lost."""
+    reader = csv.DictReader(StringIO(text))
+    losses = []
+    for row in reader:
+        if row['result'] == 'loss':
+            losses.append(int(row['deaths']))
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+
+
+# Test with the provided data
+test_data = """player,champion,result,deaths
+Forest,Viego,win,3
+Popon,Vi,win,0
+Racon,Nocturne,win,1
+HALdesu,Bel'Veth,loss,4
+Norwegian,Viego,win,0
+VEL Skinny,Vi,loss,5
+Brucee,Skarner,win,1
+89,Vi,loss,6
+DM SUISEI,Mordekaiser,win,2
+RPG Shawshank,Xin Zhao,loss,5
+EL,Zyra,win,0
+DG hatinyang,Xin Zhao,win,4
+Sassappel,Vi,win,3
+Kiwi,Viego,win,3
+Mutton,Vi,loss,6
+DG socceryakyu,Nocturne,win,3
+HNS Skinny,Xin Zhao,loss,6
+VLY hachim1,Vi,win,5
+SQG Lunatic,Yone,loss,5
+QTD Van1,Vi,win,2"""
+
+print("Q1 (unique champions):", q1(test_data))
+print("Q2 (best win rate champion):", q2(test_data))
+print("Q3 (average deaths in losses):", q3(test_data))
+```

@@ -1,0 +1,66 @@
+
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Count how many different champions were played"""
+    champions = set()
+    lines = text.strip().split('\n')
+    for line in lines:
+        match = re.search(r'played (\w+) in the jungle', line)
+        if match:
+            champions.add(match.group(1))
+    return len(champions)
+
+def q2(text):
+    """Among champions played at least twice, return the one with the best win rate"""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    lines = text.strip().split('\n')
+    for line in lines:
+        match = re.search(r'played (\w+) in the jungle and (won|lost)', line)
+        if match:
+            champion = match.group(1)
+            result = match.group(2)
+            champion_stats[champion]['total'] += 1
+            if result == 'won':
+                champion_stats[champion]['wins'] += 1
+    
+    best_champion = None
+    best_win_rate = -1
+    
+    for champion, stats in champion_stats.items():
+        if stats['total'] >= 2:
+            win_rate = stats['wins'] / stats['total']
+            if win_rate > best_win_rate:
+                best_win_rate = win_rate
+                best_champion = champion
+    
+    return best_champion
+
+def q3(text):
+    """Return the average number of deaths in games that were lost"""
+    lost_deaths = []
+    
+    lines = text.strip().split('\n')
+    for line in lines:
+        match = re.search(r'and (won|lost), dying (\d+) times', line)
+        if match:
+            result = match.group(1)
+            deaths = int(match.group(2))
+            if result == 'lost':
+                lost_deaths.append(deaths)
+    
+    if not lost_deaths:
+        return 0
+    
+    return sum(lost_deaths) / len(lost_deaths)
+
+if __name__ == "__main__":
+    sample_data = """Forest played Viego in the jungle and won, dying 3 times. Popon played Vi in the jungle and won, dying 0 times. Racon played Nocturne in the jungle and won, dying 1 times. HALdesu played Bel'Veth in the jungle and lost, dying 4 times. Norwegian played Viego in the jungle and won, dying 0 times. VEL Skinny played Vi in the jungle and lost, dying 5 times. Brucee played Skarner in the jungle and won, dying 1 times. 89 played Vi in the jungle and lost, dying 6 times. DM SUISEI played Mordekaiser in the jungle and won, dying 2 times. RPG Shawshank played Xin Zhao in the jungle and lost, dying 5 times. EL played Zyra in the jungle and won, dying 0 times. DG hatinyang played Xin Zhao in the jungle and won, dying 4 times. Sassappel played Vi in the jungle and won, dying 3 times. Kiwi played Viego in the jungle and won, dying 3 times. Mutton played Vi in the jungle and lost, dying 6 times. DG socceryakyu played Nocturne in the jungle and won, dying 3 times. HNS Skinny played Xin Zhao in the jungle and lost, dying 6 times. VLY hachim1 played Vi in the jungle and won, dying 5 times. SQG Lunatic played Yone in the jungle and lost, dying 5 times. QTD Van1 played Vi in the jungle and won, dying 2 times."""
+    
+    print(f"Q1 (different champions): {q1(sample_data)}")
+    print(f"Q2 (best win rate among champions played 2+ times): {q2(sample_data)}")
+    print(f"Q3 (average deaths in lost games): {q3(sample_data)}")
+```

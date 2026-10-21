@@ -1,0 +1,89 @@
+
+```python
+import anthropic
+import json
+import re
+
+
+def q1(text: str) -> int:
+    """Count how many different champions were played."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports match data and count how many different champions were played.
+
+Data:
+{text}
+
+Return only a JSON object with the key "count" containing the number of unique champions. Example: {{"count": 5}}"""
+            }
+        ]
+    )
+    
+    response_text = message.content[0].text
+    result = json.loads(response_text)
+    return result["count"]
+
+
+def q2(text: str) -> str | None:
+    """Among champions played at least twice, return the name of the one with the best win rate."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports match data and find the champion with the best win rate among those played at least twice.
+
+Data:
+{text}
+
+Return only a JSON object with the key "champion" containing the champion name (or null if no champion was played twice). Example: {{"champion": "Vi"}} or {{"champion": null}}"""
+            }
+        ]
+    )
+    
+    response_text = message.content[0].text
+    result = json.loads(response_text)
+    return result["champion"]
+
+
+def q3(text: str) -> float:
+    """Return the average number of deaths in the games that were lost."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports match data and calculate the average number of deaths for players who lost their games.
+
+Data:
+{text}
+
+Return only a JSON object with the key "average_deaths" containing the average number of deaths (as a number). Example: {{"average_deaths": 5.2}}"""
+            }
+        ]
+    )
+    
+    response_text = message.content[0].text
+    result = json.loads(response_text)
+    return result["average_deaths"]
+
+
+if __name__ == "__main__":
+    sample_data = """Forest played Viego in the jungle and won, dying 3 times. Popon played Vi in the jungle and won, dying 0 times. Racon played Nocturne in the jungle and won, dying 1 times. HALdesu played Bel'Veth in the jungle and lost, dying 4 times. Norwegian played Viego in the jungle and won, dying 0 times. VEL Skinny played Vi in the jungle and lost, dying 5 times. Brucee played Skarner in the jungle and won, dying 1 times. 89 played Vi in the jungle and lost, dying 6 times. DM SUISEI played Mordekaiser in the jungle and won, dying 2 times. RPG Shawshank played Xin Zhao in the jungle and lost, dying 5 times. EL played Zyra in the jungle and won, dying 0 times. DG hatinyang played Xin Zhao in the jungle and won, dying 4 times. Sassappel played Vi in the jungle and won, dying 3 times. Kiwi played Viego in the jungle and won, dying 3 times. Mutton played Vi in the jungle and lost, dying 6 times. DG socceryakyu played Nocturne in the jungle and won, dying 3 times. HNS Skinny played Xin Zhao in the jungle and lost, dying 6 times. VLY hachim1 played Vi in the jungle and won, dying 5 times. SQG Lunatic played Yone in the jungle and lost, dying 5 times. QTD Van1 played Vi in the jungle and won, dying 2 times."""
+    
+    print("Q1 - Number of different champions:", q1(sample_data))
+    print("Q2 - Champion with best win rate (played at least twice):", q2(sample_data))
+    print("Q3 - Average deaths in lost games:", q3(sample_data))
+```

@@ -1,0 +1,80 @@
+
+```python
+import anthropic
+import csv
+import io
+
+
+def q1(text: str) -> float:
+    """Return the win rate of blue-side teams as a number between 0 and 1."""
+    reader = csv.DictReader(io.StringIO(text))
+    rows = list(reader)
+    
+    blue_games = [row for row in rows if row['side'] == 'blue']
+    blue_wins = [row for row in blue_games if row['result'] == 'win']
+    
+    if not blue_games:
+        return 0.0
+    
+    return len(blue_wins) / len(blue_games)
+
+
+def q2(text: str) -> float:
+    """Return the average length in minutes of games the red-side team won."""
+    reader = csv.DictReader(io.StringIO(text))
+    rows = list(reader)
+    
+    red_wins = [row for row in rows if row['side'] == 'red' and row['result'] == 'win']
+    
+    if not red_wins:
+        return 0.0
+    
+    total_minutes = sum(float(row['game_minutes']) for row in red_wins)
+    return total_minutes / len(red_wins)
+
+
+def q3(text: str) -> str:
+    """Return the name of the team with the most wins."""
+    reader = csv.DictReader(io.StringIO(text))
+    rows = list(reader)
+    
+    team_wins = {}
+    for row in rows:
+        if row['result'] == 'win':
+            team = row['team']
+            team_wins[team] = team_wins.get(team, 0) + 1
+    
+    if not team_wins:
+        return ""
+    
+    return max(team_wins, key=team_wins.get)
+
+
+# Test with the provided data
+if __name__ == "__main__":
+    test_data = """game,team,side,result,game_minutes
+G01,DN Freecs,blue,loss,34.1
+G01,Dplus KIA,red,win,34.1
+G02,BNK FEARX,blue,loss,40.1
+G02,Gen.G,red,win,40.1
+G03,Dplus KIA,blue,win,27.5
+G03,BNK FEARX,red,loss,27.5
+G04,DRX,blue,win,30.2
+G04,DN Freecs,red,loss,30.2
+G05,Hanwha Life Esports,blue,win,39.0
+G05,Gen.G,red,loss,39.0
+G06,Dplus KIA,blue,loss,30.0
+G06,Nongshim RedForce,red,win,30.0
+G07,DN Freecs,blue,win,33.9
+G07,OKSavingsBank BRION,red,loss,33.9
+G08,Dplus KIA,blue,win,37.2
+G08,KT Rolster,red,loss,37.2
+G09,Gen.G,blue,win,28.9
+G09,Hanwha Life Esports,red,loss,28.9
+G10,KT Rolster,blue,loss,35.1
+G10,Hanwha Life Esports,red,win,35.1"""
+    
+    print(f"Blue-side win rate: {q1(test_data)}")
+    print(f"Average game length for red-side wins: {q2(test_data)}")
+    print(f"Team with most wins: {q3(test_data)}")
+```

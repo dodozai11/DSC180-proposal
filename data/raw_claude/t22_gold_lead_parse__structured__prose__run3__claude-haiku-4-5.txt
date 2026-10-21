@@ -1,0 +1,56 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of dictionaries."""
+    games = []
+    
+    # Pattern to match each game entry
+    pattern = r"In game (\w+), (.+?) played on the (\w+) side and (\w+), with a gold difference of ([-\d]+) at 15 minutes\."
+    
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, gold_diff = match
+        games.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'result': result,
+            'gold_diff': int(gold_diff)
+        })
+    
+    return games
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    games = parse_data(text)
+    
+    winning_teams = [game['gold_diff'] for game in games if game['result'] == 'won']
+    
+    if not winning_teams:
+        return 0
+    
+    return sum(winning_teams) / len(winning_teams)
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    games = parse_data(text)
+    
+    count = sum(1 for game in games if game['result'] == 'won' and game['gold_diff'] < 0)
+    
+    return count
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    games = parse_data(text)
+    
+    ahead_in_gold = [game for game in games if game['gold_diff'] > 0]
+    
+    if not ahead_in_gold:
+        return 0
+    
+    wins = sum(1 for game in ahead_in_gold if game['result'] == 'won')
+    
+    return wins / len(ahead_in_gold)
+```

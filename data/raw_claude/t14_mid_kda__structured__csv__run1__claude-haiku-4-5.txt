@@ -1,0 +1,52 @@
+```python
+data = [
+    {"player": "Nemesis", "team": "Los Ratones", "champion": "Galio", "kills": 2, "deaths": 0, "assists": 14, "result": "win"},
+    {"player": "Harbo", "team": "Lundqvist Lightside", "champion": "Ryze", "kills": 2, "deaths": 4, "assists": 4, "result": "loss"},
+    {"player": "Ronaldo", "team": "Verdant", "champion": "Yone", "kills": 0, "deaths": 5, "assists": 2, "result": "loss"},
+    {"player": "Perkz", "team": "Ruddy Esports", "champion": "Orianna", "kills": 3, "deaths": 3, "assists": 3, "result": "loss"},
+    {"player": "Lofti", "team": "Venomcrest Esports", "champion": "Orianna", "kills": 5, "deaths": 2, "assists": 8, "result": "win"},
+    {"player": "Bissejr15", "team": "DMG Esports", "champion": "Hwei", "kills": 5, "deaths": 1, "assists": 1, "result": "loss"},
+    {"player": "Zuhy", "team": "KAOS e-sport", "champion": "Azir", "kills": 0, "deaths": 4, "assists": 1, "result": "loss"},
+    {"player": "D1verse", "team": "Rich Gang", "champion": "Vel'Koz", "kills": 2, "deaths": 8, "assists": 2, "result": "loss"},
+    {"player": "Knighter", "team": "Venomcrest Esports", "champion": "Tristana", "kills": 9, "deaths": 2, "assists": 8, "result": "win"},
+    {"player": "Sencux", "team": "Verdant", "champion": "Aurora", "kills": 6, "deaths": 0, "assists": 7, "result": "win"},
+    {"player": "Zoiren", "team": "KAOS e-sport", "champion": "Aurora", "kills": 2, "deaths": 7, "assists": 3, "result": "loss"},
+    {"player": "Zwyroo", "team": "NORD Esports", "champion": "Ahri", "kills": 6, "deaths": 0, "assists": 10, "result": "win"},
+    {"player": "Congolese", "team": "Ruddy Esports", "champion": "Orianna", "kills": 1, "deaths": 4, "assists": 5, "result": "loss"},
+    {"player": "Scuffed", "team": "KAOS e-sport", "champion": "Ryze", "kills": 5, "deaths": 6, "assists": 16, "result": "loss"},
+    {"player": "Air", "team": "Venomcrest Esports", "champion": "Taliyah", "kills": 9, "deaths": 6, "assists": 21, "result": "win"},
+    {"player": "Hunt", "team": "Bulldog Esports", "champion": "Akali", "kills": 7, "deaths": 3, "assists": 3, "result": "loss"},
+    {"player": "Forslund", "team": "B2U", "champion": "Corki", "kills": 10, "deaths": 0, "assists": 2, "result": "win"},
+    {"player": "Valiant", "team": "CNG Royal", "champion": "Yasuo", "kills": 2, "deaths": 5, "assists": 3, "result": "loss"},
+    {"player": "Daggur", "team": "AaB Esport", "champion": "Hwei", "kills": 7, "deaths": 5, "assists": 15, "result": "win"},
+    {"player": "qqr", "team": "Brod n Friends", "champion": "Akali", "kills": 11, "deaths": 3, "assists": 3, "result": "loss"},
+]
+
+def q1():
+    max_kda = -1
+    best_player = None
+    for player_data in data:
+        kda = (player_data["kills"] + player_data["assists"]) / max(player_data["deaths"], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player_data["player"]
+    return best_player
+
+def q2():
+    wins = [player_data for player_data in data if player_data["result"] == "win"]
+    if len(wins) == 0:
+        return 0
+    total_kills = sum(player_data["kills"] for player_data in wins)
+    return total_kills / len(wins)
+
+def q3():
+    champion_counts = {}
+    for player_data in data:
+        champion = player_data["champion"]
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    return max(champion_counts, key=champion_counts.get)
+
+print(f"Q1: {q1()}")
+print(f"Q2: {q2()}")
+print(f"Q3: {q3()}")
+```

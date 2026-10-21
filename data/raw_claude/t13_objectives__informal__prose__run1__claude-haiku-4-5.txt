@@ -1,0 +1,91 @@
+
+```python
+import anthropic
+import json
+
+# Data structure for the match data
+matches = [
+    {"game": "G01", "team": "Gen.G Scholars", "result": "won", "first_dragon": False, "dragons": 2, "barons": 2, "towers": 11},
+    {"game": "G01", "team": "DRX Academy", "result": "lost", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 1},
+    {"game": "G02", "team": "DRX Academy", "result": "lost", "first_dragon": False, "dragons": 0, "barons": 0, "towers": 0},
+    {"game": "G02", "team": "Dplus KIA Youth", "result": "won", "first_dragon": True, "dragons": 4, "barons": 0, "towers": 8},
+    {"game": "G03", "team": "Hanwha Life Esports Academy", "result": "won", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 9},
+    {"game": "G03", "team": "DN Freecs Academy", "result": "lost", "first_dragon": True, "dragons": 3, "barons": 0, "towers": 5},
+    {"game": "G04", "team": "Hanwha Life Esports Academy", "result": "lost", "first_dragon": False, "dragons": 1, "barons": 0, "towers": 0},
+    {"game": "G04", "team": "KT Rolster Academy", "result": "won", "first_dragon": True, "dragons": 4, "barons": 1, "towers": 10},
+    {"game": "G05", "team": "DN Freecs Academy", "result": "won", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 10},
+    {"game": "G05", "team": "DRX Academy", "result": "lost", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 4},
+    {"game": "G06", "team": "Dplus KIA Youth", "result": "won", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 8},
+    {"game": "G06", "team": "Nongshim RedForce Academy", "result": "lost", "first_dragon": True, "dragons": 3, "barons": 0, "towers": 4},
+    {"game": "G07", "team": "DRX Academy", "result": "lost", "first_dragon": True, "dragons": 1, "barons": 0, "towers": 2},
+    {"game": "G07", "team": "Hanwha Life Esports Academy", "result": "won", "first_dragon": False, "dragons": 4, "barons": 1, "towers": 9},
+    {"game": "G08", "team": "Hanwha Life Esports Academy", "result": "won", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 10},
+    {"game": "G08", "team": "Nongshim RedForce Academy", "result": "lost", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 2},
+    {"game": "G09", "team": "DN Freecs Academy", "result": "won", "first_dragon": False, "dragons": 2, "barons": 0, "towers": 9},
+    {"game": "G09", "team": "DRX Academy", "result": "lost", "first_dragon": True, "dragons": 1, "barons": 0, "towers": 2},
+    {"game": "G10", "team": "Gen.G Scholars", "result": "won", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 11},
+    {"game": "G10", "team": "DN Freecs Academy", "result": "lost", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 4},
+]
+
+def q1():
+    """Return the win rate of teams that took the first dragon"""
+    first_dragon_teams = [m for m in matches if m["first_dragon"]]
+    if not first_dragon_teams:
+        return 0.0
+    wins = sum(1 for m in first_dragon_teams if m["result"] == "won")
+    return wins / len(first_dragon_teams)
+
+def q2():
+    """Return the average number of barons the winning teams took"""
+    winning_teams = [m for m in matches if m["result"] == "won"]
+    if not winning_teams:
+        return 0.0
+    total_barons = sum(m["barons"] for m in winning_teams)
+    return total_barons / len(winning_teams)
+
+def q3():
+    """Return the total towers destroyed across all matches"""
+    return sum(m["towers"] for m in matches)
+
+def verify_with_claude():
+    """Use Claude to verify our calculations"""
+    client = anthropic.Anthropic()
+    
+    # Prepare the data as a string for Claude
+    data_str = json.dumps(matches, indent=2)
+    
+    prompt = f"""Given this League of Legends esports match data:
+
+{data_str}
+
+Please answer these three questions:
+1. What is the win rate of teams that took the first dragon? (as a decimal between 0 and 1)
+2. What is the average number of barons that winning teams took?
+3. What is the total number of towers destroyed across all matches?
+
+Format your response as JSON with keys "q1", "q2", and "q3"."""
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    return message.content[0].text
+
+# Calculate our answers
+answer_q1 = q1()
+answer_q2 = q2()
+answer_q3 = q3()
+
+print("Our calculations:")
+print(f"q1() - Win rate of teams that took first dragon: {answer_q1}")
+print(f"q2() - Average barons for winning teams: {answer_q2}")
+print(f"q3() - Total towers destroyed: {answer_q3}")
+
+print("\nVerifying with Claude:")
+verification = verify_with_claude()
+print(verification)
+```

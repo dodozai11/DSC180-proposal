@@ -1,0 +1,49 @@
+
+```python
+import re
+
+data_text = """J3rkie of ZennIT lost with a vision score of 80, 44 wards placed and 12 control wards bought. JACTROLL of Zero Tenacity lost with a vision score of 107, 47 wards placed and 7 control wards bought. Peto of Nightbirds lost with a vision score of 220, 114 wards placed and 27 control wards bought. Rekkles of Los Ratones won with a vision score of 252, 119 wards placed and 32 control wards bought. Prime of Ici Japon Corp. Esport lost with a vision score of 112, 58 wards placed and 23 control wards bought. Shredder of Macko Esports won with a vision score of 114, 49 wards placed and 8 control wards bought. Nsurr of Karmine Corp Blue won with a vision score of 141, 53 wards placed and 13 control wards bought. Tockimo of E WIE EINFACH E-SPORTS lost with a vision score of 113, 71 wards placed and 16 control wards bought. Piero of Karmine Corp Blue won with a vision score of 112, 56 wards placed and 13 control wards bought. Centu of Gamespace Mediterranean College Esports lost with a vision score of 140, 58 wards placed and 16 control wards bought. Mahonix of GMBLERS Esports lost with a vision score of 91, 46 wards placed and 16 control wards bought. Visdom of Kaufland Hangry Knights lost with a vision score of 96, 70 wards placed and 16 control wards bought. Brizz of aNc Legends lost with a vision score of 99, 51 wards placed and 16 control wards bought. Vlaren of SPIKE Syndicate lost with a vision score of 86, 45 wards placed and 10 control wards bought. Speedy1 of Team Insidious lost with a vision score of 95, 43 wards placed and 12 control wards bought. Max1 of eSuba lost with a vision score of 50, 30 wards placed and 8 control wards bought. Rutzou of Odivelas Sports Club won with a vision score of 111, 48 wards placed and 13 control wards bought. Zoelys of Galions won with a vision score of 59, 26 wards placed and 9 control wards bought. Sparz of GnG Amazigh won with a vision score of 144, 71 wards placed and 16 control wards bought. Farfetch of ULF Esports won with a vision score of 121, 54 wards placed and 12 control wards bought."""
+
+players = []
+
+pattern = r'(\w+) of .+ (won|lost) with a vision score of (\d+), (\d+) wards placed and (\d+) control wards bought'
+
+for match in re.finditer(pattern, data_text):
+    player_name = match.group(1)
+    result = match.group(2)
+    vision_score = int(match.group(3))
+    wards_placed = int(match.group(4))
+    control_wards = int(match.group(5))
+    
+    players.append({
+        'name': player_name,
+        'result': result,
+        'vision_score': vision_score,
+        'wards_placed': wards_placed,
+        'control_wards': control_wards
+    })
+
+
+def q1():
+    won_scores = [p['vision_score'] for p in players if p['result'] == 'won']
+    lost_scores = [p['vision_score'] for p in players if p['result'] == 'lost']
+    
+    avg_won = sum(won_scores) / len(won_scores) if won_scores else 0
+    avg_lost = sum(lost_scores) / len(lost_scores) if lost_scores else 0
+    
+    return avg_won - avg_lost
+
+
+def q2():
+    return max(players, key=lambda p: p['wards_placed'])['name']
+
+
+def q3():
+    return sum(1 for p in players if p['control_wards'] >= 15)
+
+
+if __name__ == "__main__":
+    print(f"q1(): {q1()}")
+    print(f"q2(): {q2()}")
+    print(f"q3(): {q3()}")
+```

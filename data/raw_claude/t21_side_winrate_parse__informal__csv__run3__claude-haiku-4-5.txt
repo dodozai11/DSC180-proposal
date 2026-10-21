@@ -1,0 +1,96 @@
+
+```python
+import anthropic
+import json
+
+
+def q1(text: str) -> float:
+    """Return the win rate of blue-side teams as a number between 0 and 1."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and calculate the win rate of blue-side teams (wins / total games played on blue side). Return ONLY a single number between 0 and 1, with no other text.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    return float(message.content[0].text.strip())
+
+
+def q2(text: str) -> float:
+    """Return the average length in minutes of games the red-side team won."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and calculate the average game length (in minutes) for games where the red-side team won. Return ONLY a single number representing the average, with no other text.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    return float(message.content[0].text.strip())
+
+
+def q3(text: str) -> str:
+    """Return the name of the team with the most wins."""
+    client = anthropic.Anthropic()
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends esports data and find the team with the most wins (count wins across all games, regardless of side). Return ONLY the team name, with no other text.
+
+Data:
+{text}"""
+            }
+        ]
+    )
+    
+    return message.content[0].text.strip()
+
+
+if __name__ == "__main__":
+    sample_data = """game,team,side,result,game_minutes
+G01,DN Freecs,blue,loss,34.1
+G01,Dplus KIA,red,win,34.1
+G02,BNK FEARX,blue,loss,40.1
+G02,Gen.G,red,win,40.1
+G03,Dplus KIA,blue,win,27.5
+G03,BNK FEARX,red,loss,27.5
+G04,DRX,blue,win,30.2
+G04,DN Freecs,red,loss,30.2
+G05,Hanwha Life Esports,blue,win,39.0
+G05,Gen.G,red,loss,39.0
+G06,Dplus KIA,blue,loss,30.0
+G06,Nongshim RedForce,red,win,30.0
+G07,DN Freecs,blue,win,33.9
+G07,OKSavingsBank BRION,red,loss,33.9
+G08,Dplus KIA,blue,win,37.2
+G08,KT Rolster,red,loss,37.2
+G09,Gen.G,blue,win,28.9
+G09,Hanwha Life Esports,red,loss,28.9
+G10,KT Rolster,blue,loss,35.1
+G10,Hanwha Life Esports,red,win,35.1"""
+    
+    print(f"Q1 (Blue-side win rate): {q1(sample_data)}")
+    print(f"Q2 (Avg game length when red wins): {q2(sample_data)}")
+    print(f"Q3 (Team with most wins): {q3(sample_data)}")
+```

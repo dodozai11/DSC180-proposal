@@ -1,0 +1,35 @@
+
+```python
+import pandas as pd
+
+# Data embedded as Python data structures
+data = {
+    'player': ['J3rkie', 'JACTROLL', 'Peto', 'Rekkles', 'Prime', 'Shredder', 'Nsurr', 'Tockimo', 'Piero', 'Centu', 'Mahonix', 'Visdom', 'Brizz', 'Vlaren', 'Speedy1', 'Max1', 'Rutzou', 'Zoelys', 'Sparz', 'Farfetch'],
+    'team': ['ZennIT', 'Zero Tenacity', 'Nightbirds', 'Los Ratones', 'Ici Japon Corp. Esport', 'Macko Esports', 'Karmine Corp Blue', 'E WIE EINFACH E-SPORTS', 'Karmine Corp Blue', 'Gamespace Mediterranean College Esports', 'GMBLERS Esports', 'Kaufland Hangry Knights', 'aNc Legends', 'SPIKE Syndicate', 'Team Insidious', 'eSuba', 'Odivelas Sports Club', 'Galions', 'GnG Amazigh', 'ULF Esports'],
+    'result': ['loss', 'loss', 'loss', 'win', 'loss', 'win', 'win', 'loss', 'win', 'loss', 'loss', 'loss', 'loss', 'loss', 'loss', 'loss', 'win', 'win', 'win', 'win'],
+    'vision_score': [80, 107, 220, 252, 112, 114, 141, 113, 112, 140, 91, 96, 99, 86, 95, 50, 111, 59, 144, 121],
+    'wards_placed': [44, 47, 114, 119, 58, 49, 53, 71, 56, 58, 46, 70, 51, 45, 43, 30, 48, 26, 71, 54],
+    'control_wards': [12, 7, 27, 32, 23, 8, 13, 16, 13, 16, 16, 16, 16, 10, 12, 8, 13, 9, 16, 12]
+}
+
+df = pd.DataFrame(data)
+
+def q1():
+    """Return the average vision score of the players who won minus the average for the players who lost."""
+    avg_vision_win = df[df['result'] == 'win']['vision_score'].mean()
+    avg_vision_loss = df[df['result'] == 'loss']['vision_score'].mean()
+    return avg_vision_win - avg_vision_loss
+
+def q2():
+    """Return the name of the player who placed the most wards."""
+    return df.loc[df['wards_placed'].idxmax(), 'player']
+
+def q3():
+    """Count how many players bought at least 15 control wards."""
+    return len(df[df['control_wards'] >= 15])
+
+if __name__ == "__main__":
+    print(f"q1() = {q1()}")
+    print(f"q2() = {q2()}")
+    print(f"q3() = {q3()}")
+```

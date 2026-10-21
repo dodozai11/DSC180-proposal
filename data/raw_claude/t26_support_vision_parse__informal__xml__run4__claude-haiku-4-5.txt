@@ -1,0 +1,139 @@
+
+```python
+import anthropic
+import xml.etree.ElementTree as ET
+from typing import Union
+
+
+def q1(text: str) -> float:
+    """Return the average vision score of winners minus average of losers."""
+    root = ET.fromstring(f"<data>{text}</data>")
+    
+    winners_vision = []
+    losers_vision = []
+    
+    for row in root.findall("row"):
+        vision_score = int(row.find("vision_score").text)
+        result = row.find("result").text
+        
+        if result == "win":
+            winners_vision.append(vision_score)
+        else:
+            losers_vision.append(vision_score)
+    
+    avg_winners = sum(winners_vision) / len(winners_vision) if winners_vision else 0
+    avg_losers = sum(losers_vision) / len(losers_vision) if losers_vision else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text: str) -> str:
+    """Return the name of the player who placed the most wards."""
+    root = ET.fromstring(f"<data>{text}</data>")
+    
+    max_wards = -1
+    max_player = None
+    
+    for row in root.findall("row"):
+        player = row.find("player").text
+        wards_placed = int(row.find("wards_placed").text)
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text: str) -> int:
+    """Count how many players bought at least 15 control wards."""
+    root = ET.fromstring(f"<data>{text}</data>")
+    
+    count = 0
+    
+    for row in root.findall("row"):
+        control_wards = int(row.find("control_wards").text)
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+
+
+def use_claude_for_verification(text: str, question: str) -> Union[str, int, float]:
+    """Use Claude to verify our answers using tool use."""
+    client = anthropic.Anthropic()
+    
+    tools = [
+        {
+            "name": "parse_lol_data",
+            "description": "Parse League of Legends esports match data in XML format",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "query_type": {
+                        "type": "string",
+                        "enum": ["q1", "q2", "q3"],
+                        "description": "The type of query to perform"
+                    },
+                    "data": {
+                        "type": "string",
+                        "description": "The XML formatted data"
+                    }
+                },
+                "required": ["query_type", "data"]
+            }
+        }
+    ]
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        tools=tools,
+        messages=[
+            {
+                "role": "user",
+                "content": f"Please answer this question about League of Legends esports data: {question}\n\nData:\n{text}"
+            }
+        ]
+    )
+    
+    for content_block in message.content:
+        if content_block.type == "tool_use":
+            if content_block.name == "parse_lol_data":
+                query_type = content_block.input["query_type"]
+                if query_type == "q1":
+                    return q1(text)
+                elif query_type == "q2":
+                    return q2(text)
+                elif query_type == "q3":
+                    return q3(text)
+    
+    return None
+
+
+if __name__ == "__main__":
+    sample_data = """<row><player>J3rkie</player><team>ZennIT</team><result>loss</result><vision_score>80</vision_score><wards_placed>44</wards_placed><control_wards>12</control_wards></row>
+  <row><player>JACTROLL</player><team>Zero Tenacity</team><result>loss</result><vision_score>107</vision_score><wards_placed>47</wards_placed><control_wards>7</control_wards></row>
+  <row><player>Peto</player><team>Nightbirds</team><result>loss</result><vision_score>220</vision_score><wards_placed>114</wards_placed><control_wards>27</control_wards></row>
+  <row><player>Rekkles</player><team>Los Ratones</team><result>win</result><vision_score>252</vision_score><wards_placed>119</wards_placed><control_wards>32</control_wards></row>
+  <row><player>Prime</player><team>Ici Japon Corp. Esport</team><result>loss</result><vision_score>112</vision_score><wards_placed>58</wards_placed><control_wards>23</control_wards></row>
+  <row><player>Shredder</player><team>Macko Esports</team><result>win</result><vision_score>114</vision_score><wards_placed>49</wards_placed><control_wards>8</control_wards></row>
+  <row><player>Nsurr</player><team>Karmine Corp Blue</team><result>win</result><vision_score>141</vision_score><wards_placed>53</wards_placed><control_wards>13</control_wards></row>
+  <row><player>Tockimo</player><team>E WIE EINFACH E-SPORTS</team><result>loss</result><vision_score>113</vision_score><wards_placed>71</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Piero</player><team>Karmine Corp Blue</team><result>win</result><vision_score>112</vision_score><wards_placed>56</wards_placed><control_wards>13</control_wards></row>
+  <row><player>Centu</player><team>Gamespace Mediterranean College Esports</team><result>loss</result><vision_score>140</vision_score><wards_placed>58</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Mahonix</player><team>GMBLERS Esports</team><result>loss</result><vision_score>91</vision_score><wards_placed>46</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Visdom</player><team>Kaufland Hangry Knights</team><result>loss</result><vision_score>96</vision_score><wards_placed>70</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Brizz</player><team>aNc Legends</team><result>loss</result><vision_score>99</vision_score><wards_placed>51</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Vlaren</player><team>SPIKE Syndicate</team><result>loss</result><vision_score>86</vision_score><wards_placed>45</wards_placed><control_wards>10</control_wards></row>
+  <row><player>Speedy1</player><team>Team Insidious</team><result>loss</result><vision_score>95</vision_score><wards_placed>43</wards_placed><control_wards>12</control_wards></row>
+  <row><player>Max1</player><team>eSuba</team><result>loss</result><vision_score>50</vision_score><wards_placed>30</wards_placed><control_wards>8</control_wards></row>
+  <row><player>Rutzou</player><team>Odivelas Sports Club</team><result>win</result><vision_score>111</vision_score><wards_placed>48</wards_placed><control_wards>13</control_wards></row>
+  <row><player>Zoelys</player><team>Galions</team><result>win</result><vision_score>59</vision_score><wards_placed>26</wards_placed><control_wards>9</control_wards></row>
+  <row><player>Sparz</player><team>GnG Amazigh</team><result>win</result><vision_score>144</vision_score><wards_placed>71</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Farfetch</player><team>ULF Esports</team><result>win</result><vision_score>121</vision_score><wards_placed>54</wards_placed><control_wards>12</control_wards></row>"""
+    
+    print("Q1 (avg vision score winners - losers):", q1(sample_data))
+    print("Q2 (player with most wards):", q2(sample_data))
+    print("Q3 (players with 15+ control wards):", q3(sample_data))
+```

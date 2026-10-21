@@ -1,0 +1,64 @@
+
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Count how many different champions were played."""
+    champions = set()
+    for match in re.finditer(r'<champion>([^<]+)</champion>', text):
+        champions.add(match.group(1))
+    return len(champions)
+
+def q2(text):
+    """Return the champion with the best win rate among those played at least twice, or None."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for match in re.finditer(r'<champion>([^<]+)</champion>.*?<result>(\w+)</result>', text):
+        champion = match.group(1)
+        result = match.group(2)
+        champion_stats[champion]['total'] += 1
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    champions_with_multiple_games = {
+        champ: stats for champ, stats in champion_stats.items() 
+        if stats['total'] >= 2
+    }
+    
+    if not champions_with_multiple_games:
+        return None
+    
+    # Find the champion with the best win rate
+    best_champion = max(
+        champions_with_multiple_games.items(),
+        key=lambda x: x[1]['wins'] / x[1]['total']
+    )
+    
+    return best_champion[0]
+
+def q3(text):
+    """Return the average number of deaths in games that were lost."""
+    losses = []
+    
+    for match in re.finditer(r'<result>loss</result>.*?<deaths>(\d+)</deaths>', text):
+        losses.append(int(match.group(1)))
+    
+    for match in re.finditer(r'<deaths>(\d+)</deaths>.*?<result>loss</result>', text):
+        losses.append(int(match.group(1)))
+    
+    # Parse more carefully by finding all player entries
+    player_entries = re.findall(
+        r'<player>[^<]+</player>.*?<champion>[^<]+</champion>.*?<result>(\w+)</result>.*?<deaths>(\d+)</deaths>',
+        text,
+        re.DOTALL
+    )
+    
+    loss_deaths = [int(deaths) for result, deaths in player_entries if result == 'loss']
+    
+    if not loss_deaths:
+        return 0
+    
+    return sum(loss_deaths) / len(loss_deaths)
+```

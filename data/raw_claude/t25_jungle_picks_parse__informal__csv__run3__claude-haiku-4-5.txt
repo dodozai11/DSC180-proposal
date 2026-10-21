@@ -1,0 +1,104 @@
+
+```python
+import anthropic
+import json
+
+def q1(text: str) -> int:
+    """Count how many different champions were played."""
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and count how many different champions were played.
+
+Data:
+{text}
+
+Return ONLY a JSON object with the key "count" containing the integer number of unique champions. No other text."""
+            }
+        ]
+    )
+    
+    response_text = message.content[0].text.strip()
+    result = json.loads(response_text)
+    return result["count"]
+
+
+def q2(text: str) -> str | None:
+    """Among champions played at least twice, return the name of the one with the best win rate."""
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and find the champion with the best win rate among those played at least twice.
+
+Data:
+{text}
+
+Return ONLY a JSON object with the key "champion" containing either the champion name (string) or null if no champion was played at least twice. No other text."""
+            }
+        ]
+    )
+    
+    response_text = message.content[0].text.strip()
+    result = json.loads(response_text)
+    return result["champion"]
+
+
+def q3(text: str) -> float:
+    """Return the average number of deaths in the games that were lost."""
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Parse this League of Legends match data and calculate the average number of deaths in games that were lost.
+
+Data:
+{text}
+
+Return ONLY a JSON object with the key "average_deaths" containing the average as a number. No other text."""
+            }
+        ]
+    )
+    
+    response_text = message.content[0].text.strip()
+    result = json.loads(response_text)
+    return result["average_deaths"]
+
+
+if __name__ == "__main__":
+    sample_data = """player,champion,result,deaths
+Forest,Viego,win,3
+Popon,Vi,win,0
+Racon,Nocturne,win,1
+HALdesu,Bel'Veth,loss,4
+Norwegian,Viego,win,0
+VEL Skinny,Vi,loss,5
+Brucee,Skarner,win,1
+89,Vi,loss,6
+DM SUISEI,Mordekaiser,win,2
+RPG Shawshank,Xin Zhao,loss,5
+EL,Zyra,win,0
+DG hatinyang,Xin Zhao,win,4
+Sassappel,Vi,win,3
+Kiwi,Viego,win,3
+Mutton,Vi,loss,6
+DG socceryakyu,Nocturne,win,3
+HNS Skinny,Xin Zhao,loss,6
+VLY hachim1,Vi,win,5
+SQG Lunatic,Yone,loss,5
+QTD Van1,Vi,win,2"""
+    
+    print(f"Q1 (unique champions): {q1(sample_data)}")
+    print(f"Q2 (best win rate among 2+ plays): {q2(sample_data)}")
+    print(f"Q3 (average deaths in losses): {q3(sample_data)}")
+```

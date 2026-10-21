@@ -1,0 +1,50 @@
+```python
+# Data structure for League of Legends esports matches
+matches = [
+    {"game": "G01", "team": "Gen.G Scholars", "result": "win", "first_dragon": False, "dragons": 2, "barons": 2, "towers": 11},
+    {"game": "G01", "team": "DRX Academy", "result": "loss", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 1},
+    {"game": "G02", "team": "DRX Academy", "result": "loss", "first_dragon": False, "dragons": 0, "barons": 0, "towers": 0},
+    {"game": "G02", "team": "Dplus KIA Youth", "result": "win", "first_dragon": True, "dragons": 4, "barons": 0, "towers": 8},
+    {"game": "G03", "team": "Hanwha Life Esports Academy", "result": "win", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 9},
+    {"game": "G03", "team": "DN Freecs Academy", "result": "loss", "first_dragon": True, "dragons": 3, "barons": 0, "towers": 5},
+    {"game": "G04", "team": "Hanwha Life Esports Academy", "result": "loss", "first_dragon": False, "dragons": 1, "barons": 0, "towers": 0},
+    {"game": "G04", "team": "KT Rolster Academy", "result": "win", "first_dragon": True, "dragons": 4, "barons": 1, "towers": 10},
+    {"game": "G05", "team": "DN Freecs Academy", "result": "win", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 10},
+    {"game": "G05", "team": "DRX Academy", "result": "loss", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 4},
+    {"game": "G06", "team": "Dplus KIA Youth", "result": "win", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 8},
+    {"game": "G06", "team": "Nongshim RedForce Academy", "result": "loss", "first_dragon": True, "dragons": 3, "barons": 0, "towers": 4},
+    {"game": "G07", "team": "DRX Academy", "result": "loss", "first_dragon": True, "dragons": 1, "barons": 0, "towers": 2},
+    {"game": "G07", "team": "Hanwha Life Esports Academy", "result": "win", "first_dragon": False, "dragons": 4, "barons": 1, "towers": 9},
+    {"game": "G08", "team": "Hanwha Life Esports Academy", "result": "win", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 10},
+    {"game": "G08", "team": "Nongshim RedForce Academy", "result": "loss", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 2},
+    {"game": "G09", "team": "DN Freecs Academy", "result": "win", "first_dragon": False, "dragons": 2, "barons": 0, "towers": 9},
+    {"game": "G09", "team": "DRX Academy", "result": "loss", "first_dragon": True, "dragons": 1, "barons": 0, "towers": 2},
+    {"game": "G10", "team": "Gen.G Scholars", "result": "win", "first_dragon": False, "dragons": 2, "barons": 1, "towers": 11},
+    {"game": "G10", "team": "DN Freecs Academy", "result": "loss", "first_dragon": True, "dragons": 2, "barons": 0, "towers": 4},
+]
+
+def q1():
+    """Returns the win rate of teams that took the first dragon."""
+    first_dragon_teams = [match for match in matches if match["first_dragon"]]
+    if len(first_dragon_teams) == 0:
+        return 0
+    wins = sum(1 for match in first_dragon_teams if match["result"] == "win")
+    return wins / len(first_dragon_teams)
+
+def q2():
+    """Returns the average number of barons taken by winning teams."""
+    winning_teams = [match for match in matches if match["result"] == "win"]
+    if len(winning_teams) == 0:
+        return 0
+    total_barons = sum(match["barons"] for match in winning_teams)
+    return total_barons / len(winning_teams)
+
+def q3():
+    """Returns the total number of towers destroyed across all rows."""
+    return sum(match["towers"] for match in matches)
+
+# Print answers
+print(f"Q1 (Win rate of teams that took first dragon): {q1()}")
+print(f"Q2 (Average barons by winning teams): {q2()}")
+print(f"Q3 (Total towers destroyed): {q3()}")
+```

@@ -1,0 +1,74 @@
+
+```python
+import xml.etree.ElementTree as ET
+
+# Parse the XML data
+xml_data = """<rows>
+  <row><game>G01</game><team>GiantX</team><side>blue</side><result>loss</result><gold_diff_15>1060</gold_diff_15></row>
+  <row><game>G01</game><team>Movistar KOI</team><side>red</side><result>win</result><gold_diff_15>-1060</gold_diff_15></row>
+  <row><game>G02</game><team>Movistar KOI</team><side>blue</side><result>win</result><gold_diff_15>2660</gold_diff_15></row>
+  <row><game>G02</game><team>GiantX</team><side>red</side><result>loss</result><gold_diff_15>-2660</gold_diff_15></row>
+  <row><game>G03</game><team>Karmine Corp</team><side>blue</side><result>win</result><gold_diff_15>75</gold_diff_15></row>
+  <row><game>G03</game><team>Fnatic</team><side>red</side><result>loss</result><gold_diff_15>-75</gold_diff_15></row>
+  <row><game>G04</game><team>Movistar KOI</team><side>blue</side><result>win</result><gold_diff_15>-2285</gold_diff_15></row>
+  <row><game>G04</game><team>Fnatic</team><side>red</side><result>loss</result><gold_diff_15>2285</gold_diff_15></row>
+  <row><game>G05</game><team>SK Gaming</team><side>blue</side><result>loss</result><gold_diff_15>-2251</gold_diff_15></row>
+  <row><game>G05</game><team>Team Vitality</team><side>red</side><result>win</result><gold_diff_15>2251</gold_diff_15></row>
+  <row><game>G06</game><team>Team Heretics</team><side>blue</side><result>loss</result><gold_diff_15>-4163</gold_diff_15></row>
+  <row><game>G06</game><team>GiantX</team><side>red</side><result>win</result><gold_diff_15>4163</gold_diff_15></row>
+  <row><game>G07</game><team>Team Heretics</team><side>blue</side><result>loss</result><gold_diff_15>-556</gold_diff_15></row>
+  <row><game>G07</game><team>GiantX</team><side>red</side><result>win</result><gold_diff_15>556</gold_diff_15></row>
+  <row><game>G08</game><team>GiantX</team><side>blue</side><result>loss</result><gold_diff_15>1777</gold_diff_15></row>
+  <row><game>G08</game><team>Karmine Corp</team><side>red</side><result>win</result><gold_diff_15>-1777</gold_diff_15></row>
+  <row><game>G09</game><team>Team Heretics</team><side>blue</side><result>loss</result><gold_diff_15>-3144</gold_diff_15></row>
+  <row><game>G09</game><team>Team Vitality</team><side>red</side><result>win</result><gold_diff_15>3144</gold_diff_15></row>
+  <row><game>G10</game><team>Movistar KOI</team><side>blue</side><result>loss</result><gold_diff_15>-1096</gold_diff_15></row>
+  <row><game>G10</game><team>G2 Esports</team><side>red</side><result>win</result><gold_diff_15>1096</gold_diff_15></row>
+</rows>"""
+
+root = ET.fromstring(xml_data)
+
+# Extract data from XML
+data = []
+for row in root.findall('row'):
+    game = row.find('game').text
+    team = row.find('team').text
+    side = row.find('side').text
+    result = row.find('result').text
+    gold_diff_15 = int(row.find('gold_diff_15').text)
+    data.append({
+        'game': game,
+        'team': team,
+        'side': side,
+        'result': result,
+        'gold_diff_15': gold_diff_15
+    })
+
+def q1():
+    """Average gold difference at 15 minutes of the winning teams"""
+    winning_teams = [row for row in data if row['result'] == 'win']
+    if not winning_teams:
+        return 0
+    total_gold_diff = sum(row['gold_diff_15'] for row in winning_teams)
+    return total_gold_diff / len(winning_teams)
+
+def q2():
+    """Number of teams that won even though they were behind in gold at 15 minutes"""
+    count = 0
+    for row in data:
+        if row['result'] == 'win' and row['gold_diff_15'] < 0:
+            count += 1
+    return count
+
+def q3():
+    """Win rate of teams that were ahead in gold at 15 minutes"""
+    ahead_in_gold = [row for row in data if row['gold_diff_15'] > 0]
+    if not ahead_in_gold:
+        return 0
+    wins = sum(1 for row in ahead_in_gold if row['result'] == 'win')
+    return wins / len(ahead_in_gold)
+
+print(f"q1() = {q1()}")
+print(f"q2() = {q2()}")
+print(f"q3() = {q3()}")
+```
