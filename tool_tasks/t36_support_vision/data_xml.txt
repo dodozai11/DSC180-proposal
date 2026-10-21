@@ -1,0 +1,22 @@
+<rows>
+  <row><player>J3rkie</player><team>ZennIT</team><result>loss</result><vision_score>80</vision_score><wards_placed>44</wards_placed><control_wards>12</control_wards></row>
+  <row><player>JACTROLL</player><team>Zero Tenacity</team><result>loss</result><vision_score>107</vision_score><wards_placed>47</wards_placed><control_wards>7</control_wards></row>
+  <row><player>Peto</player><team>Nightbirds</team><result>loss</result><vision_score>220</vision_score><wards_placed>114</wards_placed><control_wards>27</control_wards></row>
+  <row><player>Rekkles</player><team>Los Ratones</team><result>win</result><vision_score>252</vision_score><wards_placed>119</wards_placed><control_wards>32</control_wards></row>
+  <row><player>Prime</player><team>Ici Japon Corp. Esport</team><result>loss</result><vision_score>112</vision_score><wards_placed>58</wards_placed><control_wards>23</control_wards></row>
+  <row><player>Shredder</player><team>Macko Esports</team><result>win</result><vision_score>114</vision_score><wards_placed>49</wards_placed><control_wards>8</control_wards></row>
+  <row><player>Nsurr</player><team>Karmine Corp Blue</team><result>win</result><vision_score>141</vision_score><wards_placed>53</wards_placed><control_wards>13</control_wards></row>
+  <row><player>Tockimo</player><team>E WIE EINFACH E-SPORTS</team><result>loss</result><vision_score>113</vision_score><wards_placed>71</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Piero</player><team>Karmine Corp Blue</team><result>win</result><vision_score>112</vision_score><wards_placed>56</wards_placed><control_wards>13</control_wards></row>
+  <row><player>Centu</player><team>Gamespace Mediterranean College Esports</team><result>loss</result><vision_score>140</vision_score><wards_placed>58</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Mahonix</player><team>GMBLERS Esports</team><result>loss</result><vision_score>91</vision_score><wards_placed>46</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Visdom</player><team>Kaufland Hangry Knights</team><result>loss</result><vision_score>96</vision_score><wards_placed>70</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Brizz</player><team>aNc Legends</team><result>loss</result><vision_score>99</vision_score><wards_placed>51</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Vlaren</player><team>SPIKE Syndicate</team><result>loss</result><vision_score>86</vision_score><wards_placed>45</wards_placed><control_wards>10</control_wards></row>
+  <row><player>Speedy1</player><team>Team Insidious</team><result>loss</result><vision_score>95</vision_score><wards_placed>43</wards_placed><control_wards>12</control_wards></row>
+  <row><player>Max1</player><team>eSuba</team><result>loss</result><vision_score>50</vision_score><wards_placed>30</wards_placed><control_wards>8</control_wards></row>
+  <row><player>Rutzou</player><team>Odivelas Sports Club</team><result>win</result><vision_score>111</vision_score><wards_placed>48</wards_placed><control_wards>13</control_wards></row>
+  <row><player>Zoelys</player><team>Galions</team><result>win</result><vision_score>59</vision_score><wards_placed>26</wards_placed><control_wards>9</control_wards></row>
+  <row><player>Sparz</player><team>GnG Amazigh</team><result>win</result><vision_score>144</vision_score><wards_placed>71</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Farfetch</player><team>ULF Esports</team><result>win</result><vision_score>121</vision_score><wards_placed>54</wards_placed><control_wards>12</control_wards></row>
+</rows>

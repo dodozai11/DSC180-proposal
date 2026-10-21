@@ -1,0 +1,26 @@
+{
+  "tool": {
+    "name": "get_team_games",
+    "description": "Get recent League of Legends esports games for a league, one row per team per game.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "league": {
+          "type": "string",
+          "description": "League code, e.g. LCK"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Number of games"
+        }
+      },
+      "required": [
+        "league"
+      ]
+    }
+  },
+  "arguments": {
+    "league": "LCK",
+    "limit": 10
+  }
+}

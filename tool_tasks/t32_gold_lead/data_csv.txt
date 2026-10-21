@@ -1,0 +1,21 @@
+game,team,side,result,gold_diff_15
+G01,GiantX,blue,loss,1060
+G01,Movistar KOI,red,win,-1060
+G02,Movistar KOI,blue,win,2660
+G02,GiantX,red,loss,-2660
+G03,Karmine Corp,blue,win,75
+G03,Fnatic,red,loss,-75
+G04,Movistar KOI,blue,win,-2285
+G04,Fnatic,red,loss,2285
+G05,SK Gaming,blue,loss,-2251
+G05,Team Vitality,red,win,2251
+G06,Team Heretics,blue,loss,-4163
+G06,GiantX,red,win,4163
+G07,Team Heretics,blue,loss,-556
+G07,GiantX,red,win,556
+G08,GiantX,blue,loss,1777
+G08,Karmine Corp,red,win,-1777
+G09,Team Heretics,blue,loss,-3144
+G09,Team Vitality,red,win,3144
+G10,Movistar KOI,blue,loss,-1096
+G10,G2 Esports,red,win,1096

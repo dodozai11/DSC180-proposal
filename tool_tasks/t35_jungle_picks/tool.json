@@ -1,0 +1,38 @@
+{
+  "tool": {
+    "name": "get_player_stats",
+    "description": "Get one recent game per player for a league and position, one row per player.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "league": {
+          "type": "string",
+          "description": "League code, e.g. LCK"
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "top",
+            "jng",
+            "mid",
+            "bot",
+            "sup"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Number of players"
+        }
+      },
+      "required": [
+        "league",
+        "position"
+      ]
+    }
+  },
+  "arguments": {
+    "league": "LJL",
+    "position": "jng",
+    "limit": 20
+  }
+}

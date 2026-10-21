@@ -1,0 +1,16 @@
+{
+  "q1": {
+    "type": "number",
+    "value": 3144.0
+  },
+  "q2": {
+    "type": "name",
+    "accept": [
+      "G2 Esports"
+    ]
+  },
+  "q3": {
+    "type": "number",
+    "value": 2.0
+  }
+}

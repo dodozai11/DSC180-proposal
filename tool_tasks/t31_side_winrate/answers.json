@@ -1,0 +1,16 @@
+{
+  "q1": {
+    "type": "number",
+    "value": 33.9
+  },
+  "q2": {
+    "type": "name",
+    "accept": [
+      "Nongshim RedForce"
+    ]
+  },
+  "q3": {
+    "type": "number",
+    "value": 2.0
+  }
+}

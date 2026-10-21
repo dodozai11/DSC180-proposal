@@ -27,6 +27,23 @@ The same data, questions and instruction styles as the copy tasks, but the promp
 - **How the data format reaches the tests:** `src/evaluate.py` sets the `DATA_FORMAT` environment variable and copies the task's `hidden_*.txt` files next to the test.
 - **Files:** each `t2X_<name>_parse` folder has the same `sample.json` and `data_*.txt` as its copy-task twin, plus `hidden.json` and `hidden_<format>.txt`.
 
+## Tool-result version (`t31`–`t36`)
+
+How agents usually see data: it comes back from a tool (an MCP server, a function call), in whatever format the tool's author picked. The model answers questions about it directly, without writing code.
+
+- **Conversation:** the user asks 3 questions about the copy-task twin's 20 rows, the assistant calls a tool (`get_team_games` or `get_player_stats`; scripted, not generated), and the tool returns the same 20 rows. Only the model's final answer is generated. The tool schema is passed to Ollama, so the model sees a real tool turn.
+- **Formats:** `csv`, `markdown` (table), `json` (compact), `json_pretty` (indent 2), `xml`.
+- **Questions:** lookups and small counts (a number from one row, a name from one row, how many rows have a value), not averages: answering in one pass, `qwen2.5-coder:7b` and `qwen3:8b` got about 0–8% of the copy tasks' average/rate questions right in every format.
+- **Model:** `qwen3:8b` with thinking off (`ollama pull qwen3:8b`, about 5 GB), set at the top of `src/run_tool_experiment.py`. The context window is 4,096 tokens to save memory; the longest prompt is about 1,400.
+- **Graded:** the reply ends with `ANSWERS: {"q1": ..., "q2": ..., "q3": ...}`, checked against `answers.json` (numbers within 1% or 0.01).
+- **Runs:** 6 tasks × 5 formats × 5 runs = 150 calls, written to `data/tool_results.csv`. Analysis in `notebooks/eda3.ipynb`.
+
+```bash
+python scripts/make_tool_tasks.py          # builds tool_tasks/ from tasks/t1X/sample.json
+python src/run_tool_experiment.py --check  # every answer key grades 3/3
+python src/run_tool_experiment.py          # run (resumes like run_experiment.py)
+```
+
 ## Repo layout
 
 ```
@@ -54,6 +71,11 @@ scripts/make_notebook.py   builds notebooks/eda1.ipynb (the notebook's text and 
 notebooks/eda2.ipynb       statistical follow-up: permutation tests, instruction style, variability, validity
 scripts/make_notebook_eda2.py  builds notebooks/eda2.ipynb (reads only data/results.csv)
 scripts/make_data_tasks.py builds the tasks from the Oracle's Elixir file
+tool_tasks/t3X_<name>/     tool-result tasks: data_<format>.txt, questions.txt, tool.json, answers.json
+src/run_tool_experiment.py runs the tool-result version, writes data/tool_results.csv
+scripts/make_tool_tasks.py builds tool_tasks/ from the copy tasks' samples
+notebooks/eda3.ipynb       tool-result version: tokens and accuracy by format
+scripts/make_notebook_eda3.py  builds notebooks/eda3.ipynb (reads data/tool_results.csv and tool_tasks/)
 ```
 
 ## Setup

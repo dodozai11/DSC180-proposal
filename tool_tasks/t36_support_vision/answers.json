@@ -1,0 +1,16 @@
+{
+  "q1": {
+    "type": "number",
+    "value": 99.0
+  },
+  "q2": {
+    "type": "name",
+    "accept": [
+      "Los Ratones"
+    ]
+  },
+  "q3": {
+    "type": "number",
+    "value": 2.0
+  }
+}
