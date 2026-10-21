@@ -1,0 +1,16 @@
+{
+  "q1": {
+    "type": "number",
+    "value": 1.0
+  },
+  "q2": {
+    "type": "name",
+    "accept": [
+      "Xin Zhao"
+    ]
+  },
+  "q3": {
+    "type": "number",
+    "value": 3.0
+  }
+}

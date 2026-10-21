@@ -1,0 +1,151 @@
+task_id,data_format,run,model,input_tokens,output_tokens,q1_answer,q2_answer,q3_answer,q1_correct,q2_correct,q3_correct,n_correct,answered,stop_reason,seconds,timestamp
+t33_objectives,json,4,qwen3:8b,1380,33,10,"""Nongshim RedForce Academy""",6,True,True,False,2,True,stop,1.42,2026-10-21T09:48:31+00:00
+t36_support_vision,markdown,4,qwen3:8b,865,64,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.59,2026-10-21T09:48:33+00:00
+t35_jungle_picks,markdown,5,qwen3:8b,619,58,1,"""Xin Zhao""",3,True,True,True,3,True,stop,1.31,2026-10-21T09:48:34+00:00
+t36_support_vision,markdown,5,qwen3:8b,865,64,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.29,2026-10-21T09:48:35+00:00
+t34_mid_kda,csv,1,qwen3:8b,749,55,21,"""Aurora""","""2""",True,True,False,2,True,stop,1.35,2026-10-21T09:48:37+00:00
+t33_objectives,json,2,qwen3:8b,1380,74,10,"""DN Freecs Academy""",7,True,False,False,1,True,stop,1.51,2026-10-21T09:48:38+00:00
+t36_support_vision,markdown,1,qwen3:8b,865,64,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.39,2026-10-21T09:48:40+00:00
+t32_gold_lead,json,5,qwen3:8b,1140,92,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.31,2026-10-21T09:48:42+00:00
+t32_gold_lead,json_pretty,1,qwen3:8b,1321,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.29,2026-10-21T09:48:44+00:00
+t32_gold_lead,json,4,qwen3:8b,1140,92,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.9,2026-10-21T09:48:46+00:00
+t33_objectives,json_pretty,1,qwen3:8b,1601,75,10,"""Dplus KIA Youth""",8,True,False,False,1,True,stop,2.2,2026-10-21T09:48:54+00:00
+t34_mid_kda,json,1,qwen3:8b,1378,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.62,2026-10-21T09:48:55+00:00
+t31_side_winrate,csv,1,qwen3:8b,686,91,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.06,2026-10-21T09:48:58+00:00
+t36_support_vision,json_pretty,2,qwen3:8b,1537,64,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.84,2026-10-21T09:48:59+00:00
+t34_mid_kda,xml,1,qwen3:8b,1531,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.79,2026-10-21T09:49:01+00:00
+t32_gold_lead,markdown,3,qwen3:8b,720,76,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.73,2026-10-21T09:49:03+00:00
+t36_support_vision,markdown,2,qwen3:8b,865,65,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.6,2026-10-21T09:49:04+00:00
+t31_side_winrate,json_pretty,4,qwen3:8b,1285,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.21,2026-10-21T09:49:07+00:00
+t34_mid_kda,markdown,4,qwen3:8b,840,55,21,"""Aurora""",3,True,True,True,3,True,stop,1.44,2026-10-21T09:49:08+00:00
+t32_gold_lead,markdown,1,qwen3:8b,720,91,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.82,2026-10-21T09:49:10+00:00
+t35_jungle_picks,json_pretty,5,qwen3:8b,1088,58,1,"""Xin Zhao""",3,True,True,True,3,True,stop,1.58,2026-10-21T09:49:12+00:00
+t36_support_vision,markdown,3,qwen3:8b,865,64,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.32,2026-10-21T09:49:13+00:00
+t33_objectives,xml,3,qwen3:8b,1581,79,10,"""Nongshim RedForce Academy""",6,True,True,False,2,True,stop,2.27,2026-10-21T09:49:15+00:00
+t35_jungle_picks,xml,4,qwen3:8b,1077,56,1,"""Xin Zhao""",5,True,True,False,2,True,stop,1.51,2026-10-21T09:49:17+00:00
+t36_support_vision,csv,4,qwen3:8b,759,65,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.51,2026-10-21T09:49:18+00:00
+t36_support_vision,json,2,qwen3:8b,1336,29,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.03,2026-10-21T09:49:19+00:00
+t31_side_winrate,csv,4,qwen3:8b,686,91,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.06,2026-10-21T09:49:21+00:00
+t33_objectives,csv,4,qwen3:8b,722,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.71,2026-10-21T09:49:23+00:00
+t36_support_vision,csv,3,qwen3:8b,759,65,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.33,2026-10-21T09:49:24+00:00
+t34_mid_kda,json_pretty,3,qwen3:8b,1598,55,21,"""Aurora""",2,True,True,False,2,True,stop,1.69,2026-10-21T09:49:26+00:00
+t33_objectives,json,1,qwen3:8b,1380,82,10,"""Hanwha Life Esports Academy""",6,True,False,False,1,True,stop,1.7,2026-10-21T09:49:28+00:00
+t33_objectives,json_pretty,3,qwen3:8b,1601,75,10,"""Dplus KIA Youth""",8,True,False,False,1,True,stop,1.58,2026-10-21T09:49:29+00:00
+t32_gold_lead,json_pretty,3,qwen3:8b,1321,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.92,2026-10-21T09:49:31+00:00
+t36_support_vision,xml,2,qwen3:8b,1541,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.89,2026-10-21T09:49:33+00:00
+t36_support_vision,json,3,qwen3:8b,1336,29,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,0.66,2026-10-21T09:49:34+00:00
+t35_jungle_picks,json,1,qwen3:8b,927,56,1,"""Xin Zhao""",5,True,True,False,2,True,stop,1.5,2026-10-21T09:49:35+00:00
+t35_jungle_picks,json_pretty,4,qwen3:8b,1088,56,1,"""Xin Zhao""",5,True,True,False,2,True,stop,1.46,2026-10-21T09:49:37+00:00
+t34_mid_kda,json,2,qwen3:8b,1378,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.18,2026-10-21T09:49:38+00:00
+t35_jungle_picks,json_pretty,2,qwen3:8b,1088,56,1,"""Xin Zhao""",6,True,True,False,2,True,stop,1.19,2026-10-21T09:49:39+00:00
+t33_objectives,json_pretty,2,qwen3:8b,1601,75,10,"""Dplus KIA Youth""",7,True,False,False,1,True,stop,1.57,2026-10-21T09:49:41+00:00
+t34_mid_kda,markdown,2,qwen3:8b,840,55,21,"""Aurora""",3,True,True,True,3,True,stop,1.48,2026-10-21T09:49:42+00:00
+t35_jungle_picks,csv,2,qwen3:8b,564,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.25,2026-10-21T09:49:43+00:00
+t34_mid_kda,json_pretty,2,qwen3:8b,1598,55,21,"""Aurora""",2,True,True,False,2,True,stop,1.17,2026-10-21T09:49:45+00:00
+t31_side_winrate,json_pretty,2,qwen3:8b,1285,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.82,2026-10-21T09:49:46+00:00
+t35_jungle_picks,csv,5,qwen3:8b,564,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.14,2026-10-21T09:49:48+00:00
+t34_mid_kda,json,4,qwen3:8b,1378,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.16,2026-10-21T09:49:49+00:00
+t32_gold_lead,xml,5,qwen3:8b,1317,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.33,2026-10-21T09:49:51+00:00
+t36_support_vision,xml,1,qwen3:8b,1541,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.37,2026-10-21T09:49:52+00:00
+t34_mid_kda,xml,4,qwen3:8b,1531,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.22,2026-10-21T09:49:54+00:00
+t33_objectives,json,5,qwen3:8b,1380,33,10,"""Nongshim RedForce Academy""",7,True,True,False,2,True,stop,0.72,2026-10-21T09:49:54+00:00
+t35_jungle_picks,xml,3,qwen3:8b,1077,58,1,"""Xin Zhao""",3,True,True,True,3,True,stop,1.59,2026-10-21T09:49:56+00:00
+t34_mid_kda,xml,2,qwen3:8b,1531,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.19,2026-10-21T09:49:57+00:00
+t34_mid_kda,csv,2,qwen3:8b,749,55,21,"""Aurora""","""2""",True,True,False,2,True,stop,1.3,2026-10-21T09:49:58+00:00
+t32_gold_lead,json,2,qwen3:8b,1140,92,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.39,2026-10-21T09:50:01+00:00
+t35_jungle_picks,json_pretty,1,qwen3:8b,1088,56,1,"""Xin Zhao""",5,True,True,False,2,True,stop,1.52,2026-10-21T09:50:02+00:00
+t31_side_winrate,csv,5,qwen3:8b,686,91,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.81,2026-10-21T09:50:04+00:00
+t31_side_winrate,json_pretty,3,qwen3:8b,1285,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.78,2026-10-21T09:50:06+00:00
+t32_gold_lead,csv,1,qwen3:8b,664,79,3144,"""G2 Esports""",4,True,True,False,2,True,stop,1.73,2026-10-21T09:50:08+00:00
+t33_objectives,json_pretty,5,qwen3:8b,1601,75,10,"""Dplus KIA Youth""",8,True,False,False,1,True,stop,1.55,2026-10-21T09:50:09+00:00
+t33_objectives,csv,2,qwen3:8b,722,73,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.48,2026-10-21T09:50:11+00:00
+t31_side_winrate,csv,3,qwen3:8b,686,91,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.81,2026-10-21T09:50:13+00:00
+t33_objectives,csv,3,qwen3:8b,722,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.49,2026-10-21T09:50:14+00:00
+t31_side_winrate,json,5,qwen3:8b,1104,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.17,2026-10-21T09:50:16+00:00
+t36_support_vision,json,4,qwen3:8b,1336,29,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,0.64,2026-10-21T09:50:17+00:00
+t32_gold_lead,json_pretty,2,qwen3:8b,1321,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.91,2026-10-21T09:50:19+00:00
+t36_support_vision,xml,5,qwen3:8b,1541,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.38,2026-10-21T09:50:20+00:00
+t33_objectives,xml,5,qwen3:8b,1581,82,10,"""Nongshim RedForce Academy""",6,True,True,False,2,True,stop,1.74,2026-10-21T09:50:22+00:00
+t34_mid_kda,markdown,3,qwen3:8b,840,55,21,"""Aurora""",3,True,True,True,3,True,stop,1.17,2026-10-21T09:50:23+00:00
+t36_support_vision,json,1,qwen3:8b,1336,29,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,0.69,2026-10-21T09:50:24+00:00
+t34_mid_kda,csv,4,qwen3:8b,749,55,21,"""Aurora""","""2""",True,True,False,2,True,stop,1.18,2026-10-21T09:50:25+00:00
+t32_gold_lead,markdown,2,qwen3:8b,720,91,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.0,2026-10-21T09:50:27+00:00
+t35_jungle_picks,csv,3,qwen3:8b,564,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.25,2026-10-21T09:50:28+00:00
+t31_side_winrate,xml,2,qwen3:8b,1224,90,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.23,2026-10-21T09:50:30+00:00
+t31_side_winrate,markdown,5,qwen3:8b,746,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.96,2026-10-21T09:50:32+00:00
+t32_gold_lead,markdown,5,qwen3:8b,720,91,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.8,2026-10-21T09:50:34+00:00
+t36_support_vision,json_pretty,4,qwen3:8b,1537,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.36,2026-10-21T09:50:36+00:00
+t35_jungle_picks,json,2,qwen3:8b,927,59,1,"""Xin Zhao""",5,True,True,False,2,True,stop,1.49,2026-10-21T09:50:37+00:00
+t32_gold_lead,xml,3,qwen3:8b,1317,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.93,2026-10-21T09:50:39+00:00
+t35_jungle_picks,xml,5,qwen3:8b,1077,58,1,"""Xin Zhao""",3,True,True,True,3,True,stop,1.51,2026-10-21T09:50:41+00:00
+t34_mid_kda,json_pretty,5,qwen3:8b,1598,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.19,2026-10-21T09:50:42+00:00
+t35_jungle_picks,markdown,2,qwen3:8b,619,58,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.34,2026-10-21T09:50:43+00:00
+t35_jungle_picks,xml,1,qwen3:8b,1077,28,1,"""Xin Zhao""",6,True,True,False,2,True,stop,0.6,2026-10-21T09:50:44+00:00
+t35_jungle_picks,csv,1,qwen3:8b,564,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.22,2026-10-21T09:50:45+00:00
+t35_jungle_picks,json,3,qwen3:8b,927,58,1,"""Xin Zhao""",3,True,True,True,3,True,stop,1.39,2026-10-21T09:50:46+00:00
+t34_mid_kda,json,3,qwen3:8b,1378,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.19,2026-10-21T09:50:48+00:00
+t34_mid_kda,xml,5,qwen3:8b,1531,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.2,2026-10-21T09:50:49+00:00
+t35_jungle_picks,json_pretty,3,qwen3:8b,1088,56,1,"""Xin Zhao""",6,True,True,False,2,True,stop,1.52,2026-10-21T09:50:50+00:00
+t32_gold_lead,csv,5,qwen3:8b,664,79,3144,"""G2 Esports""",4,True,True,False,2,True,stop,1.73,2026-10-21T09:50:52+00:00
+t34_mid_kda,markdown,5,qwen3:8b,840,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.12,2026-10-21T09:50:53+00:00
+t35_jungle_picks,markdown,1,qwen3:8b,619,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.27,2026-10-21T09:50:54+00:00
+t36_support_vision,json_pretty,3,qwen3:8b,1537,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.34,2026-10-21T09:50:56+00:00
+t34_mid_kda,json_pretty,1,qwen3:8b,1598,55,21,"""Aurora""",2,True,True,False,2,True,stop,1.2,2026-10-21T09:50:57+00:00
+t31_side_winrate,xml,5,qwen3:8b,1224,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.84,2026-10-21T09:50:59+00:00
+t33_objectives,xml,4,qwen3:8b,1581,82,10,"""Nongshim RedForce Academy""",6,True,True,False,2,True,stop,1.76,2026-10-21T09:51:01+00:00
+t32_gold_lead,xml,2,qwen3:8b,1317,94,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.94,2026-10-21T09:51:02+00:00
+t34_mid_kda,csv,5,qwen3:8b,749,55,21,"""Aurora""","""2""",True,True,False,2,True,stop,1.15,2026-10-21T09:51:04+00:00
+t34_mid_kda,markdown,1,qwen3:8b,840,55,21,"""Aurora""",3,True,True,True,3,True,stop,1.16,2026-10-21T09:51:05+00:00
+t32_gold_lead,json,3,qwen3:8b,1140,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.24,2026-10-21T09:51:07+00:00
+t36_support_vision,xml,3,qwen3:8b,1541,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.37,2026-10-21T09:51:08+00:00
+t31_side_winrate,json,1,qwen3:8b,1104,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.15,2026-10-21T09:51:11+00:00
+t35_jungle_picks,json,4,qwen3:8b,927,28,1,"""Xin Zhao""",5,True,True,False,2,True,stop,0.61,2026-10-21T09:51:11+00:00
+t31_side_winrate,json_pretty,1,qwen3:8b,1285,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.82,2026-10-21T09:51:13+00:00
+t33_objectives,json_pretty,4,qwen3:8b,1601,75,10,"""Dplus KIA Youth""",8,True,False,False,1,True,stop,1.58,2026-10-21T09:51:15+00:00
+t33_objectives,markdown,4,qwen3:8b,832,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.74,2026-10-21T09:51:16+00:00
+t34_mid_kda,json_pretty,4,qwen3:8b,1598,55,21,"""Aurora""",2,True,True,False,2,True,stop,1.18,2026-10-21T09:51:18+00:00
+t31_side_winrate,markdown,1,qwen3:8b,746,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.06,2026-10-21T09:51:20+00:00
+t36_support_vision,csv,1,qwen3:8b,759,65,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.56,2026-10-21T09:51:21+00:00
+t32_gold_lead,markdown,4,qwen3:8b,720,89,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.96,2026-10-21T09:51:23+00:00
+t34_mid_kda,csv,3,qwen3:8b,749,55,21,"""Aurora""","""2""",True,True,False,2,True,stop,1.13,2026-10-21T09:51:24+00:00
+t32_gold_lead,json_pretty,5,qwen3:8b,1321,94,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.93,2026-10-21T09:51:26+00:00
+t36_support_vision,json_pretty,1,qwen3:8b,1537,64,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,1.37,2026-10-21T09:51:28+00:00
+t32_gold_lead,xml,1,qwen3:8b,1317,93,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.92,2026-10-21T09:51:29+00:00
+t31_side_winrate,json,3,qwen3:8b,1104,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.15,2026-10-21T09:51:32+00:00
+t32_gold_lead,xml,4,qwen3:8b,1317,94,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.92,2026-10-21T09:51:34+00:00
+t31_side_winrate,json,2,qwen3:8b,1104,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.81,2026-10-21T09:51:35+00:00
+t31_side_winrate,json,4,qwen3:8b,1104,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.75,2026-10-21T09:51:37+00:00
+t35_jungle_picks,xml,2,qwen3:8b,1077,58,1,"""Xin Zhao""",3,True,True,True,3,True,stop,1.57,2026-10-21T09:51:39+00:00
+t36_support_vision,csv,2,qwen3:8b,759,67,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.36,2026-10-21T09:51:40+00:00
+t32_gold_lead,csv,3,qwen3:8b,664,78,3144,"""G2 Esports""",4,True,True,False,2,True,stop,1.7,2026-10-21T09:51:42+00:00
+t31_side_winrate,json_pretty,5,qwen3:8b,1285,88,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.78,2026-10-21T09:51:44+00:00
+t36_support_vision,json_pretty,5,qwen3:8b,1537,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.36,2026-10-21T09:51:45+00:00
+t32_gold_lead,json_pretty,4,qwen3:8b,1321,94,3144,"""G2 Esports""",3,True,True,False,2,True,stop,1.97,2026-10-21T09:51:47+00:00
+t33_objectives,csv,5,qwen3:8b,722,73,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.48,2026-10-21T09:51:48+00:00
+t34_mid_kda,json,5,qwen3:8b,1378,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.17,2026-10-21T09:51:50+00:00
+t31_side_winrate,xml,1,qwen3:8b,1224,90,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.87,2026-10-21T09:51:51+00:00
+t35_jungle_picks,csv,4,qwen3:8b,564,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.28,2026-10-21T09:51:53+00:00
+t34_mid_kda,xml,3,qwen3:8b,1531,55,21,"""Aurora""","""3""",True,True,True,3,True,stop,1.19,2026-10-21T09:51:54+00:00
+t31_side_winrate,csv,2,qwen3:8b,686,91,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.03,2026-10-21T09:51:56+00:00
+t33_objectives,xml,2,qwen3:8b,1581,82,10,"""Nongshim RedForce Academy""",6,True,True,False,2,True,stop,1.7,2026-10-21T09:51:58+00:00
+t35_jungle_picks,json,5,qwen3:8b,927,28,1,"""Xin Zhao""",5,True,True,False,2,True,stop,0.92,2026-10-21T09:51:59+00:00
+t33_objectives,markdown,2,qwen3:8b,832,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.56,2026-10-21T09:52:00+00:00
+t35_jungle_picks,markdown,3,qwen3:8b,619,58,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.31,2026-10-21T09:52:01+00:00
+t33_objectives,csv,1,qwen3:8b,722,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.49,2026-10-21T09:52:03+00:00
+t36_support_vision,xml,4,qwen3:8b,1541,64,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.35,2026-10-21T09:52:04+00:00
+t36_support_vision,csv,5,qwen3:8b,759,65,99,"""Los Ratones""",2,True,True,True,3,True,stop,1.35,2026-10-21T09:52:06+00:00
+t33_objectives,markdown,5,qwen3:8b,832,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.54,2026-10-21T09:52:07+00:00
+t33_objectives,markdown,1,qwen3:8b,832,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.47,2026-10-21T09:52:09+00:00
+t31_side_winrate,xml,4,qwen3:8b,1224,90,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.87,2026-10-21T09:52:11+00:00
+t31_side_winrate,markdown,3,qwen3:8b,746,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,2.03,2026-10-21T09:52:13+00:00
+t31_side_winrate,markdown,4,qwen3:8b,746,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.72,2026-10-21T09:52:14+00:00
+t35_jungle_picks,markdown,4,qwen3:8b,619,56,1,"""Xin Zhao""",4,True,True,False,2,True,stop,1.14,2026-10-21T09:52:15+00:00
+t31_side_winrate,xml,3,qwen3:8b,1224,90,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.86,2026-10-21T09:52:17+00:00
+t36_support_vision,json,5,qwen3:8b,1336,29,99,"""Los Ratones""","""2""",True,True,True,3,True,stop,0.66,2026-10-21T09:52:18+00:00
+t32_gold_lead,csv,2,qwen3:8b,664,79,3144,"""G2 Esports""",4,True,True,False,2,True,stop,1.62,2026-10-21T09:52:20+00:00
+t32_gold_lead,json,1,qwen3:8b,1140,94,3144,"""G2 Esports""",3,True,True,False,2,True,stop,2.22,2026-10-21T09:52:22+00:00
+t33_objectives,markdown,3,qwen3:8b,832,75,10,"""Dplus KIA Youth""",5,True,False,True,2,True,stop,1.54,2026-10-21T09:52:23+00:00
+t33_objectives,json,3,qwen3:8b,1380,82,10,"""Hanwha Life Esports Academy""",6,True,False,False,1,True,stop,1.69,2026-10-21T09:52:25+00:00
+t33_objectives,xml,1,qwen3:8b,1581,82,10,"""Nongshim RedForce Academy""",6,True,True,False,2,True,stop,1.71,2026-10-21T09:52:27+00:00
+t31_side_winrate,markdown,2,qwen3:8b,746,89,33.9,"""Nongshim RedForce""",2,True,True,True,3,True,stop,1.8,2026-10-21T09:52:29+00:00
+t32_gold_lead,csv,4,qwen3:8b,664,78,3144,"""G2 Esports""",4,True,True,False,2,True,stop,1.55,2026-10-21T09:52:30+00:00

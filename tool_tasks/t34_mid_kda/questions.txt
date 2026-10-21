@@ -1,0 +1,9 @@
+Can you pull stats for 20 NLC mid laners and answer these?
+
+1. How many assists did Air have?
+2. Which champion did Sencux play?
+3. How many players played Orianna?
+
+End your reply with one line in exactly this form:
+ANSWERS: {"q1": ..., "q2": ..., "q3": ...}
+Use numbers for numeric answers and strings for names.

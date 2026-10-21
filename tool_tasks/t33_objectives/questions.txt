@@ -1,0 +1,9 @@
+Can you pull the last 10 LAS games and answer these?
+
+1. How many towers did KT Rolster Academy destroy in G04?
+2. Which team took the first dragon in G06?
+3. How many games did DRX Academy play?
+
+End your reply with one line in exactly this form:
+ANSWERS: {"q1": ..., "q2": ..., "q3": ...}
+Use numbers for numeric answers and strings for names.

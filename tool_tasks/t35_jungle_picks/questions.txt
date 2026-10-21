@@ -1,0 +1,9 @@
+Can you pull stats for 20 LJL junglers and answer these?
+
+1. How many deaths did Racon have?
+2. Which champion did DG hatinyang play?
+3. How many players played Viego?
+
+End your reply with one line in exactly this form:
+ANSWERS: {"q1": ..., "q2": ..., "q3": ...}
+Use numbers for numeric answers and strings for names.

@@ -1,0 +1,16 @@
+{
+  "q1": {
+    "type": "number",
+    "value": 10.0
+  },
+  "q2": {
+    "type": "name",
+    "accept": [
+      "Nongshim RedForce Academy"
+    ]
+  },
+  "q3": {
+    "type": "number",
+    "value": 5.0
+  }
+}

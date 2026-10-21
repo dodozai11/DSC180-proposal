@@ -1,0 +1,9 @@
+Can you pull the last 10 LCK games and answer these?
+
+1. How long was game G07, in minutes?
+2. Which team played on the red side in G06?
+3. How many games did Hanwha Life Esports win?
+
+End your reply with one line in exactly this form:
+ANSWERS: {"q1": ..., "q2": ..., "q3": ...}
+Use numbers for numeric answers and strings for names.

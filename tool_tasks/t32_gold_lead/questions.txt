@@ -1,0 +1,9 @@
+Can you pull the last 10 LEC games and answer these?
+
+1. What was Team Vitality's gold difference at 15 minutes in G09?
+2. Which team won G10?
+3. How many games did GiantX win?
+
+End your reply with one line in exactly this form:
+ANSWERS: {"q1": ..., "q2": ..., "q3": ...}
+Use numbers for numeric answers and strings for names.

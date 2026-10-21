@@ -1,0 +1,16 @@
+{
+  "q1": {
+    "type": "number",
+    "value": 21.0
+  },
+  "q2": {
+    "type": "name",
+    "accept": [
+      "Aurora"
+    ]
+  },
+  "q3": {
+    "type": "number",
+    "value": 3.0
+  }
+}
