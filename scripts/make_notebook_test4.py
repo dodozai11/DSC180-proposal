@@ -299,7 +299,7 @@ plt.show()
 """)
 
 md("""
-**By task.** Mean output tokens per task × format, then each task relative to its own CSV mean: a gray line per task, markers for the average. If the lines all go the same way, the format effect isn't driven by one task.
+**By task.** Mean output tokens per task × format, then each task relative to its own CSV mean: a gray dot per task, a large marker for the average across tasks. The formats are categories, so the dots aren't connected. If a format's dots all sit on the same side of the CSV line, the effect isn't driven by one task.
 """)
 code("""
 task_means = responses.pivot_table(index="task", columns="data_format", values="output_tokens",
@@ -308,18 +308,22 @@ relative = task_means.div(task_means["csv"], axis=0)
 display(task_means.round(0))
 
 fig, ax = plt.subplots(figsize=(6.5, 3.6))
-x = np.arange(len(DATA_FORMATS))
-for task, row in relative.iterrows():
-    ax.plot(x, row.values, color="#d8d7d1", linewidth=1.2, zorder=1)
-ax.plot(x, relative.mean().values, color="#52514e", linewidth=2, zorder=2)
-for i, d in enumerate(DATA_FORMATS):
-    ax.scatter(i, relative[d].mean(), s=90, color=DATA_COLORS[d], marker=DATA_MARKERS[d], zorder=3,
+others = DATA_FORMATS[1:]  # CSV is the reference line at 1
+jitter = np.random.default_rng(SEED)
+for i, d in enumerate(others):
+    ax.scatter(i + jitter.uniform(-0.12, 0.12, len(relative)), relative[d], s=28, color="#b5b4ae",
+               edgecolor="white", linewidth=0.6, zorder=2)
+    ax.scatter(i, relative[d].mean(), s=110, color=DATA_COLORS[d], marker=DATA_MARKERS[d], zorder=3,
                edgecolor="white", linewidth=1.2)
+    ax.annotate(f"{relative[d].mean():.2f}×", (i, relative[d].mean()), xytext=(14, 0), textcoords="offset points",
+                va="center", fontsize=8, color="#52514e")
 ax.axhline(1, color="#8a8984", linewidth=1, linestyle=":")
-ax.set_xticks(x, DATA_FORMATS)
-ax.set_xlim(-0.3, len(DATA_FORMATS) - 0.7)
+ax.annotate("csv = 1", (len(others) - 0.5, 1), xytext=(0, 3), textcoords="offset points", ha="right",
+            fontsize=8, color="#8a8984")
+ax.set_xticks(range(len(others)), others)
+ax.set_xlim(-0.5, len(others) - 0.5)
 ax.set_ylabel("output tokens relative to CSV")
-ax.set_title("Gray line = one task (values in the table below); dark line = average", loc="left",
+ax.set_title("Gray dot = one task (values in the table below); large marker = average", loc="left",
              fontsize=9, color="#52514e")
 ax.grid(axis="x", visible=False)
 plt.tight_layout()
