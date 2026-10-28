@@ -1,0 +1,42 @@
+```python
+import csv
+import io
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    reader = csv.DictReader(io.StringIO(text))
+    inhibitors_won = []
+    
+    for row in reader:
+        if row['result'] == 'win':
+            inhibitors_won.append(int(row['inhibitors']))
+    
+    return sum(inhibitors_won) / len(inhibitors_won) if inhibitors_won else 0
+
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    reader = csv.DictReader(io.StringIO(text))
+    tower_damage_lost = []
+    
+    for row in reader:
+        if row['result'] == 'loss':
+            tower_damage_lost.append(int(row['tower_damage']))
+    
+    return sum(tower_damage_lost) / len(tower_damage_lost) if tower_damage_lost else 0
+
+
+def q3(text):
+    """Return the game label of the longest game."""
+    reader = csv.DictReader(io.StringIO(text))
+    longest_game = None
+    longest_duration = -1
+    
+    for row in reader:
+        duration = float(row['game_minutes'])
+        if duration > longest_duration:
+            longest_duration = duration
+            longest_game = row['game']
+    
+    return longest_game
+```

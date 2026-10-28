@@ -1,0 +1,61 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    blue_wins = 0
+    blue_total = 0
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) >= 5:
+            side = parts[2]
+            result = parts[3]
+            
+            if side == 'blue':
+                blue_total += 1
+                if result == 'win':
+                    blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    red_wins = []
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) >= 5:
+            side = parts[2]
+            result = parts[3]
+            game_minutes = parts[4]
+            
+            if side == 'red' and result == 'win':
+                red_wins.append(float(game_minutes))
+    
+    if len(red_wins) == 0:
+        return 0
+    return sum(red_wins) / len(red_wins)
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    team_wins = {}
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) >= 5:
+            team = parts[1]
+            result = parts[3]
+            
+            if team not in team_wins:
+                team_wins[team] = 0
+            
+            if result == 'win':
+                team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)
+```

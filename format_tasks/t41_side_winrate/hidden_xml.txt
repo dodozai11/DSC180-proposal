@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>Vitality.Bee</team><side>blue</side><result>loss</result><game_minutes>53.4</game_minutes></row>
+  <row><game>G01</game><team>Ici Japon Corp. Esport</team><side>red</side><result>win</result><game_minutes>53.4</game_minutes></row>
+  <row><game>G02</game><team>Karmine Corp Blue</team><side>blue</side><result>win</result><game_minutes>27.1</game_minutes></row>
+  <row><game>G02</game><team>Ici Japon Corp. Esport</team><side>red</side><result>loss</result><game_minutes>27.1</game_minutes></row>
+  <row><game>G03</game><team>Gentle Mates</team><side>blue</side><result>win</result><game_minutes>36.4</game_minutes></row>
+  <row><game>G03</game><team>Solary</team><side>red</side><result>loss</result><game_minutes>36.4</game_minutes></row>
+  <row><game>G04</game><team>BK ROG Esports</team><side>blue</side><result>win</result><game_minutes>31.0</game_minutes></row>
+  <row><game>G04</game><team>Karmine Corp Blue</team><side>red</side><result>loss</result><game_minutes>31.0</game_minutes></row>
+  <row><game>G05</game><team>Gentle Mates</team><side>blue</side><result>win</result><game_minutes>54.1</game_minutes></row>
+  <row><game>G05</game><team>Vitality.Bee</team><side>red</side><result>loss</result><game_minutes>54.1</game_minutes></row>
+  <row><game>G06</game><team>Joblife</team><side>blue</side><result>loss</result><game_minutes>29.7</game_minutes></row>
+  <row><game>G06</game><team>Ici Japon Corp. Esport</team><side>red</side><result>win</result><game_minutes>29.7</game_minutes></row>
+  <row><game>G07</game><team>Solary</team><side>blue</side><result>loss</result><game_minutes>29.9</game_minutes></row>
+  <row><game>G07</game><team>Ici Japon Corp. Esport</team><side>red</side><result>win</result><game_minutes>29.9</game_minutes></row>
+  <row><game>G08</game><team>Team BDS Academy</team><side>blue</side><result>loss</result><game_minutes>33.0</game_minutes></row>
+  <row><game>G08</game><team>Ici Japon Corp. Esport</team><side>red</side><result>win</result><game_minutes>33.0</game_minutes></row>
+  <row><game>G09</game><team>Solary</team><side>blue</side><result>loss</result><game_minutes>41.3</game_minutes></row>
+  <row><game>G09</game><team>Gentle Mates</team><side>red</side><result>win</result><game_minutes>41.3</game_minutes></row>
+  <row><game>G10</game><team>Galions</team><side>blue</side><result>win</result><game_minutes>34.8</game_minutes></row>
+  <row><game>G10</game><team>Karmine Corp Blue</team><side>red</side><result>loss</result><game_minutes>34.8</game_minutes></row>
+</rows>

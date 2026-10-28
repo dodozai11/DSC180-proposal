@@ -1,0 +1,35 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    matches = re.findall(
+        r'In game (G\d+), (\w+(?:\s+\w+)*?) (won|lost) after ([\d.]+) minutes, destroying (\d+) inhibitors and dealing (\d+) damage to towers\.',
+        text
+    )
+    return matches
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    matches = parse_data(text)
+    winning_inhibitors = [int(inhibitors) for _, _, result, _, inhibitors, _ in matches if result == 'won']
+    if not winning_inhibitors:
+        return 0
+    return sum(winning_inhibitors) / len(winning_inhibitors)
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    matches = parse_data(text)
+    losing_damage = [int(damage) for _, _, result, _, _, damage in matches if result == 'lost']
+    if not losing_damage:
+        return 0
+    return sum(losing_damage) / len(losing_damage)
+
+def q3(text):
+    """Return the game label of the longest game."""
+    matches = parse_data(text)
+    if not matches:
+        return None
+    longest_game = max(matches, key=lambda x: float(x[3]))
+    return longest_game[0]
+```

@@ -1,0 +1,58 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    data = []
+    for line in lines[1:]:
+        parts = [x.strip() for x in line.split('|') if x.strip()]
+        if len(parts) >= 5:
+            data.append({
+                'player': parts[0],
+                'team': parts[1],
+                'result': parts[2],
+                'vision_score': int(parts[3]),
+                'wards_placed': int(parts[4]),
+                'control_wards': int(parts[5])
+            })
+    
+    wins = [row['vision_score'] for row in data if row['result'] == 'win']
+    losses = [row['vision_score'] for row in data if row['result'] == 'loss']
+    
+    avg_wins = sum(wins) / len(wins) if wins else 0
+    avg_losses = sum(losses) / len(losses) if losses else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = [x.strip() for x in line.split('|') if x.strip()]
+        if len(parts) >= 5:
+            player = parts[0]
+            wards_placed = int(parts[4])
+            if wards_placed > max_wards:
+                max_wards = wards_placed
+                max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    count = 0
+    
+    for line in lines[1:]:
+        parts = [x.strip() for x in line.split('|') if x.strip()]
+        if len(parts) >= 6:
+            control_wards = int(parts[5])
+            if control_wards >= 15:
+                count += 1
+    
+    return count
+```

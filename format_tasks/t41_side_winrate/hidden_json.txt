@@ -1,0 +1,142 @@
+[
+  {
+    "game": "G01",
+    "team": "Vitality.Bee",
+    "side": "blue",
+    "result": "loss",
+    "game_minutes": 53.4
+  },
+  {
+    "game": "G01",
+    "team": "Ici Japon Corp. Esport",
+    "side": "red",
+    "result": "win",
+    "game_minutes": 53.4
+  },
+  {
+    "game": "G02",
+    "team": "Karmine Corp Blue",
+    "side": "blue",
+    "result": "win",
+    "game_minutes": 27.1
+  },
+  {
+    "game": "G02",
+    "team": "Ici Japon Corp. Esport",
+    "side": "red",
+    "result": "loss",
+    "game_minutes": 27.1
+  },
+  {
+    "game": "G03",
+    "team": "Gentle Mates",
+    "side": "blue",
+    "result": "win",
+    "game_minutes": 36.4
+  },
+  {
+    "game": "G03",
+    "team": "Solary",
+    "side": "red",
+    "result": "loss",
+    "game_minutes": 36.4
+  },
+  {
+    "game": "G04",
+    "team": "BK ROG Esports",
+    "side": "blue",
+    "result": "win",
+    "game_minutes": 31.0
+  },
+  {
+    "game": "G04",
+    "team": "Karmine Corp Blue",
+    "side": "red",
+    "result": "loss",
+    "game_minutes": 31.0
+  },
+  {
+    "game": "G05",
+    "team": "Gentle Mates",
+    "side": "blue",
+    "result": "win",
+    "game_minutes": 54.1
+  },
+  {
+    "game": "G05",
+    "team": "Vitality.Bee",
+    "side": "red",
+    "result": "loss",
+    "game_minutes": 54.1
+  },
+  {
+    "game": "G06",
+    "team": "Joblife",
+    "side": "blue",
+    "result": "loss",
+    "game_minutes": 29.7
+  },
+  {
+    "game": "G06",
+    "team": "Ici Japon Corp. Esport",
+    "side": "red",
+    "result": "win",
+    "game_minutes": 29.7
+  },
+  {
+    "game": "G07",
+    "team": "Solary",
+    "side": "blue",
+    "result": "loss",
+    "game_minutes": 29.9
+  },
+  {
+    "game": "G07",
+    "team": "Ici Japon Corp. Esport",
+    "side": "red",
+    "result": "win",
+    "game_minutes": 29.9
+  },
+  {
+    "game": "G08",
+    "team": "Team BDS Academy",
+    "side": "blue",
+    "result": "loss",
+    "game_minutes": 33.0
+  },
+  {
+    "game": "G08",
+    "team": "Ici Japon Corp. Esport",
+    "side": "red",
+    "result": "win",
+    "game_minutes": 33.0
+  },
+  {
+    "game": "G09",
+    "team": "Solary",
+    "side": "blue",
+    "result": "loss",
+    "game_minutes": 41.3
+  },
+  {
+    "game": "G09",
+    "team": "Gentle Mates",
+    "side": "red",
+    "result": "win",
+    "game_minutes": 41.3
+  },
+  {
+    "game": "G10",
+    "team": "Galions",
+    "side": "blue",
+    "result": "win",
+    "game_minutes": 34.8
+  },
+  {
+    "game": "G10",
+    "team": "Karmine Corp Blue",
+    "side": "red",
+    "result": "loss",
+    "game_minutes": 34.8
+  }
+]

@@ -1,0 +1,37 @@
+```python
+def parse_data(text):
+    lines = text.strip().split('\n')
+    rows = []
+    for line in lines[1:]:  # Skip header
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty first/last elements
+        if len(parts) >= 5:
+            rows.append({
+                'game': parts[0],
+                'team': parts[1],
+                'side': parts[2],
+                'result': parts[3],
+                'gold_diff_15': int(parts[4])
+            })
+    return rows
+
+def q1(text):
+    rows = parse_data(text)
+    winning_rows = [row for row in rows if row['result'] == 'win']
+    if not winning_rows:
+        return 0
+    total_gold_diff = sum(row['gold_diff_15'] for row in winning_rows)
+    return total_gold_diff / len(winning_rows)
+
+def q2(text):
+    rows = parse_data(text)
+    winning_with_negative_gold = [row for row in rows if row['result'] == 'win' and row['gold_diff_15'] < 0]
+    return len(winning_with_negative_gold)
+
+def q3(text):
+    rows = parse_data(text)
+    ahead_in_gold = [row for row in rows if row['gold_diff_15'] > 0]
+    if not ahead_in_gold:
+        return 0
+    wins_while_ahead = [row for row in ahead_in_gold if row['result'] == 'win']
+    return len(wins_while_ahead) / len(ahead_in_gold)
+```

@@ -1,0 +1,21 @@
+game,team,result,first_tower,void_grubs,heralds
+G01,BNK FEARX Youth,loss,no,2,0
+G01,Hanwha Life Esports Challengers,win,yes,2,1
+G02,OKSavingsBank BRION Challengers,loss,no,2,1
+G02,DN Freecs Challengers,win,yes,4,0
+G03,DRX Challengers,win,yes,6,1
+G03,T1 Esports Academy,loss,no,0,0
+G04,Nongshim Esports Academy,loss,no,0,0
+G04,DRX Challengers,win,yes,6,1
+G05,Dplus KIA Challengers,loss,no,1,0
+G05,Nongshim Esports Academy,win,yes,2,1
+G06,Hanwha Life Esports Challengers,loss,no,3,1
+G06,OKSavingsBank BRION Challengers,win,yes,0,0
+G07,DN Freecs Challengers,win,yes,0,0
+G07,Hanwha Life Esports Challengers,loss,no,3,1
+G08,Gen.G Global Academy,win,no,0,1
+G08,T1 Esports Academy,loss,yes,3,0
+G09,KT Rolster Challengers,loss,no,0,1
+G09,T1 Esports Academy,win,yes,3,0
+G10,T1 Esports Academy,win,yes,3,0
+G10,DRX Challengers,loss,no,0,1

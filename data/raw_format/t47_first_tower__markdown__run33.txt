@@ -1,0 +1,79 @@
+```python
+def q1(text):
+    """Returns the win rate of teams that took the first tower."""
+    lines = text.strip().split('\n')
+    
+    # Skip header
+    data = []
+    for line in lines[1:]:
+        parts = line.split('|')
+        parts = [p.strip() for p in parts if p.strip()]
+        if len(parts) == 5:
+            data.append({
+                'game': parts[0],
+                'team': parts[1],
+                'result': parts[2],
+                'first_tower': parts[3],
+                'void_grubs': int(parts[4]),
+                'heralds': int(parts[5])
+            })
+    
+    first_tower_teams = [row for row in data if row['first_tower'] == 'yes']
+    
+    if not first_tower_teams:
+        return 0
+    
+    wins = sum(1 for row in first_tower_teams if row['result'] == 'win')
+    return wins / len(first_tower_teams)
+
+
+def q2(text):
+    """Returns the average number of void grubs taken by winning teams."""
+    lines = text.strip().split('\n')
+    
+    # Skip header
+    data = []
+    for line in lines[1:]:
+        parts = line.split('|')
+        parts = [p.strip() for p in parts if p.strip()]
+        if len(parts) == 5:
+            data.append({
+                'game': parts[0],
+                'team': parts[1],
+                'result': parts[2],
+                'first_tower': parts[3],
+                'void_grubs': int(parts[4]),
+                'heralds': int(parts[5])
+            })
+    
+    winning_teams = [row for row in data if row['result'] == 'win']
+    
+    if not winning_teams:
+        return 0
+    
+    total_grubs = sum(row['void_grubs'] for row in winning_teams)
+    return total_grubs / len(winning_teams)
+
+
+def q3(text):
+    """Returns how many teams took at least one herald and still lost."""
+    lines = text.strip().split('\n')
+    
+    # Skip header
+    data = []
+    for line in lines[1:]:
+        parts = line.split('|')
+        parts = [p.strip() for p in parts if p.strip()]
+        if len(parts) == 5:
+            data.append({
+                'game': parts[0],
+                'team': parts[1],
+                'result': parts[2],
+                'first_tower': parts[3],
+                'void_grubs': int(parts[4]),
+                'heralds': int(parts[5])
+            })
+    
+    lost_with_herald = sum(1 for row in data if row['result'] == 'loss' and row['heralds'] >= 1)
+    return lost_with_herald
+```

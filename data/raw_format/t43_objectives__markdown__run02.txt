@@ -1,0 +1,74 @@
+```python
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    first_dragon_idx = header.index('first_dragon')
+    result_idx = header.index('result')
+    
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        if cells[first_dragon_idx] == 'yes':
+            first_dragon_total += 1
+            if cells[result_idx] == 'win':
+                first_dragon_wins += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    result_idx = header.index('result')
+    barons_idx = header.index('barons')
+    
+    winning_barons = []
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        if cells[result_idx] == 'win':
+            winning_barons.append(int(cells[barons_idx]))
+    
+    if len(winning_barons) == 0:
+        return 0
+    return sum(winning_barons) / len(winning_barons)
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    towers_idx = header.index('towers')
+    
+    total_towers = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        total_towers += int(cells[towers_idx])
+    
+    return total_towers
+```

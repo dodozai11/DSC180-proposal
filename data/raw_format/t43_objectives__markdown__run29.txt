@@ -1,0 +1,66 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:] if line.strip()]
+    
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    for row in rows:
+        columns = [col.strip() for col in row]
+        if len(columns) >= 3:
+            first_dragon = columns[2]
+            result = columns[1]
+            
+            if first_dragon == 'yes':
+                first_dragon_total += 1
+                if result == 'win':
+                    first_dragon_wins += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:] if line.strip()]
+    
+    winning_barons = []
+    
+    for row in rows:
+        columns = [col.strip() for col in row]
+        if len(columns) >= 5:
+            result = columns[1]
+            barons = int(columns[4])
+            
+            if result == 'win':
+                winning_barons.append(barons)
+    
+    if len(winning_barons) == 0:
+        return 0
+    
+    return sum(winning_barons) / len(winning_barons)
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:] if line.strip()]
+    
+    total_towers = 0
+    
+    for row in rows:
+        columns = [col.strip() for col in row]
+        if len(columns) >= 6:
+            towers = int(columns[5])
+            total_towers += towers
+    
+    return total_towers
+```

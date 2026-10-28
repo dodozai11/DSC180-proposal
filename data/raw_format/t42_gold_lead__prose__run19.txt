@@ -1,0 +1,53 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of game records."""
+    records = []
+    # Pattern to match each game entry
+    pattern = r"In game (\w+), (.+?) played on the (\w+) side and (won|lost), with a gold difference of (-?\d+) at 15 minutes\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, gold_diff = match
+        records.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'result': result,
+            'gold_diff': int(gold_diff)
+        })
+    
+    return records
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    records = parse_data(text)
+    winning_gold_diffs = [record['gold_diff'] for record in records if record['result'] == 'won']
+    
+    if not winning_gold_diffs:
+        return 0
+    
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    records = parse_data(text)
+    count = sum(1 for record in records if record['result'] == 'won' and record['gold_diff'] < 0)
+    return count
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    records = parse_data(text)
+    
+    # Teams ahead in gold have positive gold difference
+    ahead_in_gold = [record for record in records if record['gold_diff'] > 0]
+    
+    if not ahead_in_gold:
+        return 0
+    
+    wins = sum(1 for record in ahead_in_gold if record['result'] == 'won')
+    win_rate = wins / len(ahead_in_gold)
+    
+    return win_rate
+```

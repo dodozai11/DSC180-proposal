@@ -1,0 +1,44 @@
+```python
+import json
+import re
+from collections import Counter
+
+def q1(text):
+    data = json.loads(text)
+    
+    max_kda = -1
+    best_player = None
+    
+    for entry in data:
+        kda = (entry['kills'] + entry['assists']) / max(entry['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = entry['player']
+    
+    return best_player
+
+def q2(text):
+    data = json.loads(text)
+    
+    winning_kills = []
+    
+    for entry in data:
+        if entry['result'] == 'win':
+            winning_kills.append(entry['kills'])
+    
+    if len(winning_kills) == 0:
+        return 0
+    
+    return sum(winning_kills) / len(winning_kills)
+
+def q3(text):
+    data = json.loads(text)
+    
+    champions = [entry['champion'] for entry in data]
+    
+    champion_counts = Counter(champions)
+    
+    most_picked = champion_counts.most_common(1)[0][0]
+    
+    return most_picked
+```

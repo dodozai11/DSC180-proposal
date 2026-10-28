@@ -1,0 +1,72 @@
+```python
+import re
+from collections import Counter
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    lines = text.strip().split('. ')
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in lines:
+        # Parse: "Player of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.match(r'(\w+) of .+ played .+ in .+ and .+ with (\d+) kills, (\d+) deaths and (\d+) assists', line)
+        if match:
+            player = match.group(1)
+            kills = int(match.group(2))
+            deaths = int(match.group(3))
+            assists = int(match.group(4))
+            
+            kda = (kills + assists) / max(deaths, 1)
+            
+            if kda > max_kda:
+                max_kda = kda
+                best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    lines = text.strip().split('. ')
+    
+    wins = []
+    
+    for line in lines:
+        # Parse: "Player of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.match(r'(\w+) of .+ played .+ in .+ and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists', line)
+        if match:
+            result = match.group(2)
+            kills = int(match.group(3))
+            
+            if result == 'won':
+                wins.append(kills)
+    
+    if not wins:
+        return 0
+    
+    return sum(wins) / len(wins)
+
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    lines = text.strip().split('. ')
+    
+    champions = []
+    
+    for line in lines:
+        # Parse: "Player of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.search(r'played (\w+) in', line)
+        if match:
+            champion = match.group(1)
+            champions.append(champion)
+    
+    if not champions:
+        return None
+    
+    counter = Counter(champions)
+    most_common = counter.most_common(1)[0][0]
+    
+    return most_common
+```

@@ -1,0 +1,43 @@
+```python
+import xml.etree.ElementTree as ET
+from typing import List, Dict
+
+def parse_data(text: str) -> List[Dict]:
+    """Parse XML data from text string."""
+    rows = []
+    root = ET.fromstring(f"<root>{text}</root>")
+    for row in root.findall('row'):
+        rows.append({
+            'game': row.find('game').text,
+            'team': row.find('team').text,
+            'side': row.find('side').text,
+            'result': row.find('result').text,
+            'kills_at_15': int(row.find('kills_at_15').text),
+            'xp_diff_15': int(row.find('xp_diff_15').text),
+        })
+    return rows
+
+def q1(text: str) -> float:
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    rows = parse_data(text)
+    red_side_rows = [row for row in rows if row['side'] == 'red']
+    if not red_side_rows:
+        return 0.0
+    total_kills = sum(row['kills_at_15'] for row in red_side_rows)
+    return total_kills / len(red_side_rows)
+
+def q2(text: str) -> str:
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    rows = parse_data(text)
+    max_row = max(rows, key=lambda row: abs(row['xp_diff_15']))
+    return max_row['team']
+
+def q3(text: str) -> int:
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    rows = parse_data(text)
+    count = 0
+    for row in rows:
+        if row['result'] == 'win' and row['xp_diff_15'] < 0:
+            count += 1
+    return count
+```

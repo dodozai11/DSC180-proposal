@@ -1,0 +1,63 @@
+```python
+def q1(text):
+    """Returns the average vision score of winners minus average vision score of losers."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data = []
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty strings from split
+        if len(parts) >= 3:
+            data.append({
+                'player': parts[0],
+                'team': parts[1],
+                'result': parts[2],
+                'vision_score': int(parts[3]),
+                'wards_placed': int(parts[4]),
+                'control_wards': int(parts[5])
+            })
+    
+    winners = [row['vision_score'] for row in data if row['result'] == 'win']
+    losers = [row['vision_score'] for row in data if row['result'] == 'loss']
+    
+    avg_winners = sum(winners) / len(winners) if winners else 0
+    avg_losers = sum(losers) / len(losers) if losers else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Returns the name of the player who placed the most wards."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty strings from split
+        if len(parts) >= 5:
+            player = parts[0]
+            wards_placed = int(parts[4])
+            
+            if wards_placed > max_wards:
+                max_wards = wards_placed
+                max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Returns how many players bought at least 15 control wards."""
+    lines = text.strip().split('\n')
+    
+    count = 0
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty strings from split
+        if len(parts) >= 6:
+            control_wards = int(parts[5])
+            if control_wards >= 15:
+                count += 1
+    
+    return count
+```

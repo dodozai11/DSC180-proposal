@@ -1,0 +1,27 @@
+```python
+import json
+import re
+from collections import Counter
+from statistics import mean
+
+def q1(text):
+    data = json.loads(text)
+    max_kda = -1
+    max_kda_player = None
+    for player in data:
+        kda = (player['kills'] + player['assists']) / max(player['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            max_kda_player = player['player']
+    return max_kda_player
+
+def q2(text):
+    data = json.loads(text)
+    wins = [player['kills'] for player in data if player['result'] == 'win']
+    return mean(wins) if wins else 0
+
+def q3(text):
+    data = json.loads(text)
+    champions = [player['champion'] for player in data]
+    return Counter(champions).most_common(1)[0][0]
+```

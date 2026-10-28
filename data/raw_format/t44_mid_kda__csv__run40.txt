@@ -1,0 +1,72 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    player_idx = header.index('player')
+    kills_idx = header.index('kills')
+    deaths_idx = header.index('deaths')
+    assists_idx = header.index('assists')
+    
+    max_kda = -1
+    max_kda_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        player = parts[player_idx]
+        kills = int(parts[kills_idx])
+        deaths = int(parts[deaths_idx])
+        assists = int(parts[assists_idx])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            max_kda_player = player
+    
+    return max_kda_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    kills_idx = header.index('kills')
+    result_idx = header.index('result')
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        result = parts[result_idx]
+        kills = int(parts[kills_idx])
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_kills / win_count
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    champion_idx = header.index('champion')
+    
+    champion_counts = {}
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        champion = parts[champion_idx]
+        
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    most_picked_champion = max(champion_counts, key=champion_counts.get)
+    
+    return most_picked_champion
+```

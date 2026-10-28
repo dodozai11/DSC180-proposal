@@ -1,0 +1,66 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of game records."""
+    records = []
+    
+    # Pattern to match each game record
+    # "In game G##, TEAM_NAME (won|lost); they (did not take|took) the first dragon and finished with # dragons, # barons and # towers."
+    pattern = r"In game (G\d+), (.+?) (won|lost); they (did not take|took) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\."
+    
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team_name, result, first_dragon, dragons, barons, towers = match
+        records.append({
+            'game_id': game_id,
+            'team_name': team_name,
+            'won': result == 'won',
+            'first_dragon': first_dragon == 'took',
+            'dragons': int(dragons),
+            'barons': int(barons),
+            'towers': int(towers)
+        })
+    
+    return records
+
+
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    records = parse_data(text)
+    
+    first_dragon_records = [r for r in records if r['first_dragon']]
+    
+    if len(first_dragon_records) == 0:
+        return 0
+    
+    wins = sum(1 for r in first_dragon_records if r['won'])
+    win_rate = wins / len(first_dragon_records)
+    
+    return win_rate
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    records = parse_data(text)
+    
+    winning_records = [r for r in records if r['won']]
+    
+    if len(winning_records) == 0:
+        return 0
+    
+    total_barons = sum(r['barons'] for r in winning_records)
+    average_barons = total_barons / len(winning_records)
+    
+    return average_barons
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    records = parse_data(text)
+    
+    total_towers = sum(r['towers'] for r in records)
+    
+    return total_towers
+```

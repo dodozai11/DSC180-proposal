@@ -1,0 +1,22 @@
+| game | team | result | game_minutes | inhibitors | tower_damage |
+|---|---|---|---|---|---|
+| G01 | Disguised | win | 32.1 | 3 | 32790 |
+| G01 | Dignitas | loss | 32.1 | 0 | 5600 |
+| G02 | Team Liquid | win | 41.5 | 1 | 22662 |
+| G02 | 100 Thieves | loss | 41.5 | 2 | 23851 |
+| G03 | Team Liquid | win | 32.7 | 1 | 28006 |
+| G03 | 100 Thieves | loss | 32.7 | 0 | 9153 |
+| G04 | Cloud9 | win | 35.5 | 1 | 19830 |
+| G04 | LYON | loss | 35.5 | 2 | 24939 |
+| G05 | 100 Thieves | loss | 39.8 | 0 | 11305 |
+| G05 | Shopify Rebellion | win | 39.8 | 1 | 18912 |
+| G06 | Cloud9 | win | 29.1 | 1 | 26218 |
+| G06 | LYON | loss | 29.1 | 0 | 6965 |
+| G07 | Disguised | loss | 28.0 | 0 | 6238 |
+| G07 | Cloud9 | win | 28.0 | 1 | 21741 |
+| G08 | Cloud9 | loss | 33.0 | 0 | 6112 |
+| G08 | 100 Thieves | win | 33.0 | 1 | 18728 |
+| G09 | Luminosity Gaming | loss | 27.2 | 0 | 7858 |
+| G09 | Disguised | win | 27.2 | 1 | 18764 |
+| G10 | Luminosity Gaming | win | 30.5 | 1 | 16052 |
+| G10 | Estral Esports | loss | 30.5 | 0 | 7863 |

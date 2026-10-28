@@ -1,0 +1,21 @@
+player,champion,result,cs_diff_10,kills_at_10,assists_at_10
+Genos,Maokai,win,-18,0,1
+Nero,Maokai,win,-1,0,0
+Soweto,Xin Zhao,loss,1,0,1
+Ancrath,Lillia,win,-3,2,1
+Dizin,Wukong,loss,3,0,2
+Sting,Nocturne,win,23,0,1
+Envy,Darius,loss,10,2,6
+DOOM,Maokai,win,-9,0,3
+StineR,Wukong,loss,0,0,0
+Yampi,Sejuani,win,0,0,0
+Mewkyo,Maokai,win,7,0,1
+Seize,Pantheon,loss,3,1,0
+Drakehero,Maokai,win,3,1,0
+Aegis,Skarner,win,7,0,1
+Ranger,Maokai,win,2,0,1
+Anato,Nocturne,win,6,0,0
+Levizin,Vi,loss,-6,0,0
+Randal,Naafiri,win,3,1,0
+juny,Briar,loss,-3,1,2
+LOS Aegis,Trundle,win,1,1,0

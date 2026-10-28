@@ -1,0 +1,48 @@
+```python
+import csv
+from io import StringIO
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    reader = csv.DictReader(StringIO(text), delimiter='|')
+    max_player = None
+    max_cs = -1
+    
+    for row in reader:
+        row = {k.strip(): v.strip() for k, v in row.items()}
+        cs_per_min = float(row['cs_per_min'])
+        if cs_per_min > max_cs:
+            max_cs = cs_per_min
+            max_player = row['player']
+    
+    return max_player
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    reader = csv.DictReader(StringIO(text), delimiter='|')
+    total_gold_share = 0
+    win_count = 0
+    
+    for row in reader:
+        row = {k.strip(): v.strip() for k, v in row.items()}
+        if row['result'] == 'win':
+            total_gold_share += float(row['gold_share'])
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    return total_gold_share / win_count
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    reader = csv.DictReader(StringIO(text), delimiter='|')
+    count = 0
+    
+    for row in reader:
+        row = {k.strip(): v.strip() for k, v in row.items()}
+        cs_per_min = float(row['cs_per_min'])
+        if cs_per_min > 9:
+            count += 1
+    
+    return count
+```

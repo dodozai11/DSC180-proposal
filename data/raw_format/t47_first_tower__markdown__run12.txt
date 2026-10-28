@@ -1,0 +1,76 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    first_tower_idx = headers.index('first_tower')
+    result_idx = headers.index('result')
+    
+    first_tower_wins = 0
+    first_tower_total = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        if cells[first_tower_idx] == 'yes':
+            first_tower_total += 1
+            if cells[result_idx] == 'win':
+                first_tower_wins += 1
+    
+    if first_tower_total == 0:
+        return 0
+    return first_tower_wins / first_tower_total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    void_grubs_idx = headers.index('void_grubs')
+    result_idx = headers.index('result')
+    
+    winning_void_grubs = []
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        if cells[result_idx] == 'win':
+            winning_void_grubs.append(int(cells[void_grubs_idx]))
+    
+    if len(winning_void_grubs) == 0:
+        return 0
+    return sum(winning_void_grubs) / len(winning_void_grubs)
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    heralds_idx = headers.index('heralds')
+    result_idx = headers.index('result')
+    
+    count = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        heralds = int(cells[heralds_idx])
+        result = cells[result_idx]
+        
+        if heralds >= 1 and result == 'loss':
+            count += 1
+    
+    return count
+```

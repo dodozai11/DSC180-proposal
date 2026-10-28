@@ -1,0 +1,58 @@
+import re
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers"""
+    players = re.findall(
+        r'(\w+) of .+ (won|lost) with a vision score of (\d+)',
+        text
+    )
+    
+    winners_vision = []
+    losers_vision = []
+    
+    for name, result, vision_score in players:
+        vision_score = int(vision_score)
+        if result == 'won':
+            winners_vision.append(vision_score)
+        else:
+            losers_vision.append(vision_score)
+    
+    avg_winners = sum(winners_vision) / len(winners_vision) if winners_vision else 0
+    avg_losers = sum(losers_vision) / len(losers_vision) if losers_vision else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards"""
+    players = re.findall(
+        r'(\w+) of .+ (?:won|lost) with a vision score of \d+, (\d+) wards placed',
+        text
+    )
+    
+    max_wards = -1
+    max_player = None
+    
+    for name, wards_placed in players:
+        wards_placed = int(wards_placed)
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = name
+    
+    return max_player
+
+
+def q3(text):
+    """Return the count of players who bought at least 15 control wards"""
+    players = re.findall(
+        r'(\w+) of .+ (?:won|lost) with a vision score of \d+, \d+ wards placed and (\d+) control wards bought',
+        text
+    )
+    
+    count = 0
+    for name, control_wards in players:
+        control_wards = int(control_wards)
+        if control_wards >= 15:
+            count += 1
+    
+    return count

@@ -1,0 +1,21 @@
+player,team,champion,kills,deaths,assists,result
+VK velbellys,VelbeliKaizokudan,Syndra,5,4,9,win
+Saii,Spirit Quartz Gaming,Galio,7,3,11,win
+Karaage,Kareha Children,Aurora,8,0,18,win
+Competitive,VARREL YOUTH,Aurora,3,4,6,loss
+Ligen,Yang Yang Gaming,Galio,5,1,12,win
+VEL BEEHIV3,VeLocitY (Japanese Team),Taliyah,1,5,3,loss
+HNS R1to,Hands,Hwei,1,3,1,loss
+rre,DetonatioN FocusMe Academy,Tryndamere,4,0,6,win
+sucuranbul,V3 Esports,Azir,0,6,3,loss
+Alleycat,Kareha Children,Galio,2,6,9,win
+Dragonblood,Dream in 24,Yasuo,5,4,5,win
+BVL uwaaaa,BraVeLY,Yone,3,1,1,loss
+DG hatinyang,Deltan Gaming,Vladimir,2,3,2,loss
+DICE,QT DIG∞,Jayce,5,1,6,win
+DG suyahime,Deltan Gaming,Taliyah,6,0,9,win
+Sign,Radical Pop Gaming,Azir,7,3,5,win
+VT Nangning,Vortex (Japanese Team),Zoe,3,6,4,loss
+Mutton,VelbeliKaizokudan,Yone,6,5,2,loss
+RPG sign,Radical Pop Gaming,Azir,1,6,4,loss
+SQG Lunatic,Spirit Quartz Gaming,Azir,2,2,8,win

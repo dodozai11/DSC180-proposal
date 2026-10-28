@@ -1,0 +1,47 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average damage per minute of players who lost."""
+    pattern = r'(\w+(?:\s+\w+)*) of (.+?) played .+ and (won|lost), dealing ([\d.]+) damage per minute'
+    matches = re.findall(pattern, text)
+    
+    lost_damages = []
+    for player, team, result, damage in matches:
+        if result == 'lost':
+            lost_damages.append(float(damage))
+    
+    if not lost_damages:
+        return 0
+    
+    return sum(lost_damages) / len(lost_damages)
+
+
+def q2(text):
+    """Returns the name of the player who took the most damage per minute."""
+    pattern = r'(\w+(?:\s+\w+)*) of (.+?) played .+ and (?:won|lost), dealing [\d.]+ damage per minute and taking ([\d.]+) damage per minute'
+    matches = re.findall(pattern, text)
+    
+    max_player = None
+    max_damage = -1
+    
+    for player, team, damage_taken in matches:
+        damage_taken_float = float(damage_taken)
+        if damage_taken_float > max_damage:
+            max_damage = damage_taken_float
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Returns the number of different teams."""
+    pattern = r'(\w+(?:\s+\w+)*) of (.+?) played'
+    matches = re.findall(pattern, text)
+    
+    teams = set()
+    for player, team in matches:
+        teams.add(team.strip())
+    
+    return len(teams)
+```

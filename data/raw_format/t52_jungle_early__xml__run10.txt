@@ -1,0 +1,42 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    root = ET.fromstring(f"<root>{text}</root>")
+    rows = root.findall("row")
+    
+    positive_cs_diff_rows = [row for row in rows if int(row.find("cs_diff_10").text) > 0]
+    
+    if not positive_cs_diff_rows:
+        return 0.0
+    
+    wins = sum(1 for row in positive_cs_diff_rows if row.find("result").text == "win")
+    win_rate = wins / len(positive_cs_diff_rows)
+    
+    return win_rate
+
+def q2(text):
+    root = ET.fromstring(f"<root>{text}</root>")
+    rows = root.findall("row")
+    
+    total_kills = sum(int(row.find("kills_at_10").text) for row in rows)
+    
+    return total_kills
+
+def q3(text):
+    root = ET.fromstring(f"<root>{text}</root>")
+    rows = root.findall("row")
+    
+    champion_assists = {}
+    for row in rows:
+        champion = row.find("champion").text
+        assists = int(row.find("assists_at_10").text)
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += assists
+    
+    champion_with_most_assists = max(champion_assists, key=champion_assists.get)
+    
+    return champion_with_most_assists
+```

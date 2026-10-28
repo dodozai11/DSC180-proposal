@@ -1,0 +1,55 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0]
+    
+    wins = []
+    losses = []
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        result = parts[2]
+        vision_score = int(parts[3])
+        
+        if result == 'win':
+            wins.append(vision_score)
+        else:
+            losses.append(vision_score)
+    
+    avg_wins = sum(wins) / len(wins) if wins else 0
+    avg_losses = sum(losses) / len(losses) if losses else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        player = parts[0]
+        wards_placed = int(parts[4])
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    
+    count = 0
+    for line in lines[1:]:
+        parts = line.split(',')
+        control_wards = int(parts[5])
+        
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

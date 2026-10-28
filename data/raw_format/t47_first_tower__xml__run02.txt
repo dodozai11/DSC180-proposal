@@ -1,0 +1,52 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    first_tower_count = 0
+    first_tower_wins = 0
+    
+    for row in root.findall('row'):
+        if row.find('first_tower').text == 'yes':
+            first_tower_count += 1
+            if row.find('result').text == 'win':
+                first_tower_wins += 1
+    
+    if first_tower_count == 0:
+        return 0
+    return first_tower_wins / first_tower_count
+
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    void_grubs_total = 0
+    win_count = 0
+    
+    for row in root.findall('row'):
+        if row.find('result').text == 'win':
+            void_grubs_total += int(row.find('void_grubs').text)
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    return void_grubs_total / win_count
+
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    count = 0
+    for row in root.findall('row'):
+        heralds = int(row.find('heralds').text)
+        result = row.find('result').text
+        
+        if heralds >= 1 and result == 'loss':
+            count += 1
+    
+    return count
+```

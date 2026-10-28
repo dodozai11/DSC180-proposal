@@ -1,0 +1,27 @@
+```python
+import json
+import re
+
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    data = json.loads(text)
+    winning_teams = [row for row in data if row["result"] == "win"]
+    total_inhibitors = sum(row["inhibitors"] for row in winning_teams)
+    return total_inhibitors / len(winning_teams) if winning_teams else 0
+
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    data = json.loads(text)
+    losing_teams = [row for row in data if row["result"] == "loss"]
+    total_damage = sum(row["tower_damage"] for row in losing_teams)
+    return total_damage / len(losing_teams) if losing_teams else 0
+
+
+def q3(text):
+    """Return the game label of the longest game."""
+    data = json.loads(text)
+    longest_game = max(data, key=lambda row: row["game_minutes"])
+    return longest_game["game"]
+```

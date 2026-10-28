@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>GiantX</team><side>blue</side><result>loss</result><gold_diff_15>1060</gold_diff_15></row>
+  <row><game>G01</game><team>Movistar KOI</team><side>red</side><result>win</result><gold_diff_15>-1060</gold_diff_15></row>
+  <row><game>G02</game><team>Movistar KOI</team><side>blue</side><result>win</result><gold_diff_15>2660</gold_diff_15></row>
+  <row><game>G02</game><team>GiantX</team><side>red</side><result>loss</result><gold_diff_15>-2660</gold_diff_15></row>
+  <row><game>G03</game><team>Karmine Corp</team><side>blue</side><result>win</result><gold_diff_15>75</gold_diff_15></row>
+  <row><game>G03</game><team>Fnatic</team><side>red</side><result>loss</result><gold_diff_15>-75</gold_diff_15></row>
+  <row><game>G04</game><team>Movistar KOI</team><side>blue</side><result>win</result><gold_diff_15>-2285</gold_diff_15></row>
+  <row><game>G04</game><team>Fnatic</team><side>red</side><result>loss</result><gold_diff_15>2285</gold_diff_15></row>
+  <row><game>G05</game><team>SK Gaming</team><side>blue</side><result>loss</result><gold_diff_15>-2251</gold_diff_15></row>
+  <row><game>G05</game><team>Team Vitality</team><side>red</side><result>win</result><gold_diff_15>2251</gold_diff_15></row>
+  <row><game>G06</game><team>Team Heretics</team><side>blue</side><result>loss</result><gold_diff_15>-4163</gold_diff_15></row>
+  <row><game>G06</game><team>GiantX</team><side>red</side><result>win</result><gold_diff_15>4163</gold_diff_15></row>
+  <row><game>G07</game><team>Team Heretics</team><side>blue</side><result>loss</result><gold_diff_15>-556</gold_diff_15></row>
+  <row><game>G07</game><team>GiantX</team><side>red</side><result>win</result><gold_diff_15>556</gold_diff_15></row>
+  <row><game>G08</game><team>GiantX</team><side>blue</side><result>loss</result><gold_diff_15>1777</gold_diff_15></row>
+  <row><game>G08</game><team>Karmine Corp</team><side>red</side><result>win</result><gold_diff_15>-1777</gold_diff_15></row>
+  <row><game>G09</game><team>Team Heretics</team><side>blue</side><result>loss</result><gold_diff_15>-3144</gold_diff_15></row>
+  <row><game>G09</game><team>Team Vitality</team><side>red</side><result>win</result><gold_diff_15>3144</gold_diff_15></row>
+  <row><game>G10</game><team>Movistar KOI</team><side>blue</side><result>loss</result><gold_diff_15>-1096</gold_diff_15></row>
+  <row><game>G10</game><team>G2 Esports</team><side>red</side><result>win</result><gold_diff_15>1096</gold_diff_15></row>
+</rows>

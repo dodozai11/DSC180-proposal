@@ -1,0 +1,49 @@
+```python
+import re
+
+def q1(text):
+    """Calculate win rate of teams that took the first dragon."""
+    first_dragon_teams = []
+    
+    # Parse the text to find teams that took first dragon and their results
+    games = re.findall(r'In game (\w+), (.+?) (won|lost);', text)
+    
+    for game_id, team_name, result in games:
+        # Check if this team took the first dragon
+        pattern = f"In game {game_id}, {re.escape(team_name)} {result}; they took the first dragon"
+        if re.search(pattern, text):
+            first_dragon_teams.append((team_name, result))
+    
+    if not first_dragon_teams:
+        return 0
+    
+    wins = sum(1 for _, result in first_dragon_teams if result == "won")
+    return wins / len(first_dragon_teams)
+
+
+def q2(text):
+    """Calculate average number of barons taken by winning teams."""
+    winning_teams = []
+    
+    # Find all teams and their results with baron counts
+    pattern = r"In game \w+, (.+?) (won|lost);.*?(\d+) barons"
+    matches = re.findall(pattern, text)
+    
+    for team_name, result, barons in matches:
+        if result == "won":
+            winning_teams.append(int(barons))
+    
+    if not winning_teams:
+        return 0
+    
+    return sum(winning_teams) / len(winning_teams)
+
+
+def q3(text):
+    """Calculate total number of towers destroyed across all rows."""
+    # Find all tower counts
+    pattern = r"(\d+) towers"
+    matches = re.findall(pattern, text)
+    
+    return sum(int(towers) for towers in matches)
+```

@@ -1,0 +1,78 @@
+```python
+import re
+from typing import Union
+
+def parse_data(text: str) -> list[dict]:
+    """Parse the data from the text format."""
+    lines = text.strip().split('\n')
+    
+    # Find the header row
+    header_idx = -1
+    for i, line in enumerate(lines):
+        if 'game' in line and 'team' in line:
+            header_idx = i
+            break
+    
+    if header_idx == -1:
+        return []
+    
+    # Parse data rows
+    data = []
+    for line in lines[header_idx + 1:]:
+        line = line.strip()
+        if not line or line.startswith('|'):
+            continue
+        
+        # Split by pipe and clean up
+        parts = [p.strip() for p in line.split('|')]
+        parts = [p for p in parts if p]  # Remove empty strings
+        
+        if len(parts) >= 5:
+            data.append({
+                'game': parts[0],
+                'team': parts[1],
+                'side': parts[2],
+                'result': parts[3],
+                'gold_diff_15': int(parts[4])
+            })
+    
+    return data
+
+
+def q1(text: str) -> Union[float, int]:
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    data = parse_data(text)
+    
+    winning_teams = [row['gold_diff_15'] for row in data if row['result'] == 'win']
+    
+    if not winning_teams:
+        return 0
+    
+    return sum(winning_teams) / len(winning_teams)
+
+
+def q2(text: str) -> int:
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    data = parse_data(text)
+    
+    count = 0
+    for row in data:
+        if row['result'] == 'win' and row['gold_diff_15'] < 0:
+            count += 1
+    
+    return count
+
+
+def q3(text: str) -> Union[float, int]:
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    data = parse_data(text)
+    
+    ahead_in_gold = [row for row in data if row['gold_diff_15'] > 0]
+    
+    if not ahead_in_gold:
+        return 0
+    
+    wins = sum(1 for row in ahead_in_gold if row['result'] == 'win')
+    
+    return wins / len(ahead_in_gold)
+```

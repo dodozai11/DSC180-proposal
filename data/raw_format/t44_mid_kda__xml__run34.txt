@@ -1,0 +1,64 @@
+```python
+import re
+from collections import Counter
+
+def parse_data(text):
+    """Parse XML-like data and return list of dictionaries."""
+    rows = []
+    pattern = r'<row>.*?</row>'
+    for row_match in re.finditer(pattern, text, re.DOTALL):
+        row_text = row_match.group()
+        row_data = {}
+        
+        # Extract each field
+        for field in ['player', 'team', 'champion', 'kills', 'deaths', 'assists', 'result']:
+            match = re.search(f'<{field}>(.*?)</{field}>', row_text)
+            if match:
+                value = match.group(1)
+                # Convert numeric fields to int
+                if field in ['kills', 'deaths', 'assists']:
+                    row_data[field] = int(value)
+                else:
+                    row_data[field] = value
+        
+        rows.append(row_data)
+    
+    return rows
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    rows = parse_data(text)
+    
+    max_kda = -1
+    best_player = None
+    
+    for row in rows:
+        kda = (row['kills'] + row['assists']) / max(row['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = row['player']
+    
+    return best_player
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    rows = parse_data(text)
+    
+    wins = [row['kills'] for row in rows if row['result'] == 'win']
+    
+    if not wins:
+        return 0
+    
+    return sum(wins) / len(wins)
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    rows = parse_data(text)
+    
+    champions = [row['champion'] for row in rows]
+    counter = Counter(champions)
+    
+    most_common = counter.most_common(1)[0][0]
+    
+    return most_common
+```

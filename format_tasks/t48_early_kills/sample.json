@@ -1,0 +1,162 @@
+[
+  {
+    "game": "G01",
+    "team": "PSG Talon Academy",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 9,
+    "xp_diff_15": -2107
+  },
+  {
+    "game": "G01",
+    "team": "Deep Cross Gaming",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 4,
+    "xp_diff_15": 2107
+  },
+  {
+    "game": "G02",
+    "team": "CTBC Flying Oyster Academy",
+    "side": "blue",
+    "result": "win",
+    "kills_at_15": 7,
+    "xp_diff_15": 2072
+  },
+  {
+    "game": "G02",
+    "team": "Ground Zero Gaming",
+    "side": "red",
+    "result": "loss",
+    "kills_at_15": 6,
+    "xp_diff_15": -2072
+  },
+  {
+    "game": "G03",
+    "team": "PaiDA Miwan Bao",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 5,
+    "xp_diff_15": -886
+  },
+  {
+    "game": "G03",
+    "team": "Sponge Gaming",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 7,
+    "xp_diff_15": 886
+  },
+  {
+    "game": "G04",
+    "team": "West Point Esports",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 4,
+    "xp_diff_15": -4278
+  },
+  {
+    "game": "G04",
+    "team": "Deep Cross Gaming",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 11,
+    "xp_diff_15": 4278
+  },
+  {
+    "game": "G05",
+    "team": "PSG Talon Academy",
+    "side": "blue",
+    "result": "win",
+    "kills_at_15": 5,
+    "xp_diff_15": -251
+  },
+  {
+    "game": "G05",
+    "team": "Ground Zero Gaming",
+    "side": "red",
+    "result": "loss",
+    "kills_at_15": 5,
+    "xp_diff_15": 251
+  },
+  {
+    "game": "G06",
+    "team": "PSG Talon Academy",
+    "side": "blue",
+    "result": "win",
+    "kills_at_15": 14,
+    "xp_diff_15": 2498
+  },
+  {
+    "game": "G06",
+    "team": "Deep Cross Gaming",
+    "side": "red",
+    "result": "loss",
+    "kills_at_15": 7,
+    "xp_diff_15": -2498
+  },
+  {
+    "game": "G07",
+    "team": "wangting",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 11,
+    "xp_diff_15": -4961
+  },
+  {
+    "game": "G07",
+    "team": "Deep Cross Gaming",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 15,
+    "xp_diff_15": 4961
+  },
+  {
+    "game": "G08",
+    "team": "HELL PIGS",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 5,
+    "xp_diff_15": -2786
+  },
+  {
+    "game": "G08",
+    "team": "Ground Zero Gaming",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 10,
+    "xp_diff_15": 2786
+  },
+  {
+    "game": "G09",
+    "team": "CTBC Flying Oyster Academy",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 1,
+    "xp_diff_15": 214
+  },
+  {
+    "game": "G09",
+    "team": "Frank Esports",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 5,
+    "xp_diff_15": -214
+  },
+  {
+    "game": "G10",
+    "team": "Deep Cross Gaming",
+    "side": "blue",
+    "result": "loss",
+    "kills_at_15": 5,
+    "xp_diff_15": 216
+  },
+  {
+    "game": "G10",
+    "team": "PSG Talon Academy",
+    "side": "red",
+    "result": "win",
+    "kills_at_15": 5,
+    "xp_diff_15": -216
+  }
+]

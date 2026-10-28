@@ -1,0 +1,81 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    vision_score_idx = headers.index('vision_score')
+    result_idx = headers.index('result')
+    
+    wins_vision = []
+    losses_vision = []
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        result = cells[result_idx]
+        vision_score = float(cells[vision_score_idx])
+        
+        if result == 'win':
+            wins_vision.append(vision_score)
+        elif result == 'loss':
+            losses_vision.append(vision_score)
+    
+    avg_wins = sum(wins_vision) / len(wins_vision) if wins_vision else 0
+    avg_losses = sum(losses_vision) / len(losses_vision) if losses_vision else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    player_idx = headers.index('player')
+    wards_placed_idx = headers.index('wards_placed')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        player = cells[player_idx]
+        wards_placed = int(cells[wards_placed_idx])
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    control_wards_idx = headers.index('control_wards')
+    
+    count = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        control_wards = int(cells[control_wards_idx])
+        
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

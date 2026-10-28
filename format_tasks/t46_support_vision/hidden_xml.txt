@@ -1,0 +1,22 @@
+<rows>
+  <row><player>Raina</player><team>REJECT</team><result>win</result><vision_score>82</vision_score><wards_placed>40</wards_placed><control_wards>11</control_wards></row>
+  <row><player>koisi</player><team>Spirit Quartz Gaming</team><result>win</result><vision_score>78</vision_score><wards_placed>46</wards_placed><control_wards>15</control_wards></row>
+  <row><player>OkerumoN</player><team>Kareha Children</team><result>win</result><vision_score>76</vision_score><wards_placed>34</wards_placed><control_wards>8</control_wards></row>
+  <row><player>Osaki</player><team>VARREL YOUTH</team><result>loss</result><vision_score>83</vision_score><wards_placed>44</wards_placed><control_wards>18</control_wards></row>
+  <row><player>Taiyaki</player><team>Yang Yang Gaming</team><result>win</result><vision_score>111</vision_score><wards_placed>47</wards_placed><control_wards>12</control_wards></row>
+  <row><player>VEL fuki</player><team>VeLocitY (Japanese Team)</team><result>loss</result><vision_score>95</vision_score><wards_placed>52</wards_placed><control_wards>15</control_wards></row>
+  <row><player>VK EMPTY2</player><team>VelbeliKaizokudan</team><result>win</result><vision_score>84</vision_score><wards_placed>48</wards_placed><control_wards>12</control_wards></row>
+  <row><player>JustFocus</player><team>Burning Core Toyama</team><result>win</result><vision_score>101</vision_score><wards_placed>52</wards_placed><control_wards>14</control_wards></row>
+  <row><player>besu</player><team>We Can Win</team><result>win</result><vision_score>111</vision_score><wards_placed>51</wards_placed><control_wards>16</control_wards></row>
+  <row><player>Kurahuto</player><team>DetonatioN FocusMe Academy</team><result>win</result><vision_score>57</vision_score><wards_placed>30</wards_placed><control_wards>12</control_wards></row>
+  <row><player>Charley</player><team>Dream in 24</team><result>win</result><vision_score>84</vision_score><wards_placed>35</wards_placed><control_wards>9</control_wards></row>
+  <row><player>BVL Snow Panda</player><team>BraVeLY</team><result>loss</result><vision_score>61</vision_score><wards_placed>25</wards_placed><control_wards>4</control_wards></row>
+  <row><player>DG toraneko</player><team>Deltan Gaming</team><result>loss</result><vision_score>62</vision_score><wards_placed>31</wards_placed><control_wards>10</control_wards></row>
+  <row><player>Hetel</player><team>QT DIG∞</team><result>win</result><vision_score>69</vision_score><wards_placed>33</wards_placed><control_wards>14</control_wards></row>
+  <row><player>RPG Kikumin</player><team>Radical Pop Gaming</team><result>loss</result><vision_score>68</vision_score><wards_placed>26</wards_placed><control_wards>7</control_wards></row>
+  <row><player>CK Ls </player><team>Clocks</team><result>loss</result><vision_score>51</vision_score><wards_placed>22</wards_placed><control_wards>5</control_wards></row>
+  <row><player>RPG McGrath</player><team>Radical Pop Gaming</team><result>win</result><vision_score>104</vision_score><wards_placed>45</wards_placed><control_wards>13</control_wards></row>
+  <row><player>BOO Snow Panda</player><team>Bamboo Juice</team><result>win</result><vision_score>100</vision_score><wards_placed>35</wards_placed><control_wards>7</control_wards></row>
+  <row><player>VT Magus</player><team>Vortex (Japanese Team)</team><result>loss</result><vision_score>70</vision_score><wards_placed>40</wards_placed><control_wards>11</control_wards></row>
+  <row><player>CK GOMAMUGICH4</player><team>Clocks</team><result>loss</result><vision_score>98</vision_score><wards_placed>47</wards_placed><control_wards>16</control_wards></row>
+</rows>

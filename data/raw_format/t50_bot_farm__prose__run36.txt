@@ -1,0 +1,53 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of player records."""
+    players = []
+    # Pattern to match each player's data
+    pattern = r"(\w+(?:\s+\w+)*?)\s+of\s+(\w+(?:\s+\w+)*?)\s+played\s+(\w+(?:'?\w+)?)\s+in\s+the\s+bot\s+lane\s+and\s+(won|lost),\s+with\s+([\d.]+)\s+CS\s+per\s+minute\s+and\s+a\s+gold\s+share\s+of\s+([\d.]+)"
+    
+    matches = re.finditer(pattern, text)
+    for match in matches:
+        player_name = match.group(1)
+        team = match.group(2)
+        champion = match.group(3)
+        result = match.group(4)
+        cs_per_min = float(match.group(5))
+        gold_share = float(match.group(6))
+        
+        players.append({
+            'name': player_name,
+            'team': team,
+            'champion': champion,
+            'result': result,
+            'cs_per_min': cs_per_min,
+            'gold_share': gold_share
+        })
+    
+    return players
+
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    players = parse_data(text)
+    highest_cs_player = max(players, key=lambda p: p['cs_per_min'])
+    return highest_cs_player['name']
+
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    players = parse_data(text)
+    winners = [p for p in players if p['result'] == 'won']
+    if not winners:
+        return 0
+    avg_gold_share = sum(p['gold_share'] for p in winners) / len(winners)
+    return avg_gold_share
+
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    players = parse_data(text)
+    count = sum(1 for p in players if p['cs_per_min'] > 9)
+    return count
+```

@@ -1,0 +1,60 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    winning_gold_diffs = []
+    
+    lines = text.split('. ')
+    for line in lines:
+        # Check if this line contains a win
+        if ' won, ' in line:
+            # Extract gold difference
+            match = re.search(r'gold difference of (-?\d+) at 15 minutes', line)
+            if match:
+                gold_diff = int(match.group(1))
+                winning_gold_diffs.append(gold_diff)
+    
+    if winning_gold_diffs:
+        return sum(winning_gold_diffs) / len(winning_gold_diffs)
+    return 0
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    count = 0
+    
+    lines = text.split('. ')
+    for line in lines:
+        # Check if this line contains a win
+        if ' won, ' in line:
+            # Extract gold difference
+            match = re.search(r'gold difference of (-?\d+) at 15 minutes', line)
+            if match:
+                gold_diff = int(match.group(1))
+                if gold_diff < 0:
+                    count += 1
+    
+    return count
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    ahead_and_won = 0
+    ahead_total = 0
+    
+    lines = text.split('. ')
+    for line in lines:
+        # Extract gold difference
+        match = re.search(r'gold difference of (-?\d+) at 15 minutes', line)
+        if match:
+            gold_diff = int(match.group(1))
+            # Check if team was ahead in gold (positive gold difference)
+            if gold_diff > 0:
+                ahead_total += 1
+                # Check if they won
+                if ' won, ' in line:
+                    ahead_and_won += 1
+    
+    if ahead_total == 0:
+        return 0
+    return ahead_and_won / ahead_total
+```

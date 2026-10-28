@@ -1,0 +1,66 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    players = []
+    # Pattern to match each player's data
+    pattern = r"(\w+(?:\s+\w+)?)\s+played\s+(\w+)\s+in\s+the\s+\w+\s+and\s+(won|lost);\s+at\s+10\s+minutes\s+they\s+had\s+a\s+CS\s+difference\s+of\s+(-?\d+),\s+(\d+)\s+kills\s+and\s+(\d+)\s+assists"
+    
+    matches = re.finditer(pattern, text)
+    for match in matches:
+        player_name = match.group(1)
+        champion = match.group(2)
+        result = match.group(3)
+        cs_diff = int(match.group(4))
+        kills = int(match.group(5))
+        assists = int(match.group(6))
+        
+        players.append({
+            'name': player_name,
+            'champion': champion,
+            'result': result,
+            'cs_diff': cs_diff,
+            'kills': kills,
+            'assists': assists
+        })
+    
+    return players
+
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    players = parse_data(text)
+    
+    positive_cs_players = [p for p in players if p['cs_diff'] > 0]
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(1 for p in positive_cs_players if p['result'] == 'won')
+    win_rate = wins / len(positive_cs_players)
+    
+    return win_rate
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    players = parse_data(text)
+    total_kills = sum(p['kills'] for p in players)
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    players = parse_data(text)
+    
+    champion_assists = {}
+    for p in players:
+        champion = p['champion']
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += p['assists']
+    
+    champion_with_most_assists = max(champion_assists, key=champion_assists.get)
+    return champion_with_most_assists
+```

@@ -1,0 +1,53 @@
+```python
+import csv
+from io import StringIO
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(StringIO('\n'.join(lines)))
+    champions = set()
+    for row in reader:
+        champions.add(row['champion'])
+    return len(champions)
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(StringIO('\n'.join(lines)))
+    
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for row in reader:
+        champion = row['champion']
+        result = row['result']
+        champion_stats[champion]['total'] += 1
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    qualified_champions = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not qualified_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(qualified_champions.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(StringIO('\n'.join(lines)))
+    
+    losses = []
+    for row in reader:
+        if row['result'] == 'loss':
+            losses.append(int(row['deaths']))
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

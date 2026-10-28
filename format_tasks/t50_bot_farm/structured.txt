@@ -1,0 +1,16 @@
+## Goal
+Write Python functions that answer three questions about data in the format below.
+
+## Data
+Here is a sample of some League of Legends esports match data, one row per player:
+
+{DATA}
+
+## Requirements
+1. Each function takes one argument, `text`: a string containing data in exactly the format shown above, possibly with different rows. Parse it inside the function. Do not hard-code the data.
+2. Define a function `q1(text)` that returns the name of the player with the highest CS per minute.
+3. Define a function `q2(text)` that returns the average gold share of players who won.
+4. Define a function `q3(text)` that returns how many players had more than 9 CS per minute.
+
+## Output
+Respond with only Python code.

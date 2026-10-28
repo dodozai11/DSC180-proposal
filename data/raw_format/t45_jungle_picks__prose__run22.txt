@@ -1,0 +1,66 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    pattern = r'played (\w+(?:\'?\w+)?)'
+    matches = re.findall(pattern, text)
+    champions.update(matches)
+    return len(champions)
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    lines = text.split('. ')
+    for line in lines:
+        if not line.strip():
+            continue
+        
+        match = re.search(r'played (\w+(?:\'?\w+)?)', line)
+        if not match:
+            continue
+        champion = match.group(1)
+        
+        won = 'won' in line
+        champion_stats[champion]['total'] += 1
+        if won:
+            champion_stats[champion]['wins'] += 1
+    
+    best_champion = None
+    best_win_rate = -1
+    
+    for champion, stats in champion_stats.items():
+        if stats['total'] >= 2:
+            win_rate = stats['wins'] / stats['total']
+            if win_rate > best_win_rate:
+                best_win_rate = win_rate
+                best_champion = champion
+    
+    return best_champion
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    deaths_in_losses = []
+    
+    lines = text.split('. ')
+    for line in lines:
+        if not line.strip():
+            continue
+        
+        lost = 'lost' in line
+        if not lost:
+            continue
+        
+        match = re.search(r'dying (\d+) times', line)
+        if match:
+            deaths = int(match.group(1))
+            deaths_in_losses.append(deaths)
+    
+    if not deaths_in_losses:
+        return 0
+    
+    return sum(deaths_in_losses) / len(deaths_in_losses)
+```

@@ -1,0 +1,58 @@
+```python
+def q1(text):
+    """Returns the average vision score of players who won minus the average vision score of players who lost."""
+    lines = text.strip().split('\n')
+    header = lines[0]
+    
+    won_vision = []
+    lost_vision = []
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        result = parts[2]
+        vision_score = int(parts[3])
+        
+        if result == 'win':
+            won_vision.append(vision_score)
+        elif result == 'loss':
+            lost_vision.append(vision_score)
+    
+    avg_won = sum(won_vision) / len(won_vision) if won_vision else 0
+    avg_lost = sum(lost_vision) / len(lost_vision) if lost_vision else 0
+    
+    return avg_won - avg_lost
+
+
+def q2(text):
+    """Returns the name of the player who placed the most wards."""
+    lines = text.strip().split('\n')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        player = parts[0]
+        wards_placed = int(parts[4])
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Returns how many players bought at least 15 control wards."""
+    lines = text.strip().split('\n')
+    
+    count = 0
+    for line in lines[1:]:
+        parts = line.split(',')
+        control_wards = int(parts[5])
+        
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

@@ -1,0 +1,56 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    # Skip header line
+    data = [line.split('|')[1:-1] for line in lines[1:] if line.strip()]
+    
+    blue_games = 0
+    blue_wins = 0
+    
+    for row in data:
+        game, team, side, result, game_minutes = [x.strip() for x in row]
+        if side == 'blue':
+            blue_games += 1
+            if result == 'win':
+                blue_wins += 1
+    
+    if blue_games == 0:
+        return 0
+    return blue_wins / blue_games
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    # Skip header line
+    data = [line.split('|')[1:-1] for line in lines[1:] if line.strip()]
+    
+    red_wins = []
+    
+    for row in data:
+        game, team, side, result, game_minutes = [x.strip() for x in row]
+        if side == 'red' and result == 'win':
+            red_wins.append(float(game_minutes))
+    
+    if len(red_wins) == 0:
+        return 0
+    return sum(red_wins) / len(red_wins)
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    # Skip header line
+    data = [line.split('|')[1:-1] for line in lines[1:] if line.strip()]
+    
+    team_wins = {}
+    
+    for row in data:
+        game, team, side, result, game_minutes = [x.strip() for x in row]
+        if result == 'win':
+            if team not in team_wins:
+                team_wins[team] = 0
+            team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)
+```

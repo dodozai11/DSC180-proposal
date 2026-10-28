@@ -1,0 +1,37 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    rows = root.findall("row")
+    
+    positive_cs_diff_rows = [row for row in rows if int(row.find("cs_diff_10").text) > 0]
+    
+    if not positive_cs_diff_rows:
+        return 0
+    
+    wins = sum(1 for row in positive_cs_diff_rows if row.find("result").text == "win")
+    return wins / len(positive_cs_diff_rows)
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    rows = root.findall("row")
+    
+    total_kills = sum(int(row.find("kills_at_10").text) for row in rows)
+    return total_kills
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    rows = root.findall("row")
+    
+    champion_assists = {}
+    for row in rows:
+        champion = row.find("champion").text
+        assists = int(row.find("assists_at_10").text)
+        champion_assists[champion] = champion_assists.get(champion, 0) + assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,77 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    lines = text.strip().split('. ')
+    
+    positive_cs_players = []
+    
+    for line in lines:
+        # Parse player name
+        match = re.match(r'(\S+) played', line)
+        if not match:
+            continue
+        
+        # Check if won or lost
+        won = ' won;' in line
+        
+        # Extract CS difference
+        cs_match = re.search(r'CS difference of ([+-]?\d+)', line)
+        if not cs_match:
+            continue
+        
+        cs_diff = int(cs_match.group(1))
+        
+        if cs_diff > 0:
+            positive_cs_players.append(won)
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(positive_cs_players)
+    return wins / len(positive_cs_players)
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    lines = text.strip().split('. ')
+    
+    total_kills = 0
+    
+    for line in lines:
+        # Extract kills
+        kills_match = re.search(r'(\d+) kills', line)
+        if kills_match:
+            total_kills += int(kills_match.group(1))
+    
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    lines = text.strip().split('. ')
+    
+    champion_assists = {}
+    
+    for line in lines:
+        # Extract champion name
+        champion_match = re.search(r'played (\w+) in', line)
+        if not champion_match:
+            continue
+        
+        champion = champion_match.group(1)
+        
+        # Extract assists
+        assists_match = re.search(r'(\d+) assists', line)
+        if assists_match:
+            assists = int(assists_match.group(1))
+            if champion not in champion_assists:
+                champion_assists[champion] = 0
+            champion_assists[champion] += assists
+    
+    if not champion_assists:
+        return None
+    
+    return max(champion_assists, key=champion_assists.get)
+```

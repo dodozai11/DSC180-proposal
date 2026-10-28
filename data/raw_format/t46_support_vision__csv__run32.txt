@@ -1,0 +1,66 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    vision_score_idx = header.index('vision_score')
+    result_idx = header.index('result')
+    
+    wins_vision = []
+    losses_vision = []
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        vision_score = int(parts[vision_score_idx])
+        result = parts[result_idx]
+        
+        if result == 'win':
+            wins_vision.append(vision_score)
+        else:
+            losses_vision.append(vision_score)
+    
+    avg_wins = sum(wins_vision) / len(wins_vision) if wins_vision else 0
+    avg_losses = sum(losses_vision) / len(losses_vision) if losses_vision else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    player_idx = header.index('player')
+    wards_placed_idx = header.index('wards_placed')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        player = parts[player_idx]
+        wards_placed = int(parts[wards_placed_idx])
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    control_wards_idx = header.index('control_wards')
+    
+    count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        control_wards = int(parts[control_wards_idx])
+        
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

@@ -1,0 +1,40 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first tower"""
+    data = json.loads(text)
+    
+    first_tower_teams = [row for row in data if row['first_tower'] == 'yes']
+    
+    if not first_tower_teams:
+        return 0
+    
+    wins = sum(1 for row in first_tower_teams if row['result'] == 'win')
+    
+    return wins / len(first_tower_teams)
+
+
+def q2(text):
+    """Returns the average number of void grubs taken by winning teams"""
+    data = json.loads(text)
+    
+    winning_teams = [row for row in data if row['result'] == 'win']
+    
+    if not winning_teams:
+        return 0
+    
+    total_void_grubs = sum(row['void_grubs'] for row in winning_teams)
+    
+    return total_void_grubs / len(winning_teams)
+
+
+def q3(text):
+    """Returns how many teams took at least one herald and still lost"""
+    data = json.loads(text)
+    
+    count = sum(1 for row in data if row['heralds'] >= 1 and row['result'] == 'loss')
+    
+    return count
+```

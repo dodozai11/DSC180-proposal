@@ -1,0 +1,67 @@
+```python
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    total_damage = 0
+    count = 0
+    
+    for line in data_lines:
+        parts = line.split('|')
+        # Remove empty strings from split (due to leading/trailing |)
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        result = parts[3]  # result column
+        damage_per_min = float(parts[4])  # damage_per_min column
+        
+        if result == 'loss':
+            total_damage += damage_per_min
+            count += 1
+    
+    return total_damage / count if count > 0 else 0
+
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    max_damage_taken = -1
+    max_player = None
+    
+    for line in data_lines:
+        parts = line.split('|')
+        # Remove empty strings from split (due to leading/trailing |)
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        player = parts[0]  # player column
+        damage_taken_per_min = float(parts[5])  # damage_taken_per_min column
+        
+        if damage_taken_per_min > max_damage_taken:
+            max_damage_taken = damage_taken_per_min
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Return the number of different teams."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    teams = set()
+    
+    for line in data_lines:
+        parts = line.split('|')
+        # Remove empty strings from split (due to leading/trailing |)
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        team = parts[1]  # team column
+        teams.add(team)
+    
+    return len(teams)
+```

@@ -1,0 +1,51 @@
+```python
+import csv
+import io
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    winning_gold_diffs = []
+    for row in reader:
+        if row['result'] == 'win':
+            winning_gold_diffs.append(int(row['gold_diff_15']))
+    
+    if not winning_gold_diffs:
+        return 0
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    count = 0
+    for row in reader:
+        if row['result'] == 'win' and int(row['gold_diff_15']) < 0:
+            count += 1
+    
+    return count
+
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    ahead_in_gold = 0
+    ahead_and_won = 0
+    
+    for row in reader:
+        gold_diff = int(row['gold_diff_15'])
+        if gold_diff > 0:
+            ahead_in_gold += 1
+            if row['result'] == 'win':
+                ahead_and_won += 1
+    
+    if ahead_in_gold == 0:
+        return 0
+    return ahead_and_won / ahead_in_gold
+```

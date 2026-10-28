@@ -1,0 +1,70 @@
+```python
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    max_kda = -1
+    max_kda_player = None
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        player = cells[0]
+        kills = int(cells[3])
+        deaths = int(cells[4])
+        assists = int(cells[5])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            max_kda_player = player
+    
+    return max_kda_player
+
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    lines = text.strip().split('\n')
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        kills = int(cells[3])
+        result = cells[6]
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    return total_kills / win_count if win_count > 0 else 0
+
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    lines = text.strip().split('\n')
+    
+    champion_counts = {}
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        champion = cells[2]
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    return max(champion_counts, key=champion_counts.get)
+```

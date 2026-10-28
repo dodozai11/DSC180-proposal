@@ -1,0 +1,72 @@
+```python
+import re
+from collections import Counter
+
+def parse_data(text):
+    """Parse the League of Legends match data from text."""
+    players = []
+    
+    # Pattern to match each player's data
+    pattern = r"(\w+(?:'\w+)?)\s+of\s+([^p]+?)\s+played\s+(\w+(?:'?\w+)?)\s+in\s+\w+\s+and\s+(won|lost)\s+with\s+(\d+)\s+kills,\s+(\d+)\s+deaths\s+and\s+(\d+)\s+assists"
+    
+    matches = re.finditer(pattern, text)
+    
+    for match in matches:
+        player_name = match.group(1)
+        team = match.group(2).strip()
+        champion = match.group(3)
+        result = match.group(4)
+        kills = int(match.group(5))
+        deaths = int(match.group(6))
+        assists = int(match.group(7))
+        
+        players.append({
+            'name': player_name,
+            'team': team,
+            'champion': champion,
+            'result': result,
+            'kills': kills,
+            'deaths': deaths,
+            'assists': assists
+        })
+    
+    return players
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    players = parse_data(text)
+    
+    max_kda = -1
+    best_player = None
+    
+    for player in players:
+        kda = (player['kills'] + player['assists']) / max(player['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player['name']
+    
+    return best_player
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    players = parse_data(text)
+    
+    won_kills = [player['kills'] for player in players if player['result'] == 'won']
+    
+    if not won_kills:
+        return 0
+    
+    return sum(won_kills) / len(won_kills)
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    players = parse_data(text)
+    
+    champions = [player['champion'] for player in players]
+    
+    champion_counts = Counter(champions)
+    
+    most_picked = champion_counts.most_common(1)[0][0]
+    
+    return most_picked
+```

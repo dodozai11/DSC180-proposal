@@ -1,0 +1,45 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    red_kills = []
+    
+    for row in root.findall("row"):
+        if row.find("side").text == "red":
+            kills = int(row.find("kills_at_15").text)
+            red_kills.append(kills)
+    
+    return sum(red_kills) / len(red_kills) if red_kills else 0
+
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    max_xp_diff = None
+    max_team = None
+    
+    for row in root.findall("row"):
+        xp_diff = int(row.find("xp_diff_15").text)
+        if max_xp_diff is None or xp_diff > max_xp_diff:
+            max_xp_diff = xp_diff
+            max_team = row.find("team").text
+    
+    return max_team
+
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    count = 0
+    
+    for row in root.findall("row"):
+        result = row.find("result").text
+        xp_diff = int(row.find("xp_diff_15").text)
+        
+        if result == "win" and xp_diff < 0:
+            count += 1
+    
+    return count
+```

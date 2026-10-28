@@ -1,0 +1,54 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    # Pattern: "played <champion> in the jungle"
+    matches = re.findall(r'played (\w+(?:\'?\w+)?(?:\'\w+)?) in the jungle', text)
+    champions.update(matches)
+    return len(champions)
+
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    # Pattern to extract: player name, champion, outcome (won/lost), deaths
+    pattern = r'(\w+(?:\s+\w+)*?)\s+played\s+(\w+(?:\'?\w+)?(?:\'\w+)?)\s+in the jungle and (won|lost)'
+    matches = re.findall(pattern, text)
+    
+    for player, champion, outcome in matches:
+        champion_stats[champion]['total'] += 1
+        if outcome == 'won':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    candidates = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(candidates.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    losses = []
+    
+    # Pattern to extract: champion, outcome (won/lost), deaths
+    pattern = r'played\s+(\w+(?:\'?\w+)?(?:\'\w+)?)\s+in the jungle and (won|lost), dying (\d+) times'
+    matches = re.findall(pattern, text)
+    
+    for champion, outcome, deaths in matches:
+        if outcome == 'lost':
+            losses.append(int(deaths))
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

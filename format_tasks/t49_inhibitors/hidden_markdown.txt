@@ -1,0 +1,22 @@
+| game | team | result | game_minutes | inhibitors | tower_damage |
+|---|---|---|---|---|---|
+| G01 | Ramboot Club | loss | 23.0 | 0 | 3363 |
+| G01 | Los Heretics | win | 23.0 | 3 | 33013 |
+| G02 | Los Heretics | win | 31.6 | 1 | 24724 |
+| G02 | GIANTX Pride | loss | 31.6 | 0 | 14821 |
+| G03 | Veni Vidi Vici | loss | 32.7 | 0 | 13454 |
+| G03 | Los Heretics | win | 32.7 | 1 | 19658 |
+| G04 | Ramboot Club | win | 31.8 | 2 | 26070 |
+| G04 | LUA Gaming | loss | 31.8 | 0 | 5728 |
+| G05 | Ramboot Club | win | 34.9 | 1 | 20241 |
+| G05 | Movistar KOI Fénix | loss | 34.9 | 0 | 4500 |
+| G06 | Los Heretics | loss | 33.9 | 0 | 6941 |
+| G06 | GIANTX Pride | win | 33.9 | 2 | 25163 |
+| G07 | Barça eSports | loss | 33.6 | 0 | 4296 |
+| G07 | LUA Gaming | win | 33.6 | 1 | 19403 |
+| G08 | LUA Gaming | loss | 41.4 | 0 | 21712 |
+| G08 | Barça eSports | win | 41.4 | 2 | 22929 |
+| G09 | Los Heretics | loss | 34.1 | 0 | 11563 |
+| G09 | UCAM Esports | win | 34.1 | 1 | 16346 |
+| G10 | Los Heretics | loss | 28.1 | 0 | 9129 |
+| G10 | GIANTX Pride | win | 28.1 | 1 | 20503 |

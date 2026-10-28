@@ -1,0 +1,60 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first tower"""
+    first_tower_games = []
+    
+    # Parse all games
+    games = re.findall(r'In game (G\d+), (.+?) (won|lost); they (did not take|took) the first tower and finished with (\d+) void grubs and (\d+) heralds', text)
+    
+    for game_id, team, result, tower_status, void_grubs, heralds in games:
+        took_first_tower = tower_status == "took"
+        won = result == "won"
+        first_tower_games.append((took_first_tower, won))
+    
+    # Filter teams that took first tower
+    teams_with_first_tower = [won for took_tower, won in first_tower_games if took_tower]
+    
+    if len(teams_with_first_tower) == 0:
+        return 0
+    
+    win_rate = sum(teams_with_first_tower) / len(teams_with_first_tower)
+    return win_rate
+
+
+def q2(text):
+    """Returns the average number of void grubs taken by winning teams"""
+    games = re.findall(r'In game (G\d+), (.+?) (won|lost); they (did not take|took) the first tower and finished with (\d+) void grubs and (\d+) heralds', text)
+    
+    winning_void_grubs = []
+    
+    for game_id, team, result, tower_status, void_grubs, heralds in games:
+        won = result == "won"
+        void_grubs_count = int(void_grubs)
+        
+        if won:
+            winning_void_grubs.append(void_grubs_count)
+    
+    if len(winning_void_grubs) == 0:
+        return 0
+    
+    average = sum(winning_void_grubs) / len(winning_void_grubs)
+    return average
+
+
+def q3(text):
+    """Returns how many teams took at least one herald and still lost"""
+    games = re.findall(r'In game (G\d+), (.+?) (won|lost); they (did not take|took) the first tower and finished with (\d+) void grubs and (\d+) heralds', text)
+    
+    count = 0
+    
+    for game_id, team, result, tower_status, void_grubs, heralds in games:
+        lost = result == "lost"
+        heralds_count = int(heralds)
+        
+        if lost and heralds_count >= 1:
+            count += 1
+    
+    return count
+```

@@ -1,0 +1,50 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Return the number of different champions played."""
+    champions = set()
+    for match in re.finditer(r'played (\w+\'?\w*) in the', text):
+        champions.add(match.group(1))
+    return len(champions)
+
+
+def q2(text):
+    """Return the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for match in re.finditer(r'played (\w+\'?\w*) in the jungle and (won|lost)', text):
+        champion = match.group(1)
+        result = match.group(2)
+        champion_stats[champion]['total'] += 1
+        if result == 'won':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(eligible_champions.items(), 
+                       key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Return the average number of deaths in games that were lost."""
+    deaths_in_losses = []
+    
+    for match in re.finditer(r'(won|lost), dying (\d+) times', text):
+        result = match.group(1)
+        deaths = int(match.group(2))
+        if result == 'lost':
+            deaths_in_losses.append(deaths)
+    
+    if not deaths_in_losses:
+        return 0
+    
+    return sum(deaths_in_losses) / len(deaths_in_losses)
+```

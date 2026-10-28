@@ -1,0 +1,60 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from the text."""
+    matches = []
+    # Pattern to match each game entry
+    pattern = r'In game (\w+), (.+?) played on the (\w+) side and (\w+), with (\d+) kills and an experience difference of (-?\d+) at 15 minutes\.'
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team_name = match.group(2)
+        side = match.group(3)
+        result = match.group(4)
+        kills = int(match.group(5))
+        exp_diff = int(match.group(6))
+        
+        matches.append({
+            'game_id': game_id,
+            'team_name': team_name,
+            'side': side,
+            'result': result,
+            'kills': kills,
+            'exp_diff': exp_diff
+        })
+    
+    return matches
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    matches = parse_data(text)
+    red_side_matches = [m for m in matches if m['side'] == 'red']
+    
+    if not red_side_matches:
+        return 0
+    
+    total_kills = sum(m['kills'] for m in red_side_matches)
+    return total_kills / len(red_side_matches)
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    matches = parse_data(text)
+    
+    if not matches:
+        return None
+    
+    max_match = max(matches, key=lambda m: m['exp_diff'])
+    return max_match['team_name']
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    matches = parse_data(text)
+    
+    count = 0
+    for m in matches:
+        if m['result'] == 'won' and m['exp_diff'] < 0:
+            count += 1
+    
+    return count
+```

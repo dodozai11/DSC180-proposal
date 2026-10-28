@@ -1,0 +1,162 @@
+[
+  {
+    "player": "Bazz",
+    "team": "Apex Mission Impossible",
+    "champion": "Ezreal",
+    "result": "loss",
+    "cs_per_min": 9.31,
+    "gold_share": 0.27
+  },
+  {
+    "player": "CNV Chrome",
+    "team": "Conviction",
+    "champion": "Jhin",
+    "result": "win",
+    "cs_per_min": 9.64,
+    "gold_share": 0.299
+  },
+  {
+    "player": "Tactical",
+    "team": "Luminosity Gaming",
+    "champion": "Kalista",
+    "result": "loss",
+    "cs_per_min": 8.85,
+    "gold_share": 0.242
+  },
+  {
+    "player": "Doublelift",
+    "team": "Near Airport",
+    "champion": "Jhin",
+    "result": "win",
+    "cs_per_min": 7.66,
+    "gold_share": 0.235
+  },
+  {
+    "player": "sajed",
+    "team": "DarkZero Dragonsteel",
+    "champion": "Ezreal",
+    "result": "win",
+    "cs_per_min": 9.77,
+    "gold_share": 0.22
+  },
+  {
+    "player": "Hub",
+    "team": "Pulse Star",
+    "champion": "Corki",
+    "result": "loss",
+    "cs_per_min": 9.24,
+    "gold_share": 0.293
+  },
+  {
+    "player": "Shogo",
+    "team": "Supernova",
+    "champion": "Corki",
+    "result": "loss",
+    "cs_per_min": 10.59,
+    "gold_share": 0.326
+  },
+  {
+    "player": "Mobility",
+    "team": "Winthrop University",
+    "champion": "Ashe",
+    "result": "win",
+    "cs_per_min": 8.59,
+    "gold_share": 0.214
+  },
+  {
+    "player": "Levitate",
+    "team": "Blue Otter",
+    "champion": "Jhin",
+    "result": "loss",
+    "cs_per_min": 8.92,
+    "gold_share": 0.241
+  },
+  {
+    "player": "Airren",
+    "team": "Conviction",
+    "champion": "Jhin",
+    "result": "win",
+    "cs_per_min": 9.73,
+    "gold_share": 0.273
+  },
+  {
+    "player": "Spawn",
+    "team": "DarkZero Dragonsteel",
+    "champion": "Miss Fortune",
+    "result": "loss",
+    "cs_per_min": 9.06,
+    "gold_share": 0.257
+  },
+  {
+    "player": "Sushee",
+    "team": "Near Airport",
+    "champion": "Varus",
+    "result": "win",
+    "cs_per_min": 7.51,
+    "gold_share": 0.217
+  },
+  {
+    "player": "Nightstar",
+    "team": "Cupid Esports",
+    "champion": "Ziggs",
+    "result": "loss",
+    "cs_per_min": 9.59,
+    "gold_share": 0.261
+  },
+  {
+    "player": "Instinct",
+    "team": "Citadel Gaming",
+    "champion": "Varus",
+    "result": "win",
+    "cs_per_min": 9.23,
+    "gold_share": 0.253
+  },
+  {
+    "player": "Zev",
+    "team": "Jolly Rogers",
+    "champion": "Senna",
+    "result": "win",
+    "cs_per_min": 8.08,
+    "gold_share": 0.24
+  },
+  {
+    "player": "Fatihcan",
+    "team": "Dorado Gaming",
+    "champion": "Kai'Sa",
+    "result": "loss",
+    "cs_per_min": 7.87,
+    "gold_share": 0.266
+  },
+  {
+    "player": "ScaryJerry",
+    "team": "Supernova",
+    "champion": "Caitlyn",
+    "result": "win",
+    "cs_per_min": 10.5,
+    "gold_share": 0.259
+  },
+  {
+    "player": "V1per",
+    "team": "Conviction",
+    "champion": "Sivir",
+    "result": "loss",
+    "cs_per_min": 9.59,
+    "gold_share": 0.236
+  },
+  {
+    "player": "TF Blade",
+    "team": "Conviction",
+    "champion": "Rumble",
+    "result": "win",
+    "cs_per_min": 8.21,
+    "gold_share": 0.198
+  },
+  {
+    "player": "Globby",
+    "team": "Zenshi Gaming",
+    "champion": "Smolder",
+    "result": "win",
+    "cs_per_min": 8.76,
+    "gold_share": 0.237
+  }
+]

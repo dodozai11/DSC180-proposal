@@ -1,0 +1,41 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Returns the win rate of blue-side teams"""
+    data = json.loads(text)
+    blue_games = [game for game in data if game["side"] == "blue"]
+    blue_wins = [game for game in blue_games if game["result"] == "win"]
+    
+    if len(blue_games) == 0:
+        return 0
+    
+    return len(blue_wins) / len(blue_games)
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side team"""
+    data = json.loads(text)
+    red_wins = [game for game in data if game["side"] == "red" and game["result"] == "win"]
+    
+    if len(red_wins) == 0:
+        return 0
+    
+    total_minutes = sum(game["game_minutes"] for game in red_wins)
+    return total_minutes / len(red_wins)
+
+def q3(text):
+    """Returns the name of the team with the most wins"""
+    data = json.loads(text)
+    wins = [game for game in data if game["result"] == "win"]
+    
+    team_wins = {}
+    for game in wins:
+        team = game["team"]
+        team_wins[team] = team_wins.get(team, 0) + 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+```

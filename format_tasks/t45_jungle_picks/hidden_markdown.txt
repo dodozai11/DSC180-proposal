@@ -1,0 +1,22 @@
+| player | champion | result | deaths |
+|---|---|---|---|
+| shibi | Xin Zhao | loss | 5 |
+| Zubac | Skarner | loss | 5 |
+| Velja | Ivern | win | 1 |
+| Mafro | Maokai | win | 3 |
+| Anonymouss | Viego | loss | 2 |
+| Afroboi | Ivern | loss | 4 |
+| ISMA | Maokai | win | 0 |
+| Yukino | Xin Zhao | win | 3 |
+| Kireas | Wukong | loss | 6 |
+| Own3r | Naafiri | loss | 2 |
+| Jankos | Jarvan IV | win | 1 |
+| Goliah | Sejuani | loss | 4 |
+| Dean | Xin Zhao | loss | 5 |
+| Oguzkhan | Nocturne | win | 3 |
+| Fragola | Brand | loss | 2 |
+| Djoko | Jarvan IV | win | 0 |
+| Closer | Xin Zhao | win | 2 |
+| Eckas | Xin Zhao | win | 0 |
+| 113 | Qiyana | win | 3 |
+| Silk | Jarvan IV | loss | 3 |

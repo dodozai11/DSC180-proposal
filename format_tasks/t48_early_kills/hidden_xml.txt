@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>ULF Esports</team><side>blue</side><result>loss</result><kills_at_15>3</kills_at_15><xp_diff_15>-131</xp_diff_15></row>
+  <row><game>G01</game><team>Beşiktaş Esports</team><side>red</side><result>win</result><kills_at_15>6</kills_at_15><xp_diff_15>131</xp_diff_15></row>
+  <row><game>G02</game><team>Bushido Wildcats</team><side>blue</side><result>loss</result><kills_at_15>5</kills_at_15><xp_diff_15>-833</xp_diff_15></row>
+  <row><game>G02</game><team>Papara SuperMassive</team><side>red</side><result>win</result><kills_at_15>4</kills_at_15><xp_diff_15>833</xp_diff_15></row>
+  <row><game>G03</game><team>Misa Esports</team><side>blue</side><result>win</result><kills_at_15>7</kills_at_15><xp_diff_15>2212</xp_diff_15></row>
+  <row><game>G03</game><team>BoostGate Esports</team><side>red</side><result>loss</result><kills_at_15>7</kills_at_15><xp_diff_15>-2212</xp_diff_15></row>
+  <row><game>G04</game><team>BBL Dark Passage</team><side>blue</side><result>loss</result><kills_at_15>6</kills_at_15><xp_diff_15>234</xp_diff_15></row>
+  <row><game>G04</game><team>Eternal Fire</team><side>red</side><result>win</result><kills_at_15>1</kills_at_15><xp_diff_15>-234</xp_diff_15></row>
+  <row><game>G05</game><team>Papara SuperMassive</team><side>blue</side><result>loss</result><kills_at_15>5</kills_at_15><xp_diff_15>-3112</xp_diff_15></row>
+  <row><game>G05</game><team>ULF Esports</team><side>red</side><result>win</result><kills_at_15>12</kills_at_15><xp_diff_15>3112</xp_diff_15></row>
+  <row><game>G06</game><team>BBL Dark Passage</team><side>blue</side><result>win</result><kills_at_15>0</kills_at_15><xp_diff_15>1799</xp_diff_15></row>
+  <row><game>G06</game><team>Beşiktaş Esports</team><side>red</side><result>loss</result><kills_at_15>0</kills_at_15><xp_diff_15>-1799</xp_diff_15></row>
+  <row><game>G07</game><team>Papara SuperMassive</team><side>blue</side><result>loss</result><kills_at_15>4</kills_at_15><xp_diff_15>-1490</xp_diff_15></row>
+  <row><game>G07</game><team>ULF Esports</team><side>red</side><result>win</result><kills_at_15>11</kills_at_15><xp_diff_15>1490</xp_diff_15></row>
+  <row><game>G08</game><team>ULF Esports</team><side>blue</side><result>loss</result><kills_at_15>7</kills_at_15><xp_diff_15>806</xp_diff_15></row>
+  <row><game>G08</game><team>BoostGate Esports</team><side>red</side><result>win</result><kills_at_15>4</kills_at_15><xp_diff_15>-806</xp_diff_15></row>
+  <row><game>G09</game><team>Papara SuperMassive</team><side>blue</side><result>win</result><kills_at_15>3</kills_at_15><xp_diff_15>-323</xp_diff_15></row>
+  <row><game>G09</game><team>BoostGate Esports</team><side>red</side><result>loss</result><kills_at_15>2</kills_at_15><xp_diff_15>323</xp_diff_15></row>
+  <row><game>G10</game><team>Bushido Wildcats</team><side>blue</side><result>loss</result><kills_at_15>3</kills_at_15><xp_diff_15>803</xp_diff_15></row>
+  <row><game>G10</game><team>Beşiktaş Esports</team><side>red</side><result>win</result><kills_at_15>3</kills_at_15><xp_diff_15>-803</xp_diff_15></row>
+</rows>

@@ -1,0 +1,81 @@
+```python
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    for line in text.strip().split('. '):
+        if not line:
+            continue
+        # Extract champion name: "played <champion> in"
+        parts = line.split(' played ')
+        if len(parts) >= 2:
+            champion_part = parts[1].split(' in ')[0]
+            champions.add(champion_part)
+    return len(champions)
+
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = {}
+    
+    for line in text.strip().split('. '):
+        if not line:
+            continue
+        # Extract champion name: "played <champion> in"
+        parts = line.split(' played ')
+        if len(parts) < 2:
+            continue
+        champion_part = parts[1].split(' in ')[0]
+        
+        # Extract win/loss: "and won" or "and lost"
+        if ' and won' in line:
+            result = 'won'
+        elif ' and lost' in line:
+            result = 'lost'
+        else:
+            continue
+        
+        if champion_part not in champion_stats:
+            champion_stats[champion_part] = {'wins': 0, 'total': 0}
+        
+        champion_stats[champion_part]['total'] += 1
+        if result == 'won':
+            champion_stats[champion_part]['wins'] += 1
+    
+    # Filter champions played at least twice
+    candidates = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(candidates.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    deaths_in_losses = []
+    
+    for line in text.strip().split('. '):
+        if not line:
+            continue
+        # Extract win/loss: "and won" or "and lost"
+        if ' and lost' not in line:
+            continue
+        
+        # Extract deaths: "dying <number> times"
+        parts = line.split(' dying ')
+        if len(parts) < 2:
+            continue
+        death_part = parts[1].split(' times')[0]
+        try:
+            deaths = int(death_part)
+            deaths_in_losses.append(deaths)
+        except ValueError:
+            continue
+    
+    if not deaths_in_losses:
+        return 0
+    
+    return sum(deaths_in_losses) / len(deaths_in_losses)
+```

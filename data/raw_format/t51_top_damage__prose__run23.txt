@@ -1,0 +1,44 @@
+import re
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    pattern = r'(\w+(?:\s+\w+)*) of ([\w\s]+) played ([\w\']+) in the (\w+) lane and (won|lost), dealing ([\d.]+) damage per minute and taking ([\d.]+) damage per minute\.'
+    matches = re.findall(pattern, text)
+    
+    lost_dpm = []
+    for match in matches:
+        player_name, team, champion, lane, result, dpm, taken_dpm = match
+        if result == "lost":
+            lost_dpm.append(float(dpm))
+    
+    if lost_dpm:
+        return sum(lost_dpm) / len(lost_dpm)
+    return 0
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    pattern = r'(\w+(?:\s+\w+)*) of ([\w\s]+) played ([\w\']+) in the (\w+) lane and (won|lost), dealing ([\d.]+) damage per minute and taking ([\d.]+) damage per minute\.'
+    matches = re.findall(pattern, text)
+    
+    max_taken_dpm = -1
+    max_player = None
+    for match in matches:
+        player_name, team, champion, lane, result, dpm, taken_dpm = match
+        taken_dpm_float = float(taken_dpm)
+        if taken_dpm_float > max_taken_dpm:
+            max_taken_dpm = taken_dpm_float
+            max_player = player_name
+    
+    return max_player
+
+def q3(text):
+    """Return the number of different teams."""
+    pattern = r'(\w+(?:\s+\w+)*) of ([\w\s]+) played ([\w\']+) in the (\w+) lane and (won|lost), dealing ([\d.]+) damage per minute and taking ([\d.]+) damage per minute\.'
+    matches = re.findall(pattern, text)
+    
+    teams = set()
+    for match in matches:
+        player_name, team, champion, lane, result, dpm, taken_dpm = match
+        teams.add(team)
+    
+    return len(teams)

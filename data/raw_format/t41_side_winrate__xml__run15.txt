@@ -1,0 +1,71 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the win rate of blue-side teams"""
+    blue_wins = 0
+    blue_total = 0
+    
+    rows = re.findall(r'<row>.*?</row>', text)
+    for row in rows:
+        side_match = re.search(r'<side>(.*?)</side>', row)
+        result_match = re.search(r'<result>(.*?)</result>', row)
+        
+        if side_match and result_match:
+            side = side_match.group(1)
+            result = result_match.group(1)
+            
+            if side == 'blue':
+                blue_total += 1
+                if result == 'win':
+                    blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side team"""
+    red_win_times = []
+    
+    rows = re.findall(r'<row>.*?</row>', text)
+    for row in rows:
+        side_match = re.search(r'<side>(.*?)</side>', row)
+        result_match = re.search(r'<result>(.*?)</result>', row)
+        game_minutes_match = re.search(r'<game_minutes>(.*?)</game_minutes>', row)
+        
+        if side_match and result_match and game_minutes_match:
+            side = side_match.group(1)
+            result = result_match.group(1)
+            game_minutes = float(game_minutes_match.group(1))
+            
+            if side == 'red' and result == 'win':
+                red_win_times.append(game_minutes)
+    
+    if len(red_win_times) == 0:
+        return 0
+    return sum(red_win_times) / len(red_win_times)
+
+
+def q3(text):
+    """Returns the name of the team with the most wins"""
+    team_wins = defaultdict(int)
+    
+    rows = re.findall(r'<row>.*?</row>', text)
+    for row in rows:
+        team_match = re.search(r'<team>(.*?)</team>', row)
+        result_match = re.search(r'<result>(.*?)</result>', row)
+        
+        if team_match and result_match:
+            team = team_match.group(1)
+            result = result_match.group(1)
+            
+            if result == 'win':
+                team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)
+```

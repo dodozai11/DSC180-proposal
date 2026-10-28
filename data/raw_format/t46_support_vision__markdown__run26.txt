@@ -1,0 +1,68 @@
+```python
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    lines = text.strip().split('\n')
+    
+    # Skip header and parse data
+    winner_vision = []
+    loser_vision = []
+    
+    for line in lines[2:]:  # Skip header and separator line
+        parts = line.split('|')
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        if len(parts) >= 3:
+            result = parts[2]
+            vision_score = int(parts[3])
+            
+            if result == 'win':
+                winner_vision.append(vision_score)
+            elif result == 'loss':
+                loser_vision.append(vision_score)
+    
+    avg_winner = sum(winner_vision) / len(winner_vision) if winner_vision else 0
+    avg_loser = sum(loser_vision) / len(loser_vision) if loser_vision else 0
+    
+    return avg_winner - avg_loser
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    lines = text.strip().split('\n')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[2:]:  # Skip header and separator line
+        parts = line.split('|')
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        if len(parts) >= 5:
+            player = parts[0]
+            wards_placed = int(parts[4])
+            
+            if wards_placed > max_wards:
+                max_wards = wards_placed
+                max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    lines = text.strip().split('\n')
+    
+    count = 0
+    
+    for line in lines[2:]:  # Skip header and separator line
+        parts = line.split('|')
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        if len(parts) >= 6:
+            control_wards = int(parts[5])
+            
+            if control_wards >= 15:
+                count += 1
+    
+    return count
+```

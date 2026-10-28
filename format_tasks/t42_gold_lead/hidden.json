@@ -1,0 +1,142 @@
+[
+  {
+    "game": "G01",
+    "team": "DN Freecs",
+    "side": "blue",
+    "result": "loss",
+    "gold_diff_15": -224
+  },
+  {
+    "game": "G01",
+    "team": "Dplus KIA",
+    "side": "red",
+    "result": "win",
+    "gold_diff_15": 224
+  },
+  {
+    "game": "G02",
+    "team": "BNK FEARX",
+    "side": "blue",
+    "result": "loss",
+    "gold_diff_15": 293
+  },
+  {
+    "game": "G02",
+    "team": "Gen.G",
+    "side": "red",
+    "result": "win",
+    "gold_diff_15": -293
+  },
+  {
+    "game": "G03",
+    "team": "Dplus KIA",
+    "side": "blue",
+    "result": "win",
+    "gold_diff_15": -257
+  },
+  {
+    "game": "G03",
+    "team": "BNK FEARX",
+    "side": "red",
+    "result": "loss",
+    "gold_diff_15": 257
+  },
+  {
+    "game": "G04",
+    "team": "DRX",
+    "side": "blue",
+    "result": "win",
+    "gold_diff_15": -443
+  },
+  {
+    "game": "G04",
+    "team": "DN Freecs",
+    "side": "red",
+    "result": "loss",
+    "gold_diff_15": 443
+  },
+  {
+    "game": "G05",
+    "team": "Hanwha Life Esports",
+    "side": "blue",
+    "result": "win",
+    "gold_diff_15": 2036
+  },
+  {
+    "game": "G05",
+    "team": "Gen.G",
+    "side": "red",
+    "result": "loss",
+    "gold_diff_15": -2036
+  },
+  {
+    "game": "G06",
+    "team": "Dplus KIA",
+    "side": "blue",
+    "result": "loss",
+    "gold_diff_15": -1583
+  },
+  {
+    "game": "G06",
+    "team": "Nongshim RedForce",
+    "side": "red",
+    "result": "win",
+    "gold_diff_15": 1583
+  },
+  {
+    "game": "G07",
+    "team": "DN Freecs",
+    "side": "blue",
+    "result": "win",
+    "gold_diff_15": 3185
+  },
+  {
+    "game": "G07",
+    "team": "OKSavingsBank BRION",
+    "side": "red",
+    "result": "loss",
+    "gold_diff_15": -3185
+  },
+  {
+    "game": "G08",
+    "team": "Dplus KIA",
+    "side": "blue",
+    "result": "win",
+    "gold_diff_15": 1521
+  },
+  {
+    "game": "G08",
+    "team": "KT Rolster",
+    "side": "red",
+    "result": "loss",
+    "gold_diff_15": -1521
+  },
+  {
+    "game": "G09",
+    "team": "Gen.G",
+    "side": "blue",
+    "result": "win",
+    "gold_diff_15": 4571
+  },
+  {
+    "game": "G09",
+    "team": "Hanwha Life Esports",
+    "side": "red",
+    "result": "loss",
+    "gold_diff_15": -4571
+  },
+  {
+    "game": "G10",
+    "team": "KT Rolster",
+    "side": "blue",
+    "result": "loss",
+    "gold_diff_15": -783
+  },
+  {
+    "game": "G10",
+    "team": "Hanwha Life Esports",
+    "side": "red",
+    "result": "win",
+    "gold_diff_15": 783
+  }
+]

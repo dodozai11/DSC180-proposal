@@ -1,0 +1,22 @@
+<rows>
+  <row><player>452apm</player><team>Diversion Gaming</team><champion>Jhin</champion><result>win</result><cs_per_min>9.98</cs_per_min><gold_share>0.3</gold_share></row>
+  <row><player>Rias1</player><team>Dynamo Eclot Talents</team><champion>Ashe</champion><result>loss</result><cs_per_min>8.87</cs_per_min><gold_share>0.236</gold_share></row>
+  <row><player>LANDY</player><team>EXILE esports</team><champion>Jhin</champion><result>loss</result><cs_per_min>7.51</cs_per_min><gold_share>0.242</gold_share></row>
+  <row><player>Basraket</player><team>Ethereal Enigmas</team><champion>Varus</champion><result>win</result><cs_per_min>10.03</cs_per_min><gold_share>0.306</gold_share></row>
+  <row><player>Huron</player><team>Meavedron</team><champion>Corki</champion><result>loss</result><cs_per_min>8.54</cs_per_min><gold_share>0.243</gold_share></row>
+  <row><player>CaptainSexy</player><team>Delta Syndicate</team><champion>Jhin</champion><result>win</result><cs_per_min>8.09</cs_per_min><gold_share>0.246</gold_share></row>
+  <row><player>Skyp</player><team>Dynamo Eclot Talents</team><champion>Varus</champion><result>loss</result><cs_per_min>7.68</cs_per_min><gold_share>0.231</gold_share></row>
+  <row><player>Electro</player><team>EXILE esports</team><champion>Tristana</champion><result>loss</result><cs_per_min>7.71</cs_per_min><gold_share>0.231</gold_share></row>
+  <row><player>HM Delta 1</player><team>Delta Syndicate</team><champion>Varus</champion><result>loss</result><cs_per_min>8.43</cs_per_min><gold_share>0.279</gold_share></row>
+  <row><player>Dawerko</player><team>Dynamo Eclot Talents</team><champion>Jhin</champion><result>loss</result><cs_per_min>7.26</cs_per_min><gold_share>0.194</gold_share></row>
+  <row><player>Slide</player><team>Ethereal Enigmas</team><champion>Tristana</champion><result>loss</result><cs_per_min>8.59</cs_per_min><gold_share>0.286</gold_share></row>
+  <row><player>Salami</player><team>Meavedron</team><champion>Varus</champion><result>loss</result><cs_per_min>8.36</cs_per_min><gold_share>0.232</gold_share></row>
+  <row><player>DS Pooya</player><team>Delta Syndicate</team><champion>Ezreal</champion><result>loss</result><cs_per_min>8.45</cs_per_min><gold_share>0.263</gold_share></row>
+  <row><player>DVLK</player><team>Meavedron</team><champion>Ezreal</champion><result>win</result><cs_per_min>9.59</cs_per_min><gold_share>0.281</gold_share></row>
+  <row><player>Pooya</player><team>Delta Syndicate</team><champion>Seraphine</champion><result>win</result><cs_per_min>7.83</cs_per_min><gold_share>0.225</gold_share></row>
+  <row><player>CKZ vorfles</player><team>CITA Kaizen</team><champion>Jhin</champion><result>win</result><cs_per_min>9.81</cs_per_min><gold_share>0.254</gold_share></row>
+  <row><player>skakavka</player><team>Priority</team><champion>Varus</champion><result>loss</result><cs_per_min>9.49</cs_per_min><gold_share>0.267</gold_share></row>
+  <row><player>Worthless</player><team>CITA Kaizen</team><champion>Lucian</champion><result>win</result><cs_per_min>8.98</cs_per_min><gold_share>0.302</gold_share></row>
+  <row><player>Sined</player><team>Diversion Gaming</team><champion>Corki</champion><result>win</result><cs_per_min>9.09</cs_per_min><gold_share>0.246</gold_share></row>
+  <row><player>CrAzY</player><team>Meavedron</team><champion>Zeri</champion><result>win</result><cs_per_min>10.38</cs_per_min><gold_share>0.297</gold_share></row>
+</rows>

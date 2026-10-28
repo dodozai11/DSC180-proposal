@@ -1,0 +1,67 @@
+```python
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    lines = text.strip().split('\n')
+    # Skip header line
+    data_lines = lines[1:]
+    
+    winning_gold_diffs = []
+    for line in data_lines:
+        parts = line.split('|')
+        # Remove empty strings from split and strip whitespace
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if result == 'win':
+            winning_gold_diffs.append(gold_diff)
+    
+    return sum(winning_gold_diffs) / len(winning_gold_diffs) if winning_gold_diffs else 0
+
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    lines = text.strip().split('\n')
+    # Skip header line
+    data_lines = lines[1:]
+    
+    wins_with_negative_gold = 0
+    for line in data_lines:
+        parts = line.split('|')
+        # Remove empty strings from split and strip whitespace
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if result == 'win' and gold_diff < 0:
+            wins_with_negative_gold += 1
+    
+    return wins_with_negative_gold
+
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    lines = text.strip().split('\n')
+    # Skip header line
+    data_lines = lines[1:]
+    
+    ahead_in_gold_count = 0
+    ahead_and_won = 0
+    
+    for line in data_lines:
+        parts = line.split('|')
+        # Remove empty strings from split and strip whitespace
+        parts = [p.strip() for p in parts if p.strip()]
+        
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if gold_diff > 0:
+            ahead_in_gold_count += 1
+            if result == 'win':
+                ahead_and_won += 1
+    
+    return ahead_and_won / ahead_in_gold_count if ahead_in_gold_count > 0 else 0
+```

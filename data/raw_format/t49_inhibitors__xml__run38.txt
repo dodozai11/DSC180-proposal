@@ -1,0 +1,43 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Returns the average number of inhibitors destroyed by winning teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    inhibitors_list = []
+    
+    for row in root.findall("row"):
+        if row.find("result").text == "win":
+            inhibitors = int(row.find("inhibitors").text)
+            inhibitors_list.append(inhibitors)
+    
+    return sum(inhibitors_list) / len(inhibitors_list) if inhibitors_list else 0
+
+
+def q2(text):
+    """Returns the average damage to towers of losing teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    tower_damage_list = []
+    
+    for row in root.findall("row"):
+        if row.find("result").text == "loss":
+            tower_damage = int(row.find("tower_damage").text)
+            tower_damage_list.append(tower_damage)
+    
+    return sum(tower_damage_list) / len(tower_damage_list) if tower_damage_list else 0
+
+
+def q3(text):
+    """Returns the game label of the longest game."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    max_game_minutes = -1
+    longest_game = None
+    
+    for row in root.findall("row"):
+        game_minutes = float(row.find("game_minutes").text)
+        if game_minutes > max_game_minutes:
+            max_game_minutes = game_minutes
+            longest_game = row.find("game").text
+    
+    return longest_game
+```

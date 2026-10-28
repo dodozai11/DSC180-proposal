@@ -1,0 +1,60 @@
+```python
+import re
+from collections import Counter
+
+def parse_data(text):
+    """Parse the XML-like text data into a list of dictionaries."""
+    rows = []
+    pattern = r'<row><player>(.+?)</player><team>(.+?)</team><champion>(.+?)</champion><kills>(\d+)</kills><deaths>(\d+)</deaths><assists>(\d+)</assists><result>(\w+)</result></row>'
+    
+    for match in re.finditer(pattern, text):
+        row = {
+            'player': match.group(1),
+            'team': match.group(2),
+            'champion': match.group(3),
+            'kills': int(match.group(4)),
+            'deaths': int(match.group(5)),
+            'assists': int(match.group(6)),
+            'result': match.group(7)
+        }
+        rows.append(row)
+    
+    return rows
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    rows = parse_data(text)
+    
+    max_kda = -1
+    best_player = None
+    
+    for row in rows:
+        kda = (row['kills'] + row['assists']) / max(row['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = row['player']
+    
+    return best_player
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    rows = parse_data(text)
+    
+    wins = [row['kills'] for row in rows if row['result'] == 'win']
+    
+    if not wins:
+        return 0
+    
+    return sum(wins) / len(wins)
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    rows = parse_data(text)
+    
+    champions = [row['champion'] for row in rows]
+    champion_counts = Counter(champions)
+    
+    most_common_champion = champion_counts.most_common(1)[0][0]
+    
+    return most_common_champion
+```

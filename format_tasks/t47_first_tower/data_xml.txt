@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>BNK FEARX Youth</team><result>loss</result><first_tower>no</first_tower><void_grubs>2</void_grubs><heralds>0</heralds></row>
+  <row><game>G01</game><team>Hanwha Life Esports Challengers</team><result>win</result><first_tower>yes</first_tower><void_grubs>2</void_grubs><heralds>1</heralds></row>
+  <row><game>G02</game><team>OKSavingsBank BRION Challengers</team><result>loss</result><first_tower>no</first_tower><void_grubs>2</void_grubs><heralds>1</heralds></row>
+  <row><game>G02</game><team>DN Freecs Challengers</team><result>win</result><first_tower>yes</first_tower><void_grubs>4</void_grubs><heralds>0</heralds></row>
+  <row><game>G03</game><team>DRX Challengers</team><result>win</result><first_tower>yes</first_tower><void_grubs>6</void_grubs><heralds>1</heralds></row>
+  <row><game>G03</game><team>T1 Esports Academy</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>0</heralds></row>
+  <row><game>G04</game><team>Nongshim Esports Academy</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>0</heralds></row>
+  <row><game>G04</game><team>DRX Challengers</team><result>win</result><first_tower>yes</first_tower><void_grubs>6</void_grubs><heralds>1</heralds></row>
+  <row><game>G05</game><team>Dplus KIA Challengers</team><result>loss</result><first_tower>no</first_tower><void_grubs>1</void_grubs><heralds>0</heralds></row>
+  <row><game>G05</game><team>Nongshim Esports Academy</team><result>win</result><first_tower>yes</first_tower><void_grubs>2</void_grubs><heralds>1</heralds></row>
+  <row><game>G06</game><team>Hanwha Life Esports Challengers</team><result>loss</result><first_tower>no</first_tower><void_grubs>3</void_grubs><heralds>1</heralds></row>
+  <row><game>G06</game><team>OKSavingsBank BRION Challengers</team><result>win</result><first_tower>yes</first_tower><void_grubs>0</void_grubs><heralds>0</heralds></row>
+  <row><game>G07</game><team>DN Freecs Challengers</team><result>win</result><first_tower>yes</first_tower><void_grubs>0</void_grubs><heralds>0</heralds></row>
+  <row><game>G07</game><team>Hanwha Life Esports Challengers</team><result>loss</result><first_tower>no</first_tower><void_grubs>3</void_grubs><heralds>1</heralds></row>
+  <row><game>G08</game><team>Gen.G Global Academy</team><result>win</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+  <row><game>G08</game><team>T1 Esports Academy</team><result>loss</result><first_tower>yes</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G09</game><team>KT Rolster Challengers</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+  <row><game>G09</game><team>T1 Esports Academy</team><result>win</result><first_tower>yes</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G10</game><team>T1 Esports Academy</team><result>win</result><first_tower>yes</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G10</game><team>DRX Challengers</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+</rows>

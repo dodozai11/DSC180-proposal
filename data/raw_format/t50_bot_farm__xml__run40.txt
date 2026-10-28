@@ -1,0 +1,38 @@
+```python
+import re
+from xml.etree import ElementTree as ET
+
+def parse_data(text):
+    """Parse the XML-like text and return a list of dictionaries."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    players = []
+    for row in root.findall('row'):
+        player_data = {
+            'player': row.find('player').text,
+            'team': row.find('team').text,
+            'champion': row.find('champion').text,
+            'result': row.find('result').text,
+            'cs_per_min': float(row.find('cs_per_min').text),
+            'gold_share': float(row.find('gold_share').text)
+        }
+        players.append(player_data)
+    return players
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    players = parse_data(text)
+    return max(players, key=lambda p: p['cs_per_min'])['player']
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    players = parse_data(text)
+    winners = [p for p in players if p['result'] == 'win']
+    if not winners:
+        return 0
+    return sum(p['gold_share'] for p in winners) / len(winners)
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    players = parse_data(text)
+    return sum(1 for p in players if p['cs_per_min'] > 9)
+```

@@ -1,0 +1,46 @@
+```python
+import xml.etree.ElementTree as ET
+from statistics import mean
+
+def q1(text):
+    """Returns the average damage per minute of players who lost."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    damage_values = []
+    
+    for row in root.findall('row'):
+        result = row.find('result').text
+        if result == 'loss':
+            damage_per_min = float(row.find('damage_per_min').text)
+            damage_values.append(damage_per_min)
+    
+    return mean(damage_values) if damage_values else 0
+
+
+def q2(text):
+    """Returns the name of the player who took the most damage per minute."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    max_damage = -1
+    max_player = None
+    
+    for row in root.findall('row'):
+        player = row.find('player').text
+        damage_taken_per_min = float(row.find('damage_taken_per_min').text)
+        
+        if damage_taken_per_min > max_damage:
+            max_damage = damage_taken_per_min
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Returns the number of different teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    teams = set()
+    
+    for row in root.findall('row'):
+        team = row.find('team').text
+        teams.add(team)
+    
+    return len(teams)
+```

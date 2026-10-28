@@ -1,0 +1,58 @@
+```python
+def q1(text):
+    """Returns the number of different champions played."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    champions = set()
+    for line in lines:
+        parts = line.split(',')
+        champion = parts[1]
+        champions.add(champion)
+    return len(champions)
+
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    champion_stats = {}
+    
+    for line in lines:
+        parts = line.split(',')
+        champion = parts[1]
+        result = parts[2]
+        
+        if champion not in champion_stats:
+            champion_stats[champion] = {'wins': 0, 'total': 0}
+        
+        champion_stats[champion]['total'] += 1
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(eligible_champions.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    losses = []
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[2]
+        deaths = int(parts[3])
+        
+        if result == 'loss':
+            losses.append(deaths)
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

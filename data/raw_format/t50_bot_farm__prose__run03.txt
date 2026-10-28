@@ -1,0 +1,32 @@
+```python
+import re
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    pattern = r'(\w+(?:\s+\w+)*) of .+ played .+ in the bot lane and (?:won|lost), with ([\d.]+) CS per minute'
+    matches = re.findall(pattern, text)
+    if not matches:
+        return None
+    max_player = max(matches, key=lambda x: float(x[1]))
+    return max_player[0]
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    pattern = r'(\w+(?:\s+\w+)*) of .+ played .+ in the bot lane and (won|lost), with [\d.]+ CS per minute and a gold share of ([\d.]+)'
+    matches = re.findall(pattern, text)
+    if not matches:
+        return None
+    won_gold_shares = [float(gold_share) for _, result, gold_share in matches if result == 'won']
+    if not won_gold_shares:
+        return None
+    return sum(won_gold_shares) / len(won_gold_shares)
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    pattern = r'(\w+(?:\s+\w+)*) of .+ played .+ in the bot lane and (?:won|lost), with ([\d.]+) CS per minute'
+    matches = re.findall(pattern, text)
+    if not matches:
+        return 0
+    count = sum(1 for _, cs_per_minute in matches if float(cs_per_minute) > 9)
+    return count
+```

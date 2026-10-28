@@ -1,0 +1,59 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse the XML-like data and return a list of dictionaries."""
+    rows = []
+    pattern = r'<row><game>(.+?)</game><team>(.+?)</team><side>(.+?)</side><result>(.+?)</result><game_minutes>(.+?)</game_minutes></row>'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        rows.append({
+            'game': match[0],
+            'team': match[1],
+            'side': match[2],
+            'result': match[3],
+            'game_minutes': float(match[4])
+        })
+    
+    return rows
+
+def q1(text):
+    """Return the win rate of blue-side teams."""
+    rows = parse_data(text)
+    
+    blue_games = [row for row in rows if row['side'] == 'blue']
+    blue_wins = [row for row in blue_games if row['result'] == 'win']
+    
+    if len(blue_games) == 0:
+        return 0
+    
+    return len(blue_wins) / len(blue_games)
+
+def q2(text):
+    """Return the average length in minutes of games won by red-side teams."""
+    rows = parse_data(text)
+    
+    red_wins = [row for row in rows if row['side'] == 'red' and row['result'] == 'win']
+    
+    if len(red_wins) == 0:
+        return 0
+    
+    total_minutes = sum(row['game_minutes'] for row in red_wins)
+    return total_minutes / len(red_wins)
+
+def q3(text):
+    """Return the name of the team with the most wins."""
+    rows = parse_data(text)
+    
+    team_wins = defaultdict(int)
+    for row in rows:
+        if row['result'] == 'win':
+            team_wins[row['team']] += 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+```

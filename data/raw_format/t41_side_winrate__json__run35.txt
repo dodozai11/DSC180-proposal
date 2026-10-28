@@ -1,0 +1,34 @@
+```python
+import json
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the win rate of blue-side teams"""
+    data = json.loads(text)
+    blue_games = [row for row in data if row["side"] == "blue"]
+    if not blue_games:
+        return 0
+    blue_wins = sum(1 for row in blue_games if row["result"] == "win")
+    return blue_wins / len(blue_games)
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side team"""
+    data = json.loads(text)
+    red_wins = [row for row in data if row["side"] == "red" and row["result"] == "win"]
+    if not red_wins:
+        return 0
+    total_minutes = sum(row["game_minutes"] for row in red_wins)
+    return total_minutes / len(red_wins)
+
+def q3(text):
+    """Returns the name of the team with the most wins"""
+    data = json.loads(text)
+    team_wins = defaultdict(int)
+    for row in data:
+        if row["result"] == "win":
+            team_wins[row["team"]] += 1
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)
+```

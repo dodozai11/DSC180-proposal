@@ -1,0 +1,74 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse the text data into structured format"""
+    games = defaultdict(list)
+    
+    # Pattern to match each game entry
+    pattern = r"In game (\w+), (.+?) played on the (\w+) side and (\w+); the game lasted ([\d.]+) minutes\."
+    
+    matches = re.findall(pattern, text)
+    
+    for game_id, team, side, result, duration in matches:
+        games[game_id].append({
+            'team': team,
+            'side': side,
+            'result': result,
+            'duration': float(duration)
+        })
+    
+    return games
+
+def q1(text):
+    """Return the win rate of blue-side teams"""
+    games = parse_data(text)
+    
+    blue_wins = 0
+    blue_total = 0
+    
+    for game_id, teams in games.items():
+        for team_data in teams:
+            if team_data['side'] == 'blue':
+                blue_total += 1
+                if team_data['result'] == 'won':
+                    blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    
+    return blue_wins / blue_total
+
+def q2(text):
+    """Return the average length in minutes of games won by red-side team"""
+    games = parse_data(text)
+    
+    red_wins_durations = []
+    
+    for game_id, teams in games.items():
+        for team_data in teams:
+            if team_data['side'] == 'red' and team_data['result'] == 'won':
+                red_wins_durations.append(team_data['duration'])
+    
+    if len(red_wins_durations) == 0:
+        return 0
+    
+    return sum(red_wins_durations) / len(red_wins_durations)
+
+def q3(text):
+    """Return the name of the team with the most wins"""
+    games = parse_data(text)
+    
+    team_wins = defaultdict(int)
+    
+    for game_id, teams in games.items():
+        for team_data in teams:
+            if team_data['result'] == 'won':
+                team_wins[team_data['team']] += 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+```

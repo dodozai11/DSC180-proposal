@@ -1,0 +1,94 @@
+```python
+import re
+from collections import Counter
+
+def q1(text):
+    """Returns the name of the player with the highest KDA."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in data_lines:
+        # Parse the line - split by | and clean whitespace
+        parts = [p.strip() for p in line.split('|')]
+        # Filter out empty strings from leading/trailing |
+        parts = [p for p in parts if p]
+        
+        if len(parts) < 7:
+            continue
+            
+        player = parts[0]
+        kills = int(parts[3])
+        deaths = int(parts[4])
+        assists = int(parts[5])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    """Returns the average number of kills in games that were won."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in data_lines:
+        # Parse the line
+        parts = [p.strip() for p in line.split('|')]
+        parts = [p for p in parts if p]
+        
+        if len(parts) < 7:
+            continue
+        
+        kills = int(parts[3])
+        result = parts[6]
+        
+        if result == "win":
+            total_kills += kills
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_kills / win_count
+
+
+def q3(text):
+    """Returns the name of the most-picked champion."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    champions = []
+    
+    for line in data_lines:
+        # Parse the line
+        parts = [p.strip() for p in line.split('|')]
+        parts = [p for p in parts if p]
+        
+        if len(parts) < 7:
+            continue
+        
+        champion = parts[2]
+        champions.append(champion)
+    
+    # Find most common champion
+    counter = Counter(champions)
+    most_picked = counter.most_common(1)[0][0]
+    
+    return most_picked
+```

@@ -1,0 +1,22 @@
+<rows>
+  <row><player>Aytekn</player><team>Gamespace Mediterranean College Esports</team><champion>K'Sante</champion><result>win</result><damage_per_min>596.3</damage_per_min><damage_taken_per_min>972.2</damage_taken_per_min></row>
+  <row><player>Petoska</player><team>Team Refuse</team><champion>Ambessa</champion><result>loss</result><damage_per_min>538.3</damage_per_min><damage_taken_per_min>865.5</damage_taken_per_min></row>
+  <row><player>Sotsy</player><team>WLGaming Esports</team><champion>Udyr</champion><result>loss</result><damage_per_min>623.3</damage_per_min><damage_taken_per_min>946.0</damage_taken_per_min></row>
+  <row><player>TheSerius</player><team>Zerolag Esports</team><champion>K'Sante</champion><result>win</result><damage_per_min>256.0</damage_per_min><damage_taken_per_min>827.1</damage_taken_per_min></row>
+  <row><player>Loading</player><team>Actions Per Minute</team><champion>K'Sante</champion><result>win</result><damage_per_min>635.0</damage_per_min><damage_taken_per_min>882.1</damage_taken_per_min></row>
+  <row><player>Nino</player><team>Team Insidious</team><champion>Renekton</champion><result>loss</result><damage_per_min>519.8</damage_per_min><damage_taken_per_min>1372.8</damage_taken_per_min></row>
+  <row><player>Wind1</player><team>WLGaming Esports</team><champion>Jayce</champion><result>win</result><damage_per_min>655.6</damage_per_min><damage_taken_per_min>698.1</damage_taken_per_min></row>
+  <row><player>alishor</player><team>Zerolag Esports</team><champion>Gragas</champion><result>loss</result><damage_per_min>296.4</damage_per_min><damage_taken_per_min>854.7</damage_taken_per_min></row>
+  <row><player>Hildebrandt</player><team>Team Paradox</team><champion>Karma</champion><result>loss</result><damage_per_min>762.8</damage_per_min><damage_taken_per_min>760.6</damage_taken_per_min></row>
+  <row><player>DANKI</player><team>ΣΤΕΝΑΧΩΡΕΜΕΝΟΙ</team><champion>Sion</champion><result>win</result><damage_per_min>719.9</damage_per_min><damage_taken_per_min>1104.6</damage_taken_per_min></row>
+  <row><player>Ivok</player><team>Team Refuse</team><champion>K'Sante</champion><result>win</result><damage_per_min>457.2</damage_per_min><damage_taken_per_min>528.3</damage_taken_per_min></row>
+  <row><player>Built</player><team>GOAL</team><champion>Riven</champion><result>win</result><damage_per_min>358.6</damage_per_min><damage_taken_per_min>471.0</damage_taken_per_min></row>
+  <row><player>iBo</player><team>WLGaming Esports</team><champion>Cho'Gath</champion><result>loss</result><damage_per_min>977.7</damage_per_min><damage_taken_per_min>2232.0</damage_taken_per_min></row>
+  <row><player>IceBreaker</player><team>Gamespace Mediterranean College Esports</team><champion>Rumble</champion><result>win</result><damage_per_min>732.7</damage_per_min><damage_taken_per_min>522.2</damage_taken_per_min></row>
+  <row><player>WouLou</player><team>GOAL</team><champion>Yorick</champion><result>win</result><damage_per_min>799.6</damage_per_min><damage_taken_per_min>1085.6</damage_taken_per_min></row>
+  <row><player>Spooder</player><team>Team Phantasma</team><champion>Rumble</champion><result>win</result><damage_per_min>875.1</damage_per_min><damage_taken_per_min>643.1</damage_taken_per_min></row>
+  <row><player>Tozue</player><team>Actions Per Minute</team><champion>Ornn</champion><result>loss</result><damage_per_min>364.1</damage_per_min><damage_taken_per_min>1194.3</damage_taken_per_min></row>
+  <row><player>H1tokiri</player><team>Actions Per Minute</team><champion>Shen</champion><result>loss</result><damage_per_min>560.0</damage_per_min><damage_taken_per_min>881.6</damage_taken_per_min></row>
+  <row><player>Dragneel</player><team>Zerolag Esports</team><champion>Galio</champion><result>loss</result><damage_per_min>451.9</damage_per_min><damage_taken_per_min>933.3</damage_taken_per_min></row>
+  <row><player>SaintSamson</player><team>Howl Esports</team><champion>Sion</champion><result>win</result><damage_per_min>844.0</damage_per_min><damage_taken_per_min>1291.5</damage_taken_per_min></row>
+</rows>

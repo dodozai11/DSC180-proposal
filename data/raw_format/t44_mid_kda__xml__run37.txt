@@ -1,0 +1,61 @@
+```python
+import xml.etree.ElementTree as ET
+from collections import Counter
+
+def parse_data(text):
+    """Parse XML data and return list of player dictionaries"""
+    root = ET.fromstring(f"<root>{text}</root>")
+    players = []
+    for row in root.findall('row'):
+        player_data = {
+            'player': row.find('player').text,
+            'team': row.find('team').text,
+            'champion': row.find('champion').text,
+            'kills': int(row.find('kills').text),
+            'deaths': int(row.find('deaths').text),
+            'assists': int(row.find('assists').text),
+            'result': row.find('result').text,
+        }
+        players.append(player_data)
+    return players
+
+
+def q1(text):
+    """Return the name of the player with the highest KDA"""
+    players = parse_data(text)
+    
+    best_player = None
+    best_kda = -1
+    
+    for player in players:
+        kda = (player['kills'] + player['assists']) / max(player['deaths'], 1)
+        if kda > best_kda:
+            best_kda = kda
+            best_player = player['player']
+    
+    return best_player
+
+
+def q2(text):
+    """Return the average number of kills in games that were won"""
+    players = parse_data(text)
+    
+    winning_kills = [player['kills'] for player in players if player['result'] == 'win']
+    
+    if not winning_kills:
+        return 0
+    
+    return sum(winning_kills) / len(winning_kills)
+
+
+def q3(text):
+    """Return the name of the most-picked champion"""
+    players = parse_data(text)
+    
+    champions = [player['champion'] for player in players]
+    champion_counts = Counter(champions)
+    
+    most_picked = champion_counts.most_common(1)[0][0]
+    
+    return most_picked
+```

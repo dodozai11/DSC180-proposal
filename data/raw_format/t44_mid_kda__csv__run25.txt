@@ -1,0 +1,55 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in lines[1:]:
+        row = line.split(',')
+        player = row[0]
+        kills = int(row[3])
+        deaths = int(row[4])
+        assists = int(row[5])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in lines[1:]:
+        row = line.split(',')
+        kills = int(row[3])
+        result = row[6]
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    return total_kills / win_count if win_count > 0 else 0
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    
+    champion_counts = {}
+    
+    for line in lines[1:]:
+        row = line.split(',')
+        champion = row[2]
+        
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    return max(champion_counts, key=champion_counts.get)
+```

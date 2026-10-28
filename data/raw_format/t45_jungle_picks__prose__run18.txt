@@ -1,0 +1,65 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    for line in text.strip().split('. '):
+        # Extract champion name using regex
+        match = re.search(r'played (\w+(?:\'?\w+)?)', line)
+        if match:
+            champions.add(match.group(1))
+    return len(champions)
+
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for line in text.strip().split('. '):
+        # Extract champion name
+        champion_match = re.search(r'played (\w+(?:\'?\w+)?)', line)
+        if not champion_match:
+            continue
+        champion = champion_match.group(1)
+        
+        # Extract win/loss status
+        won = 'won' in line
+        
+        champion_stats[champion]['total'] += 1
+        if won:
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    qualified_champions = {champ: stats for champ, stats in champion_stats.items() 
+                          if stats['total'] >= 2}
+    
+    if not qualified_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(qualified_champions.items(), 
+                       key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    deaths_in_losses = []
+    
+    for line in text.strip().split('. '):
+        # Check if game was lost
+        if 'lost' not in line:
+            continue
+        
+        # Extract number of deaths
+        deaths_match = re.search(r'dying (\d+) times', line)
+        if deaths_match:
+            deaths_in_losses.append(int(deaths_match.group(1)))
+    
+    if not deaths_in_losses:
+        return 0
+    
+    return sum(deaths_in_losses) / len(deaths_in_losses)
+```

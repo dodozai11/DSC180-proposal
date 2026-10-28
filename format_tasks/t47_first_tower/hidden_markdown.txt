@@ -1,0 +1,22 @@
+| game | team | result | first_tower | void_grubs | heralds |
+|---|---|---|---|---|---|
+| G01 | ULF Esports | loss | yes | 4 | 0 |
+| G01 | Beşiktaş Esports | win | no | 2 | 1 |
+| G02 | Bushido Wildcats | loss | no | 1 | 0 |
+| G02 | Papara SuperMassive | win | yes | 5 | 1 |
+| G03 | Misa Esports | win | yes | 6 | 1 |
+| G03 | BoostGate Esports | loss | no | 0 | 0 |
+| G04 | BBL Dark Passage | loss | no | 3 | 1 |
+| G04 | Eternal Fire | win | yes | 3 | 0 |
+| G05 | Papara SuperMassive | loss | no | 3 | 0 |
+| G05 | ULF Esports | win | yes | 3 | 1 |
+| G06 | BBL Dark Passage | win | yes | 6 | 0 |
+| G06 | Beşiktaş Esports | loss | no | 0 | 1 |
+| G07 | Papara SuperMassive | loss | no | 0 | 1 |
+| G07 | ULF Esports | win | yes | 6 | 0 |
+| G08 | ULF Esports | loss | no | 1 | 0 |
+| G08 | BoostGate Esports | win | yes | 2 | 1 |
+| G09 | Papara SuperMassive | win | yes | 0 | 1 |
+| G09 | BoostGate Esports | loss | no | 3 | 0 |
+| G10 | Bushido Wildcats | loss | yes | 3 | 0 |
+| G10 | Beşiktaş Esports | win | no | 0 | 1 |

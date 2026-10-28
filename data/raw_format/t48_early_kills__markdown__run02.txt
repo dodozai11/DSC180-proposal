@@ -1,0 +1,39 @@
+```python
+import pandas as pd
+from io import StringIO
+
+def q1(text):
+    """Returns the average number of kills at 15 minutes of red-side teams."""
+    df = pd.read_csv(StringIO(text), sep="|")
+    df.columns = df.columns.str.strip()
+    df = df[df.columns[df.columns.str.strip() != '']]
+    for col in df.columns:
+        df[col] = df[col].str.strip() if df[col].dtype == 'object' else df[col]
+    
+    red_teams = df[df['side'].str.strip() == 'red']
+    return red_teams['kills_at_15'].astype(int).mean()
+
+def q2(text):
+    """Returns the name of the team with the largest experience difference at 15 minutes."""
+    df = pd.read_csv(StringIO(text), sep="|")
+    df.columns = df.columns.str.strip()
+    df = df[df.columns[df.columns.str.strip() != '']]
+    for col in df.columns:
+        df[col] = df[col].str.strip() if df[col].dtype == 'object' else df[col]
+    
+    df['xp_diff_15'] = df['xp_diff_15'].astype(int)
+    max_idx = df['xp_diff_15'].abs().idxmax()
+    return df.loc[max_idx, 'team']
+
+def q3(text):
+    """Returns how many teams won despite a negative experience difference at 15 minutes."""
+    df = pd.read_csv(StringIO(text), sep="|")
+    df.columns = df.columns.str.strip()
+    df = df[df.columns[df.columns.str.strip() != '']]
+    for col in df.columns:
+        df[col] = df[col].str.strip() if df[col].dtype == 'object' else df[col]
+    
+    df['xp_diff_15'] = df['xp_diff_15'].astype(int)
+    wins_with_negative_xp = df[(df['result'].str.strip() == 'win') & (df['xp_diff_15'] < 0)]
+    return len(wins_with_negative_xp)
+```

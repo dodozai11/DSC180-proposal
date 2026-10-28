@@ -1,0 +1,53 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the League of Legends match data from text."""
+    pattern = r"(\w+(?:\s+\w+)*?) of ([\w\s]+) played ([\w'\.]+) in the (\w+) lane and (won|lost), dealing ([\d.]+) damage per minute and taking ([\d.]+) damage per minute"
+    matches = re.findall(pattern, text)
+    
+    players = []
+    for match in matches:
+        player_name, team, champion, lane, result, dpm, dtpm = match
+        players.append({
+            'name': player_name,
+            'team': team,
+            'champion': champion,
+            'lane': lane,
+            'result': result,
+            'dpm': float(dpm),
+            'dtpm': float(dtpm)
+        })
+    
+    return players
+
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    players = parse_data(text)
+    lost_players = [p for p in players if p['result'] == 'lost']
+    
+    if not lost_players:
+        return 0
+    
+    total_dpm = sum(p['dpm'] for p in lost_players)
+    return total_dpm / len(lost_players)
+
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    players = parse_data(text)
+    
+    if not players:
+        return None
+    
+    max_player = max(players, key=lambda p: p['dtpm'])
+    return max_player['name']
+
+
+def q3(text):
+    """Return the number of different teams."""
+    players = parse_data(text)
+    teams = set(p['team'] for p in players)
+    return len(teams)
+```

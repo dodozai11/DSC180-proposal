@@ -1,0 +1,22 @@
+<rows>
+  <row><player>Bazz</player><team>Apex Mission Impossible</team><champion>Ezreal</champion><result>loss</result><cs_per_min>9.31</cs_per_min><gold_share>0.27</gold_share></row>
+  <row><player>CNV Chrome</player><team>Conviction</team><champion>Jhin</champion><result>win</result><cs_per_min>9.64</cs_per_min><gold_share>0.299</gold_share></row>
+  <row><player>Tactical</player><team>Luminosity Gaming</team><champion>Kalista</champion><result>loss</result><cs_per_min>8.85</cs_per_min><gold_share>0.242</gold_share></row>
+  <row><player>Doublelift</player><team>Near Airport</team><champion>Jhin</champion><result>win</result><cs_per_min>7.66</cs_per_min><gold_share>0.235</gold_share></row>
+  <row><player>sajed</player><team>DarkZero Dragonsteel</team><champion>Ezreal</champion><result>win</result><cs_per_min>9.77</cs_per_min><gold_share>0.22</gold_share></row>
+  <row><player>Hub</player><team>Pulse Star</team><champion>Corki</champion><result>loss</result><cs_per_min>9.24</cs_per_min><gold_share>0.293</gold_share></row>
+  <row><player>Shogo</player><team>Supernova</team><champion>Corki</champion><result>loss</result><cs_per_min>10.59</cs_per_min><gold_share>0.326</gold_share></row>
+  <row><player>Mobility</player><team>Winthrop University</team><champion>Ashe</champion><result>win</result><cs_per_min>8.59</cs_per_min><gold_share>0.214</gold_share></row>
+  <row><player>Levitate</player><team>Blue Otter</team><champion>Jhin</champion><result>loss</result><cs_per_min>8.92</cs_per_min><gold_share>0.241</gold_share></row>
+  <row><player>Airren</player><team>Conviction</team><champion>Jhin</champion><result>win</result><cs_per_min>9.73</cs_per_min><gold_share>0.273</gold_share></row>
+  <row><player>Spawn</player><team>DarkZero Dragonsteel</team><champion>Miss Fortune</champion><result>loss</result><cs_per_min>9.06</cs_per_min><gold_share>0.257</gold_share></row>
+  <row><player>Sushee</player><team>Near Airport</team><champion>Varus</champion><result>win</result><cs_per_min>7.51</cs_per_min><gold_share>0.217</gold_share></row>
+  <row><player>Nightstar</player><team>Cupid Esports</team><champion>Ziggs</champion><result>loss</result><cs_per_min>9.59</cs_per_min><gold_share>0.261</gold_share></row>
+  <row><player>Instinct</player><team>Citadel Gaming</team><champion>Varus</champion><result>win</result><cs_per_min>9.23</cs_per_min><gold_share>0.253</gold_share></row>
+  <row><player>Zev</player><team>Jolly Rogers</team><champion>Senna</champion><result>win</result><cs_per_min>8.08</cs_per_min><gold_share>0.24</gold_share></row>
+  <row><player>Fatihcan</player><team>Dorado Gaming</team><champion>Kai'Sa</champion><result>loss</result><cs_per_min>7.87</cs_per_min><gold_share>0.266</gold_share></row>
+  <row><player>ScaryJerry</player><team>Supernova</team><champion>Caitlyn</champion><result>win</result><cs_per_min>10.5</cs_per_min><gold_share>0.259</gold_share></row>
+  <row><player>V1per</player><team>Conviction</team><champion>Sivir</champion><result>loss</result><cs_per_min>9.59</cs_per_min><gold_share>0.236</gold_share></row>
+  <row><player>TF Blade</player><team>Conviction</team><champion>Rumble</champion><result>win</result><cs_per_min>8.21</cs_per_min><gold_share>0.198</gold_share></row>
+  <row><player>Globby</player><team>Zenshi Gaming</team><champion>Smolder</champion><result>win</result><cs_per_min>8.76</cs_per_min><gold_share>0.237</gold_share></row>
+</rows>

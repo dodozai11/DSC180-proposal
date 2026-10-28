@@ -1,0 +1,162 @@
+[
+  {
+    "player": "Surdinz",
+    "team": "BWE Esports",
+    "champion": "K'Sante",
+    "result": "loss",
+    "damage_per_min": 637.2,
+    "damage_taken_per_min": 951.2
+  },
+  {
+    "player": "HOF Martim",
+    "team": "Hurricane of Feathers",
+    "champion": "Jayce",
+    "result": "loss",
+    "damage_per_min": 467.2,
+    "damage_taken_per_min": 993.6
+  },
+  {
+    "player": "Kaylem",
+    "team": "White Dragons",
+    "champion": "Gnar",
+    "result": "win",
+    "damage_per_min": 963.5,
+    "damage_taken_per_min": 682.6
+  },
+  {
+    "player": "TheGreatGary",
+    "team": "GTZ Esports",
+    "champion": "Sion",
+    "result": "win",
+    "damage_per_min": 600.5,
+    "damage_taken_per_min": 841.0
+  },
+  {
+    "player": "ffernandes",
+    "team": "ZeroZone Gaming",
+    "champion": "Dr. Mundo",
+    "result": "loss",
+    "damage_per_min": 842.5,
+    "damage_taken_per_min": 2213.8
+  },
+  {
+    "player": "Caucha",
+    "team": "FlameHard",
+    "champion": "Renekton",
+    "result": "win",
+    "damage_per_min": 518.6,
+    "damage_taken_per_min": 881.5
+  },
+  {
+    "player": "Shourdy",
+    "team": "For The Win Esports",
+    "champion": "Ambessa",
+    "result": "loss",
+    "damage_per_min": 438.0,
+    "damage_taken_per_min": 819.3
+  },
+  {
+    "player": "BER Outskale",
+    "team": "Berimbados",
+    "champion": "Ambessa",
+    "result": "loss",
+    "damage_per_min": 685.4,
+    "damage_taken_per_min": 841.2
+  },
+  {
+    "player": "Dumbao",
+    "team": "Berimbados",
+    "champion": "K'Sante",
+    "result": "loss",
+    "damage_per_min": 664.7,
+    "damage_taken_per_min": 795.9
+  },
+  {
+    "player": "HOF Zezin",
+    "team": "Hurricane of Feathers",
+    "champion": "K'Sante",
+    "result": "win",
+    "damage_per_min": 311.6,
+    "damage_taken_per_min": 890.7
+  },
+  {
+    "player": "Vodin",
+    "team": "ZeroZone Gaming",
+    "champion": "Renekton",
+    "result": "loss",
+    "damage_per_min": 378.9,
+    "damage_taken_per_min": 1042.9
+  },
+  {
+    "player": "Blackout",
+    "team": "FlameHard",
+    "champion": "Naafiri",
+    "result": "win",
+    "damage_per_min": 521.9,
+    "damage_taken_per_min": 679.3
+  },
+  {
+    "player": "JoKozz",
+    "team": "ZeroZone Gaming",
+    "champion": "Rumble",
+    "result": "loss",
+    "damage_per_min": 673.1,
+    "damage_taken_per_min": 494.7
+  },
+  {
+    "player": "DIV MinetasJR",
+    "team": "Diver (Portuguese Team)",
+    "champion": "Renekton",
+    "result": "win",
+    "damage_per_min": 413.6,
+    "damage_taken_per_min": 857.7
+  },
+  {
+    "player": "HOF Julzh",
+    "team": "Hurricane of Feathers",
+    "champion": "Volibear",
+    "result": "loss",
+    "damage_per_min": 418.8,
+    "damage_taken_per_min": 1047.1
+  },
+  {
+    "player": "Misaki",
+    "team": "Rage Bait e-Sports",
+    "champion": "Sion",
+    "result": "win",
+    "damage_per_min": 481.0,
+    "damage_taken_per_min": 1017.9
+  },
+  {
+    "player": "Bayonetta",
+    "team": "Otter Side",
+    "champion": "Jayce",
+    "result": "win",
+    "damage_per_min": 741.7,
+    "damage_taken_per_min": 444.2
+  },
+  {
+    "player": "CRZ Cold Rose",
+    "team": "Crusaders",
+    "champion": "Gwen",
+    "result": "loss",
+    "damage_per_min": 557.4,
+    "damage_taken_per_min": 1090.1
+  },
+  {
+    "player": "CRZ Guvez",
+    "team": "Crusaders",
+    "champion": "Ambessa",
+    "result": "loss",
+    "damage_per_min": 572.2,
+    "damage_taken_per_min": 723.1
+  },
+  {
+    "player": "ColdRose",
+    "team": "Crusaders",
+    "champion": "Kled",
+    "result": "loss",
+    "damage_per_min": 504.9,
+    "damage_taken_per_min": 1097.6
+  }
+]

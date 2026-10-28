@@ -1,0 +1,54 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the win rate of blue-side teams."""
+    blue_wins = 0
+    blue_total = 0
+    
+    # Find all matches where a team played on blue side
+    pattern = r'In game (\w+), (.+?) played on the blue side and (won|lost)'
+    matches = re.findall(pattern, text)
+    
+    for game_id, team, result in matches:
+        blue_total += 1
+        if result == "won":
+            blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side teams."""
+    red_wins = []
+    
+    # Find all matches where a team played on red side and won
+    pattern = r'In game (\w+), (.+?) played on the red side and won; the game lasted ([\d.]+) minutes'
+    matches = re.findall(pattern, text)
+    
+    for game_id, team, duration in matches:
+        red_wins.append(float(duration))
+    
+    if len(red_wins) == 0:
+        return 0
+    return sum(red_wins) / len(red_wins)
+
+
+def q3(text):
+    """Returns the name of the team with the most wins."""
+    team_wins = defaultdict(int)
+    
+    # Find all matches where a team won (either blue or red side)
+    pattern = r'In game (\w+), (.+?) played on the (?:blue|red) side and won'
+    matches = re.findall(pattern, text)
+    
+    for game_id, team in matches:
+        team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)
+```

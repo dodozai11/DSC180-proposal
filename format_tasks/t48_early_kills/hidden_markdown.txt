@@ -1,0 +1,22 @@
+| game | team | side | result | kills_at_15 | xp_diff_15 |
+|---|---|---|---|---|---|
+| G01 | ULF Esports | blue | loss | 3 | -131 |
+| G01 | Beşiktaş Esports | red | win | 6 | 131 |
+| G02 | Bushido Wildcats | blue | loss | 5 | -833 |
+| G02 | Papara SuperMassive | red | win | 4 | 833 |
+| G03 | Misa Esports | blue | win | 7 | 2212 |
+| G03 | BoostGate Esports | red | loss | 7 | -2212 |
+| G04 | BBL Dark Passage | blue | loss | 6 | 234 |
+| G04 | Eternal Fire | red | win | 1 | -234 |
+| G05 | Papara SuperMassive | blue | loss | 5 | -3112 |
+| G05 | ULF Esports | red | win | 12 | 3112 |
+| G06 | BBL Dark Passage | blue | win | 0 | 1799 |
+| G06 | Beşiktaş Esports | red | loss | 0 | -1799 |
+| G07 | Papara SuperMassive | blue | loss | 4 | -1490 |
+| G07 | ULF Esports | red | win | 11 | 1490 |
+| G08 | ULF Esports | blue | loss | 7 | 806 |
+| G08 | BoostGate Esports | red | win | 4 | -806 |
+| G09 | Papara SuperMassive | blue | win | 3 | -323 |
+| G09 | BoostGate Esports | red | loss | 2 | 323 |
+| G10 | Bushido Wildcats | blue | loss | 3 | 803 |
+| G10 | Beşiktaş Esports | red | win | 3 | -803 |

@@ -1,0 +1,54 @@
+```python
+import re
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    pattern = r'(\w+(?:\s+\w+)*)\s+of\s+[\w\s]+\s+played\s+\w+(?:\'s)?\s+in\s+the\s+bot\s+lane\s+and\s+(won|lost),\s+with\s+([\d.]+)\s+CS\s+per\s+minute'
+    
+    matches = re.findall(pattern, text)
+    
+    max_cs = -1
+    max_player = None
+    
+    for player, result, cs in matches:
+        cs_value = float(cs)
+        if cs_value > max_cs:
+            max_cs = cs_value
+            max_player = player
+    
+    return max_player
+
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    pattern = r'(\w+(?:\s+\w+)*)\s+of\s+[\w\s]+\s+played\s+\w+(?:\'s)?\s+in\s+the\s+bot\s+lane\s+and\s+(won|lost),\s+with\s+[\d.]+\s+CS\s+per\s+minute\s+and\s+a\s+gold\s+share\s+of\s+([\d.]+)'
+    
+    matches = re.findall(pattern, text)
+    
+    winning_gold_shares = []
+    
+    for player, result, gold_share in matches:
+        if result == "won":
+            winning_gold_shares.append(float(gold_share))
+    
+    if len(winning_gold_shares) == 0:
+        return 0
+    
+    return sum(winning_gold_shares) / len(winning_gold_shares)
+
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    pattern = r'(\w+(?:\s+\w+)*)\s+of\s+[\w\s]+\s+played\s+\w+(?:\'s)?\s+in\s+the\s+bot\s+lane\s+and\s+(won|lost),\s+with\s+([\d.]+)\s+CS\s+per\s+minute'
+    
+    matches = re.findall(pattern, text)
+    
+    count = 0
+    
+    for player, result, cs in matches:
+        cs_value = float(cs)
+        if cs_value > 9:
+            count += 1
+    
+    return count
+```

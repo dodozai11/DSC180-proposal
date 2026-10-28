@@ -1,0 +1,162 @@
+[
+  {
+    "player": "Aytekn",
+    "team": "Gamespace Mediterranean College Esports",
+    "champion": "K'Sante",
+    "result": "win",
+    "damage_per_min": 596.3,
+    "damage_taken_per_min": 972.2
+  },
+  {
+    "player": "Petoska",
+    "team": "Team Refuse",
+    "champion": "Ambessa",
+    "result": "loss",
+    "damage_per_min": 538.3,
+    "damage_taken_per_min": 865.5
+  },
+  {
+    "player": "Sotsy",
+    "team": "WLGaming Esports",
+    "champion": "Udyr",
+    "result": "loss",
+    "damage_per_min": 623.3,
+    "damage_taken_per_min": 946.0
+  },
+  {
+    "player": "TheSerius",
+    "team": "Zerolag Esports",
+    "champion": "K'Sante",
+    "result": "win",
+    "damage_per_min": 256.0,
+    "damage_taken_per_min": 827.1
+  },
+  {
+    "player": "Loading",
+    "team": "Actions Per Minute",
+    "champion": "K'Sante",
+    "result": "win",
+    "damage_per_min": 635.0,
+    "damage_taken_per_min": 882.1
+  },
+  {
+    "player": "Nino",
+    "team": "Team Insidious",
+    "champion": "Renekton",
+    "result": "loss",
+    "damage_per_min": 519.8,
+    "damage_taken_per_min": 1372.8
+  },
+  {
+    "player": "Wind1",
+    "team": "WLGaming Esports",
+    "champion": "Jayce",
+    "result": "win",
+    "damage_per_min": 655.6,
+    "damage_taken_per_min": 698.1
+  },
+  {
+    "player": "alishor",
+    "team": "Zerolag Esports",
+    "champion": "Gragas",
+    "result": "loss",
+    "damage_per_min": 296.4,
+    "damage_taken_per_min": 854.7
+  },
+  {
+    "player": "Hildebrandt",
+    "team": "Team Paradox",
+    "champion": "Karma",
+    "result": "loss",
+    "damage_per_min": 762.8,
+    "damage_taken_per_min": 760.6
+  },
+  {
+    "player": "DANKI",
+    "team": "ΣΤΕΝΑΧΩΡΕΜΕΝΟΙ",
+    "champion": "Sion",
+    "result": "win",
+    "damage_per_min": 719.9,
+    "damage_taken_per_min": 1104.6
+  },
+  {
+    "player": "Ivok",
+    "team": "Team Refuse",
+    "champion": "K'Sante",
+    "result": "win",
+    "damage_per_min": 457.2,
+    "damage_taken_per_min": 528.3
+  },
+  {
+    "player": "Built",
+    "team": "GOAL",
+    "champion": "Riven",
+    "result": "win",
+    "damage_per_min": 358.6,
+    "damage_taken_per_min": 471.0
+  },
+  {
+    "player": "iBo",
+    "team": "WLGaming Esports",
+    "champion": "Cho'Gath",
+    "result": "loss",
+    "damage_per_min": 977.7,
+    "damage_taken_per_min": 2232.0
+  },
+  {
+    "player": "IceBreaker",
+    "team": "Gamespace Mediterranean College Esports",
+    "champion": "Rumble",
+    "result": "win",
+    "damage_per_min": 732.7,
+    "damage_taken_per_min": 522.2
+  },
+  {
+    "player": "WouLou",
+    "team": "GOAL",
+    "champion": "Yorick",
+    "result": "win",
+    "damage_per_min": 799.6,
+    "damage_taken_per_min": 1085.6
+  },
+  {
+    "player": "Spooder",
+    "team": "Team Phantasma",
+    "champion": "Rumble",
+    "result": "win",
+    "damage_per_min": 875.1,
+    "damage_taken_per_min": 643.1
+  },
+  {
+    "player": "Tozue",
+    "team": "Actions Per Minute",
+    "champion": "Ornn",
+    "result": "loss",
+    "damage_per_min": 364.1,
+    "damage_taken_per_min": 1194.3
+  },
+  {
+    "player": "H1tokiri",
+    "team": "Actions Per Minute",
+    "champion": "Shen",
+    "result": "loss",
+    "damage_per_min": 560.0,
+    "damage_taken_per_min": 881.6
+  },
+  {
+    "player": "Dragneel",
+    "team": "Zerolag Esports",
+    "champion": "Galio",
+    "result": "loss",
+    "damage_per_min": 451.9,
+    "damage_taken_per_min": 933.3
+  },
+  {
+    "player": "SaintSamson",
+    "team": "Howl Esports",
+    "champion": "Sion",
+    "result": "win",
+    "damage_per_min": 844.0,
+    "damage_taken_per_min": 1291.5
+  }
+]

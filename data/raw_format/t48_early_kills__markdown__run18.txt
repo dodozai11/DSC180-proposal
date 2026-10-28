@@ -1,0 +1,70 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    kills_at_15_idx = header.index('kills_at_15')
+    side_idx = header.index('side')
+    
+    red_kills = []
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        if cells[side_idx] == 'red':
+            red_kills.append(int(cells[kills_at_15_idx]))
+    
+    return sum(red_kills) / len(red_kills) if red_kills else 0
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    team_idx = header.index('team')
+    xp_diff_15_idx = header.index('xp_diff_15')
+    
+    max_xp_diff = float('-inf')
+    max_team = None
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        xp_diff = int(cells[xp_diff_15_idx])
+        if xp_diff > max_xp_diff:
+            max_xp_diff = xp_diff
+            max_team = cells[team_idx]
+    
+    return max_team
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    result_idx = header.index('result')
+    xp_diff_15_idx = header.index('xp_diff_15')
+    
+    count = 0
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        result = cells[result_idx]
+        xp_diff = int(cells[xp_diff_15_idx])
+        
+        if result == 'win' and xp_diff < 0:
+            count += 1
+    
+    return count
+```

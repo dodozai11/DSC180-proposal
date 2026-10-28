@@ -1,0 +1,53 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    winner_scores = []
+    loser_scores = []
+    
+    for row in root.findall("row"):
+        vision_score = int(row.find("vision_score").text)
+        result = row.find("result").text
+        
+        if result == "win":
+            winner_scores.append(vision_score)
+        else:
+            loser_scores.append(vision_score)
+    
+    avg_winner = sum(winner_scores) / len(winner_scores) if winner_scores else 0
+    avg_loser = sum(loser_scores) / len(loser_scores) if loser_scores else 0
+    
+    return avg_winner - avg_loser
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    max_wards = -1
+    max_player = None
+    
+    for row in root.findall("row"):
+        player = row.find("player").text
+        wards_placed = int(row.find("wards_placed").text)
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    count = 0
+    for row in root.findall("row"):
+        control_wards = int(row.find("control_wards").text)
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

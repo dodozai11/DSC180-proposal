@@ -1,0 +1,43 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of player records."""
+    players = []
+    # Pattern to match: "Name of Team played Champion in bot lane and (won|lost), with X.XX CS per minute and a gold share of 0.XXX"
+    pattern = r"(\w+) of (.+?) played (\w+) in the bot lane and (won|lost), with ([\d.]+) CS per minute and a gold share of ([\d.]+)"
+    
+    matches = re.finditer(pattern, text)
+    for match in matches:
+        player = {
+            'name': match.group(1),
+            'team': match.group(2),
+            'champion': match.group(3),
+            'result': match.group(4),
+            'cs_per_minute': float(match.group(5)),
+            'gold_share': float(match.group(6))
+        }
+        players.append(player)
+    
+    return players
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    players = parse_data(text)
+    if not players:
+        return None
+    return max(players, key=lambda p: p['cs_per_minute'])['name']
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    players = parse_data(text)
+    winners = [p for p in players if p['result'] == 'won']
+    if not winners:
+        return 0
+    return sum(p['gold_share'] for p in winners) / len(winners)
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    players = parse_data(text)
+    return sum(1 for p in players if p['cs_per_minute'] > 9)
+```

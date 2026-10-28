@@ -1,0 +1,61 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    data = []
+    for line in lines[2:]:
+        if line.strip():
+            values = line.split('|')
+            values = [v.strip() for v in values if v.strip()]
+            if len(values) == len(header):
+                data.append(dict(zip(header, values)))
+    
+    positive_cs_diff = [row for row in data if int(row['cs_diff_10']) > 0]
+    
+    if not positive_cs_diff:
+        return 0
+    
+    wins = sum(1 for row in positive_cs_diff if row['result'] == 'win')
+    return wins / len(positive_cs_diff)
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    data = []
+    for line in lines[2:]:
+        if line.strip():
+            values = line.split('|')
+            values = [v.strip() for v in values if v.strip()]
+            if len(values) == len(header):
+                data.append(dict(zip(header, values)))
+    
+    total_kills = sum(int(row['kills_at_10']) for row in data)
+    return total_kills
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    data = []
+    for line in lines[2:]:
+        if line.strip():
+            values = line.split('|')
+            values = [v.strip() for v in values if v.strip()]
+            if len(values) == len(header):
+                data.append(dict(zip(header, values)))
+    
+    champion_assists = {}
+    for row in data:
+        champion = row['champion']
+        assists = int(row['assists_at_10'])
+        champion_assists[champion] = champion_assists.get(champion, 0) + assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,67 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data and return a list of player dictionaries."""
+    players = []
+    
+    # Split by ". " to separate individual player records
+    records = text.split(". ")
+    
+    for record in records:
+        record = record.strip()
+        if not record:
+            continue
+        
+        # Add period back if it was removed
+        if not record.endswith("."):
+            record += "."
+        
+        # Parse the record using regex
+        pattern = r"(\w+(?:\s+\w+)*)\s+of\s+([^()]+)\s+played\s+([^()]+)\s+in\s+the\s+(\w+)\s+lane\s+and\s+(won|lost),\s+dealing\s+([\d.]+)\s+damage\s+per\s+minute\s+and\s+taking\s+([\d.]+)\s+damage\s+per\s+minute\."
+        
+        match = re.search(pattern, record)
+        if match:
+            player = {
+                "name": match.group(1),
+                "team": match.group(2).strip(),
+                "champion": match.group(3),
+                "lane": match.group(4),
+                "result": match.group(5),
+                "damage_dealt": float(match.group(6)),
+                "damage_taken": float(match.group(7))
+            }
+            players.append(player)
+    
+    return players
+
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    players = parse_data(text)
+    lost_players = [p for p in players if p["result"] == "lost"]
+    
+    if not lost_players:
+        return 0
+    
+    avg_damage = sum(p["damage_dealt"] for p in lost_players) / len(lost_players)
+    return avg_damage
+
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    players = parse_data(text)
+    
+    if not players:
+        return None
+    
+    max_player = max(players, key=lambda p: p["damage_taken"])
+    return max_player["name"]
+
+
+def q3(text):
+    """Return the number of different teams."""
+    players = parse_data(text)
+    teams = set(p["team"] for p in players)
+    return len(teams)
+```

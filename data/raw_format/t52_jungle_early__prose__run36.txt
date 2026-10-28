@@ -1,0 +1,35 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of players with a positive CS difference at 10 minutes."""
+    pattern = r'(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in the jungle and\s+(won|lost);.*?CS difference of\s+([-\d]+),'
+    matches = re.findall(pattern, text)
+    
+    positive_cs_players = [(player, result) for player, champion, result, cs_diff in matches if int(cs_diff) > 0]
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(1 for _, result in positive_cs_players if result == 'won')
+    return wins / len(positive_cs_players)
+
+
+def q2(text):
+    """Returns the total number of kills at 10 minutes across all rows."""
+    pattern = r'(\d+)\s+kills'
+    matches = re.findall(pattern, text)
+    return sum(int(kills) for kills in matches)
+
+
+def q3(text):
+    """Returns the name of the champion with the most assists at 10 minutes in total."""
+    pattern = r'played\s+(\w+)\s+in the jungle.*?(\d+)\s+assists'
+    matches = re.findall(pattern, text)
+    
+    champion_assists = {}
+    for champion, assists in matches:
+        champion_assists[champion] = champion_assists.get(champion, 0) + int(assists)
+    
+    return max(champion_assists, key=champion_assists.get)
+```

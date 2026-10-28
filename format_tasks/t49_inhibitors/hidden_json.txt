@@ -1,0 +1,162 @@
+[
+  {
+    "game": "G01",
+    "team": "Ramboot Club",
+    "result": "loss",
+    "game_minutes": 23.0,
+    "inhibitors": 0,
+    "tower_damage": 3363
+  },
+  {
+    "game": "G01",
+    "team": "Los Heretics",
+    "result": "win",
+    "game_minutes": 23.0,
+    "inhibitors": 3,
+    "tower_damage": 33013
+  },
+  {
+    "game": "G02",
+    "team": "Los Heretics",
+    "result": "win",
+    "game_minutes": 31.6,
+    "inhibitors": 1,
+    "tower_damage": 24724
+  },
+  {
+    "game": "G02",
+    "team": "GIANTX Pride",
+    "result": "loss",
+    "game_minutes": 31.6,
+    "inhibitors": 0,
+    "tower_damage": 14821
+  },
+  {
+    "game": "G03",
+    "team": "Veni Vidi Vici",
+    "result": "loss",
+    "game_minutes": 32.7,
+    "inhibitors": 0,
+    "tower_damage": 13454
+  },
+  {
+    "game": "G03",
+    "team": "Los Heretics",
+    "result": "win",
+    "game_minutes": 32.7,
+    "inhibitors": 1,
+    "tower_damage": 19658
+  },
+  {
+    "game": "G04",
+    "team": "Ramboot Club",
+    "result": "win",
+    "game_minutes": 31.8,
+    "inhibitors": 2,
+    "tower_damage": 26070
+  },
+  {
+    "game": "G04",
+    "team": "LUA Gaming",
+    "result": "loss",
+    "game_minutes": 31.8,
+    "inhibitors": 0,
+    "tower_damage": 5728
+  },
+  {
+    "game": "G05",
+    "team": "Ramboot Club",
+    "result": "win",
+    "game_minutes": 34.9,
+    "inhibitors": 1,
+    "tower_damage": 20241
+  },
+  {
+    "game": "G05",
+    "team": "Movistar KOI Fénix",
+    "result": "loss",
+    "game_minutes": 34.9,
+    "inhibitors": 0,
+    "tower_damage": 4500
+  },
+  {
+    "game": "G06",
+    "team": "Los Heretics",
+    "result": "loss",
+    "game_minutes": 33.9,
+    "inhibitors": 0,
+    "tower_damage": 6941
+  },
+  {
+    "game": "G06",
+    "team": "GIANTX Pride",
+    "result": "win",
+    "game_minutes": 33.9,
+    "inhibitors": 2,
+    "tower_damage": 25163
+  },
+  {
+    "game": "G07",
+    "team": "Barça eSports",
+    "result": "loss",
+    "game_minutes": 33.6,
+    "inhibitors": 0,
+    "tower_damage": 4296
+  },
+  {
+    "game": "G07",
+    "team": "LUA Gaming",
+    "result": "win",
+    "game_minutes": 33.6,
+    "inhibitors": 1,
+    "tower_damage": 19403
+  },
+  {
+    "game": "G08",
+    "team": "LUA Gaming",
+    "result": "loss",
+    "game_minutes": 41.4,
+    "inhibitors": 0,
+    "tower_damage": 21712
+  },
+  {
+    "game": "G08",
+    "team": "Barça eSports",
+    "result": "win",
+    "game_minutes": 41.4,
+    "inhibitors": 2,
+    "tower_damage": 22929
+  },
+  {
+    "game": "G09",
+    "team": "Los Heretics",
+    "result": "loss",
+    "game_minutes": 34.1,
+    "inhibitors": 0,
+    "tower_damage": 11563
+  },
+  {
+    "game": "G09",
+    "team": "UCAM Esports",
+    "result": "win",
+    "game_minutes": 34.1,
+    "inhibitors": 1,
+    "tower_damage": 16346
+  },
+  {
+    "game": "G10",
+    "team": "Los Heretics",
+    "result": "loss",
+    "game_minutes": 28.1,
+    "inhibitors": 0,
+    "tower_damage": 9129
+  },
+  {
+    "game": "G10",
+    "team": "GIANTX Pride",
+    "result": "win",
+    "game_minutes": 28.1,
+    "inhibitors": 1,
+    "tower_damage": 20503
+  }
+]

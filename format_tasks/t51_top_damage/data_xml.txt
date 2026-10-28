@@ -1,0 +1,22 @@
+<rows>
+  <row><player>Surdinz</player><team>BWE Esports</team><champion>K'Sante</champion><result>loss</result><damage_per_min>637.2</damage_per_min><damage_taken_per_min>951.2</damage_taken_per_min></row>
+  <row><player>HOF Martim</player><team>Hurricane of Feathers</team><champion>Jayce</champion><result>loss</result><damage_per_min>467.2</damage_per_min><damage_taken_per_min>993.6</damage_taken_per_min></row>
+  <row><player>Kaylem</player><team>White Dragons</team><champion>Gnar</champion><result>win</result><damage_per_min>963.5</damage_per_min><damage_taken_per_min>682.6</damage_taken_per_min></row>
+  <row><player>TheGreatGary</player><team>GTZ Esports</team><champion>Sion</champion><result>win</result><damage_per_min>600.5</damage_per_min><damage_taken_per_min>841.0</damage_taken_per_min></row>
+  <row><player>ffernandes</player><team>ZeroZone Gaming</team><champion>Dr. Mundo</champion><result>loss</result><damage_per_min>842.5</damage_per_min><damage_taken_per_min>2213.8</damage_taken_per_min></row>
+  <row><player>Caucha</player><team>FlameHard</team><champion>Renekton</champion><result>win</result><damage_per_min>518.6</damage_per_min><damage_taken_per_min>881.5</damage_taken_per_min></row>
+  <row><player>Shourdy</player><team>For The Win Esports</team><champion>Ambessa</champion><result>loss</result><damage_per_min>438.0</damage_per_min><damage_taken_per_min>819.3</damage_taken_per_min></row>
+  <row><player>BER Outskale</player><team>Berimbados</team><champion>Ambessa</champion><result>loss</result><damage_per_min>685.4</damage_per_min><damage_taken_per_min>841.2</damage_taken_per_min></row>
+  <row><player>Dumbao</player><team>Berimbados</team><champion>K'Sante</champion><result>loss</result><damage_per_min>664.7</damage_per_min><damage_taken_per_min>795.9</damage_taken_per_min></row>
+  <row><player>HOF Zezin</player><team>Hurricane of Feathers</team><champion>K'Sante</champion><result>win</result><damage_per_min>311.6</damage_per_min><damage_taken_per_min>890.7</damage_taken_per_min></row>
+  <row><player>Vodin</player><team>ZeroZone Gaming</team><champion>Renekton</champion><result>loss</result><damage_per_min>378.9</damage_per_min><damage_taken_per_min>1042.9</damage_taken_per_min></row>
+  <row><player>Blackout</player><team>FlameHard</team><champion>Naafiri</champion><result>win</result><damage_per_min>521.9</damage_per_min><damage_taken_per_min>679.3</damage_taken_per_min></row>
+  <row><player>JoKozz</player><team>ZeroZone Gaming</team><champion>Rumble</champion><result>loss</result><damage_per_min>673.1</damage_per_min><damage_taken_per_min>494.7</damage_taken_per_min></row>
+  <row><player>DIV MinetasJR</player><team>Diver (Portuguese Team)</team><champion>Renekton</champion><result>win</result><damage_per_min>413.6</damage_per_min><damage_taken_per_min>857.7</damage_taken_per_min></row>
+  <row><player>HOF Julzh</player><team>Hurricane of Feathers</team><champion>Volibear</champion><result>loss</result><damage_per_min>418.8</damage_per_min><damage_taken_per_min>1047.1</damage_taken_per_min></row>
+  <row><player>Misaki</player><team>Rage Bait e-Sports</team><champion>Sion</champion><result>win</result><damage_per_min>481.0</damage_per_min><damage_taken_per_min>1017.9</damage_taken_per_min></row>
+  <row><player>Bayonetta</player><team>Otter Side</team><champion>Jayce</champion><result>win</result><damage_per_min>741.7</damage_per_min><damage_taken_per_min>444.2</damage_taken_per_min></row>
+  <row><player>CRZ Cold Rose</player><team>Crusaders</team><champion>Gwen</champion><result>loss</result><damage_per_min>557.4</damage_per_min><damage_taken_per_min>1090.1</damage_taken_per_min></row>
+  <row><player>CRZ Guvez</player><team>Crusaders</team><champion>Ambessa</champion><result>loss</result><damage_per_min>572.2</damage_per_min><damage_taken_per_min>723.1</damage_taken_per_min></row>
+  <row><player>ColdRose</player><team>Crusaders</team><champion>Kled</champion><result>loss</result><damage_per_min>504.9</damage_per_min><damage_taken_per_min>1097.6</damage_taken_per_min></row>
+</rows>

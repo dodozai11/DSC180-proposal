@@ -1,0 +1,26 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    data = json.loads(text)
+    red_side_data = [row for row in data if row["side"] == "red"]
+    total_kills = sum(row["kills_at_15"] for row in red_side_data)
+    return total_kills / len(red_side_data) if red_side_data else 0
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    data = json.loads(text)
+    max_xp_diff = max(data, key=lambda row: abs(row["xp_diff_15"]))
+    return max_xp_diff["team"]
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    data = json.loads(text)
+    count = 0
+    for row in data:
+        if row["result"] == "win" and row["xp_diff_15"] < 0:
+            count += 1
+    return count
+```

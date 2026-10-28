@@ -1,0 +1,61 @@
+```python
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    winning_gold_diffs = []
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 5:
+            game, team, side, result, gold_diff_15 = parts[0], parts[1], parts[2], parts[3], parts[4]
+            if result == 'win':
+                winning_gold_diffs.append(int(gold_diff_15))
+    
+    if not winning_gold_diffs:
+        return 0
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    count = 0
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 5:
+            game, team, side, result, gold_diff_15 = parts[0], parts[1], parts[2], parts[3], parts[4]
+            gold_diff = int(gold_diff_15)
+            if result == 'win' and gold_diff < 0:
+                count += 1
+    
+    return count
+
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    ahead_in_gold_count = 0
+    ahead_in_gold_wins = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 5:
+            game, team, side, result, gold_diff_15 = parts[0], parts[1], parts[2], parts[3], parts[4]
+            gold_diff = int(gold_diff_15)
+            if gold_diff > 0:
+                ahead_in_gold_count += 1
+                if result == 'win':
+                    ahead_in_gold_wins += 1
+    
+    if ahead_in_gold_count == 0:
+        return 0
+    return ahead_in_gold_wins / ahead_in_gold_count
+```

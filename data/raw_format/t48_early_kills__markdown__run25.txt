@@ -1,0 +1,41 @@
+```python
+def parse_data(text):
+    """Parse the text data into a list of dictionaries."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    data = []
+    for line in lines[2:]:
+        if line.strip():
+            values = line.split('|')[1:-1]
+            values = [v.strip() for v in values]
+            row = {header[i]: values[i] for i in range(len(header))}
+            data.append(row)
+    
+    return data
+
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    data = parse_data(text)
+    red_kills = [int(row['kills_at_15']) for row in data if row['side'] == 'red']
+    return sum(red_kills) / len(red_kills) if red_kills else 0
+
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    data = parse_data(text)
+    max_team = max(data, key=lambda row: abs(int(row['xp_diff_15'])))
+    return max_team['team']
+
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    data = parse_data(text)
+    count = 0
+    for row in data:
+        if row['result'] == 'win' and int(row['xp_diff_15']) < 0:
+            count += 1
+    return count
+```

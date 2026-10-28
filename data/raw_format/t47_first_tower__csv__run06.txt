@@ -1,0 +1,60 @@
+```python
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    
+    first_tower_wins = 0
+    first_tower_total = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        first_tower = parts[3]
+        result = parts[2]
+        
+        if first_tower == 'yes':
+            first_tower_total += 1
+            if result == 'win':
+                first_tower_wins += 1
+    
+    if first_tower_total == 0:
+        return 0
+    
+    return first_tower_wins / first_tower_total
+
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    
+    winning_grubs = []
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[2]
+        void_grubs = int(parts[4])
+        
+        if result == 'win':
+            winning_grubs.append(void_grubs)
+    
+    if len(winning_grubs) == 0:
+        return 0
+    
+    return sum(winning_grubs) / len(winning_grubs)
+
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    
+    count = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[2]
+        heralds = int(parts[5])
+        
+        if result == 'loss' and heralds >= 1:
+            count += 1
+    
+    return count
+```

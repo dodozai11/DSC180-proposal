@@ -1,0 +1,77 @@
+```python
+def q1(text):
+    """Return the number of different champions played."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    champions = set()
+    for line in lines[1:]:
+        parts = line.split('|')
+        if len(parts) >= 3:
+            champion = parts[2].strip()
+            if champion:
+                champions.add(champion)
+    return len(champions)
+
+
+def q2(text):
+    """Return the champion with the best win rate among champions played at least twice."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    champion_stats = {}
+    
+    for line in lines[1:]:
+        parts = line.split('|')
+        if len(parts) >= 4:
+            champion = parts[2].strip()
+            result = parts[3].strip()
+            
+            if champion and result:
+                if champion not in champion_stats:
+                    champion_stats[champion] = {'wins': 0, 'total': 0}
+                
+                champion_stats[champion]['total'] += 1
+                if result.lower() == 'win':
+                    champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats['total'] >= 2
+    }
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        eligible_champions.items(),
+        key=lambda x: x[1]['wins'] / x[1]['total']
+    )
+    
+    return best_champion[0]
+
+
+def q3(text):
+    """Return the average number of deaths in games that were lost."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    losses = []
+    
+    for line in lines[1:]:
+        parts = line.split('|')
+        if len(parts) >= 4:
+            result = parts[3].strip()
+            deaths_str = parts[4].strip() if len(parts) > 4 else ''
+            
+            if result.lower() == 'loss' and deaths_str:
+                try:
+                    deaths = int(deaths_str)
+                    losses.append(deaths)
+                except ValueError:
+                    pass
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

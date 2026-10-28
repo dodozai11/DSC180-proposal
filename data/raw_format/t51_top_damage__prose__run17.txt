@@ -1,0 +1,46 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    players = []
+    # Pattern to match: player_name of team_name played champion in position and result, dealing dpm damage per minute and taking tdpm damage per minute.
+    pattern = r"(.+?)\s+of\s+(.+?)\s+played\s+(.+?)\s+in\s+the\s+(\w+)\s+lane\s+and\s+(won|lost),\s+dealing\s+([\d.]+)\s+damage\s+per\s+minute\s+and\s+taking\s+([\d.]+)\s+damage\s+per\s+minute\."
+    
+    matches = re.findall(pattern, text)
+    for match in matches:
+        player_name, team, champion, lane, result, dpm, tdpm = match
+        players.append({
+            'name': player_name,
+            'team': team,
+            'champion': champion,
+            'lane': lane,
+            'result': result,
+            'dpm': float(dpm),
+            'tdpm': float(tdpm)
+        })
+    return players
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    players = parse_data(text)
+    lost_players = [p for p in players if p['result'] == 'lost']
+    if not lost_players:
+        return 0
+    avg_dpm = sum(p['dpm'] for p in lost_players) / len(lost_players)
+    return avg_dpm
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    players = parse_data(text)
+    if not players:
+        return None
+    max_player = max(players, key=lambda p: p['tdpm'])
+    return max_player['name']
+
+def q3(text):
+    """Return the number of different teams."""
+    players = parse_data(text)
+    teams = set(p['team'] for p in players)
+    return len(teams)
+```

@@ -1,0 +1,73 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    positive_cs_diff = []
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        parts = line.split('|')[1:-1]
+        parts = [p.strip() for p in parts]
+        
+        cs_diff_10_idx = header.index('cs_diff_10')
+        result_idx = header.index('result')
+        
+        cs_diff = int(parts[cs_diff_10_idx])
+        result = parts[result_idx]
+        
+        if cs_diff > 0:
+            positive_cs_diff.append(result)
+    
+    if len(positive_cs_diff) == 0:
+        return 0
+    
+    wins = sum(1 for r in positive_cs_diff if r == 'win')
+    return wins / len(positive_cs_diff)
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    kills_at_10_idx = header.index('kills_at_10')
+    
+    total_kills = 0
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        parts = line.split('|')[1:-1]
+        parts = [p.strip() for p in parts]
+        
+        kills = int(parts[kills_at_10_idx])
+        total_kills += kills
+    
+    return total_kills
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    champion_idx = header.index('champion')
+    assists_at_10_idx = header.index('assists_at_10')
+    
+    champion_assists = {}
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        parts = line.split('|')[1:-1]
+        parts = [p.strip() for p in parts]
+        
+        champion = parts[champion_idx]
+        assists = int(parts[assists_at_10_idx])
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,70 @@
+```python
+def q1(text):
+    """Returns the average number of inhibitors destroyed by winning teams."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    winning_inhibitors = []
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')]
+        # Skip empty first and last elements from split
+        parts = parts[1:-1]
+        
+        game, team, result, game_minutes, inhibitors, tower_damage = parts
+        
+        if result == 'win':
+            winning_inhibitors.append(int(inhibitors))
+    
+    return sum(winning_inhibitors) / len(winning_inhibitors)
+
+
+def q2(text):
+    """Returns the average damage to towers of losing teams."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    losing_tower_damage = []
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')]
+        # Skip empty first and last elements from split
+        parts = parts[1:-1]
+        
+        game, team, result, game_minutes, inhibitors, tower_damage = parts
+        
+        if result == 'loss':
+            losing_tower_damage.append(int(tower_damage))
+    
+    return sum(losing_tower_damage) / len(losing_tower_damage)
+
+
+def q3(text):
+    """Returns the game label of the longest game."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    max_duration = -1
+    longest_game = None
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')]
+        # Skip empty first and last elements from split
+        parts = parts[1:-1]
+        
+        game, team, result, game_minutes, inhibitors, tower_damage = parts
+        
+        duration = float(game_minutes)
+        
+        if duration > max_duration:
+            max_duration = duration
+            longest_game = game
+    
+    return longest_game
+```

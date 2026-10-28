@@ -1,0 +1,20 @@
+```python
+import ast
+
+def q1(text):
+    data = ast.literal_eval(text)
+    winning_gold_diffs = [row['gold_diff_15'] for row in data if row['result'] == 'win']
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+def q2(text):
+    data = ast.literal_eval(text)
+    return sum(1 for row in data if row['result'] == 'win' and row['gold_diff_15'] < 0)
+
+def q3(text):
+    data = ast.literal_eval(text)
+    ahead_teams = [row for row in data if row['gold_diff_15'] > 0]
+    if len(ahead_teams) == 0:
+        return 0
+    wins = sum(1 for row in ahead_teams if row['result'] == 'win')
+    return wins / len(ahead_teams)
+```

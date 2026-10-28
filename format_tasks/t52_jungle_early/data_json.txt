@@ -1,0 +1,162 @@
+[
+  {
+    "player": "Genos",
+    "champion": "Maokai",
+    "result": "win",
+    "cs_diff_10": -18,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Nero",
+    "champion": "Maokai",
+    "result": "win",
+    "cs_diff_10": -1,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Soweto",
+    "champion": "Xin Zhao",
+    "result": "loss",
+    "cs_diff_10": 1,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Ancrath",
+    "champion": "Lillia",
+    "result": "win",
+    "cs_diff_10": -3,
+    "kills_at_10": 2,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Dizin",
+    "champion": "Wukong",
+    "result": "loss",
+    "cs_diff_10": 3,
+    "kills_at_10": 0,
+    "assists_at_10": 2
+  },
+  {
+    "player": "Sting",
+    "champion": "Nocturne",
+    "result": "win",
+    "cs_diff_10": 23,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Envy",
+    "champion": "Darius",
+    "result": "loss",
+    "cs_diff_10": 10,
+    "kills_at_10": 2,
+    "assists_at_10": 6
+  },
+  {
+    "player": "DOOM",
+    "champion": "Maokai",
+    "result": "win",
+    "cs_diff_10": -9,
+    "kills_at_10": 0,
+    "assists_at_10": 3
+  },
+  {
+    "player": "StineR",
+    "champion": "Wukong",
+    "result": "loss",
+    "cs_diff_10": 0,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Yampi",
+    "champion": "Sejuani",
+    "result": "win",
+    "cs_diff_10": 0,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Mewkyo",
+    "champion": "Maokai",
+    "result": "win",
+    "cs_diff_10": 7,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Seize",
+    "champion": "Pantheon",
+    "result": "loss",
+    "cs_diff_10": 3,
+    "kills_at_10": 1,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Drakehero",
+    "champion": "Maokai",
+    "result": "win",
+    "cs_diff_10": 3,
+    "kills_at_10": 1,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Aegis",
+    "champion": "Skarner",
+    "result": "win",
+    "cs_diff_10": 7,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Ranger",
+    "champion": "Maokai",
+    "result": "win",
+    "cs_diff_10": 2,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Anato",
+    "champion": "Nocturne",
+    "result": "win",
+    "cs_diff_10": 6,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Levizin",
+    "champion": "Vi",
+    "result": "loss",
+    "cs_diff_10": -6,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Randal",
+    "champion": "Naafiri",
+    "result": "win",
+    "cs_diff_10": 3,
+    "kills_at_10": 1,
+    "assists_at_10": 0
+  },
+  {
+    "player": "juny",
+    "champion": "Briar",
+    "result": "loss",
+    "cs_diff_10": -3,
+    "kills_at_10": 1,
+    "assists_at_10": 2
+  },
+  {
+    "player": "LOS Aegis",
+    "champion": "Trundle",
+    "result": "win",
+    "cs_diff_10": 1,
+    "kills_at_10": 1,
+    "assists_at_10": 0
+  }
+]

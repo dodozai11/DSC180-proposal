@@ -1,0 +1,29 @@
+```python
+import json
+import re
+
+def q1(text):
+    data = json.loads(text)
+    
+    wins = [player['vision_score'] for player in data if player['result'] == 'win']
+    losses = [player['vision_score'] for player in data if player['result'] == 'loss']
+    
+    avg_wins = sum(wins) / len(wins) if wins else 0
+    avg_losses = sum(losses) / len(losses) if losses else 0
+    
+    return avg_wins - avg_losses
+
+def q2(text):
+    data = json.loads(text)
+    
+    max_wards_player = max(data, key=lambda x: x['wards_placed'])
+    
+    return max_wards_player['player']
+
+def q3(text):
+    data = json.loads(text)
+    
+    count = sum(1 for player in data if player['control_wards'] >= 15)
+    
+    return count
+```

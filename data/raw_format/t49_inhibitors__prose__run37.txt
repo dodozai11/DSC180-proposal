@@ -1,0 +1,47 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data and return a list of dictionaries."""
+    games = []
+    # Pattern to match game entries
+    pattern = r'In game (G\d+), (\w+(?:\s+\w+)*) (won|lost) after ([\d.]+) minutes, destroying (\d+) inhibitors and dealing (\d+) damage to towers\.'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, duration, inhibitors, tower_damage = match
+        games.append({
+            'game_id': game_id,
+            'team': team,
+            'result': result,
+            'duration': float(duration),
+            'inhibitors': int(inhibitors),
+            'tower_damage': int(tower_damage)
+        })
+    
+    return games
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    games = parse_data(text)
+    winning_inhibitors = [game['inhibitors'] for game in games if game['result'] == 'won']
+    return sum(winning_inhibitors) / len(winning_inhibitors) if winning_inhibitors else 0
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    games = parse_data(text)
+    losing_damage = [game['tower_damage'] for game in games if game['result'] == 'lost']
+    return sum(losing_damage) / len(losing_damage) if losing_damage else 0
+
+def q3(text):
+    """Return the game label of the longest game."""
+    games = parse_data(text)
+    # Group by game_id and get the maximum duration for each game
+    game_durations = {}
+    for game in games:
+        if game['game_id'] not in game_durations:
+            game_durations[game['game_id']] = game['duration']
+    
+    longest_game = max(game_durations.items(), key=lambda x: x[1])
+    return longest_game[0]
+```

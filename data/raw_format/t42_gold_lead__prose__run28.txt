@@ -1,0 +1,63 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    winning_gold_diffs = []
+    
+    # Find all game entries
+    pattern = r"In game (\w+), (.+?) played on the (blue|red) side and (won|lost), with a gold difference of (-?\d+) at 15 minutes\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, gold_diff = match
+        gold_diff = int(gold_diff)
+        
+        if result == "won":
+            winning_gold_diffs.append(gold_diff)
+    
+    if winning_gold_diffs:
+        return sum(winning_gold_diffs) / len(winning_gold_diffs)
+    return 0
+
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    count = 0
+    
+    # Find all game entries
+    pattern = r"In game (\w+), (.+?) played on the (blue|red) side and (won|lost), with a gold difference of (-?\d+) at 15 minutes\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, gold_diff = match
+        gold_diff = int(gold_diff)
+        
+        if result == "won" and gold_diff < 0:
+            count += 1
+    
+    return count
+
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    ahead_count = 0
+    ahead_wins = 0
+    
+    # Find all game entries
+    pattern = r"In game (\w+), (.+?) played on the (blue|red) side and (won|lost), with a gold difference of (-?\d+) at 15 minutes\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, gold_diff = match
+        gold_diff = int(gold_diff)
+        
+        if gold_diff > 0:  # Team was ahead in gold
+            ahead_count += 1
+            if result == "won":
+                ahead_wins += 1
+    
+    if ahead_count == 0:
+        return 0
+    return ahead_wins / ahead_count
+```

@@ -1,0 +1,22 @@
+| game | team | result | first_dragon | dragons | barons | towers |
+|---|---|---|---|---|---|---|
+| G01 | GiantX | loss | yes | 1 | 1 | 5 |
+| G01 | Movistar KOI | win | no | 4 | 1 | 11 |
+| G02 | Movistar KOI | win | no | 4 | 1 | 8 |
+| G02 | GiantX | loss | yes | 1 | 0 | 1 |
+| G03 | Karmine Corp | win | yes | 5 | 1 | 10 |
+| G03 | Fnatic | loss | no | 1 | 0 | 3 |
+| G04 | Movistar KOI | win | yes | 4 | 2 | 9 |
+| G04 | Fnatic | loss | no | 4 | 2 | 9 |
+| G05 | SK Gaming | loss | yes | 2 | 0 | 2 |
+| G05 | Team Vitality | win | no | 3 | 1 | 9 |
+| G06 | Team Heretics | loss | no | 0 | 0 | 2 |
+| G06 | GiantX | win | yes | 4 | 1 | 11 |
+| G07 | Team Heretics | loss | no | 1 | 0 | 3 |
+| G07 | GiantX | win | yes | 3 | 1 | 9 |
+| G08 | GiantX | loss | yes | 2 | 1 | 5 |
+| G08 | Karmine Corp | win | no | 4 | 1 | 11 |
+| G09 | Team Heretics | loss | no | 2 | 0 | 3 |
+| G09 | Team Vitality | win | yes | 3 | 1 | 12 |
+| G10 | Movistar KOI | loss | no | 1 | 0 | 1 |
+| G10 | G2 Esports | win | yes | 3 | 1 | 11 |

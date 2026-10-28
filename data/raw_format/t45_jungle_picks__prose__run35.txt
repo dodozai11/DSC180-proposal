@@ -1,0 +1,70 @@
+```python
+def q1(text):
+    """Return the number of different champions played."""
+    champions = set()
+    for line in text.strip().split('. '):
+        if ' played ' in line:
+            parts = line.split(' played ')
+            if len(parts) >= 2:
+                champion_part = parts[1].split(' in the ')[0]
+                champions.add(champion_part)
+    return len(champions)
+
+
+def q2(text):
+    """Return the champion with the best win rate among champions played at least twice."""
+    champion_stats = {}
+    
+    for line in text.strip().split('. '):
+        if ' played ' in line:
+            parts = line.split(' played ')
+            if len(parts) >= 2:
+                champion_part = parts[1].split(' in the ')[0]
+                
+                # Determine if won or lost
+                won = ' won, ' in line
+                
+                if champion_part not in champion_stats:
+                    champion_stats[champion_part] = {'wins': 0, 'losses': 0}
+                
+                if won:
+                    champion_stats[champion_part]['wins'] += 1
+                else:
+                    champion_stats[champion_part]['losses'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats['wins'] + stats['losses'] >= 2
+    }
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        eligible_champions.items(),
+        key=lambda x: x[1]['wins'] / (x[1]['wins'] + x[1]['losses'])
+    )
+    
+    return best_champion[0]
+
+
+def q3(text):
+    """Return the average number of deaths in games that were lost."""
+    deaths_in_losses = []
+    
+    for line in text.strip().split('. '):
+        if ' played ' in line:
+            # Check if game was lost
+            if ' lost, dying ' in line:
+                # Extract deaths
+                deaths_part = line.split(' dying ')[-1]
+                deaths = int(deaths_part.split(' times')[0])
+                deaths_in_losses.append(deaths)
+    
+    if not deaths_in_losses:
+        return 0
+    
+    return sum(deaths_in_losses) / len(deaths_in_losses)
+```

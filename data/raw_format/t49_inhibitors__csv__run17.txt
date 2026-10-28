@@ -1,0 +1,57 @@
+```python
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    inhibitors_idx = header.index('inhibitors')
+    result_idx = header.index('result')
+    
+    winning_inhibitors = []
+    for line in lines[1:]:
+        parts = line.split(',')
+        if parts[result_idx].strip() == 'win':
+            winning_inhibitors.append(int(parts[inhibitors_idx]))
+    
+    return sum(winning_inhibitors) / len(winning_inhibitors) if winning_inhibitors else 0
+
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    tower_damage_idx = header.index('tower_damage')
+    result_idx = header.index('result')
+    
+    losing_tower_damage = []
+    for line in lines[1:]:
+        parts = line.split(',')
+        if parts[result_idx].strip() == 'loss':
+            losing_tower_damage.append(int(parts[tower_damage_idx]))
+    
+    return sum(losing_tower_damage) / len(losing_tower_damage) if losing_tower_damage else 0
+
+
+def q3(text):
+    """Return the game label of the longest game."""
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    game_idx = header.index('game')
+    game_minutes_idx = header.index('game_minutes')
+    
+    max_game = None
+    max_minutes = -1
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        game_label = parts[game_idx].strip()
+        minutes = float(parts[game_minutes_idx])
+        
+        if minutes > max_minutes:
+            max_minutes = minutes
+            max_game = game_label
+    
+    return max_game
+```

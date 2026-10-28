@@ -1,0 +1,58 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    for match in re.finditer(r'<champion>([^<]+)</champion>', text):
+        champions.add(match.group(1))
+    return len(champions)
+
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'losses': 0})
+    
+    # Parse all rows
+    for match in re.finditer(r'<champion>([^<]+)</champion>.*?<result>([^<]+)</result>', text):
+        champion = match.group(1)
+        result = match.group(2)
+        
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+        else:
+            champion_stats[champion]['losses'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {}
+    for champion, stats in champion_stats.items():
+        total_games = stats['wins'] + stats['losses']
+        if total_games >= 2:
+            win_rate = stats['wins'] / total_games
+            eligible_champions[champion] = win_rate
+    
+    if not eligible_champions:
+        return None
+    
+    # Return champion with best win rate
+    return max(eligible_champions, key=eligible_champions.get)
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    losses_deaths = []
+    
+    # Parse all rows
+    for match in re.finditer(r'<result>([^<]+)</result>.*?<deaths>([^<]+)</deaths>', text):
+        result = match.group(1)
+        deaths = int(match.group(2))
+        
+        if result == 'loss':
+            losses_deaths.append(deaths)
+    
+    if not losses_deaths:
+        return 0
+    
+    return sum(losses_deaths) / len(losses_deaths)
+```

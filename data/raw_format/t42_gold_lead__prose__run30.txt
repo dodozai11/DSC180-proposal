@@ -1,0 +1,51 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    matches = []
+    pattern = r"In game (\w+), (.+?) played on the (\w+) side and (\w+), with a gold difference of ([-\d]+) at 15 minutes\."
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team = match.group(2)
+        side = match.group(3)
+        result = match.group(4)
+        gold_diff = int(match.group(5))
+        
+        matches.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'won': result == 'won',
+            'gold_diff': gold_diff
+        })
+    
+    return matches
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    matches = parse_data(text)
+    winning_teams = [m['gold_diff'] for m in matches if m['won']]
+    
+    if not winning_teams:
+        return 0
+    
+    return sum(winning_teams) / len(winning_teams)
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    matches = parse_data(text)
+    return sum(1 for m in matches if m['won'] and m['gold_diff'] < 0)
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    matches = parse_data(text)
+    ahead_teams = [m for m in matches if m['gold_diff'] > 0]
+    
+    if not ahead_teams:
+        return 0
+    
+    wins = sum(1 for m in ahead_teams if m['won'])
+    return wins / len(ahead_teams)
+```

@@ -1,0 +1,58 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0]
+    rows = [line for line in lines[1:] if line.strip()]
+    
+    positive_cs_diff_wins = 0
+    positive_cs_diff_total = 0
+    
+    for row in rows:
+        parts = row.split(',')
+        cs_diff_10 = int(parts[3])
+        result = parts[2]
+        
+        if cs_diff_10 > 0:
+            positive_cs_diff_total += 1
+            if result == 'win':
+                positive_cs_diff_wins += 1
+    
+    if positive_cs_diff_total == 0:
+        return 0
+    
+    return positive_cs_diff_wins / positive_cs_diff_total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    rows = [line for line in lines[1:] if line.strip()]
+    
+    total_kills = 0
+    
+    for row in rows:
+        parts = row.split(',')
+        kills_at_10 = int(parts[4])
+        total_kills += kills_at_10
+    
+    return total_kills
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    rows = [line for line in lines[1:] if line.strip()]
+    
+    champion_assists = {}
+    
+    for row in rows:
+        parts = row.split(',')
+        champion = parts[1]
+        assists_at_10 = int(parts[5])
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += assists_at_10
+    
+    max_champion = max(champion_assists, key=champion_assists.get)
+    
+    return max_champion
+```

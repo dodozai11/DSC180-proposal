@@ -1,0 +1,22 @@
+<rows>
+  <row><player>shibi</player><champion>Xin Zhao</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>Zubac</player><champion>Skarner</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>Velja</player><champion>Ivern</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>Mafro</player><champion>Maokai</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Anonymouss</player><champion>Viego</champion><result>loss</result><deaths>2</deaths></row>
+  <row><player>Afroboi</player><champion>Ivern</champion><result>loss</result><deaths>4</deaths></row>
+  <row><player>ISMA</player><champion>Maokai</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>Yukino</player><champion>Xin Zhao</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Kireas</player><champion>Wukong</champion><result>loss</result><deaths>6</deaths></row>
+  <row><player>Own3r</player><champion>Naafiri</champion><result>loss</result><deaths>2</deaths></row>
+  <row><player>Jankos</player><champion>Jarvan IV</champion><result>win</result><deaths>1</deaths></row>
+  <row><player>Goliah</player><champion>Sejuani</champion><result>loss</result><deaths>4</deaths></row>
+  <row><player>Dean</player><champion>Xin Zhao</champion><result>loss</result><deaths>5</deaths></row>
+  <row><player>Oguzkhan</player><champion>Nocturne</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Fragola</player><champion>Brand</champion><result>loss</result><deaths>2</deaths></row>
+  <row><player>Djoko</player><champion>Jarvan IV</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>Closer</player><champion>Xin Zhao</champion><result>win</result><deaths>2</deaths></row>
+  <row><player>Eckas</player><champion>Xin Zhao</champion><result>win</result><deaths>0</deaths></row>
+  <row><player>113</player><champion>Qiyana</champion><result>win</result><deaths>3</deaths></row>
+  <row><player>Silk</player><champion>Jarvan IV</champion><result>loss</result><deaths>3</deaths></row>
+</rows>

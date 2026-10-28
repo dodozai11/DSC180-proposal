@@ -1,0 +1,71 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    wins = []
+    losses = []
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        player = cells[0]
+        team = cells[1]
+        result = cells[2]
+        vision_score = float(cells[3])
+        
+        if result == 'win':
+            wins.append(vision_score)
+        else:
+            losses.append(vision_score)
+    
+    avg_wins = sum(wins) / len(wins) if wins else 0
+    avg_losses = sum(losses) / len(losses) if losses else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        player = cells[0]
+        wards_placed = int(cells[4])
+        
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    
+    count = 0
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        control_wards = int(cells[5])
+        
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

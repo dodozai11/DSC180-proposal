@@ -1,0 +1,76 @@
+```python
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    
+    winning_gold_diffs = []
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) < 5:
+            continue
+        
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if result == 'win':
+            winning_gold_diffs.append(gold_diff)
+    
+    if not winning_gold_diffs:
+        return 0
+    
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    lines = text.strip().split('\n')
+    
+    count = 0
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) < 5:
+            continue
+        
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if result == 'win' and gold_diff < 0:
+            count += 1
+    
+    return count
+
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    lines = text.strip().split('\n')
+    
+    ahead_count = 0
+    ahead_wins = 0
+    
+    for line in lines[2:]:
+        if not line.strip():
+            continue
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) < 5:
+            continue
+        
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if gold_diff > 0:
+            ahead_count += 1
+            if result == 'win':
+                ahead_wins += 1
+    
+    if ahead_count == 0:
+        return 0
+    
+    return ahead_wins / ahead_count
+```

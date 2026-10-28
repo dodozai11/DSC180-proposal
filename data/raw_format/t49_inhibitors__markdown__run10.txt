@@ -1,0 +1,43 @@
+```python
+def parse_data(text):
+    """Parse the data from text format into a list of dictionaries."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    data = []
+    for line in lines[2:]:
+        if line.strip():
+            values = line.split('|')[1:-1]
+            values = [v.strip() for v in values]
+            row = {}
+            for i, col in enumerate(header):
+                if col in ['game_minutes', 'inhibitors', 'tower_damage']:
+                    row[col] = float(values[i])
+                else:
+                    row[col] = values[i]
+            data.append(row)
+    
+    return data
+
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    data = parse_data(text)
+    winning_inhibitors = [row['inhibitors'] for row in data if row['result'] == 'win']
+    return sum(winning_inhibitors) / len(winning_inhibitors)
+
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    data = parse_data(text)
+    losing_damage = [row['tower_damage'] for row in data if row['result'] == 'loss']
+    return sum(losing_damage) / len(losing_damage)
+
+
+def q3(text):
+    """Return the game label of the longest game."""
+    data = parse_data(text)
+    longest_game = max(data, key=lambda row: row['game_minutes'])
+    return longest_game['game']
+```

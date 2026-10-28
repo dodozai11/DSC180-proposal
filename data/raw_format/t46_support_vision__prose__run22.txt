@@ -1,0 +1,51 @@
+```python
+import re
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    players = parse_players(text)
+    
+    winners = [p for p in players if p['result'] == 'won']
+    losers = [p for p in players if p['result'] == 'lost']
+    
+    avg_winner_vision = sum(p['vision_score'] for p in winners) / len(winners)
+    avg_loser_vision = sum(p['vision_score'] for p in losers) / len(losers)
+    
+    return avg_winner_vision - avg_loser_vision
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    players = parse_players(text)
+    return max(players, key=lambda p: p['wards_placed'])['name']
+
+
+def q3(text):
+    """Return the count of players who bought at least 15 control wards."""
+    players = parse_players(text)
+    return sum(1 for p in players if p['control_wards_bought'] >= 15)
+
+
+def parse_players(text):
+    """Parse player data from the text format."""
+    players = []
+    
+    # Pattern to match each player entry
+    # Example: "J3rkie of ZennIT lost with a vision score of 80, 44 wards placed and 12 control wards bought."
+    pattern = r"(\w+) of (.+?) (won|lost) with a vision score of (\d+), (\d+) wards placed and (\d+) control wards bought\."
+    
+    matches = re.finditer(pattern, text)
+    
+    for match in matches:
+        player = {
+            'name': match.group(1),
+            'team': match.group(2),
+            'result': match.group(3),
+            'vision_score': int(match.group(4)),
+            'wards_placed': int(match.group(5)),
+            'control_wards_bought': int(match.group(6))
+        }
+        players.append(player)
+    
+    return players
+```

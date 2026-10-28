@@ -1,0 +1,56 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:]]
+    
+    max_kda = -1
+    best_player = None
+    
+    for row in rows:
+        player = row[0].strip()
+        kills = int(row[3].strip())
+        deaths = int(row[4].strip())
+        assists = int(row[5].strip())
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:]]
+    
+    total_kills = 0
+    win_count = 0
+    
+    for row in rows:
+        kills = int(row[3].strip())
+        result = row[6].strip()
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    return total_kills / win_count if win_count > 0 else 0
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:]]
+    
+    champion_counts = {}
+    
+    for row in rows:
+        champion = row[2].strip()
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    return max(champion_counts, key=champion_counts.get)
+```

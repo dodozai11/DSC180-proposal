@@ -1,0 +1,58 @@
+```python
+import re
+from xml.etree import ElementTree as ET
+
+def parse_data(text):
+    """Parse the XML-like data and return a list of dictionaries."""
+    rows = []
+    # Find all row elements
+    row_pattern = r'<row>(.*?)</row>'
+    row_matches = re.findall(row_pattern, text, re.DOTALL)
+    
+    for row_content in row_matches:
+        row_data = {}
+        # Extract each field
+        fields = ['player', 'team', 'result', 'vision_score', 'wards_placed', 'control_wards']
+        for field in fields:
+            pattern = f'<{field}>(.*?)</{field}>'
+            match = re.search(pattern, row_content)
+            if match:
+                value = match.group(1)
+                # Convert numeric fields
+                if field in ['vision_score', 'wards_placed', 'control_wards']:
+                    row_data[field] = int(value)
+                else:
+                    row_data[field] = value
+        rows.append(row_data)
+    
+    return rows
+
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    rows = parse_data(text)
+    
+    winners = [row['vision_score'] for row in rows if row['result'] == 'win']
+    losers = [row['vision_score'] for row in rows if row['result'] == 'loss']
+    
+    avg_winners = sum(winners) / len(winners) if winners else 0
+    avg_losers = sum(losers) / len(losers) if losers else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    rows = parse_data(text)
+    
+    max_player = max(rows, key=lambda row: row['wards_placed'])
+    return max_player['player']
+
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    rows = parse_data(text)
+    
+    count = sum(1 for row in rows if row['control_wards'] >= 15)
+    return count
+```

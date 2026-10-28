@@ -1,0 +1,70 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    first_tower_teams = []
+    
+    # Parse all matches
+    matches = re.findall(
+        r"In game (\w+), (.+?) (won|lost); they (did not take|took) the first tower",
+        text
+    )
+    
+    for game_id, team_name, result, tower_status in matches:
+        took_first_tower = tower_status == "took"
+        won = result == "won"
+        
+        if took_first_tower:
+            first_tower_teams.append(won)
+    
+    if len(first_tower_teams) == 0:
+        return 0
+    
+    win_rate = sum(first_tower_teams) / len(first_tower_teams)
+    return win_rate
+
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    winning_teams_grubs = []
+    
+    # Parse all matches with void grubs count
+    matches = re.findall(
+        r"In game (\w+), (.+?) (won|lost); they (?:did not take|took) the first tower and finished with (\d+) void grubs",
+        text
+    )
+    
+    for game_id, team_name, result, void_grubs in matches:
+        won = result == "won"
+        void_grubs_count = int(void_grubs)
+        
+        if won:
+            winning_teams_grubs.append(void_grubs_count)
+    
+    if len(winning_teams_grubs) == 0:
+        return 0
+    
+    average = sum(winning_teams_grubs) / len(winning_teams_grubs)
+    return average
+
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    lost_with_herald = 0
+    
+    # Parse all matches with herald count
+    matches = re.findall(
+        r"In game (\w+), (.+?) (won|lost); they (?:did not take|took) the first tower and finished with \d+ void grubs and (\d+) heralds",
+        text
+    )
+    
+    for game_id, team_name, result, heralds in matches:
+        lost = result == "lost"
+        heralds_count = int(heralds)
+        
+        if lost and heralds_count >= 1:
+            lost_with_herald += 1
+    
+    return lost_with_herald
+```
