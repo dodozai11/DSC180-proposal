@@ -1,0 +1,53 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')
+    headers = [h.strip() for h in headers if h.strip()]
+    
+    data = []
+    for line in lines[2:]:
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        if len(cells) == len(headers):
+            data.append(dict(zip(headers, cells)))
+    
+    wins = [float(row['vision_score']) for row in data if row['result'] == 'win']
+    losses = [float(row['vision_score']) for row in data if row['result'] == 'loss']
+    
+    avg_wins = sum(wins) / len(wins) if wins else 0
+    avg_losses = sum(losses) / len(losses) if losses else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')
+    headers = [h.strip() for h in headers if h.strip()]
+    
+    data = []
+    for line in lines[2:]:
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        if len(cells) == len(headers):
+            data.append(dict(zip(headers, cells)))
+    
+    max_wards_player = max(data, key=lambda row: int(row['wards_placed']))
+    return max_wards_player['player']
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')
+    headers = [h.strip() for h in headers if h.strip()]
+    
+    data = []
+    for line in lines[2:]:
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        if len(cells) == len(headers):
+            data.append(dict(zip(headers, cells)))
+    
+    count = sum(1 for row in data if int(row['control_wards']) >= 15)
+    return count
+```

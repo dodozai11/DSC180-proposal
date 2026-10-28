@@ -1,0 +1,62 @@
+```python
+import re
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    winner_scores = []
+    loser_scores = []
+    
+    # Pattern to match: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r"(\w+) of .+ (won|lost) with a vision score of (\d+)"
+    
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        player_name, result, vision_score = match
+        vision_score = int(vision_score)
+        
+        if result == "won":
+            winner_scores.append(vision_score)
+        else:
+            loser_scores.append(vision_score)
+    
+    avg_winners = sum(winner_scores) / len(winner_scores) if winner_scores else 0
+    avg_losers = sum(loser_scores) / len(loser_scores) if loser_scores else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    # Pattern to match: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r"(\w+) of .+ (?:won|lost) with a vision score of \d+, (\d+) wards placed"
+    
+    matches = re.findall(pattern, text)
+    
+    max_wards = -1
+    max_player = None
+    
+    for player_name, wards_placed in matches:
+        wards_placed = int(wards_placed)
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player_name
+    
+    return max_player
+
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    # Pattern to match: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r"(\w+) of .+ (?:won|lost) with a vision score of \d+, \d+ wards placed and (\d+) control wards bought"
+    
+    matches = re.findall(pattern, text)
+    
+    count = 0
+    for player_name, control_wards in matches:
+        control_wards = int(control_wards)
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

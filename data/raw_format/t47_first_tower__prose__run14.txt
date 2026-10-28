@@ -1,0 +1,66 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first tower."""
+    first_tower_games = []
+    
+    # Parse all games
+    game_pattern = r'In game (\w+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds'
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        took_first_tower = tower_status == "took"
+        won = result == "won"
+        
+        if took_first_tower:
+            first_tower_games.append(won)
+    
+    if len(first_tower_games) == 0:
+        return 0
+    
+    win_rate = sum(first_tower_games) / len(first_tower_games)
+    return win_rate
+
+
+def q2(text):
+    """Returns the average number of void grubs taken by winning teams."""
+    winning_teams_void_grubs = []
+    
+    # Parse all games
+    game_pattern = r'In game (\w+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds'
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        won = result == "won"
+        
+        if won:
+            winning_teams_void_grubs.append(int(void_grubs))
+    
+    if len(winning_teams_void_grubs) == 0:
+        return 0
+    
+    average = sum(winning_teams_void_grubs) / len(winning_teams_void_grubs)
+    return average
+
+
+def q3(text):
+    """Returns how many teams took at least one herald and still lost."""
+    count = 0
+    
+    # Parse all games
+    game_pattern = r'In game (\w+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds'
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        lost = result == "lost"
+        has_herald = int(heralds) >= 1
+        
+        if lost and has_herald:
+            count += 1
+    
+    return count
+```

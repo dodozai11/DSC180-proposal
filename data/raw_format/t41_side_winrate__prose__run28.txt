@@ -1,0 +1,60 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse the text data into structured format."""
+    games = []
+    pattern = r"In game (\w+), (.+?) played on the (\w+) side and (\w+); the game lasted ([\d.]+) minutes\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, duration = match
+        games.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'result': result,
+            'duration': float(duration)
+        })
+    
+    return games
+
+def q1(text):
+    """Return the win rate of blue-side teams."""
+    games = parse_data(text)
+    
+    blue_games = [g for g in games if g['side'] == 'blue']
+    blue_wins = [g for g in blue_games if g['result'] == 'won']
+    
+    if len(blue_games) == 0:
+        return 0
+    
+    return len(blue_wins) / len(blue_games)
+
+def q2(text):
+    """Return the average length in minutes of games won by red-side team."""
+    games = parse_data(text)
+    
+    red_wins = [g for g in games if g['side'] == 'red' and g['result'] == 'won']
+    
+    if len(red_wins) == 0:
+        return 0
+    
+    total_duration = sum(g['duration'] for g in red_wins)
+    return total_duration / len(red_wins)
+
+def q3(text):
+    """Return the name of the team with the most wins."""
+    games = parse_data(text)
+    
+    wins = defaultdict(int)
+    for g in games:
+        if g['result'] == 'won':
+            wins[g['team']] += 1
+    
+    if not wins:
+        return None
+    
+    return max(wins, key=wins.get)
+```

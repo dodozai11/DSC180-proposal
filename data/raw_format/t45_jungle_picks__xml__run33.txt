@@ -1,0 +1,51 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set(re.findall(r'<champion>([^<]+)</champion>', text))
+    return len(champions)
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    # Extract all champion, result pairs
+    matches = re.findall(r'<champion>([^<]+)</champion>.*?<result>([^<]+)</result>', text)
+    
+    # Count wins and total games per champion
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    for champion, result in matches:
+        champion_stats[champion]['total'] += 1
+        if result == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats['total'] >= 2
+    }
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        eligible_champions.items(),
+        key=lambda x: x[1]['wins'] / x[1]['total']
+    )[0]
+    
+    return best_champion
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    # Extract all result, deaths pairs
+    matches = re.findall(r'<result>([^<]+)</result>.*?<deaths>([^<]+)</deaths>', text)
+    
+    # Filter for losses and collect death counts
+    losses = [int(deaths) for result, deaths in matches if result == 'loss']
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

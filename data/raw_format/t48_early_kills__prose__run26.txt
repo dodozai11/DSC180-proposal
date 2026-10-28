@@ -1,0 +1,52 @@
+```python
+import re
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    red_kills = []
+    
+    # Find all red-side team entries
+    pattern = r'played on the red side and \w+, with (\d+) kills'
+    matches = re.findall(pattern, text)
+    
+    red_kills = [int(match) for match in matches]
+    
+    if len(red_kills) == 0:
+        return 0
+    
+    return sum(red_kills) / len(red_kills)
+
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    max_exp_diff = float('-inf')
+    team_with_max_exp = None
+    
+    # Find all team entries with their experience difference
+    pattern = r'(\w+(?:\s+\w+)*) played on the (?:blue|red) side and \w+, with \d+ kills and an experience difference of (-?\d+) at 15 minutes'
+    matches = re.findall(pattern, text)
+    
+    for team_name, exp_diff in matches:
+        exp_diff = int(exp_diff)
+        if exp_diff > max_exp_diff:
+            max_exp_diff = exp_diff
+            team_with_max_exp = team_name
+    
+    return team_with_max_exp
+
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    count = 0
+    
+    # Find all team entries with their result and experience difference
+    pattern = r'(\w+(?:\s+\w+)*) played on the (?:blue|red) side and (won|lost), with \d+ kills and an experience difference of (-?\d+) at 15 minutes'
+    matches = re.findall(pattern, text)
+    
+    for team_name, result, exp_diff in matches:
+        exp_diff = int(exp_diff)
+        if result == 'won' and exp_diff < 0:
+            count += 1
+    
+    return count
+```

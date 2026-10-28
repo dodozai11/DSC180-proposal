@@ -1,0 +1,61 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    lines = text.strip().split('\n')
+    
+    positive_cs_players = []
+    
+    for line in lines:
+        # Parse player data
+        match = re.search(r'(\w+) played (\w+) .* (won|lost); at 10 minutes they had a CS difference of (-?\d+), (\d+) kills and (\d+) assists', line)
+        if match:
+            player_name = match.group(1)
+            champion = match.group(2)
+            result = match.group(3)
+            cs_diff = int(match.group(4))
+            kills = int(match.group(5))
+            assists = int(match.group(6))
+            
+            if cs_diff > 0:
+                positive_cs_players.append(result == 'won')
+    
+    if not positive_cs_players:
+        return 0.0
+    
+    wins = sum(positive_cs_players)
+    return wins / len(positive_cs_players)
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    lines = text.strip().split('\n')
+    
+    total_kills = 0
+    
+    for line in lines:
+        match = re.search(r'(\w+) played (\w+) .* (won|lost); at 10 minutes they had a CS difference of (-?\d+), (\d+) kills and (\d+) assists', line)
+        if match:
+            kills = int(match.group(5))
+            total_kills += kills
+    
+    return total_kills
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    lines = text.strip().split('\n')
+    
+    champion_assists = {}
+    
+    for line in lines:
+        match = re.search(r'(\w+) played (\w+) .* (won|lost); at 10 minutes they had a CS difference of (-?\d+), (\d+) kills and (\d+) assists', line)
+        if match:
+            champion = match.group(2)
+            assists = int(match.group(6))
+            
+            if champion not in champion_assists:
+                champion_assists[champion] = 0
+            champion_assists[champion] += assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,78 @@
+```python
+import re
+from collections import Counter
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    lines = text.strip().split('. ')
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in lines:
+        # Parse: "Name of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.match(
+            r'(\w+) of .+ played .+ in .+ and (?:won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists',
+            line
+        )
+        if match:
+            player_name = match.group(1)
+            kills = int(match.group(2))
+            deaths = int(match.group(3))
+            assists = int(match.group(4))
+            
+            kda = (kills + assists) / max(deaths, 1)
+            
+            if kda > max_kda:
+                max_kda = kda
+                best_player = player_name
+    
+    return best_player
+
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    lines = text.strip().split('. ')
+    
+    won_kills = []
+    
+    for line in lines:
+        # Parse: "Name of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.match(
+            r'(\w+) of .+ played .+ in .+ and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists',
+            line
+        )
+        if match:
+            result = match.group(2)
+            kills = int(match.group(3))
+            
+            if result == 'won':
+                won_kills.append(kills)
+    
+    if won_kills:
+        return sum(won_kills) / len(won_kills)
+    return 0
+
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    lines = text.strip().split('. ')
+    
+    champions = []
+    
+    for line in lines:
+        # Parse: "Name of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.match(
+            r'(\w+) of .+ played (.+) in .+ and (?:won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists',
+            line
+        )
+        if match:
+            champion = match.group(2)
+            champions.append(champion)
+    
+    if champions:
+        counter = Counter(champions)
+        most_common = counter.most_common(1)[0][0]
+        return most_common
+    return None
+```

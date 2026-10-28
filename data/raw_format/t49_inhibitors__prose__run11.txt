@@ -1,0 +1,56 @@
+import re
+
+def q1(text):
+    """Returns the average number of inhibitors destroyed by winning teams."""
+    winning_inhibitors = []
+    
+    # Find all matches with the pattern: team won after time, destroying X inhibitors
+    pattern = r'(\w+(?:\s+\w+)*)\s+won\s+after\s+([\d.]+)\s+minutes,\s+destroying\s+(\d+)\s+inhibitors'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        inhibitors = int(match[2])
+        winning_inhibitors.append(inhibitors)
+    
+    if not winning_inhibitors:
+        return 0
+    
+    return sum(winning_inhibitors) / len(winning_inhibitors)
+
+
+def q2(text):
+    """Returns the average damage to towers of losing teams."""
+    losing_damage = []
+    
+    # Find all matches with the pattern: team lost after time, destroying X inhibitors and dealing Y damage
+    pattern = r'(\w+(?:\s+\w+)*)\s+lost\s+after\s+([\d.]+)\s+minutes,\s+destroying\s+(\d+)\s+inhibitors\s+and\s+dealing\s+(\d+)\s+damage'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        damage = int(match[3])
+        losing_damage.append(damage)
+    
+    if not losing_damage:
+        return 0
+    
+    return sum(losing_damage) / len(losing_damage)
+
+
+def q3(text):
+    """Returns the game label of the longest game."""
+    longest_game = None
+    longest_duration = -1
+    
+    # Find all matches with game label and duration
+    pattern = r'In game (G\d+),.*?after\s+([\d.]+)\s+minutes'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_label = match[0]
+        duration = float(match[1])
+        
+        if duration > longest_duration:
+            longest_duration = duration
+            longest_game = game_label
+    
+    return longest_game

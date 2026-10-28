@@ -1,0 +1,22 @@
+```python
+import re
+from xml.etree import ElementTree as ET
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    losses = [float(row.find('damage_per_min').text) for row in root.findall('row') if row.find('result').text == 'loss']
+    return sum(losses) / len(losses) if losses else 0
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    max_player = max(root.findall('row'), key=lambda row: float(row.find('damage_taken_per_min').text))
+    return max_player.find('player').text
+
+def q3(text):
+    """Return the number of different teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    teams = set(row.find('team').text for row in root.findall('row'))
+    return len(teams)
+```

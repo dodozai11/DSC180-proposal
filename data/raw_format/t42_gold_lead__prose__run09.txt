@@ -1,0 +1,52 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of dictionaries."""
+    matches = []
+    # Pattern to match each game entry
+    pattern = r"In game (\w+), ([^,]+) played on the (\w+) side and (\w+), with a gold difference of ([+-]?\d+) at 15 minutes\."
+    
+    for match in re.finditer(pattern, text):
+        game_id, team, side, result, gold_diff = match.groups()
+        matches.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'result': result,
+            'gold_diff': int(gold_diff),
+            'won': result == 'won'
+        })
+    
+    return matches
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    matches = parse_data(text)
+    winning_teams = [m['gold_diff'] for m in matches if m['won']]
+    
+    if not winning_teams:
+        return 0
+    
+    return sum(winning_teams) / len(winning_teams)
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    matches = parse_data(text)
+    won_with_negative = sum(1 for m in matches if m['won'] and m['gold_diff'] < 0)
+    
+    return won_with_negative
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    matches = parse_data(text)
+    ahead_in_gold = [m for m in matches if m['gold_diff'] > 0]
+    
+    if not ahead_in_gold:
+        return 0
+    
+    wins = sum(1 for m in ahead_in_gold if m['won'])
+    win_rate = wins / len(ahead_in_gold)
+    
+    return win_rate
+```

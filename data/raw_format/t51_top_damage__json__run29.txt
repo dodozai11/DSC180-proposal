@@ -1,0 +1,24 @@
+```python
+import json
+import re
+
+
+def q1(text):
+    """Returns the average damage per minute of players who lost."""
+    data = json.loads(text)
+    losses = [player["damage_per_min"] for player in data if player["result"] == "loss"]
+    return sum(losses) / len(losses) if losses else 0
+
+
+def q2(text):
+    """Returns the name of the player who took the most damage per minute."""
+    data = json.loads(text)
+    return max(data, key=lambda player: player["damage_taken_per_min"])["player"]
+
+
+def q3(text):
+    """Returns the number of different teams."""
+    data = json.loads(text)
+    teams = set(player["team"] for player in data)
+    return len(teams)
+```

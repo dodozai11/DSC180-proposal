@@ -1,0 +1,52 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    players = []
+    # Pattern to match: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r"(\w+) of (.+?) (won|lost) with a vision score of (\d+), (\d+) wards placed and (\d+) control wards bought\."
+    
+    matches = re.findall(pattern, text)
+    for match in matches:
+        name, team, result, vision_score, wards_placed, control_wards = match
+        players.append({
+            'name': name,
+            'team': team,
+            'result': result,
+            'vision_score': int(vision_score),
+            'wards_placed': int(wards_placed),
+            'control_wards': int(control_wards)
+        })
+    
+    return players
+
+
+def q1(text):
+    """Return the average vision score of players who won minus the average vision score of players who lost."""
+    players = parse_data(text)
+    
+    winners = [p for p in players if p['result'] == 'won']
+    losers = [p for p in players if p['result'] == 'lost']
+    
+    avg_winner_vision = sum(p['vision_score'] for p in winners) / len(winners) if winners else 0
+    avg_loser_vision = sum(p['vision_score'] for p in losers) / len(losers) if losers else 0
+    
+    return avg_winner_vision - avg_loser_vision
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    players = parse_data(text)
+    
+    max_player = max(players, key=lambda p: p['wards_placed'])
+    return max_player['name']
+
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    players = parse_data(text)
+    
+    count = sum(1 for p in players if p['control_wards'] >= 15)
+    return count
+```

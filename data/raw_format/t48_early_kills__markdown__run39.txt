@@ -1,0 +1,52 @@
+```python
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    red_kills = []
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 4:
+            side = parts[2]
+            kills_at_15 = parts[4]
+            if side == 'red':
+                red_kills.append(int(kills_at_15))
+    
+    return sum(red_kills) / len(red_kills) if red_kills else 0
+
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    max_xp_diff = float('-inf')
+    team_with_max = None
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 5:
+            team = parts[1]
+            xp_diff_15 = int(parts[5])
+            if xp_diff_15 > max_xp_diff:
+                max_xp_diff = xp_diff_15
+                team_with_max = team
+    
+    return team_with_max
+
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    count = 0
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 5:
+            result = parts[3]
+            xp_diff_15 = int(parts[5])
+            if result == 'win' and xp_diff_15 < 0:
+                count += 1
+    
+    return count
+```

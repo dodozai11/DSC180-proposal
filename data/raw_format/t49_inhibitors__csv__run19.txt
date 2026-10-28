@@ -1,0 +1,50 @@
+```python
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    winning_inhibitors = []
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[2]
+        inhibitors = int(parts[4])
+        
+        if result == 'win':
+            winning_inhibitors.append(inhibitors)
+    
+    return sum(winning_inhibitors) / len(winning_inhibitors) if winning_inhibitors else 0
+
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    losing_tower_damage = []
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[2]
+        tower_damage = int(parts[5])
+        
+        if result == 'loss':
+            losing_tower_damage.append(tower_damage)
+    
+    return sum(losing_tower_damage) / len(losing_tower_damage) if losing_tower_damage else 0
+
+
+def q3(text):
+    """Return the game label of the longest game."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    max_duration = -1
+    longest_game = None
+    
+    for line in lines:
+        parts = line.split(',')
+        game = parts[0]
+        game_minutes = float(parts[3])
+        
+        if game_minutes > max_duration:
+            max_duration = game_minutes
+            longest_game = game
+    
+    return longest_game
+```

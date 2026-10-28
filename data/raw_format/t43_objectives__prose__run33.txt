@@ -1,0 +1,100 @@
+```python
+import re
+
+def q1(text):
+    """Calculate win rate of teams that took the first dragon"""
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    # Find all game entries
+    games = re.findall(r'In game (\w+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\. In game \1, ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\.', text)
+    
+    # Alternative approach: parse line by line
+    lines = text.split('. In game ')
+    
+    game_data = []
+    for i, line in enumerate(lines):
+        if i == 0:
+            line = line.replace('In game ', '')
+        else:
+            line = line
+        
+        # Parse individual match records
+        matches = re.findall(r'(\w+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers', line)
+        for match in matches:
+            game_id, team, first_dragon, dragons, barons, towers = match
+            game_data.append({
+                'game': game_id,
+                'team': team,
+                'first_dragon': first_dragon == 'took',
+                'dragons': int(dragons),
+                'barons': int(barons),
+                'towers': int(towers)
+            })
+    
+    # Group by game to determine winners
+    games_dict = {}
+    for entry in game_data:
+        game = entry['game']
+        if game not in games_dict:
+            games_dict[game] = []
+        games_dict[game].append(entry)
+    
+    # Calculate win rate for first dragon teams
+    for game, teams in games_dict.items():
+        if len(teams) == 2:
+            # Determine winner (team with more towers, or other metric)
+            # Winner is the one marked as won in the text
+            pass
+    
+    # Re-parse to identify winners
+    pattern = r'In game (\w+), ([^;]+) won; they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\. In game \1, ([^;]+) lost; they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers'
+    
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, winner, winner_first_dragon, winner_dragons, winner_barons, winner_towers, loser, loser_first_dragon, loser_dragons, loser_barons, loser_towers = match
+        
+        if winner_first_dragon == 'took':
+            first_dragon_wins += 1
+            first_dragon_total += 1
+        if loser_first_dragon == 'took':
+            first_dragon_total += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    """Calculate average number of barons taken by winning teams"""
+    pattern = r'In game (\w+), ([^;]+) won; they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers'
+    
+    matches = re.findall(pattern, text)
+    
+    total_barons = 0
+    win_count = 0
+    
+    for match in matches:
+        game_id, winner, first_dragon, dragons, barons, towers = match
+        total_barons += int(barons)
+        win_count += 1
+    
+    if win_count == 0:
+        return 0
+    return total_barons / win_count
+
+
+def q3(text):
+    """Calculate total number of towers destroyed across all rows"""
+    pattern = r'finished with (\d+) dragons, (\d+) barons and (\d+) towers'
+    
+    matches = re.findall(pattern, text)
+    
+    total_towers = 0
+    for match in matches:
+        dragons, barons, towers = match
+        total_towers += int(towers)
+    
+    return total_towers
+```

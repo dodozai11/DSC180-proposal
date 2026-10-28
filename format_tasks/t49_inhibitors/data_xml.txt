@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>Disguised</team><result>win</result><game_minutes>32.1</game_minutes><inhibitors>3</inhibitors><tower_damage>32790</tower_damage></row>
+  <row><game>G01</game><team>Dignitas</team><result>loss</result><game_minutes>32.1</game_minutes><inhibitors>0</inhibitors><tower_damage>5600</tower_damage></row>
+  <row><game>G02</game><team>Team Liquid</team><result>win</result><game_minutes>41.5</game_minutes><inhibitors>1</inhibitors><tower_damage>22662</tower_damage></row>
+  <row><game>G02</game><team>100 Thieves</team><result>loss</result><game_minutes>41.5</game_minutes><inhibitors>2</inhibitors><tower_damage>23851</tower_damage></row>
+  <row><game>G03</game><team>Team Liquid</team><result>win</result><game_minutes>32.7</game_minutes><inhibitors>1</inhibitors><tower_damage>28006</tower_damage></row>
+  <row><game>G03</game><team>100 Thieves</team><result>loss</result><game_minutes>32.7</game_minutes><inhibitors>0</inhibitors><tower_damage>9153</tower_damage></row>
+  <row><game>G04</game><team>Cloud9</team><result>win</result><game_minutes>35.5</game_minutes><inhibitors>1</inhibitors><tower_damage>19830</tower_damage></row>
+  <row><game>G04</game><team>LYON</team><result>loss</result><game_minutes>35.5</game_minutes><inhibitors>2</inhibitors><tower_damage>24939</tower_damage></row>
+  <row><game>G05</game><team>100 Thieves</team><result>loss</result><game_minutes>39.8</game_minutes><inhibitors>0</inhibitors><tower_damage>11305</tower_damage></row>
+  <row><game>G05</game><team>Shopify Rebellion</team><result>win</result><game_minutes>39.8</game_minutes><inhibitors>1</inhibitors><tower_damage>18912</tower_damage></row>
+  <row><game>G06</game><team>Cloud9</team><result>win</result><game_minutes>29.1</game_minutes><inhibitors>1</inhibitors><tower_damage>26218</tower_damage></row>
+  <row><game>G06</game><team>LYON</team><result>loss</result><game_minutes>29.1</game_minutes><inhibitors>0</inhibitors><tower_damage>6965</tower_damage></row>
+  <row><game>G07</game><team>Disguised</team><result>loss</result><game_minutes>28.0</game_minutes><inhibitors>0</inhibitors><tower_damage>6238</tower_damage></row>
+  <row><game>G07</game><team>Cloud9</team><result>win</result><game_minutes>28.0</game_minutes><inhibitors>1</inhibitors><tower_damage>21741</tower_damage></row>
+  <row><game>G08</game><team>Cloud9</team><result>loss</result><game_minutes>33.0</game_minutes><inhibitors>0</inhibitors><tower_damage>6112</tower_damage></row>
+  <row><game>G08</game><team>100 Thieves</team><result>win</result><game_minutes>33.0</game_minutes><inhibitors>1</inhibitors><tower_damage>18728</tower_damage></row>
+  <row><game>G09</game><team>Luminosity Gaming</team><result>loss</result><game_minutes>27.2</game_minutes><inhibitors>0</inhibitors><tower_damage>7858</tower_damage></row>
+  <row><game>G09</game><team>Disguised</team><result>win</result><game_minutes>27.2</game_minutes><inhibitors>1</inhibitors><tower_damage>18764</tower_damage></row>
+  <row><game>G10</game><team>Luminosity Gaming</team><result>win</result><game_minutes>30.5</game_minutes><inhibitors>1</inhibitors><tower_damage>16052</tower_damage></row>
+  <row><game>G10</game><team>Estral Esports</team><result>loss</result><game_minutes>30.5</game_minutes><inhibitors>0</inhibitors><tower_damage>7863</tower_damage></row>
+</rows>

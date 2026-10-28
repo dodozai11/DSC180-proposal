@@ -1,0 +1,67 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    matches = []
+    
+    # Pattern to match each team's record in a game
+    pattern = r"In game (G\d+), (.+?) (won|lost); they (did|did not) take the first tower and finished with (\d+) void grubs and (\d+) heralds\."
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team = match.group(2)
+        result = match.group(3) == "won"
+        first_tower = match.group(4) == "did"
+        void_grubs = int(match.group(5))
+        heralds = int(match.group(6))
+        
+        matches.append({
+            "game_id": game_id,
+            "team": team,
+            "won": result,
+            "first_tower": first_tower,
+            "void_grubs": void_grubs,
+            "heralds": heralds
+        })
+    
+    return matches
+
+
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    matches = parse_data(text)
+    
+    first_tower_teams = [m for m in matches if m["first_tower"]]
+    
+    if not first_tower_teams:
+        return 0
+    
+    wins = sum(1 for m in first_tower_teams if m["won"])
+    win_rate = wins / len(first_tower_teams)
+    
+    return win_rate
+
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    matches = parse_data(text)
+    
+    winning_teams = [m for m in matches if m["won"]]
+    
+    if not winning_teams:
+        return 0
+    
+    avg_void_grubs = sum(m["void_grubs"] for m in winning_teams) / len(winning_teams)
+    
+    return avg_void_grubs
+
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    matches = parse_data(text)
+    
+    lost_with_herald = sum(1 for m in matches if m["heralds"] >= 1 and not m["won"])
+    
+    return lost_with_herald
+```

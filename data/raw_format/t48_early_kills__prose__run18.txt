@@ -1,0 +1,57 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of dictionaries."""
+    games = []
+    
+    # Pattern to match each team's game data
+    pattern = r'In game (\w+), (.+?) played on the (\w+) side and (\w+), with (\d+) kills and an experience difference of (-?\d+) at 15 minutes\.'
+    
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, side, result, kills, exp_diff = match
+        games.append({
+            'game_id': game_id,
+            'team': team,
+            'side': side,
+            'result': result,
+            'kills': int(kills),
+            'exp_diff': int(exp_diff)
+        })
+    
+    return games
+
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    games = parse_data(text)
+    red_side_games = [game for game in games if game['side'] == 'red']
+    
+    if not red_side_games:
+        return 0
+    
+    total_kills = sum(game['kills'] for game in red_side_games)
+    return total_kills / len(red_side_games)
+
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    games = parse_data(text)
+    
+    max_game = max(games, key=lambda game: game['exp_diff'])
+    return max_game['team']
+
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    games = parse_data(text)
+    
+    count = 0
+    for game in games:
+        if game['result'] == 'won' and game['exp_diff'] < 0:
+            count += 1
+    
+    return count
+```

@@ -1,0 +1,54 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average vision score of players who won minus the average vision score of players who lost."""
+    pattern = r'(\w+) of .+ (won|lost) with a vision score of (\d+),'
+    matches = re.findall(pattern, text)
+    
+    won_scores = []
+    lost_scores = []
+    
+    for player, result, vision_score in matches:
+        vision_score = int(vision_score)
+        if result == 'won':
+            won_scores.append(vision_score)
+        else:
+            lost_scores.append(vision_score)
+    
+    avg_won = sum(won_scores) / len(won_scores) if won_scores else 0
+    avg_lost = sum(lost_scores) / len(lost_scores) if lost_scores else 0
+    
+    return avg_won - avg_lost
+
+
+def q2(text):
+    """Returns the name of the player who placed the most wards."""
+    pattern = r'(\w+) of .+ (?:won|lost) with a vision score of \d+, (\d+) wards placed'
+    matches = re.findall(pattern, text)
+    
+    max_wards = -1
+    max_player = None
+    
+    for player, wards_placed in matches:
+        wards_placed = int(wards_placed)
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Returns how many players bought at least 15 control wards."""
+    pattern = r'(\w+) of .+ (?:won|lost) with a vision score of \d+, \d+ wards placed and (\d+) control wards bought'
+    matches = re.findall(pattern, text)
+    
+    count = 0
+    for player, control_wards in matches:
+        control_wards = int(control_wards)
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+```

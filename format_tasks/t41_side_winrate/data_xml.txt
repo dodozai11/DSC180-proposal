@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>DN Freecs</team><side>blue</side><result>loss</result><game_minutes>34.1</game_minutes></row>
+  <row><game>G01</game><team>Dplus KIA</team><side>red</side><result>win</result><game_minutes>34.1</game_minutes></row>
+  <row><game>G02</game><team>BNK FEARX</team><side>blue</side><result>loss</result><game_minutes>40.1</game_minutes></row>
+  <row><game>G02</game><team>Gen.G</team><side>red</side><result>win</result><game_minutes>40.1</game_minutes></row>
+  <row><game>G03</game><team>Dplus KIA</team><side>blue</side><result>win</result><game_minutes>27.5</game_minutes></row>
+  <row><game>G03</game><team>BNK FEARX</team><side>red</side><result>loss</result><game_minutes>27.5</game_minutes></row>
+  <row><game>G04</game><team>DRX</team><side>blue</side><result>win</result><game_minutes>30.2</game_minutes></row>
+  <row><game>G04</game><team>DN Freecs</team><side>red</side><result>loss</result><game_minutes>30.2</game_minutes></row>
+  <row><game>G05</game><team>Hanwha Life Esports</team><side>blue</side><result>win</result><game_minutes>39.0</game_minutes></row>
+  <row><game>G05</game><team>Gen.G</team><side>red</side><result>loss</result><game_minutes>39.0</game_minutes></row>
+  <row><game>G06</game><team>Dplus KIA</team><side>blue</side><result>loss</result><game_minutes>30.0</game_minutes></row>
+  <row><game>G06</game><team>Nongshim RedForce</team><side>red</side><result>win</result><game_minutes>30.0</game_minutes></row>
+  <row><game>G07</game><team>DN Freecs</team><side>blue</side><result>win</result><game_minutes>33.9</game_minutes></row>
+  <row><game>G07</game><team>OKSavingsBank BRION</team><side>red</side><result>loss</result><game_minutes>33.9</game_minutes></row>
+  <row><game>G08</game><team>Dplus KIA</team><side>blue</side><result>win</result><game_minutes>37.2</game_minutes></row>
+  <row><game>G08</game><team>KT Rolster</team><side>red</side><result>loss</result><game_minutes>37.2</game_minutes></row>
+  <row><game>G09</game><team>Gen.G</team><side>blue</side><result>win</result><game_minutes>28.9</game_minutes></row>
+  <row><game>G09</game><team>Hanwha Life Esports</team><side>red</side><result>loss</result><game_minutes>28.9</game_minutes></row>
+  <row><game>G10</game><team>KT Rolster</team><side>blue</side><result>loss</result><game_minutes>35.1</game_minutes></row>
+  <row><game>G10</game><team>Hanwha Life Esports</team><side>red</side><result>win</result><game_minutes>35.1</game_minutes></row>
+</rows>

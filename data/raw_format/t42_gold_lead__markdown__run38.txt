@@ -1,0 +1,38 @@
+```python
+import re
+from io import StringIO
+import pandas as pd
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    df = pd.read_csv(StringIO(text), sep=r'\s*\|\s*', engine='python')
+    df = df.iloc[:, 1:-1]  # Remove first and last empty columns from pipe-delimited format
+    df.columns = df.columns.str.strip()
+    
+    winning_teams = df[df['result'] == 'win']
+    return winning_teams['gold_diff_15'].mean()
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    df = pd.read_csv(StringIO(text), sep=r'\s*\|\s*', engine='python')
+    df = df.iloc[:, 1:-1]  # Remove first and last empty columns from pipe-delimited format
+    df.columns = df.columns.str.strip()
+    
+    winning_despite_negative = df[(df['result'] == 'win') & (df['gold_diff_15'] < 0)]
+    return len(winning_despite_negative)
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    df = pd.read_csv(StringIO(text), sep=r'\s*\|\s*', engine='python')
+    df = df.iloc[:, 1:-1]  # Remove first and last empty columns from pipe-delimited format
+    df.columns = df.columns.str.strip()
+    
+    ahead_in_gold = df[df['gold_diff_15'] > 0]
+    
+    if len(ahead_in_gold) == 0:
+        return 0.0
+    
+    wins_while_ahead = len(ahead_in_gold[ahead_in_gold['result'] == 'win'])
+    win_rate = wins_while_ahead / len(ahead_in_gold)
+    return win_rate
+```

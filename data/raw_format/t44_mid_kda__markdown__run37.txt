@@ -1,0 +1,51 @@
+```python
+import re
+from collections import Counter
+
+def parse_data(text):
+    lines = text.strip().split('\n')
+    data = []
+    for line in lines[2:]:  # Skip header and separator
+        if line.strip():
+            parts = [p.strip() for p in line.split('|')[1:-1]]
+            if len(parts) == 7:
+                data.append({
+                    'player': parts[0],
+                    'team': parts[1],
+                    'champion': parts[2],
+                    'kills': int(parts[3]),
+                    'deaths': int(parts[4]),
+                    'assists': int(parts[5]),
+                    'result': parts[6]
+                })
+    return data
+
+def q1(text):
+    data = parse_data(text)
+    max_kda = -1
+    best_player = None
+    
+    for player_data in data:
+        kda = (player_data['kills'] + player_data['assists']) / max(player_data['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player_data['player']
+    
+    return best_player
+
+def q2(text):
+    data = parse_data(text)
+    wins = [player_data['kills'] for player_data in data if player_data['result'] == 'win']
+    
+    if not wins:
+        return 0
+    
+    return sum(wins) / len(wins)
+
+def q3(text):
+    data = parse_data(text)
+    champions = [player_data['champion'] for player_data in data]
+    champion_counts = Counter(champions)
+    
+    return champion_counts.most_common(1)[0][0]
+```

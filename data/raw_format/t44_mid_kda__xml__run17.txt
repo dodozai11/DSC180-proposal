@@ -1,0 +1,71 @@
+```python
+import re
+from collections import Counter
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    
+    max_kda = -1
+    best_player = None
+    
+    for row in rows:
+        player_match = re.search(r'<player>(.*?)</player>', row)
+        kills_match = re.search(r'<kills>(.*?)</kills>', row)
+        deaths_match = re.search(r'<deaths>(.*?)</deaths>', row)
+        assists_match = re.search(r'<assists>(.*?)</assists>', row)
+        
+        player = player_match.group(1)
+        kills = int(kills_match.group(1))
+        deaths = int(deaths_match.group(1))
+        assists = int(assists_match.group(1))
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    
+    total_kills = 0
+    win_count = 0
+    
+    for row in rows:
+        result_match = re.search(r'<result>(.*?)</result>', row)
+        kills_match = re.search(r'<kills>(.*?)</kills>', row)
+        
+        result = result_match.group(1)
+        kills = int(kills_match.group(1))
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_kills / win_count
+
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    
+    champions = []
+    
+    for row in rows:
+        champion_match = re.search(r'<champion>(.*?)</champion>', row)
+        champion = champion_match.group(1)
+        champions.append(champion)
+    
+    champion_counts = Counter(champions)
+    most_picked = champion_counts.most_common(1)[0][0]
+    
+    return most_picked
+```

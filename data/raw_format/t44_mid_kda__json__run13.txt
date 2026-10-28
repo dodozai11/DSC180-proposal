@@ -1,0 +1,46 @@
+```python
+import json
+import re
+from collections import Counter
+from statistics import mean
+
+def q1(text):
+    """Returns the name of the player with the highest KDA."""
+    data = json.loads(text)
+    
+    max_kda = -1
+    best_player = None
+    
+    for player_data in data:
+        kills = player_data["kills"]
+        assists = player_data["assists"]
+        deaths = max(player_data["deaths"], 1)
+        kda = (kills + assists) / deaths
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player_data["player"]
+    
+    return best_player
+
+
+def q2(text):
+    """Returns the average number of kills in games that were won."""
+    data = json.loads(text)
+    
+    wins = [player_data["kills"] for player_data in data if player_data["result"] == "win"]
+    
+    return mean(wins)
+
+
+def q3(text):
+    """Returns the name of the most-picked champion."""
+    data = json.loads(text)
+    
+    champions = [player_data["champion"] for player_data in data]
+    champion_counts = Counter(champions)
+    
+    most_picked = champion_counts.most_common(1)[0][0]
+    
+    return most_picked
+```

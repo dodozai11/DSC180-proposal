@@ -1,0 +1,48 @@
+```python
+import re
+
+def parse_data(text):
+    lines = text.strip().split('\n')
+    headers = [h.strip() for h in lines[0].split('|')[1:-1]]
+    
+    data = []
+    for line in lines[2:]:
+        if line.strip() and '|' in line:
+            values = [v.strip() for v in line.split('|')[1:-1]]
+            if len(values) == len(headers):
+                row = {}
+                for i, header in enumerate(headers):
+                    if header in ['vision_score', 'wards_placed', 'control_wards']:
+                        row[header] = int(values[i])
+                    else:
+                        row[header] = values[i]
+                data.append(row)
+    
+    return data
+
+
+def q1(text):
+    data = parse_data(text)
+    
+    wins = [row['vision_score'] for row in data if row['result'] == 'win']
+    losses = [row['vision_score'] for row in data if row['result'] == 'loss']
+    
+    avg_win = sum(wins) / len(wins) if wins else 0
+    avg_loss = sum(losses) / len(losses) if losses else 0
+    
+    return avg_win - avg_loss
+
+
+def q2(text):
+    data = parse_data(text)
+    
+    max_wards_player = max(data, key=lambda row: row['wards_placed'])
+    return max_wards_player['player']
+
+
+def q3(text):
+    data = parse_data(text)
+    
+    count = sum(1 for row in data if row['control_wards'] >= 15)
+    return count
+```

@@ -1,0 +1,43 @@
+```python
+import csv
+from io import StringIO
+from collections import defaultdict
+
+def q1(text):
+    """Returns the win rate of players with a positive CS difference at 10 minutes."""
+    reader = csv.DictReader(StringIO(text))
+    
+    positive_cs_players = []
+    for row in reader:
+        cs_diff = int(row['cs_diff_10'])
+        if cs_diff > 0:
+            positive_cs_players.append(row)
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(1 for player in positive_cs_players if player['result'] == 'win')
+    return wins / len(positive_cs_players)
+
+def q2(text):
+    """Returns the total number of kills at 10 minutes across all rows."""
+    reader = csv.DictReader(StringIO(text))
+    
+    total_kills = 0
+    for row in reader:
+        total_kills += int(row['kills_at_10'])
+    
+    return total_kills
+
+def q3(text):
+    """Returns the name of the champion with the most assists at 10 minutes in total."""
+    reader = csv.DictReader(StringIO(text))
+    
+    champion_assists = defaultdict(int)
+    for row in reader:
+        champion = row['champion']
+        assists = int(row['assists_at_10'])
+        champion_assists[champion] += assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

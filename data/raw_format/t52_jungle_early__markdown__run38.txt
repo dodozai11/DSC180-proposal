@@ -1,0 +1,68 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header[1:-1]]
+    
+    col_indices = {h: i for i, h in enumerate(header)}
+    
+    rows = []
+    for line in lines[2:]:
+        if line.strip():
+            cols = line.split('|')
+            cols = [c.strip() for c in cols[1:-1]]
+            rows.append(cols)
+    
+    positive_cs_diff = []
+    for row in rows:
+        cs_diff = int(row[col_indices['cs_diff_10']])
+        result = row[col_indices['result']]
+        if cs_diff > 0:
+            positive_cs_diff.append(result == 'win')
+    
+    if len(positive_cs_diff) == 0:
+        return 0
+    
+    win_count = sum(positive_cs_diff)
+    return win_count / len(positive_cs_diff)
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header[1:-1]]
+    
+    col_indices = {h: i for i, h in enumerate(header)}
+    
+    total_kills = 0
+    for line in lines[2:]:
+        if line.strip():
+            cols = line.split('|')
+            cols = [c.strip() for c in cols[1:-1]]
+            kills = int(cols[col_indices['kills_at_10']])
+            total_kills += kills
+    
+    return total_kills
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header[1:-1]]
+    
+    col_indices = {h: i for i, h in enumerate(header)}
+    
+    champion_assists = {}
+    for line in lines[2:]:
+        if line.strip():
+            cols = line.split('|')
+            cols = [c.strip() for c in cols[1:-1]]
+            champion = cols[col_indices['champion']]
+            assists = int(cols[col_indices['assists_at_10']])
+            
+            if champion not in champion_assists:
+                champion_assists[champion] = 0
+            champion_assists[champion] += assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,22 @@
+<rows>
+  <row><player>Genos</player><champion>Maokai</champion><result>win</result><cs_diff_10>-18</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Nero</player><champion>Maokai</champion><result>win</result><cs_diff_10>-1</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Soweto</player><champion>Xin Zhao</champion><result>loss</result><cs_diff_10>1</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Ancrath</player><champion>Lillia</champion><result>win</result><cs_diff_10>-3</cs_diff_10><kills_at_10>2</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Dizin</player><champion>Wukong</champion><result>loss</result><cs_diff_10>3</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>2</assists_at_10></row>
+  <row><player>Sting</player><champion>Nocturne</champion><result>win</result><cs_diff_10>23</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Envy</player><champion>Darius</champion><result>loss</result><cs_diff_10>10</cs_diff_10><kills_at_10>2</kills_at_10><assists_at_10>6</assists_at_10></row>
+  <row><player>DOOM</player><champion>Maokai</champion><result>win</result><cs_diff_10>-9</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>StineR</player><champion>Wukong</champion><result>loss</result><cs_diff_10>0</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Yampi</player><champion>Sejuani</champion><result>win</result><cs_diff_10>0</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Mewkyo</player><champion>Maokai</champion><result>win</result><cs_diff_10>7</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Seize</player><champion>Pantheon</champion><result>loss</result><cs_diff_10>3</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Drakehero</player><champion>Maokai</champion><result>win</result><cs_diff_10>3</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Aegis</player><champion>Skarner</champion><result>win</result><cs_diff_10>7</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Ranger</player><champion>Maokai</champion><result>win</result><cs_diff_10>2</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Anato</player><champion>Nocturne</champion><result>win</result><cs_diff_10>6</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Levizin</player><champion>Vi</champion><result>loss</result><cs_diff_10>-6</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Randal</player><champion>Naafiri</champion><result>win</result><cs_diff_10>3</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>juny</player><champion>Briar</champion><result>loss</result><cs_diff_10>-3</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>2</assists_at_10></row>
+  <row><player>LOS Aegis</player><champion>Trundle</champion><result>win</result><cs_diff_10>1</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>0</assists_at_10></row>
+</rows>

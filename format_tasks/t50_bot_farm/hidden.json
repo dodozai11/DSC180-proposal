@@ -1,0 +1,162 @@
+[
+  {
+    "player": "452apm",
+    "team": "Diversion Gaming",
+    "champion": "Jhin",
+    "result": "win",
+    "cs_per_min": 9.98,
+    "gold_share": 0.3
+  },
+  {
+    "player": "Rias1",
+    "team": "Dynamo Eclot Talents",
+    "champion": "Ashe",
+    "result": "loss",
+    "cs_per_min": 8.87,
+    "gold_share": 0.236
+  },
+  {
+    "player": "LANDY",
+    "team": "EXILE esports",
+    "champion": "Jhin",
+    "result": "loss",
+    "cs_per_min": 7.51,
+    "gold_share": 0.242
+  },
+  {
+    "player": "Basraket",
+    "team": "Ethereal Enigmas",
+    "champion": "Varus",
+    "result": "win",
+    "cs_per_min": 10.03,
+    "gold_share": 0.306
+  },
+  {
+    "player": "Huron",
+    "team": "Meavedron",
+    "champion": "Corki",
+    "result": "loss",
+    "cs_per_min": 8.54,
+    "gold_share": 0.243
+  },
+  {
+    "player": "CaptainSexy",
+    "team": "Delta Syndicate",
+    "champion": "Jhin",
+    "result": "win",
+    "cs_per_min": 8.09,
+    "gold_share": 0.246
+  },
+  {
+    "player": "Skyp",
+    "team": "Dynamo Eclot Talents",
+    "champion": "Varus",
+    "result": "loss",
+    "cs_per_min": 7.68,
+    "gold_share": 0.231
+  },
+  {
+    "player": "Electro",
+    "team": "EXILE esports",
+    "champion": "Tristana",
+    "result": "loss",
+    "cs_per_min": 7.71,
+    "gold_share": 0.231
+  },
+  {
+    "player": "HM Delta 1",
+    "team": "Delta Syndicate",
+    "champion": "Varus",
+    "result": "loss",
+    "cs_per_min": 8.43,
+    "gold_share": 0.279
+  },
+  {
+    "player": "Dawerko",
+    "team": "Dynamo Eclot Talents",
+    "champion": "Jhin",
+    "result": "loss",
+    "cs_per_min": 7.26,
+    "gold_share": 0.194
+  },
+  {
+    "player": "Slide",
+    "team": "Ethereal Enigmas",
+    "champion": "Tristana",
+    "result": "loss",
+    "cs_per_min": 8.59,
+    "gold_share": 0.286
+  },
+  {
+    "player": "Salami",
+    "team": "Meavedron",
+    "champion": "Varus",
+    "result": "loss",
+    "cs_per_min": 8.36,
+    "gold_share": 0.232
+  },
+  {
+    "player": "DS Pooya",
+    "team": "Delta Syndicate",
+    "champion": "Ezreal",
+    "result": "loss",
+    "cs_per_min": 8.45,
+    "gold_share": 0.263
+  },
+  {
+    "player": "DVLK",
+    "team": "Meavedron",
+    "champion": "Ezreal",
+    "result": "win",
+    "cs_per_min": 9.59,
+    "gold_share": 0.281
+  },
+  {
+    "player": "Pooya",
+    "team": "Delta Syndicate",
+    "champion": "Seraphine",
+    "result": "win",
+    "cs_per_min": 7.83,
+    "gold_share": 0.225
+  },
+  {
+    "player": "CKZ vorfles",
+    "team": "CITA Kaizen",
+    "champion": "Jhin",
+    "result": "win",
+    "cs_per_min": 9.81,
+    "gold_share": 0.254
+  },
+  {
+    "player": "skakavka",
+    "team": "Priority",
+    "champion": "Varus",
+    "result": "loss",
+    "cs_per_min": 9.49,
+    "gold_share": 0.267
+  },
+  {
+    "player": "Worthless",
+    "team": "CITA Kaizen",
+    "champion": "Lucian",
+    "result": "win",
+    "cs_per_min": 8.98,
+    "gold_share": 0.302
+  },
+  {
+    "player": "Sined",
+    "team": "Diversion Gaming",
+    "champion": "Corki",
+    "result": "win",
+    "cs_per_min": 9.09,
+    "gold_share": 0.246
+  },
+  {
+    "player": "CrAzY",
+    "team": "Meavedron",
+    "champion": "Zeri",
+    "result": "win",
+    "cs_per_min": 10.38,
+    "gold_share": 0.297
+  }
+]

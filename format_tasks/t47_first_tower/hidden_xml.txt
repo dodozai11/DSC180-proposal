@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>ULF Esports</team><result>loss</result><first_tower>yes</first_tower><void_grubs>4</void_grubs><heralds>0</heralds></row>
+  <row><game>G01</game><team>Beşiktaş Esports</team><result>win</result><first_tower>no</first_tower><void_grubs>2</void_grubs><heralds>1</heralds></row>
+  <row><game>G02</game><team>Bushido Wildcats</team><result>loss</result><first_tower>no</first_tower><void_grubs>1</void_grubs><heralds>0</heralds></row>
+  <row><game>G02</game><team>Papara SuperMassive</team><result>win</result><first_tower>yes</first_tower><void_grubs>5</void_grubs><heralds>1</heralds></row>
+  <row><game>G03</game><team>Misa Esports</team><result>win</result><first_tower>yes</first_tower><void_grubs>6</void_grubs><heralds>1</heralds></row>
+  <row><game>G03</game><team>BoostGate Esports</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>0</heralds></row>
+  <row><game>G04</game><team>BBL Dark Passage</team><result>loss</result><first_tower>no</first_tower><void_grubs>3</void_grubs><heralds>1</heralds></row>
+  <row><game>G04</game><team>Eternal Fire</team><result>win</result><first_tower>yes</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G05</game><team>Papara SuperMassive</team><result>loss</result><first_tower>no</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G05</game><team>ULF Esports</team><result>win</result><first_tower>yes</first_tower><void_grubs>3</void_grubs><heralds>1</heralds></row>
+  <row><game>G06</game><team>BBL Dark Passage</team><result>win</result><first_tower>yes</first_tower><void_grubs>6</void_grubs><heralds>0</heralds></row>
+  <row><game>G06</game><team>Beşiktaş Esports</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+  <row><game>G07</game><team>Papara SuperMassive</team><result>loss</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+  <row><game>G07</game><team>ULF Esports</team><result>win</result><first_tower>yes</first_tower><void_grubs>6</void_grubs><heralds>0</heralds></row>
+  <row><game>G08</game><team>ULF Esports</team><result>loss</result><first_tower>no</first_tower><void_grubs>1</void_grubs><heralds>0</heralds></row>
+  <row><game>G08</game><team>BoostGate Esports</team><result>win</result><first_tower>yes</first_tower><void_grubs>2</void_grubs><heralds>1</heralds></row>
+  <row><game>G09</game><team>Papara SuperMassive</team><result>win</result><first_tower>yes</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+  <row><game>G09</game><team>BoostGate Esports</team><result>loss</result><first_tower>no</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G10</game><team>Bushido Wildcats</team><result>loss</result><first_tower>yes</first_tower><void_grubs>3</void_grubs><heralds>0</heralds></row>
+  <row><game>G10</game><team>Beşiktaş Esports</team><result>win</result><first_tower>no</first_tower><void_grubs>0</void_grubs><heralds>1</heralds></row>
+</rows>

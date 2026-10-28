@@ -1,0 +1,40 @@
+import re
+
+def q1(text):
+    """Returns the average damage per minute of players who lost."""
+    matches = re.findall(
+        r'(\w+(?:\s+\w+)*) of ([\w\s]+) played .+ and (won|lost), dealing ([\d.]+) damage per minute',
+        text
+    )
+    
+    lost_damages = [float(damage) for name, team, result, damage in matches if result == 'lost']
+    
+    if not lost_damages:
+        return 0
+    
+    return sum(lost_damages) / len(lost_damages)
+
+
+def q2(text):
+    """Returns the name of the player who took the most damage per minute."""
+    matches = re.findall(
+        r'(\w+(?:\s+\w+)*) of ([\w\s]+) played .+ and (won|lost), dealing [\d.]+ damage per minute and taking ([\d.]+) damage per minute',
+        text
+    )
+    
+    if not matches:
+        return None
+    
+    max_player = max(matches, key=lambda x: float(x[3]))
+    return max_player[0]
+
+
+def q3(text):
+    """Returns the number of different teams."""
+    matches = re.findall(
+        r'\w+(?:\s+\w+)* of ([\w\s]+) played',
+        text
+    )
+    
+    unique_teams = set(matches)
+    return len(unique_teams)

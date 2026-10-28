@@ -1,0 +1,80 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of dictionaries."""
+    rows = []
+    # Split by sentences ending with a period
+    sentences = text.split('. ')
+    
+    for sentence in sentences:
+        sentence = sentence.strip()
+        if not sentence:
+            continue
+        
+        # Remove trailing period if present
+        sentence = sentence.rstrip('.')
+        
+        # Parse the sentence
+        # Format: "{player} played {champion} in the jungle and {result}; at 10 minutes they had a CS difference of {cs_diff}, {kills} kills and {assists} assists"
+        pattern = r"(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in the jungle and\s+(won|lost);\s+at 10 minutes they had a CS difference of\s+([-\d]+),\s+(\d+)\s+kills and\s+(\d+)\s+assists"
+        
+        match = re.search(pattern, sentence)
+        if match:
+            player = match.group(1)
+            champion = match.group(2)
+            result = match.group(3)
+            cs_diff = int(match.group(4))
+            kills = int(match.group(5))
+            assists = int(match.group(6))
+            
+            rows.append({
+                'player': player,
+                'champion': champion,
+                'result': result,
+                'cs_diff': cs_diff,
+                'kills': kills,
+                'assists': assists
+            })
+    
+    return rows
+
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    rows = parse_data(text)
+    
+    positive_cs_players = [row for row in rows if row['cs_diff'] > 0]
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(1 for row in positive_cs_players if row['result'] == 'won')
+    win_rate = wins / len(positive_cs_players)
+    
+    return win_rate
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    rows = parse_data(text)
+    total_kills = sum(row['kills'] for row in rows)
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    rows = parse_data(text)
+    
+    champion_assists = {}
+    for row in rows:
+        champion = row['champion']
+        assists = row['assists']
+        champion_assists[champion] = champion_assists.get(champion, 0) + assists
+    
+    if not champion_assists:
+        return None
+    
+    champion_with_most_assists = max(champion_assists, key=champion_assists.get)
+    return champion_with_most_assists
+```

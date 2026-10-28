@@ -1,0 +1,22 @@
+<rows>
+  <row><player>Gemini</player><champion>Xin Zhao</champion><result>win</result><cs_diff_10>-19</cs_diff_10><kills_at_10>2</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Xin</player><champion>Nidalee</champion><result>loss</result><cs_diff_10>19</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>HotPot</player><champion>Viego</champion><result>win</result><cs_diff_10>10</cs_diff_10><kills_at_10>2</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Kongyue</player><champion>Xin Zhao</champion><result>loss</result><cs_diff_10>-10</cs_diff_10><kills_at_10>3</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>RenYe</player><champion>Vi</champion><result>loss</result><cs_diff_10>-30</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>665</player><champion>Nocturne</champion><result>win</result><cs_diff_10>30</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>Xinshou1</player><champion>Wukong</champion><result>loss</result><cs_diff_10>-4</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>BiIIy</player><champion>Sejuani</champion><result>win</result><cs_diff_10>-6</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>2</assists_at_10></row>
+  <row><player>Rwei</player><champion>Vi</champion><result>win</result><cs_diff_10>9</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>Listo</player><champion>Sejuani</champion><result>win</result><cs_diff_10>-3</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>PCS OQ02</player><champion>Maokai</champion><result>loss</result><cs_diff_10>-7</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>PCS OQ32</player><champion>Sejuani</champion><result>win</result><cs_diff_10>7</cs_diff_10><kills_at_10>3</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>PCS OQ67</player><champion>Darius</champion><result>win</result><cs_diff_10>3</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>1</assists_at_10></row>
+  <row><player>RenHao</player><champion>Vi</champion><result>win</result><cs_diff_10>11</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>Liweier</player><champion>Naafiri</champion><result>win</result><cs_diff_10>-11</cs_diff_10><kills_at_10>2</kills_at_10><assists_at_10>0</assists_at_10></row>
+  <row><player>Xiaomi</player><champion>Vi</champion><result>win</result><cs_diff_10>9</cs_diff_10><kills_at_10>1</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>whisper</player><champion>Xin Zhao</champion><result>loss</result><cs_diff_10>16</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>3</assists_at_10></row>
+  <row><player>Dinai</player><champion>Zed</champion><result>loss</result><cs_diff_10>13</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>2</assists_at_10></row>
+  <row><player>Husha</player><champion>Wukong</champion><result>win</result><cs_diff_10>-3</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>2</assists_at_10></row>
+  <row><player>TA0</player><champion>Xin Zhao</champion><result>loss</result><cs_diff_10>-9</cs_diff_10><kills_at_10>0</kills_at_10><assists_at_10>0</assists_at_10></row>
+</rows>

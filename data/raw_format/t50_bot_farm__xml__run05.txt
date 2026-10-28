@@ -1,0 +1,51 @@
+```python
+import re
+from xml.etree import ElementTree as ET
+
+def parse_data(text):
+    """Parse XML data and return list of dictionaries"""
+    rows = []
+    # Find all row elements
+    row_pattern = r'<row>(.*?)</row>'
+    for match in re.finditer(row_pattern, text, re.DOTALL):
+        row_content = match.group(1)
+        row_dict = {}
+        
+        # Extract each field
+        fields = ['player', 'team', 'champion', 'result', 'cs_per_min', 'gold_share']
+        for field in fields:
+            field_pattern = f'<{field}>(.*?)</{field}>'
+            field_match = re.search(field_pattern, row_content)
+            if field_match:
+                value = field_match.group(1)
+                # Convert numeric fields
+                if field == 'cs_per_min':
+                    row_dict[field] = float(value)
+                elif field == 'gold_share':
+                    row_dict[field] = float(value)
+                else:
+                    row_dict[field] = value
+        
+        rows.append(row_dict)
+    
+    return rows
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute"""
+    rows = parse_data(text)
+    max_player = max(rows, key=lambda x: x['cs_per_min'])
+    return max_player['player']
+
+def q2(text):
+    """Return the average gold share of players who won"""
+    rows = parse_data(text)
+    winning_rows = [row for row in rows if row['result'] == 'win']
+    avg_gold_share = sum(row['gold_share'] for row in winning_rows) / len(winning_rows)
+    return avg_gold_share
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute"""
+    rows = parse_data(text)
+    count = sum(1 for row in rows if row['cs_per_min'] > 9)
+    return count
+```

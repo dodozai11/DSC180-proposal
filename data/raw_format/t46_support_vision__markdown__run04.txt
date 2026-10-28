@@ -1,0 +1,55 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse the League of Legends data from text format."""
+    lines = text.strip().split('\n')
+    # Skip header and separator lines
+    data = []
+    for line in lines[2:]:  # Skip header and separator
+        if line.strip() and not line.startswith('|---'):
+            # Parse the pipe-separated values
+            parts = [p.strip() for p in line.split('|')]
+            # Remove empty strings from start and end
+            parts = [p for p in parts if p]
+            if len(parts) >= 6:
+                data.append({
+                    'player': parts[0],
+                    'team': parts[1],
+                    'result': parts[2],
+                    'vision_score': int(parts[3]),
+                    'wards_placed': int(parts[4]),
+                    'control_wards': int(parts[5])
+                })
+    return data
+
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    data = parse_data(text)
+    
+    winners = [row['vision_score'] for row in data if row['result'] == 'win']
+    losers = [row['vision_score'] for row in data if row['result'] == 'loss']
+    
+    avg_winners = sum(winners) / len(winners) if winners else 0
+    avg_losers = sum(losers) / len(losers) if losers else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    data = parse_data(text)
+    
+    max_player = max(data, key=lambda row: row['wards_placed'])
+    return max_player['player']
+
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    data = parse_data(text)
+    
+    count = sum(1 for row in data if row['control_wards'] >= 15)
+    return count
+```

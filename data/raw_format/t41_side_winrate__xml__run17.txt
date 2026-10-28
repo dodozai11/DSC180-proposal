@@ -1,0 +1,55 @@
+```python
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+
+def q1(text):
+    """Return the win rate of blue-side teams"""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    blue_wins = 0
+    blue_total = 0
+    
+    for row in root.findall('row'):
+        side = row.find('side').text
+        result = row.find('result').text
+        
+        if side == 'blue':
+            blue_total += 1
+            if result == 'win':
+                blue_wins += 1
+    
+    return blue_wins / blue_total if blue_total > 0 else 0
+
+
+def q2(text):
+    """Return the average length in minutes of games won by red-side team"""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    red_win_times = []
+    
+    for row in root.findall('row'):
+        side = row.find('side').text
+        result = row.find('result').text
+        game_minutes = float(row.find('game_minutes').text)
+        
+        if side == 'red' and result == 'win':
+            red_win_times.append(game_minutes)
+    
+    return sum(red_win_times) / len(red_win_times) if red_win_times else 0
+
+
+def q3(text):
+    """Return the name of the team with the most wins"""
+    root = ET.fromstring(f"<root>{text}</root>")
+    
+    team_wins = defaultdict(int)
+    
+    for row in root.findall('row'):
+        team = row.find('team').text
+        result = row.find('result').text
+        
+        if result == 'win':
+            team_wins[team] += 1
+    
+    return max(team_wins, key=team_wins.get) if team_wins else None
+```

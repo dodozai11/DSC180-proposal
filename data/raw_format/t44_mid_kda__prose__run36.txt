@@ -1,0 +1,59 @@
+```python
+import re
+from collections import Counter
+
+def parse_matches(text):
+    """Parse the match data and return a list of dictionaries."""
+    pattern = r'(\w+) of ([\w\s]+) played ([\w\']+) in mid and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists\.'
+    matches = re.findall(pattern, text)
+    
+    result = []
+    for match in matches:
+        result.append({
+            'player': match[0],
+            'team': match[1],
+            'champion': match[2],
+            'result': match[3],
+            'kills': int(match[4]),
+            'deaths': int(match[5]),
+            'assists': int(match[6])
+        })
+    return result
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    matches = parse_matches(text)
+    
+    best_player = None
+    best_kda = -1
+    
+    for match in matches:
+        kda = (match['kills'] + match['assists']) / max(match['deaths'], 1)
+        if kda > best_kda:
+            best_kda = kda
+            best_player = match['player']
+    
+    return best_player
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    matches = parse_matches(text)
+    
+    won_kills = [match['kills'] for match in matches if match['result'] == 'won']
+    
+    if not won_kills:
+        return 0
+    
+    return sum(won_kills) / len(won_kills)
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    matches = parse_matches(text)
+    
+    champions = [match['champion'] for match in matches]
+    champion_counts = Counter(champions)
+    
+    most_common_champion = champion_counts.most_common(1)[0][0]
+    
+    return most_common_champion
+```

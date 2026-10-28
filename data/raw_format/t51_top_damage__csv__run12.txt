@@ -1,0 +1,41 @@
+```python
+import csv
+from io import StringIO
+
+def q1(text):
+    """Returns the average damage per minute of players who lost."""
+    reader = csv.DictReader(StringIO(text))
+    total_damage = 0
+    count = 0
+    
+    for row in reader:
+        if row['result'] == 'loss':
+            total_damage += float(row['damage_per_min'])
+            count += 1
+    
+    return total_damage / count if count > 0 else 0
+
+def q2(text):
+    """Returns the name of the player who took the most damage per minute."""
+    reader = csv.DictReader(StringIO(text))
+    max_damage = -1
+    max_player = None
+    
+    for row in reader:
+        damage = float(row['damage_taken_per_min'])
+        if damage > max_damage:
+            max_damage = damage
+            max_player = row['player']
+    
+    return max_player
+
+def q3(text):
+    """Returns the number of different teams."""
+    reader = csv.DictReader(StringIO(text))
+    teams = set()
+    
+    for row in reader:
+        teams.add(row['team'])
+    
+    return len(teams)
+```

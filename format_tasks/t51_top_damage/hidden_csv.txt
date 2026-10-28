@@ -1,0 +1,21 @@
+player,team,champion,result,damage_per_min,damage_taken_per_min
+Aytekn,Gamespace Mediterranean College Esports,K'Sante,win,596.3,972.2
+Petoska,Team Refuse,Ambessa,loss,538.3,865.5
+Sotsy,WLGaming Esports,Udyr,loss,623.3,946.0
+TheSerius,Zerolag Esports,K'Sante,win,256.0,827.1
+Loading,Actions Per Minute,K'Sante,win,635.0,882.1
+Nino,Team Insidious,Renekton,loss,519.8,1372.8
+Wind1,WLGaming Esports,Jayce,win,655.6,698.1
+alishor,Zerolag Esports,Gragas,loss,296.4,854.7
+Hildebrandt,Team Paradox,Karma,loss,762.8,760.6
+DANKI,ΣΤΕΝΑΧΩΡΕΜΕΝΟΙ,Sion,win,719.9,1104.6
+Ivok,Team Refuse,K'Sante,win,457.2,528.3
+Built,GOAL,Riven,win,358.6,471.0
+iBo,WLGaming Esports,Cho'Gath,loss,977.7,2232.0
+IceBreaker,Gamespace Mediterranean College Esports,Rumble,win,732.7,522.2
+WouLou,GOAL,Yorick,win,799.6,1085.6
+Spooder,Team Phantasma,Rumble,win,875.1,643.1
+Tozue,Actions Per Minute,Ornn,loss,364.1,1194.3
+H1tokiri,Actions Per Minute,Shen,loss,560.0,881.6
+Dragneel,Zerolag Esports,Galio,loss,451.9,933.3
+SaintSamson,Howl Esports,Sion,win,844.0,1291.5

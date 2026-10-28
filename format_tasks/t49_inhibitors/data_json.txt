@@ -1,0 +1,162 @@
+[
+  {
+    "game": "G01",
+    "team": "Disguised",
+    "result": "win",
+    "game_minutes": 32.1,
+    "inhibitors": 3,
+    "tower_damage": 32790
+  },
+  {
+    "game": "G01",
+    "team": "Dignitas",
+    "result": "loss",
+    "game_minutes": 32.1,
+    "inhibitors": 0,
+    "tower_damage": 5600
+  },
+  {
+    "game": "G02",
+    "team": "Team Liquid",
+    "result": "win",
+    "game_minutes": 41.5,
+    "inhibitors": 1,
+    "tower_damage": 22662
+  },
+  {
+    "game": "G02",
+    "team": "100 Thieves",
+    "result": "loss",
+    "game_minutes": 41.5,
+    "inhibitors": 2,
+    "tower_damage": 23851
+  },
+  {
+    "game": "G03",
+    "team": "Team Liquid",
+    "result": "win",
+    "game_minutes": 32.7,
+    "inhibitors": 1,
+    "tower_damage": 28006
+  },
+  {
+    "game": "G03",
+    "team": "100 Thieves",
+    "result": "loss",
+    "game_minutes": 32.7,
+    "inhibitors": 0,
+    "tower_damage": 9153
+  },
+  {
+    "game": "G04",
+    "team": "Cloud9",
+    "result": "win",
+    "game_minutes": 35.5,
+    "inhibitors": 1,
+    "tower_damage": 19830
+  },
+  {
+    "game": "G04",
+    "team": "LYON",
+    "result": "loss",
+    "game_minutes": 35.5,
+    "inhibitors": 2,
+    "tower_damage": 24939
+  },
+  {
+    "game": "G05",
+    "team": "100 Thieves",
+    "result": "loss",
+    "game_minutes": 39.8,
+    "inhibitors": 0,
+    "tower_damage": 11305
+  },
+  {
+    "game": "G05",
+    "team": "Shopify Rebellion",
+    "result": "win",
+    "game_minutes": 39.8,
+    "inhibitors": 1,
+    "tower_damage": 18912
+  },
+  {
+    "game": "G06",
+    "team": "Cloud9",
+    "result": "win",
+    "game_minutes": 29.1,
+    "inhibitors": 1,
+    "tower_damage": 26218
+  },
+  {
+    "game": "G06",
+    "team": "LYON",
+    "result": "loss",
+    "game_minutes": 29.1,
+    "inhibitors": 0,
+    "tower_damage": 6965
+  },
+  {
+    "game": "G07",
+    "team": "Disguised",
+    "result": "loss",
+    "game_minutes": 28.0,
+    "inhibitors": 0,
+    "tower_damage": 6238
+  },
+  {
+    "game": "G07",
+    "team": "Cloud9",
+    "result": "win",
+    "game_minutes": 28.0,
+    "inhibitors": 1,
+    "tower_damage": 21741
+  },
+  {
+    "game": "G08",
+    "team": "Cloud9",
+    "result": "loss",
+    "game_minutes": 33.0,
+    "inhibitors": 0,
+    "tower_damage": 6112
+  },
+  {
+    "game": "G08",
+    "team": "100 Thieves",
+    "result": "win",
+    "game_minutes": 33.0,
+    "inhibitors": 1,
+    "tower_damage": 18728
+  },
+  {
+    "game": "G09",
+    "team": "Luminosity Gaming",
+    "result": "loss",
+    "game_minutes": 27.2,
+    "inhibitors": 0,
+    "tower_damage": 7858
+  },
+  {
+    "game": "G09",
+    "team": "Disguised",
+    "result": "win",
+    "game_minutes": 27.2,
+    "inhibitors": 1,
+    "tower_damage": 18764
+  },
+  {
+    "game": "G10",
+    "team": "Luminosity Gaming",
+    "result": "win",
+    "game_minutes": 30.5,
+    "inhibitors": 1,
+    "tower_damage": 16052
+  },
+  {
+    "game": "G10",
+    "team": "Estral Esports",
+    "result": "loss",
+    "game_minutes": 30.5,
+    "inhibitors": 0,
+    "tower_damage": 7863
+  }
+]

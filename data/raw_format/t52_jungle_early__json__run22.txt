@@ -1,0 +1,35 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes"""
+    data = json.loads(text)
+    
+    positive_cs_players = [row for row in data if row["cs_diff_10"] > 0]
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(1 for row in positive_cs_players if row["result"] == "win")
+    return wins / len(positive_cs_players)
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows"""
+    data = json.loads(text)
+    
+    total_kills = sum(row["kills_at_10"] for row in data)
+    return total_kills
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total"""
+    data = json.loads(text)
+    
+    champion_assists = {}
+    for row in data:
+        champion = row["champion"]
+        assists = row["assists_at_10"]
+        champion_assists[champion] = champion_assists.get(champion, 0) + assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,87 @@
+```python
+def q1(text):
+    """Return the number of different champions played."""
+    champions = set()
+    for line in text.strip().split('\n'):
+        parts = line.split()
+        # Find "played" keyword and get the champion name after it
+        for i, word in enumerate(parts):
+            if word == 'played':
+                champion = parts[i + 1]
+                champions.add(champion)
+                break
+    return len(champions)
+
+
+def q2(text):
+    """Return the champion with the best win rate among champions played at least twice."""
+    champion_stats = {}
+    
+    for line in text.strip().split('\n'):
+        parts = line.split()
+        
+        # Find champion name
+        champion = None
+        for i, word in enumerate(parts):
+            if word == 'played':
+                champion = parts[i + 1]
+                break
+        
+        # Find if won or lost
+        won = None
+        for word in parts:
+            if word == 'won,':
+                won = True
+                break
+            elif word == 'lost,':
+                won = False
+                break
+        
+        if champion and won is not None:
+            if champion not in champion_stats:
+                champion_stats[champion] = {'wins': 0, 'total': 0}
+            
+            champion_stats[champion]['total'] += 1
+            if won:
+                champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    candidates = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(candidates.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Return the average number of deaths in games that were lost."""
+    deaths_in_losses = []
+    
+    for line in text.strip().split('\n'):
+        parts = line.split()
+        
+        # Find if won or lost
+        lost = False
+        for word in parts:
+            if word == 'lost,':
+                lost = True
+                break
+        
+        # Find deaths (number before "times.")
+        deaths = None
+        for i, word in enumerate(parts):
+            if word.endswith('times.'):
+                deaths = int(parts[i - 1])
+                break
+        
+        if lost and deaths is not None:
+            deaths_in_losses.append(deaths)
+    
+    if not deaths_in_losses:
+        return 0
+    
+    return sum(deaths_in_losses) / len(deaths_in_losses)
+```

@@ -1,0 +1,40 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data and return a list of game records."""
+    pattern = r'In game (\w+), (\w+(?:\s+\w+)*) (won|lost) after ([\d.]+) minutes, destroying (\d+) inhibitors and dealing (\d+) damage to towers\.'
+    matches = re.findall(pattern, text)
+    
+    records = []
+    for match in matches:
+        game_id, team, result, duration, inhibitors, damage = match
+        records.append({
+            'game_id': game_id,
+            'team': team,
+            'result': result,
+            'duration': float(duration),
+            'inhibitors': int(inhibitors),
+            'damage': int(damage)
+        })
+    
+    return records
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    records = parse_data(text)
+    winning_inhibitors = [r['inhibitors'] for r in records if r['result'] == 'won']
+    return sum(winning_inhibitors) / len(winning_inhibitors) if winning_inhibitors else 0
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    records = parse_data(text)
+    losing_damage = [r['damage'] for r in records if r['result'] == 'lost']
+    return sum(losing_damage) / len(losing_damage) if losing_damage else 0
+
+def q3(text):
+    """Return the game label of the longest game."""
+    records = parse_data(text)
+    longest_game = max(records, key=lambda r: r['duration'])
+    return longest_game['game_id']
+```

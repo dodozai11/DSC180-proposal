@@ -1,0 +1,22 @@
+| player | team | champion | result | cs_per_min | gold_share |
+|---|---|---|---|---|---|
+| 452apm | Diversion Gaming | Jhin | win | 9.98 | 0.3 |
+| Rias1 | Dynamo Eclot Talents | Ashe | loss | 8.87 | 0.236 |
+| LANDY | EXILE esports | Jhin | loss | 7.51 | 0.242 |
+| Basraket | Ethereal Enigmas | Varus | win | 10.03 | 0.306 |
+| Huron | Meavedron | Corki | loss | 8.54 | 0.243 |
+| CaptainSexy | Delta Syndicate | Jhin | win | 8.09 | 0.246 |
+| Skyp | Dynamo Eclot Talents | Varus | loss | 7.68 | 0.231 |
+| Electro | EXILE esports | Tristana | loss | 7.71 | 0.231 |
+| HM Delta 1 | Delta Syndicate | Varus | loss | 8.43 | 0.279 |
+| Dawerko | Dynamo Eclot Talents | Jhin | loss | 7.26 | 0.194 |
+| Slide | Ethereal Enigmas | Tristana | loss | 8.59 | 0.286 |
+| Salami | Meavedron | Varus | loss | 8.36 | 0.232 |
+| DS Pooya | Delta Syndicate | Ezreal | loss | 8.45 | 0.263 |
+| DVLK | Meavedron | Ezreal | win | 9.59 | 0.281 |
+| Pooya | Delta Syndicate | Seraphine | win | 7.83 | 0.225 |
+| CKZ vorfles | CITA Kaizen | Jhin | win | 9.81 | 0.254 |
+| skakavka | Priority | Varus | loss | 9.49 | 0.267 |
+| Worthless | CITA Kaizen | Lucian | win | 8.98 | 0.302 |
+| Sined | Diversion Gaming | Corki | win | 9.09 | 0.246 |
+| CrAzY | Meavedron | Zeri | win | 10.38 | 0.297 |

@@ -1,0 +1,109 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data from text format."""
+    matches = []
+    
+    # Find all game entries
+    game_pattern = r'In game (\w+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\.'
+    
+    for match in re.finditer(game_pattern, text):
+        game_id = match.group(1)
+        team = match.group(2)
+        first_dragon = match.group(3) == 'took'
+        dragons = int(match.group(4))
+        barons = int(match.group(5))
+        towers = int(match.group(6))
+        
+        matches.append({
+            'game_id': game_id,
+            'team': team,
+            'first_dragon': first_dragon,
+            'dragons': dragons,
+            'barons': barons,
+            'towers': towers
+        })
+    
+    # Determine winners by looking for "won" and "lost" indicators
+    # Parse the text to find win/loss information
+    results = []
+    lines = text.split('In game ')
+    
+    for line in lines[1:]:  # Skip the first empty split
+        if 'won;' in line:
+            won = True
+        elif 'lost;' in line:
+            won = False
+        else:
+            continue
+        
+        # Extract game id and team name
+        parts = line.split(',', 1)
+        game_id = parts[0].strip()
+        rest = parts[1]
+        
+        team_match = re.search(r'([^;]+);\s+they', rest)
+        if team_match:
+            team = team_match.group(1).strip()
+            
+            # Extract stats
+            stats_match = re.search(r'(\d+) dragons, (\d+) barons and (\d+) towers', rest)
+            if stats_match:
+                dragons = int(stats_match.group(1))
+                barons = int(stats_match.group(2))
+                towers = int(stats_match.group(3))
+                
+                first_dragon = 'took the first dragon' in rest
+                
+                results.append({
+                    'game_id': game_id,
+                    'team': team,
+                    'won': won,
+                    'first_dragon': first_dragon,
+                    'dragons': dragons,
+                    'barons': barons,
+                    'towers': towers
+                })
+    
+    return results
+
+
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    data = parse_data(text)
+    
+    first_dragon_teams = [row for row in data if row['first_dragon']]
+    
+    if not first_dragon_teams:
+        return 0
+    
+    wins = sum(1 for row in first_dragon_teams if row['won'])
+    win_rate = wins / len(first_dragon_teams)
+    
+    return win_rate
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    data = parse_data(text)
+    
+    winning_teams = [row for row in data if row['won']]
+    
+    if not winning_teams:
+        return 0
+    
+    total_barons = sum(row['barons'] for row in winning_teams)
+    average_barons = total_barons / len(winning_teams)
+    
+    return average_barons
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    data = parse_data(text)
+    
+    total_towers = sum(row['towers'] for row in data)
+    
+    return total_towers
+```

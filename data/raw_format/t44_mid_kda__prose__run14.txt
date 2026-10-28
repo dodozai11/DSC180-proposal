@@ -1,0 +1,81 @@
+```python
+import re
+from collections import Counter
+
+def q1(text):
+    """Returns the name of the player with the highest KDA."""
+    lines = text.strip().split('. ')
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in lines:
+        # Parse: "PlayerName of Team played Champion in role and result with K kills, D deaths and A assists"
+        match = re.match(
+            r"(\w+) of .+ played .+ in .+ and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists",
+            line
+        )
+        if match:
+            player_name = match.group(1)
+            kills = int(match.group(3))
+            deaths = int(match.group(4))
+            assists = int(match.group(5))
+            
+            kda = (kills + assists) / max(deaths, 1)
+            
+            if kda > max_kda:
+                max_kda = kda
+                best_player = player_name
+    
+    return best_player
+
+
+def q2(text):
+    """Returns the average number of kills in games that were won."""
+    lines = text.strip().split('. ')
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in lines:
+        match = re.match(
+            r"(\w+) of .+ played .+ in .+ and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists",
+            line
+        )
+        if match:
+            result = match.group(2)
+            kills = int(match.group(3))
+            
+            if result == "won":
+                total_kills += kills
+                win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_kills / win_count
+
+
+def q3(text):
+    """Returns the name of the most-picked champion."""
+    lines = text.strip().split('. ')
+    
+    champions = []
+    
+    for line in lines:
+        match = re.match(
+            r"(\w+) of .+ played (.+) in .+ and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists",
+            line
+        )
+        if match:
+            champion = match.group(2)
+            champions.append(champion)
+    
+    if not champions:
+        return None
+    
+    counter = Counter(champions)
+    most_picked = counter.most_common(1)[0][0]
+    
+    return most_picked
+```

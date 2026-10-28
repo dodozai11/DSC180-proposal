@@ -1,0 +1,67 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the League of Legends match data from text."""
+    players = []
+    
+    # Pattern to match each player's data
+    pattern = r'(\w+(?:\s+\w+)*?)\s+of\s+([^(]+?)\s+played\s+([^\s]+)\s+in\s+the\s+top\s+lane\s+and\s+(won|lost),\s+dealing\s+([\d.]+)\s+damage\s+per\s+minute\s+and\s+taking\s+([\d.]+)\s+damage\s+per\s+minute'
+    
+    matches = re.finditer(pattern, text)
+    
+    for match in matches:
+        player_name = match.group(1).strip()
+        team = match.group(2).strip()
+        champion = match.group(3)
+        result = match.group(4)
+        damage_dealt = float(match.group(5))
+        damage_taken = float(match.group(6))
+        
+        players.append({
+            'name': player_name,
+            'team': team,
+            'champion': champion,
+            'result': result,
+            'damage_dealt': damage_dealt,
+            'damage_taken': damage_taken
+        })
+    
+    return players
+
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    players = parse_data(text)
+    
+    lost_players = [p for p in players if p['result'] == 'lost']
+    
+    if not lost_players:
+        return 0
+    
+    total_damage = sum(p['damage_dealt'] for p in lost_players)
+    average_damage = total_damage / len(lost_players)
+    
+    return average_damage
+
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    players = parse_data(text)
+    
+    if not players:
+        return None
+    
+    player_with_most_damage_taken = max(players, key=lambda p: p['damage_taken'])
+    
+    return player_with_most_damage_taken['name']
+
+
+def q3(text):
+    """Return the number of different teams."""
+    players = parse_data(text)
+    
+    teams = set(p['team'] for p in players)
+    
+    return len(teams)
+```

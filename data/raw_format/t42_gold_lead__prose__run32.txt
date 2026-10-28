@@ -1,0 +1,54 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    winning_gold_diffs = []
+    
+    lines = text.split('. ')
+    for line in lines:
+        # Match pattern: "In game G##, Team Name played on the color side and won/lost, with a gold difference of ±#### at 15 minutes"
+        match = re.search(r'In game (G\d+), (.+?) played on the (\w+) side and (won|lost), with a gold difference of ([-\d]+) at 15 minutes', line)
+        if match:
+            result = match.group(4)
+            gold_diff = int(match.group(5))
+            if result == 'won':
+                winning_gold_diffs.append(gold_diff)
+    
+    return sum(winning_gold_diffs) / len(winning_gold_diffs) if winning_gold_diffs else 0
+
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    count = 0
+    
+    lines = text.split('. ')
+    for line in lines:
+        match = re.search(r'In game (G\d+), (.+?) played on the (\w+) side and (won|lost), with a gold difference of ([-\d]+) at 15 minutes', line)
+        if match:
+            result = match.group(4)
+            gold_diff = int(match.group(5))
+            if result == 'won' and gold_diff < 0:
+                count += 1
+    
+    return count
+
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes, as a number between 0 and 1."""
+    ahead_games = 0
+    ahead_wins = 0
+    
+    lines = text.split('. ')
+    for line in lines:
+        match = re.search(r'In game (G\d+), (.+?) played on the (\w+) side and (won|lost), with a gold difference of ([-\d]+) at 15 minutes', line)
+        if match:
+            result = match.group(4)
+            gold_diff = int(match.group(5))
+            if gold_diff > 0:  # Team was ahead in gold
+                ahead_games += 1
+                if result == 'won':
+                    ahead_wins += 1
+    
+    return ahead_wins / ahead_games if ahead_games > 0 else 0
+```

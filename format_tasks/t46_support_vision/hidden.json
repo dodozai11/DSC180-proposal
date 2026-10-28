@@ -1,0 +1,162 @@
+[
+  {
+    "player": "Raina",
+    "team": "REJECT",
+    "result": "win",
+    "vision_score": 82,
+    "wards_placed": 40,
+    "control_wards": 11
+  },
+  {
+    "player": "koisi",
+    "team": "Spirit Quartz Gaming",
+    "result": "win",
+    "vision_score": 78,
+    "wards_placed": 46,
+    "control_wards": 15
+  },
+  {
+    "player": "OkerumoN",
+    "team": "Kareha Children",
+    "result": "win",
+    "vision_score": 76,
+    "wards_placed": 34,
+    "control_wards": 8
+  },
+  {
+    "player": "Osaki",
+    "team": "VARREL YOUTH",
+    "result": "loss",
+    "vision_score": 83,
+    "wards_placed": 44,
+    "control_wards": 18
+  },
+  {
+    "player": "Taiyaki",
+    "team": "Yang Yang Gaming",
+    "result": "win",
+    "vision_score": 111,
+    "wards_placed": 47,
+    "control_wards": 12
+  },
+  {
+    "player": "VEL fuki",
+    "team": "VeLocitY (Japanese Team)",
+    "result": "loss",
+    "vision_score": 95,
+    "wards_placed": 52,
+    "control_wards": 15
+  },
+  {
+    "player": "VK EMPTY2",
+    "team": "VelbeliKaizokudan",
+    "result": "win",
+    "vision_score": 84,
+    "wards_placed": 48,
+    "control_wards": 12
+  },
+  {
+    "player": "JustFocus",
+    "team": "Burning Core Toyama",
+    "result": "win",
+    "vision_score": 101,
+    "wards_placed": 52,
+    "control_wards": 14
+  },
+  {
+    "player": "besu",
+    "team": "We Can Win",
+    "result": "win",
+    "vision_score": 111,
+    "wards_placed": 51,
+    "control_wards": 16
+  },
+  {
+    "player": "Kurahuto",
+    "team": "DetonatioN FocusMe Academy",
+    "result": "win",
+    "vision_score": 57,
+    "wards_placed": 30,
+    "control_wards": 12
+  },
+  {
+    "player": "Charley",
+    "team": "Dream in 24",
+    "result": "win",
+    "vision_score": 84,
+    "wards_placed": 35,
+    "control_wards": 9
+  },
+  {
+    "player": "BVL Snow Panda",
+    "team": "BraVeLY",
+    "result": "loss",
+    "vision_score": 61,
+    "wards_placed": 25,
+    "control_wards": 4
+  },
+  {
+    "player": "DG toraneko",
+    "team": "Deltan Gaming",
+    "result": "loss",
+    "vision_score": 62,
+    "wards_placed": 31,
+    "control_wards": 10
+  },
+  {
+    "player": "Hetel",
+    "team": "QT DIG∞",
+    "result": "win",
+    "vision_score": 69,
+    "wards_placed": 33,
+    "control_wards": 14
+  },
+  {
+    "player": "RPG Kikumin",
+    "team": "Radical Pop Gaming",
+    "result": "loss",
+    "vision_score": 68,
+    "wards_placed": 26,
+    "control_wards": 7
+  },
+  {
+    "player": "CK Ls ",
+    "team": "Clocks",
+    "result": "loss",
+    "vision_score": 51,
+    "wards_placed": 22,
+    "control_wards": 5
+  },
+  {
+    "player": "RPG McGrath",
+    "team": "Radical Pop Gaming",
+    "result": "win",
+    "vision_score": 104,
+    "wards_placed": 45,
+    "control_wards": 13
+  },
+  {
+    "player": "BOO Snow Panda",
+    "team": "Bamboo Juice",
+    "result": "win",
+    "vision_score": 100,
+    "wards_placed": 35,
+    "control_wards": 7
+  },
+  {
+    "player": "VT Magus",
+    "team": "Vortex (Japanese Team)",
+    "result": "loss",
+    "vision_score": 70,
+    "wards_placed": 40,
+    "control_wards": 11
+  },
+  {
+    "player": "CK GOMAMUGICH4",
+    "team": "Clocks",
+    "result": "loss",
+    "vision_score": 98,
+    "wards_placed": 47,
+    "control_wards": 16
+  }
+]

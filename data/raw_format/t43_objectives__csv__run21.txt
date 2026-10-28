@@ -1,0 +1,60 @@
+```python
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        first_dragon = parts[2]  # third column is first_dragon
+        result = parts[2]  # second column is result
+        
+        # Re-parse correctly
+        game, team, result, first_dragon, dragons, barons, towers = parts
+        
+        if first_dragon == 'yes':
+            first_dragon_total += 1
+            if result == 'win':
+                first_dragon_wins += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    
+    winning_barons = []
+    
+    for line in lines:
+        parts = line.split(',')
+        game, team, result, first_dragon, dragons, barons, towers = parts
+        
+        if result == 'win':
+            winning_barons.append(int(barons))
+    
+    if len(winning_barons) == 0:
+        return 0
+    
+    return sum(winning_barons) / len(winning_barons)
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    
+    total_towers = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        game, team, result, first_dragon, dragons, barons, towers = parts
+        
+        total_towers += int(towers)
+    
+    return total_towers
+```

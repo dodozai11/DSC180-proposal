@@ -1,0 +1,48 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of player dictionaries."""
+    pattern = r"(\w+) of (.+?) (won|lost) with a vision score of (\d+), (\d+) wards placed and (\d+) control wards bought\."
+    matches = re.findall(pattern, text)
+    
+    players = []
+    for match in matches:
+        player = {
+            'name': match[0],
+            'team': match[1],
+            'result': match[2],
+            'vision_score': int(match[3]),
+            'wards_placed': int(match[4]),
+            'control_wards_bought': int(match[5])
+        }
+        players.append(player)
+    
+    return players
+
+def q1(text):
+    """Return the average vision score of players who won minus the average vision score of players who lost."""
+    players = parse_data(text)
+    
+    won_players = [p for p in players if p['result'] == 'won']
+    lost_players = [p for p in players if p['result'] == 'lost']
+    
+    avg_won = sum(p['vision_score'] for p in won_players) / len(won_players) if won_players else 0
+    avg_lost = sum(p['vision_score'] for p in lost_players) / len(lost_players) if lost_players else 0
+    
+    return avg_won - avg_lost
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    players = parse_data(text)
+    
+    player_with_most_wards = max(players, key=lambda p: p['wards_placed'])
+    return player_with_most_wards['name']
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    players = parse_data(text)
+    
+    count = sum(1 for p in players if p['control_wards_bought'] >= 15)
+    return count
+```

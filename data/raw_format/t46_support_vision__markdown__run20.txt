@@ -1,0 +1,78 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    vision_idx = headers.index('vision_score')
+    result_idx = headers.index('result')
+    
+    win_scores = []
+    loss_scores = []
+    
+    for line in lines[2:]:
+        if line.strip():
+            cells = line.split('|')[1:-1]
+            cells = [c.strip() for c in cells]
+            
+            result = cells[result_idx]
+            vision = float(cells[vision_idx])
+            
+            if result == 'win':
+                win_scores.append(vision)
+            elif result == 'loss':
+                loss_scores.append(vision)
+    
+    avg_win = sum(win_scores) / len(win_scores) if win_scores else 0
+    avg_loss = sum(loss_scores) / len(loss_scores) if loss_scores else 0
+    
+    return avg_win - avg_loss
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    player_idx = headers.index('player')
+    wards_idx = headers.index('wards_placed')
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in lines[2:]:
+        if line.strip():
+            cells = line.split('|')[1:-1]
+            cells = [c.strip() for c in cells]
+            
+            player = cells[player_idx]
+            wards = int(cells[wards_idx])
+            
+            if wards > max_wards:
+                max_wards = wards
+                max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    headers = lines[0].split('|')[1:-1]
+    headers = [h.strip() for h in headers]
+    
+    control_wards_idx = headers.index('control_wards')
+    
+    count = 0
+    
+    for line in lines[2:]:
+        if line.strip():
+            cells = line.split('|')[1:-1]
+            cells = [c.strip() for c in cells]
+            
+            control_wards = int(cells[control_wards_idx])
+            
+            if control_wards >= 15:
+                count += 1
+    
+    return count
+```

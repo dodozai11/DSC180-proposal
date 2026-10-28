@@ -1,0 +1,48 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')[1:]  # Skip header
+    winning_gold_diffs = []
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if result == 'win':
+            winning_gold_diffs.append(gold_diff)
+    
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+
+def q2(text):
+    lines = text.strip().split('\n')[1:]  # Skip header
+    count = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if result == 'win' and gold_diff < 0:
+            count += 1
+    
+    return count
+
+
+def q3(text):
+    lines = text.strip().split('\n')[1:]  # Skip header
+    ahead_total = 0
+    ahead_wins = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        result = parts[3]
+        gold_diff = int(parts[4])
+        
+        if gold_diff > 0:
+            ahead_total += 1
+            if result == 'win':
+                ahead_wins += 1
+    
+    return ahead_wins / ahead_total if ahead_total > 0 else 0
+```

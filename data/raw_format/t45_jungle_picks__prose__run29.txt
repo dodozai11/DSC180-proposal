@@ -1,0 +1,54 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    # Pattern: "played <Champion>" where Champion starts with capital letter
+    matches = re.findall(r'played\s+([A-Za-z\']+)\s+in\s+the\s+jungle', text)
+    champions.update(matches)
+    return len(champions)
+
+
+def q2(text):
+    """Returns the name of the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    # Parse each player's record
+    # Pattern: "played <Champion> in the jungle and (won|lost), dying <deaths>"
+    matches = re.findall(r'played\s+([A-Za-z\']+)\s+in\s+the\s+jungle\s+and\s+(won|lost),\s+dying\s+(\d+)', text)
+    
+    for champion, result, deaths in matches:
+        champion_stats[champion]['total'] += 1
+        if result == 'won':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    qualified = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not qualified:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(qualified.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    losses = []
+    
+    # Parse each player's record
+    # Pattern: "played <Champion> in the jungle and (won|lost), dying <deaths>"
+    matches = re.findall(r'played\s+([A-Za-z\']+)\s+in\s+the\s+jungle\s+and\s+(won|lost),\s+dying\s+(\d+)', text)
+    
+    for champion, result, deaths in matches:
+        if result == 'lost':
+            losses.append(int(deaths))
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

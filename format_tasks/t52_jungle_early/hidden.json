@@ -1,0 +1,162 @@
+[
+  {
+    "player": "Gemini",
+    "champion": "Xin Zhao",
+    "result": "win",
+    "cs_diff_10": -19,
+    "kills_at_10": 2,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Xin",
+    "champion": "Nidalee",
+    "result": "loss",
+    "cs_diff_10": 19,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  },
+  {
+    "player": "HotPot",
+    "champion": "Viego",
+    "result": "win",
+    "cs_diff_10": 10,
+    "kills_at_10": 2,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Kongyue",
+    "champion": "Xin Zhao",
+    "result": "loss",
+    "cs_diff_10": -10,
+    "kills_at_10": 3,
+    "assists_at_10": 0
+  },
+  {
+    "player": "RenYe",
+    "champion": "Vi",
+    "result": "loss",
+    "cs_diff_10": -30,
+    "kills_at_10": 1,
+    "assists_at_10": 1
+  },
+  {
+    "player": "665",
+    "champion": "Nocturne",
+    "result": "win",
+    "cs_diff_10": 30,
+    "kills_at_10": 0,
+    "assists_at_10": 1
+  },
+  {
+    "player": "Xinshou1",
+    "champion": "Wukong",
+    "result": "loss",
+    "cs_diff_10": -4,
+    "kills_at_10": 1,
+    "assists_at_10": 0
+  },
+  {
+    "player": "BiIIy",
+    "champion": "Sejuani",
+    "result": "win",
+    "cs_diff_10": -6,
+    "kills_at_10": 0,
+    "assists_at_10": 2
+  },
+  {
+    "player": "Rwei",
+    "champion": "Vi",
+    "result": "win",
+    "cs_diff_10": 9,
+    "kills_at_10": 1,
+    "assists_at_10": 3
+  },
+  {
+    "player": "Listo",
+    "champion": "Sejuani",
+    "result": "win",
+    "cs_diff_10": -3,
+    "kills_at_10": 1,
+    "assists_at_10": 1
+  },
+  {
+    "player": "PCS OQ02",
+    "champion": "Maokai",
+    "result": "loss",
+    "cs_diff_10": -7,
+    "kills_at_10": 0,
+    "assists_at_10": 3
+  },
+  {
+    "player": "PCS OQ32",
+    "champion": "Sejuani",
+    "result": "win",
+    "cs_diff_10": 7,
+    "kills_at_10": 3,
+    "assists_at_10": 3
+  },
+  {
+    "player": "PCS OQ67",
+    "champion": "Darius",
+    "result": "win",
+    "cs_diff_10": 3,
+    "kills_at_10": 1,
+    "assists_at_10": 1
+  },
+  {
+    "player": "RenHao",
+    "champion": "Vi",
+    "result": "win",
+    "cs_diff_10": 11,
+    "kills_at_10": 1,
+    "assists_at_10": 3
+  },
+  {
+    "player": "Liweier",
+    "champion": "Naafiri",
+    "result": "win",
+    "cs_diff_10": -11,
+    "kills_at_10": 2,
+    "assists_at_10": 0
+  },
+  {
+    "player": "Xiaomi",
+    "champion": "Vi",
+    "result": "win",
+    "cs_diff_10": 9,
+    "kills_at_10": 1,
+    "assists_at_10": 3
+  },
+  {
+    "player": "whisper",
+    "champion": "Xin Zhao",
+    "result": "loss",
+    "cs_diff_10": 16,
+    "kills_at_10": 0,
+    "assists_at_10": 3
+  },
+  {
+    "player": "Dinai",
+    "champion": "Zed",
+    "result": "loss",
+    "cs_diff_10": 13,
+    "kills_at_10": 0,
+    "assists_at_10": 2
+  },
+  {
+    "player": "Husha",
+    "champion": "Wukong",
+    "result": "win",
+    "cs_diff_10": -3,
+    "kills_at_10": 0,
+    "assists_at_10": 2
+  },
+  {
+    "player": "TA0",
+    "champion": "Xin Zhao",
+    "result": "loss",
+    "cs_diff_10": -9,
+    "kills_at_10": 0,
+    "assists_at_10": 0
+  }
+]

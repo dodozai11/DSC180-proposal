@@ -1,0 +1,64 @@
+```python
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:] if line.strip() and '|' in line]
+    
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    for row in rows:
+        cells = [cell.strip() for cell in row]
+        if len(cells) >= 3:
+            first_dragon = cells[2]
+            result = cells[1]
+            
+            if first_dragon == 'yes':
+                first_dragon_total += 1
+                if result == 'win':
+                    first_dragon_wins += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:] if line.strip() and '|' in line]
+    
+    winning_barons = []
+    
+    for row in rows:
+        cells = [cell.strip() for cell in row]
+        if len(cells) >= 5:
+            result = cells[1]
+            barons = int(cells[4])
+            
+            if result == 'win':
+                winning_barons.append(barons)
+    
+    if len(winning_barons) == 0:
+        return 0
+    return sum(winning_barons) / len(winning_barons)
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = [line.split('|')[1:-1] for line in lines[2:] if line.strip() and '|' in line]
+    
+    total_towers = 0
+    
+    for row in rows:
+        cells = [cell.strip() for cell in row]
+        if len(cells) >= 6:
+            towers = int(cells[5])
+            total_towers += towers
+    
+    return total_towers
+```

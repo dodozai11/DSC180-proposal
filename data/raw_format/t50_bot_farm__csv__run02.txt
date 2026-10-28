@@ -1,0 +1,53 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    cs_per_min_idx = header.index('cs_per_min')
+    player_idx = header.index('player')
+    
+    max_cs = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        cs = float(parts[cs_per_min_idx])
+        if cs > max_cs:
+            max_cs = cs
+            max_player = parts[player_idx]
+    
+    return max_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    result_idx = header.index('result')
+    gold_share_idx = header.index('gold_share')
+    
+    total_gold = 0
+    count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        if parts[result_idx] == 'win':
+            total_gold += float(parts[gold_share_idx])
+            count += 1
+    
+    return total_gold / count if count > 0 else 0
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    cs_per_min_idx = header.index('cs_per_min')
+    
+    count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        cs = float(parts[cs_per_min_idx])
+        if cs > 9:
+            count += 1
+    
+    return count
+```

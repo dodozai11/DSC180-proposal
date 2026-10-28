@@ -1,0 +1,69 @@
+```python
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    max_cs = -1
+    max_player = None
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')]
+        # Filter out empty strings from split
+        parts = [p for p in parts if p]
+        
+        player = parts[0]
+        cs_per_min = float(parts[4])
+        
+        if cs_per_min > max_cs:
+            max_cs = cs_per_min
+            max_player = player
+    
+    return max_player
+
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    total_gold_share = 0
+    win_count = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')]
+        # Filter out empty strings from split
+        parts = [p for p in parts if p]
+        
+        result = parts[3]
+        gold_share = float(parts[5])
+        
+        if result == 'win':
+            total_gold_share += gold_share
+            win_count += 1
+    
+    return total_gold_share / win_count if win_count > 0 else 0
+
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    count = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')]
+        # Filter out empty strings from split
+        parts = [p for p in parts if p]
+        
+        cs_per_min = float(parts[4])
+        
+        if cs_per_min > 9:
+            count += 1
+    
+    return count
+```

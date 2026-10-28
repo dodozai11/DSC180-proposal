@@ -1,0 +1,22 @@
+<rows>
+  <row><player>VK velbellys</player><team>VelbeliKaizokudan</team><champion>Syndra</champion><kills>5</kills><deaths>4</deaths><assists>9</assists><result>win</result></row>
+  <row><player>Saii</player><team>Spirit Quartz Gaming</team><champion>Galio</champion><kills>7</kills><deaths>3</deaths><assists>11</assists><result>win</result></row>
+  <row><player>Karaage</player><team>Kareha Children</team><champion>Aurora</champion><kills>8</kills><deaths>0</deaths><assists>18</assists><result>win</result></row>
+  <row><player>Competitive</player><team>VARREL YOUTH</team><champion>Aurora</champion><kills>3</kills><deaths>4</deaths><assists>6</assists><result>loss</result></row>
+  <row><player>Ligen</player><team>Yang Yang Gaming</team><champion>Galio</champion><kills>5</kills><deaths>1</deaths><assists>12</assists><result>win</result></row>
+  <row><player>VEL BEEHIV3</player><team>VeLocitY (Japanese Team)</team><champion>Taliyah</champion><kills>1</kills><deaths>5</deaths><assists>3</assists><result>loss</result></row>
+  <row><player>HNS R1to</player><team>Hands</team><champion>Hwei</champion><kills>1</kills><deaths>3</deaths><assists>1</assists><result>loss</result></row>
+  <row><player>rre</player><team>DetonatioN FocusMe Academy</team><champion>Tryndamere</champion><kills>4</kills><deaths>0</deaths><assists>6</assists><result>win</result></row>
+  <row><player>sucuranbul</player><team>V3 Esports</team><champion>Azir</champion><kills>0</kills><deaths>6</deaths><assists>3</assists><result>loss</result></row>
+  <row><player>Alleycat</player><team>Kareha Children</team><champion>Galio</champion><kills>2</kills><deaths>6</deaths><assists>9</assists><result>win</result></row>
+  <row><player>Dragonblood</player><team>Dream in 24</team><champion>Yasuo</champion><kills>5</kills><deaths>4</deaths><assists>5</assists><result>win</result></row>
+  <row><player>BVL uwaaaa</player><team>BraVeLY</team><champion>Yone</champion><kills>3</kills><deaths>1</deaths><assists>1</assists><result>loss</result></row>
+  <row><player>DG hatinyang</player><team>Deltan Gaming</team><champion>Vladimir</champion><kills>2</kills><deaths>3</deaths><assists>2</assists><result>loss</result></row>
+  <row><player>DICE</player><team>QT DIG∞</team><champion>Jayce</champion><kills>5</kills><deaths>1</deaths><assists>6</assists><result>win</result></row>
+  <row><player>DG suyahime</player><team>Deltan Gaming</team><champion>Taliyah</champion><kills>6</kills><deaths>0</deaths><assists>9</assists><result>win</result></row>
+  <row><player>Sign</player><team>Radical Pop Gaming</team><champion>Azir</champion><kills>7</kills><deaths>3</deaths><assists>5</assists><result>win</result></row>
+  <row><player>VT Nangning</player><team>Vortex (Japanese Team)</team><champion>Zoe</champion><kills>3</kills><deaths>6</deaths><assists>4</assists><result>loss</result></row>
+  <row><player>Mutton</player><team>VelbeliKaizokudan</team><champion>Yone</champion><kills>6</kills><deaths>5</deaths><assists>2</assists><result>loss</result></row>
+  <row><player>RPG sign</player><team>Radical Pop Gaming</team><champion>Azir</champion><kills>1</kills><deaths>6</deaths><assists>4</assists><result>loss</result></row>
+  <row><player>SQG Lunatic</player><team>Spirit Quartz Gaming</team><champion>Azir</champion><kills>2</kills><deaths>2</deaths><assists>8</assists><result>win</result></row>
+</rows>

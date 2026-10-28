@@ -1,0 +1,60 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average number of inhibitors destroyed by winning teams."""
+    winning_inhibitors = []
+    
+    # Find all matches for winning teams
+    pattern = r'In game (G\d+), (\w+(?:\s+\w+)*) won after ([\d.]+) minutes, destroying (\d+) inhibitors'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        inhibitors = int(match[3])
+        winning_inhibitors.append(inhibitors)
+    
+    if winning_inhibitors:
+        return sum(winning_inhibitors) / len(winning_inhibitors)
+    return 0
+
+def q2(text):
+    """Returns the average damage to towers of losing teams."""
+    losing_damages = []
+    
+    # Find all matches for losing teams
+    pattern = r'In game (G\d+), (\w+(?:\s+\w+)*) lost after ([\d.]+) minutes, destroying (\d+) inhibitors and dealing (\d+) damage to towers'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        damage = int(match[4])
+        losing_damages.append(damage)
+    
+    if losing_damages:
+        return sum(losing_damages) / len(losing_damages)
+    return 0
+
+def q3(text):
+    """Returns the game label of the longest game."""
+    longest_game = None
+    longest_duration = -1
+    
+    # Find all games with their durations
+    pattern = r'In game (G\d+), \w+(?:\s+\w+)* (?:won|lost) after ([\d.]+) minutes'
+    matches = re.findall(pattern, text)
+    
+    # Track which games we've already seen to avoid duplicates
+    seen_games = set()
+    
+    for match in matches:
+        game_label = match[0]
+        duration = float(match[1])
+        
+        # Only process each game once (both teams have same duration)
+        if game_label not in seen_games:
+            seen_games.add(game_label)
+            if duration > longest_duration:
+                longest_duration = duration
+                longest_game = game_label
+    
+    return longest_game
+```

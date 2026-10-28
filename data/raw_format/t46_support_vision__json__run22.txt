@@ -1,0 +1,30 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Return the average vision score of players who won minus the average vision score of players who lost."""
+    data = json.loads(text)
+    
+    winners = [player for player in data if player['result'] == 'win']
+    losers = [player for player in data if player['result'] == 'loss']
+    
+    avg_vision_winners = sum(p['vision_score'] for p in winners) / len(winners)
+    avg_vision_losers = sum(p['vision_score'] for p in losers) / len(losers)
+    
+    return avg_vision_winners - avg_vision_losers
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    data = json.loads(text)
+    
+    player_with_most_wards = max(data, key=lambda p: p['wards_placed'])
+    return player_with_most_wards['player']
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    data = json.loads(text)
+    
+    count = sum(1 for player in data if player['control_wards'] >= 15)
+    return count
+```

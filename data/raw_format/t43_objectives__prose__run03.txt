@@ -1,0 +1,87 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first dragon."""
+    first_dragon_teams = []
+    
+    # Parse all games
+    games = re.findall(r'In game (G\d+), ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\. In game \1, ([^;]+); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\.', text)
+    
+    # Alternative parsing approach - split by "In game" and process pairs
+    pattern = r'In game (G\d+), ([^;]+); they (took|did not take) the first dragon and finished with \d+ dragons, \d+ barons and \d+ towers\. In game \1, ([^;]+); they (took|did not take) the first dragon and finished with \d+ dragons, \d+ barons and \d+ towers\.'
+    
+    matches = re.finditer(pattern, text)
+    
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    for match in matches:
+        game_id = match.group(1)
+        team1 = match.group(2)
+        first_dragon1 = match.group(3) == "took"
+        team2 = match.group(4)
+        first_dragon2 = match.group(5) == "took"
+        
+        # Determine winner by checking which team is mentioned as won
+        game_text = match.group(0)
+        if f"{team1} won" in game_text:
+            winner = team1
+            first_dragon_winner = first_dragon1
+        else:
+            winner = team2
+            first_dragon_winner = first_dragon2
+        
+        if first_dragon1:
+            first_dragon_total += 1
+            if f"{team1} won" in game_text:
+                first_dragon_wins += 1
+        
+        if first_dragon2:
+            first_dragon_total += 1
+            if f"{team2} won" in game_text:
+                first_dragon_wins += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    """Returns the average number of barons taken by winning teams."""
+    winning_barons = []
+    
+    # Parse each game entry
+    pattern = r'In game (G\d+), ([^;]+); they (?:took|did not take) the first dragon and finished with \d+ dragons, (\d+) barons and \d+ towers\.'
+    
+    matches = list(re.finditer(pattern, text))
+    
+    for i in range(0, len(matches), 2):
+        if i + 1 < len(matches):
+            match1 = matches[i]
+            match2 = matches[i + 1]
+            
+            team1 = match1.group(2)
+            barons1 = int(match1.group(3))
+            team2 = match2.group(2)
+            barons2 = int(match2.group(3))
+            
+            # Find the winner in the original text
+            game_section = text[match1.start():match2.end()]
+            if f"{team1} won" in game_section:
+                winning_barons.append(barons1)
+            else:
+                winning_barons.append(barons2)
+    
+    if len(winning_barons) == 0:
+        return 0
+    return sum(winning_barons) / len(winning_barons)
+
+
+def q3(text):
+    """Returns the total number of towers destroyed across all rows."""
+    pattern = r'finished with \d+ dragons, \d+ barons and (\d+) towers'
+    matches = re.findall(pattern, text)
+    total_towers = sum(int(m) for m in matches)
+    return total_towers
+```

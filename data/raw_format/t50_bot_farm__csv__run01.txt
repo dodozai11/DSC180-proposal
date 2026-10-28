@@ -1,0 +1,60 @@
+```python
+def q1(text):
+    """Returns the name of the player with the highest CS per minute."""
+    lines = text.strip().split('\n')
+    header = lines[0]
+    
+    max_cs = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        player = parts[0]
+        cs_per_min = float(parts[4])
+        
+        if cs_per_min > max_cs:
+            max_cs = cs_per_min
+            max_player = player
+    
+    return max_player
+
+
+def q2(text):
+    """Returns the average gold share of players who won."""
+    lines = text.strip().split('\n')
+    header = lines[0]
+    
+    total_gold_share = 0
+    win_count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        result = parts[3]
+        gold_share = float(parts[5])
+        
+        if result == 'win':
+            total_gold_share += gold_share
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_gold_share / win_count
+
+
+def q3(text):
+    """Returns how many players had more than 9 CS per minute."""
+    lines = text.strip().split('\n')
+    header = lines[0]
+    
+    count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        cs_per_min = float(parts[4])
+        
+        if cs_per_min > 9:
+            count += 1
+    
+    return count
+```

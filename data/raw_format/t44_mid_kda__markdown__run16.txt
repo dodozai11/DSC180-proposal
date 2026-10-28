@@ -1,0 +1,83 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in lines[1:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        if len(cells) < len(header):
+            continue
+            
+        player = cells[0]
+        kills = int(cells[3])
+        deaths = int(cells[4])
+        assists = int(cells[5])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in lines[1:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        if len(cells) < len(header):
+            continue
+            
+        kills = int(cells[3])
+        result = cells[6]
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    return total_kills / win_count
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')
+    header = [h.strip() for h in header if h.strip()]
+    
+    champion_count = {}
+    
+    for line in lines[1:]:
+        if not line.strip():
+            continue
+        cells = line.split('|')
+        cells = [c.strip() for c in cells if c.strip()]
+        
+        if len(cells) < len(header):
+            continue
+            
+        champion = cells[2]
+        champion_count[champion] = champion_count.get(champion, 0) + 1
+    
+    most_picked = max(champion_count, key=champion_count.get)
+    return most_picked
+```

@@ -44,6 +44,35 @@ python src/run_tool_experiment.py --check  # every answer key grades 3/3
 python src/run_tool_experiment.py          # run (resumes like run_experiment.py)
 ```
 
+## Data format v2 on Claude (`t41`–`t52`, test 4)
+
+The parse version again, but focused on **output tokens** with more formats and more repetitions, on Claude through the paid API.
+
+- **Tasks:** 12. `t41`–`t46` are the 6 parse tasks again: the same 20-row samples, hidden samples, questions and structured prompt as `t21`–`t26` (their CSV, XML and prose files are identical). `t47`–`t52` are 6 new tasks (3 team, 3 player) with new leagues, columns and questions, sampled the same way from the Oracle's Elixir file, so the format effect can be checked beyond the original questions. `scripts/make_format_tasks.py` writes all 12 to `format_tasks/` (outside `tasks/`, so `run_experiment.py` doesn't pick them up).
+- **Formats:** `csv`, `json` (indent 2), `markdown` (pipe table), `xml`, `prose`.
+- **Instructions:** the structured prompt only.
+- **Model:** `claude-haiku-4-5`, temperature 0.7, max 4,096 output tokens, no extended thinking (so `output_tokens` is exactly the visible reply), no prompt caching.
+- **Runs:** 12 tasks × 5 formats × 40 runs = 2,400 requests, sent as [Message Batches](https://platform.claude.com/docs/en/build-with-claude/batch-processing): half price, every request independent, usually done within an hour (at most 24 h). About $2 per 1,200 requests.
+- **Validity:** the parse checks above. Replies are graded locally after the batch ends.
+
+**Setup:** API access is billed separately from a claude.ai subscription. In the [Claude Console](https://platform.claude.com), add credits under Billing and create a key under API Keys, then copy `.env.example` to `.env` and paste the key there.
+
+```bash
+python scripts/make_format_tasks.py             # builds format_tasks/ (t47-t52 need the Oracle's Elixir file, like make_data_tasks.py)
+python src/run_format_batch.py check            # offline: tests accept a parser, reject empty/hard-coded code
+python src/run_format_batch.py dry-run          # the plan, one full prompt, a cost estimate; no API calls
+python src/run_format_batch.py count            # exact input tokens per task x format (free)
+python src/run_format_batch.py submit --limit 2 # a small test batch first
+python src/run_format_batch.py submit           # the rest
+python src/run_format_batch.py status           # until it says "ended"
+python src/run_format_batch.py collect          # saves replies, grades them, writes data/format_results.csv
+python src/run_format_batch.py submit --retry-failed   # only if collect reports failed requests
+python scripts/make_notebook_test4.py
+jupyter nbconvert --to notebook --execute --inplace notebooks/test4.ipynb
+```
+
+Batch ids are saved in `data/format_batch.json`, so every step can be re-run: `submit` never resends a request, and `collect` skips rows already in the CSV. `collect` grades one reply at a time, and the API key is removed from the environment before any model-written code runs. `data/format_results.csv` has the same columns as `results.csv` plus `response_chars`, `code_chars` (the code inside the reply's code block) and `cache_tokens` (should be 0).
+
 ## Repo layout
 
 ```
@@ -76,6 +105,11 @@ src/run_tool_experiment.py runs the tool-result version, writes data/tool_result
 scripts/make_tool_tasks.py builds tool_tasks/ from the copy tasks' samples
 notebooks/eda3.ipynb       tool-result version: tokens and accuracy by format
 scripts/make_notebook_eda3.py  builds notebooks/eda3.ipynb (reads data/tool_results.csv and tool_tasks/)
+format_tasks/t4X_, t5X_<name>/  data format v2 tasks: data_<format>.txt and hidden_<format>.txt in 5 formats
+scripts/make_format_tasks.py   builds format_tasks/ (t41-t46 from the parse tasks, t47-t52 from the source file)
+src/run_format_batch.py    sends format_tasks/ to Claude as a Message Batch, grades results into data/format_results.csv
+notebooks/test4.ipynb      data format v2: input, output tokens, what the output goes to, significance, cost
+scripts/make_notebook_test4.py builds notebooks/test4.ipynb (reads data/format_results.csv, data/raw_format/, format_tasks/)
 ```
 
 ## Setup

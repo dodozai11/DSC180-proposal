@@ -1,0 +1,59 @@
+```python
+import re
+from collections import Counter
+
+def parse_match_data(text):
+    """Parse match data from text format."""
+    pattern = r"(\w+) of (.+?) played (\w+(?:'\w+)?) in mid and (won|lost) with (\d+) kills, (\d+) deaths and (\d+) assists"
+    matches = re.findall(pattern, text)
+    
+    data = []
+    for match in matches:
+        player_name, team, champion, result, kills, deaths, assists = match
+        data.append({
+            'player': player_name,
+            'team': team,
+            'champion': champion,
+            'result': result,
+            'kills': int(kills),
+            'deaths': int(deaths),
+            'assists': int(assists)
+        })
+    return data
+
+def q1(text):
+    """Return the name of the player with the highest KDA."""
+    data = parse_match_data(text)
+    
+    max_kda = -1
+    best_player = None
+    
+    for player_data in data:
+        kda = (player_data['kills'] + player_data['assists']) / max(player_data['deaths'], 1)
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player_data['player']
+    
+    return best_player
+
+def q2(text):
+    """Return the average number of kills in games that were won."""
+    data = parse_match_data(text)
+    
+    won_kills = [player_data['kills'] for player_data in data if player_data['result'] == 'won']
+    
+    if len(won_kills) == 0:
+        return 0
+    
+    return sum(won_kills) / len(won_kills)
+
+def q3(text):
+    """Return the name of the most-picked champion."""
+    data = parse_match_data(text)
+    
+    champions = [player_data['champion'] for player_data in data]
+    champion_counts = Counter(champions)
+    
+    most_picked = champion_counts.most_common(1)[0][0]
+    return most_picked
+```

@@ -1,0 +1,63 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    cs_diff_idx = header.index('cs_diff_10')
+    result_idx = header.index('result')
+    
+    positive_cs_diff_wins = 0
+    positive_cs_diff_total = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        cs_diff = int(parts[cs_diff_idx])
+        result = parts[result_idx]
+        
+        if cs_diff > 0:
+            positive_cs_diff_total += 1
+            if result == 'win':
+                positive_cs_diff_wins += 1
+    
+    if positive_cs_diff_total == 0:
+        return 0
+    
+    return positive_cs_diff_wins / positive_cs_diff_total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    kills_idx = header.index('kills_at_10')
+    
+    total_kills = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        kills = int(parts[kills_idx])
+        total_kills += kills
+    
+    return total_kills
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    champion_idx = header.index('champion')
+    assists_idx = header.index('assists_at_10')
+    
+    champion_assists = {}
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        champion = parts[champion_idx]
+        assists = int(parts[assists_idx])
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += assists
+    
+    return max(champion_assists, key=champion_assists.get)
+```

@@ -1,0 +1,61 @@
+```python
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    inhibitors_won = []
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        parts = [p.strip() for p in line.split('|')[1:-1]]
+        if len(parts) == len(header):
+            game, team, result, game_minutes, inhibitors, tower_damage = parts
+            if result == 'win':
+                inhibitors_won.append(float(inhibitors))
+    
+    return sum(inhibitors_won) / len(inhibitors_won) if inhibitors_won else 0
+
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    tower_damage_lost = []
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        parts = [p.strip() for p in line.split('|')[1:-1]]
+        if len(parts) == len(header):
+            game, team, result, game_minutes, inhibitors, tower_damage = parts
+            if result == 'loss':
+                tower_damage_lost.append(float(tower_damage))
+    
+    return sum(tower_damage_lost) / len(tower_damage_lost) if tower_damage_lost else 0
+
+
+def q3(text):
+    """Return the game label of the longest game."""
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    max_duration = -1
+    longest_game = None
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        parts = [p.strip() for p in line.split('|')[1:-1]]
+        if len(parts) == len(header):
+            game, team, result, game_minutes, inhibitors, tower_damage = parts
+            duration = float(game_minutes)
+            if duration > max_duration:
+                max_duration = duration
+                longest_game = game
+    
+    return longest_game
+```

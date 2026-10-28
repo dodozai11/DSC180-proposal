@@ -1,0 +1,69 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    champions = set()
+    for match in re.finditer(r'<champion>([^<]+)</champion>', text):
+        champions.add(match.group(1))
+    return len(champions)
+
+def q2(text):
+    """Returns the champion with the best win rate among champions played at least twice."""
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    # Parse all rows
+    rows = re.findall(r'<row>.*?</row>', text, re.DOTALL)
+    
+    for row in rows:
+        champion_match = re.search(r'<champion>([^<]+)</champion>', row)
+        result_match = re.search(r'<result>([^<]+)</result>', row)
+        
+        if champion_match and result_match:
+            champion = champion_match.group(1)
+            result = result_match.group(1)
+            
+            champion_stats[champion]['total'] += 1
+            if result == 'win':
+                champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    candidates = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats['total'] >= 2
+    }
+    
+    if not candidates:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        candidates.items(),
+        key=lambda x: x[1]['wins'] / x[1]['total']
+    )
+    
+    return best_champion[0]
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    losses = []
+    
+    rows = re.findall(r'<row>.*?</row>', text, re.DOTALL)
+    
+    for row in rows:
+        result_match = re.search(r'<result>([^<]+)</result>', row)
+        deaths_match = re.search(r'<deaths>(\d+)</deaths>', row)
+        
+        if result_match and deaths_match:
+            result = result_match.group(1)
+            deaths = int(deaths_match.group(1))
+            
+            if result == 'loss':
+                losses.append(deaths)
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

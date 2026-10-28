@@ -1,0 +1,54 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    damage_per_min_idx = header.index('damage_per_min')
+    result_idx = header.index('result')
+    
+    total_damage = 0
+    count = 0
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        if parts[result_idx] == 'loss':
+            total_damage += float(parts[damage_per_min_idx])
+            count += 1
+    
+    return total_damage / count if count > 0 else 0
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    player_idx = header.index('player')
+    damage_taken_per_min_idx = header.index('damage_taken_per_min')
+    
+    max_damage_taken = -1
+    max_player = None
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        damage_taken = float(parts[damage_taken_per_min_idx])
+        if damage_taken > max_damage_taken:
+            max_damage_taken = damage_taken
+            max_player = parts[player_idx]
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split(',')
+    
+    team_idx = header.index('team')
+    
+    teams = set()
+    
+    for line in lines[1:]:
+        parts = line.split(',')
+        teams.add(parts[team_idx])
+    
+    return len(teams)
+```

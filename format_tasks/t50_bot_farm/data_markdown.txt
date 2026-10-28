@@ -1,0 +1,22 @@
+| player | team | champion | result | cs_per_min | gold_share |
+|---|---|---|---|---|---|
+| Bazz | Apex Mission Impossible | Ezreal | loss | 9.31 | 0.27 |
+| CNV Chrome | Conviction | Jhin | win | 9.64 | 0.299 |
+| Tactical | Luminosity Gaming | Kalista | loss | 8.85 | 0.242 |
+| Doublelift | Near Airport | Jhin | win | 7.66 | 0.235 |
+| sajed | DarkZero Dragonsteel | Ezreal | win | 9.77 | 0.22 |
+| Hub | Pulse Star | Corki | loss | 9.24 | 0.293 |
+| Shogo | Supernova | Corki | loss | 10.59 | 0.326 |
+| Mobility | Winthrop University | Ashe | win | 8.59 | 0.214 |
+| Levitate | Blue Otter | Jhin | loss | 8.92 | 0.241 |
+| Airren | Conviction | Jhin | win | 9.73 | 0.273 |
+| Spawn | DarkZero Dragonsteel | Miss Fortune | loss | 9.06 | 0.257 |
+| Sushee | Near Airport | Varus | win | 7.51 | 0.217 |
+| Nightstar | Cupid Esports | Ziggs | loss | 9.59 | 0.261 |
+| Instinct | Citadel Gaming | Varus | win | 9.23 | 0.253 |
+| Zev | Jolly Rogers | Senna | win | 8.08 | 0.24 |
+| Fatihcan | Dorado Gaming | Kai'Sa | loss | 7.87 | 0.266 |
+| ScaryJerry | Supernova | Caitlyn | win | 10.5 | 0.259 |
+| V1per | Conviction | Sivir | loss | 9.59 | 0.236 |
+| TF Blade | Conviction | Rumble | win | 8.21 | 0.198 |
+| Globby | Zenshi Gaming | Smolder | win | 8.76 | 0.237 |

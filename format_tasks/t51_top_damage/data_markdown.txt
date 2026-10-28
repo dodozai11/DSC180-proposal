@@ -1,0 +1,22 @@
+| player | team | champion | result | damage_per_min | damage_taken_per_min |
+|---|---|---|---|---|---|
+| Surdinz | BWE Esports | K'Sante | loss | 637.2 | 951.2 |
+| HOF Martim | Hurricane of Feathers | Jayce | loss | 467.2 | 993.6 |
+| Kaylem | White Dragons | Gnar | win | 963.5 | 682.6 |
+| TheGreatGary | GTZ Esports | Sion | win | 600.5 | 841.0 |
+| ffernandes | ZeroZone Gaming | Dr. Mundo | loss | 842.5 | 2213.8 |
+| Caucha | FlameHard | Renekton | win | 518.6 | 881.5 |
+| Shourdy | For The Win Esports | Ambessa | loss | 438.0 | 819.3 |
+| BER Outskale | Berimbados | Ambessa | loss | 685.4 | 841.2 |
+| Dumbao | Berimbados | K'Sante | loss | 664.7 | 795.9 |
+| HOF Zezin | Hurricane of Feathers | K'Sante | win | 311.6 | 890.7 |
+| Vodin | ZeroZone Gaming | Renekton | loss | 378.9 | 1042.9 |
+| Blackout | FlameHard | Naafiri | win | 521.9 | 679.3 |
+| JoKozz | ZeroZone Gaming | Rumble | loss | 673.1 | 494.7 |
+| DIV MinetasJR | Diver (Portuguese Team) | Renekton | win | 413.6 | 857.7 |
+| HOF Julzh | Hurricane of Feathers | Volibear | loss | 418.8 | 1047.1 |
+| Misaki | Rage Bait e-Sports | Sion | win | 481.0 | 1017.9 |
+| Bayonetta | Otter Side | Jayce | win | 741.7 | 444.2 |
+| CRZ Cold Rose | Crusaders | Gwen | loss | 557.4 | 1090.1 |
+| CRZ Guvez | Crusaders | Ambessa | loss | 572.2 | 723.1 |
+| ColdRose | Crusaders | Kled | loss | 504.9 | 1097.6 |

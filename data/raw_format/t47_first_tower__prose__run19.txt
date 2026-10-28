@@ -1,0 +1,65 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first tower"""
+    first_tower_games = []
+    
+    # Parse all games
+    game_pattern = r'In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower'
+    matches = re.findall(game_pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status = match
+        took_first_tower = tower_status == "took"
+        won = result == "won"
+        
+        if took_first_tower:
+            first_tower_games.append(won)
+    
+    if not first_tower_games:
+        return 0
+    
+    win_rate = sum(first_tower_games) / len(first_tower_games)
+    return win_rate
+
+def q2(text):
+    """Returns the average number of void grubs taken by winning teams"""
+    winning_void_grubs = []
+    
+    # Parse all games with void grubs and heralds
+    pattern = r'In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        won = result == "won"
+        void_grubs_count = int(void_grubs)
+        
+        if won:
+            winning_void_grubs.append(void_grubs_count)
+    
+    if not winning_void_grubs:
+        return 0
+    
+    average = sum(winning_void_grubs) / len(winning_void_grubs)
+    return average
+
+def q3(text):
+    """Returns how many teams took at least one herald and still lost"""
+    teams_with_herald_lost = 0
+    
+    # Parse all games with void grubs and heralds
+    pattern = r'In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        lost = result == "lost"
+        heralds_count = int(heralds)
+        
+        if lost and heralds_count >= 1:
+            teams_with_herald_lost += 1
+    
+    return teams_with_herald_lost
+```

@@ -1,0 +1,56 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average damage per minute of players who lost."""
+    matches = re.findall(
+        r'(\w+(?:\s+\w+)*)\s+of\s+(.+?)\s+played\s+(.+?)\s+in\s+the\s+top\s+lane\s+and\s+(won|lost),\s+dealing\s+([\d.]+)\s+damage\s+per\s+minute',
+        text
+    )
+    
+    lost_damages = []
+    for match in matches:
+        player_name, team, champion, result, damage = match
+        if result == 'lost':
+            lost_damages.append(float(damage))
+    
+    if not lost_damages:
+        return 0
+    
+    return sum(lost_damages) / len(lost_damages)
+
+
+def q2(text):
+    """Returns the name of the player who took the most damage per minute."""
+    matches = re.findall(
+        r'(\w+(?:\s+\w+)*)\s+of\s+(.+?)\s+played\s+(.+?)\s+in\s+the\s+top\s+lane\s+and\s+(won|lost),\s+dealing\s+([\d.]+)\s+damage\s+per\s+minute\s+and\s+taking\s+([\d.]+)\s+damage\s+per\s+minute',
+        text
+    )
+    
+    max_damage_taken = -1
+    max_player = None
+    
+    for match in matches:
+        player_name, team, champion, result, damage_dealt, damage_taken = match
+        damage_taken_float = float(damage_taken)
+        if damage_taken_float > max_damage_taken:
+            max_damage_taken = damage_taken_float
+            max_player = player_name
+    
+    return max_player
+
+
+def q3(text):
+    """Returns the number of different teams."""
+    matches = re.findall(
+        r'(\w+(?:\s+\w+)*)\s+of\s+(.+?)\s+played\s+(.+?)\s+in\s+the\s+top\s+lane',
+        text
+    )
+    
+    teams = set()
+    for match in matches:
+        player_name, team, champion = match
+        teams.add(team)
+    
+    return len(teams)
+```

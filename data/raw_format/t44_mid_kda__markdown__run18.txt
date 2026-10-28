@@ -1,0 +1,76 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = lines[1:]
+    
+    max_kda = -1
+    best_player = None
+    
+    for row in rows:
+        parts = [p.strip() for p in row.split('|')]
+        # Filter out empty strings from split
+        parts = [p for p in parts if p]
+        
+        player = parts[0]
+        kills = int(parts[3])
+        deaths = int(parts[4])
+        assists = int(parts[5])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = lines[1:]
+    
+    total_kills = 0
+    win_count = 0
+    
+    for row in rows:
+        parts = [p.strip() for p in row.split('|')]
+        # Filter out empty strings from split
+        parts = [p for p in parts if p]
+        
+        kills = int(parts[3])
+        result = parts[6]
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_kills / win_count
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    # Skip header row
+    rows = lines[1:]
+    
+    champion_counts = {}
+    
+    for row in rows:
+        parts = [p.strip() for p in row.split('|')]
+        # Filter out empty strings from split
+        parts = [p for p in parts if p]
+        
+        champion = parts[2]
+        
+        if champion in champion_counts:
+            champion_counts[champion] += 1
+        else:
+            champion_counts[champion] = 1
+    
+    most_picked = max(champion_counts, key=champion_counts.get)
+    return most_picked
+```

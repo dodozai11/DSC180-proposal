@@ -1,0 +1,66 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    first_tower_games = []
+    
+    # Parse all game entries
+    pattern = r"In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        took_first_tower = tower_status == "took"
+        won = result == "won"
+        
+        if took_first_tower:
+            first_tower_games.append(won)
+    
+    if not first_tower_games:
+        return 0
+    
+    win_rate = sum(first_tower_games) / len(first_tower_games)
+    return win_rate
+
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    winning_void_grubs = []
+    
+    # Parse all game entries
+    pattern = r"In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        won = result == "won"
+        
+        if won:
+            winning_void_grubs.append(int(void_grubs))
+    
+    if not winning_void_grubs:
+        return 0
+    
+    average = sum(winning_void_grubs) / len(winning_void_grubs)
+    return average
+
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    count = 0
+    
+    # Parse all game entries
+    pattern = r"In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower and finished with (\d+) void grubs and (\d+) heralds\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, tower_status, void_grubs, heralds = match
+        lost = result == "lost"
+        herald_count = int(heralds)
+        
+        if lost and herald_count >= 1:
+            count += 1
+    
+    return count
+```

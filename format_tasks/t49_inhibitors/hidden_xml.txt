@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>Ramboot Club</team><result>loss</result><game_minutes>23.0</game_minutes><inhibitors>0</inhibitors><tower_damage>3363</tower_damage></row>
+  <row><game>G01</game><team>Los Heretics</team><result>win</result><game_minutes>23.0</game_minutes><inhibitors>3</inhibitors><tower_damage>33013</tower_damage></row>
+  <row><game>G02</game><team>Los Heretics</team><result>win</result><game_minutes>31.6</game_minutes><inhibitors>1</inhibitors><tower_damage>24724</tower_damage></row>
+  <row><game>G02</game><team>GIANTX Pride</team><result>loss</result><game_minutes>31.6</game_minutes><inhibitors>0</inhibitors><tower_damage>14821</tower_damage></row>
+  <row><game>G03</game><team>Veni Vidi Vici</team><result>loss</result><game_minutes>32.7</game_minutes><inhibitors>0</inhibitors><tower_damage>13454</tower_damage></row>
+  <row><game>G03</game><team>Los Heretics</team><result>win</result><game_minutes>32.7</game_minutes><inhibitors>1</inhibitors><tower_damage>19658</tower_damage></row>
+  <row><game>G04</game><team>Ramboot Club</team><result>win</result><game_minutes>31.8</game_minutes><inhibitors>2</inhibitors><tower_damage>26070</tower_damage></row>
+  <row><game>G04</game><team>LUA Gaming</team><result>loss</result><game_minutes>31.8</game_minutes><inhibitors>0</inhibitors><tower_damage>5728</tower_damage></row>
+  <row><game>G05</game><team>Ramboot Club</team><result>win</result><game_minutes>34.9</game_minutes><inhibitors>1</inhibitors><tower_damage>20241</tower_damage></row>
+  <row><game>G05</game><team>Movistar KOI Fénix</team><result>loss</result><game_minutes>34.9</game_minutes><inhibitors>0</inhibitors><tower_damage>4500</tower_damage></row>
+  <row><game>G06</game><team>Los Heretics</team><result>loss</result><game_minutes>33.9</game_minutes><inhibitors>0</inhibitors><tower_damage>6941</tower_damage></row>
+  <row><game>G06</game><team>GIANTX Pride</team><result>win</result><game_minutes>33.9</game_minutes><inhibitors>2</inhibitors><tower_damage>25163</tower_damage></row>
+  <row><game>G07</game><team>Barça eSports</team><result>loss</result><game_minutes>33.6</game_minutes><inhibitors>0</inhibitors><tower_damage>4296</tower_damage></row>
+  <row><game>G07</game><team>LUA Gaming</team><result>win</result><game_minutes>33.6</game_minutes><inhibitors>1</inhibitors><tower_damage>19403</tower_damage></row>
+  <row><game>G08</game><team>LUA Gaming</team><result>loss</result><game_minutes>41.4</game_minutes><inhibitors>0</inhibitors><tower_damage>21712</tower_damage></row>
+  <row><game>G08</game><team>Barça eSports</team><result>win</result><game_minutes>41.4</game_minutes><inhibitors>2</inhibitors><tower_damage>22929</tower_damage></row>
+  <row><game>G09</game><team>Los Heretics</team><result>loss</result><game_minutes>34.1</game_minutes><inhibitors>0</inhibitors><tower_damage>11563</tower_damage></row>
+  <row><game>G09</game><team>UCAM Esports</team><result>win</result><game_minutes>34.1</game_minutes><inhibitors>1</inhibitors><tower_damage>16346</tower_damage></row>
+  <row><game>G10</game><team>Los Heretics</team><result>loss</result><game_minutes>28.1</game_minutes><inhibitors>0</inhibitors><tower_damage>9129</tower_damage></row>
+  <row><game>G10</game><team>GIANTX Pride</team><result>win</result><game_minutes>28.1</game_minutes><inhibitors>1</inhibitors><tower_damage>20503</tower_damage></row>
+</rows>

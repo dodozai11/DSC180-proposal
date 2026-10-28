@@ -1,0 +1,56 @@
+```python
+import re
+from xml.etree import ElementTree as ET
+
+def parse_data(text):
+    """Parse the XML-like data and return a list of player dictionaries."""
+    players = []
+    # Find all row elements
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    for row in rows:
+        player_data = {}
+        # Extract each field
+        player_match = re.search(r'<player>(.*?)</player>', row)
+        team_match = re.search(r'<team>(.*?)</team>', row)
+        champion_match = re.search(r'<champion>(.*?)</champion>', row)
+        result_match = re.search(r'<result>(.*?)</result>', row)
+        cs_match = re.search(r'<cs_per_min>(.*?)</cs_per_min>', row)
+        gold_match = re.search(r'<gold_share>(.*?)</gold_share>', row)
+        
+        if all([player_match, team_match, champion_match, result_match, cs_match, gold_match]):
+            player_data['player'] = player_match.group(1)
+            player_data['team'] = team_match.group(1)
+            player_data['champion'] = champion_match.group(1)
+            player_data['result'] = result_match.group(1)
+            player_data['cs_per_min'] = float(cs_match.group(1))
+            player_data['gold_share'] = float(gold_match.group(1))
+            players.append(player_data)
+    
+    return players
+
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    players = parse_data(text)
+    if not players:
+        return None
+    max_player = max(players, key=lambda p: p['cs_per_min'])
+    return max_player['player']
+
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    players = parse_data(text)
+    winners = [p for p in players if p['result'] == 'win']
+    if not winners:
+        return 0
+    avg_gold_share = sum(p['gold_share'] for p in winners) / len(winners)
+    return avg_gold_share
+
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    players = parse_data(text)
+    count = sum(1 for p in players if p['cs_per_min'] > 9)
+    return count
+```

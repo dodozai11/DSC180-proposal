@@ -1,0 +1,86 @@
+
+```python
+import anthropic
+import csv
+import io
+
+
+def q1(text: str) -> float:
+    """Return the average vision score of players who won minus the average vision score of players who lost."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    wins = []
+    losses = []
+    
+    for row in reader:
+        vision_score = float(row['vision_score'])
+        if row['result'] == 'win':
+            wins.append(vision_score)
+        else:
+            losses.append(vision_score)
+    
+    avg_wins = sum(wins) / len(wins) if wins else 0
+    avg_losses = sum(losses) / len(losses) if losses else 0
+    
+    return avg_wins - avg_losses
+
+
+def q2(text: str) -> str:
+    """Return the name of the player who placed the most wards."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    max_wards = -1
+    max_player = None
+    
+    for row in reader:
+        wards_placed = int(row['wards_placed'])
+        if wards_placed > max_wards:
+            max_wards = wards_placed
+            max_player = row['player']
+    
+    return max_player
+
+
+def q3(text: str) -> int:
+    """Return how many players bought at least 15 control wards."""
+    lines = text.strip().split('\n')
+    reader = csv.DictReader(io.StringIO('\n'.join(lines)))
+    
+    count = 0
+    for row in reader:
+        control_wards = int(row['control_wards'])
+        if control_wards >= 15:
+            count += 1
+    
+    return count
+
+
+if __name__ == "__main__":
+    sample_data = """player,team,result,vision_score,wards_placed,control_wards
+J3rkie,ZennIT,loss,80,44,12
+JACTROLL,Zero Tenacity,loss,107,47,7
+Peto,Nightbirds,loss,220,114,27
+Rekkles,Los Ratones,win,252,119,32
+Prime,Ici Japon Corp. Esport,loss,112,58,23
+Shredder,Macko Esports,win,114,49,8
+Nsurr,Karmine Corp Blue,win,141,53,13
+Tockimo,E WIE EINFACH E-SPORTS,loss,113,71,16
+Piero,Karmine Corp Blue,win,112,56,13
+Centu,Gamespace Mediterranean College Esports,loss,140,58,16
+Mahonix,GMBLERS Esports,loss,91,46,16
+Visdom,Kaufland Hangry Knights,loss,96,70,16
+Brizz,aNc Legends,loss,99,51,16
+Vlaren,SPIKE Syndicate,loss,86,45,10
+Speedy1,Team Insidious,loss,95,43,12
+Max1,eSuba,loss,50,30,8
+Rutzou,Odivelas Sports Club,win,111,48,13
+Zoelys,Galions,win,59,26,9
+Sparz,GnG Amazigh,win,144,71,16
+Farfetch,ULF Esports,win,121,54,12"""
+    
+    print(f"Q1 (avg vision score diff): {q1(sample_data)}")
+    print(f"Q2 (player with most wards): {q2(sample_data)}")
+    print(f"Q3 (players with 15+ control wards): {q3(sample_data)}")
+```

@@ -1,0 +1,69 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    wins = 0
+    total = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        cs_diff_10 = int(cells[header.index('cs_diff_10')])
+        result = cells[header.index('result')]
+        
+        if cs_diff_10 > 0:
+            total += 1
+            if result == 'win':
+                wins += 1
+    
+    if total == 0:
+        return 0
+    return wins / total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    total_kills = 0
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        kills_at_10 = int(cells[header.index('kills_at_10')])
+        total_kills += kills_at_10
+    
+    return total_kills
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    champion_assists = {}
+    
+    for line in lines[2:]:
+        if line.strip() == '':
+            continue
+        cells = line.split('|')[1:-1]
+        cells = [c.strip() for c in cells]
+        
+        champion = cells[header.index('champion')]
+        assists_at_10 = int(cells[header.index('assists_at_10')])
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += assists_at_10
+    
+    return max(champion_assists, key=champion_assists.get)
+```

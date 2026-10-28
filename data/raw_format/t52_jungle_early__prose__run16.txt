@@ -1,0 +1,36 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    pattern = r"(\w+)\s+played\s+(\w+)\s+in the jungle and (won|lost);.*?CS difference of (-?\d+),.*?kills and.*?assists"
+    matches = re.findall(pattern, text)
+    
+    positive_cs_players = [(player, result) for player, champion, result, cs_diff in matches if int(cs_diff) > 0]
+    
+    if not positive_cs_players:
+        return 0
+    
+    wins = sum(1 for _, result in positive_cs_players if result == "won")
+    return wins / len(positive_cs_players)
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    pattern = r"(\w+)\s+played\s+(\w+)\s+in the jungle and (won|lost);.*?CS difference of (-?\d+),\s+(\d+)\s+kills"
+    matches = re.findall(pattern, text)
+    
+    total_kills = sum(int(kills) for _, _, _, _, kills in matches)
+    return total_kills
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    pattern = r"(\w+)\s+played\s+(\w+)\s+in the jungle and (won|lost);.*?CS difference of (-?\d+),\s+(\d+)\s+kills and\s+(\d+)\s+assists"
+    matches = re.findall(pattern, text)
+    
+    champion_assists = defaultdict(int)
+    for player, champion, result, cs_diff, kills, assists in matches:
+        champion_assists[champion] += int(assists)
+    
+    return max(champion_assists, key=champion_assists.get)
+```

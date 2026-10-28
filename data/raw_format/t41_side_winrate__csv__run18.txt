@@ -1,0 +1,55 @@
+```python
+def q1(text):
+    """Returns the win rate of blue-side teams, as a number between 0 and 1."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    blue_wins = 0
+    blue_total = 0
+    
+    for line in lines:
+        parts = line.split(',')
+        side = parts[2]
+        result = parts[3]
+        
+        if side == 'blue':
+            blue_total += 1
+            if result == 'win':
+                blue_wins += 1
+    
+    return blue_wins / blue_total if blue_total > 0 else 0
+
+
+def q2(text):
+    """Returns the average length in minutes of the games won by the red-side team."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    red_win_times = []
+    
+    for line in lines:
+        parts = line.split(',')
+        side = parts[2]
+        result = parts[3]
+        game_minutes = float(parts[4])
+        
+        if side == 'red' and result == 'win':
+            red_win_times.append(game_minutes)
+    
+    return sum(red_win_times) / len(red_win_times) if red_win_times else 0
+
+
+def q3(text):
+    """Returns the name of the team with the most wins."""
+    lines = text.strip().split('\n')[1:]  # Skip header
+    team_wins = {}
+    
+    for line in lines:
+        parts = line.split(',')
+        team = parts[1]
+        result = parts[3]
+        
+        if team not in team_wins:
+            team_wins[team] = 0
+        
+        if result == 'win':
+            team_wins[team] += 1
+    
+    return max(team_wins, key=team_wins.get) if team_wins else None
+```

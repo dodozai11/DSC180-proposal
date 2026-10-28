@@ -1,0 +1,182 @@
+[
+  {
+    "player": "VK velbellys",
+    "team": "VelbeliKaizokudan",
+    "champion": "Syndra",
+    "kills": 5,
+    "deaths": 4,
+    "assists": 9,
+    "result": "win"
+  },
+  {
+    "player": "Saii",
+    "team": "Spirit Quartz Gaming",
+    "champion": "Galio",
+    "kills": 7,
+    "deaths": 3,
+    "assists": 11,
+    "result": "win"
+  },
+  {
+    "player": "Karaage",
+    "team": "Kareha Children",
+    "champion": "Aurora",
+    "kills": 8,
+    "deaths": 0,
+    "assists": 18,
+    "result": "win"
+  },
+  {
+    "player": "Competitive",
+    "team": "VARREL YOUTH",
+    "champion": "Aurora",
+    "kills": 3,
+    "deaths": 4,
+    "assists": 6,
+    "result": "loss"
+  },
+  {
+    "player": "Ligen",
+    "team": "Yang Yang Gaming",
+    "champion": "Galio",
+    "kills": 5,
+    "deaths": 1,
+    "assists": 12,
+    "result": "win"
+  },
+  {
+    "player": "VEL BEEHIV3",
+    "team": "VeLocitY (Japanese Team)",
+    "champion": "Taliyah",
+    "kills": 1,
+    "deaths": 5,
+    "assists": 3,
+    "result": "loss"
+  },
+  {
+    "player": "HNS R1to",
+    "team": "Hands",
+    "champion": "Hwei",
+    "kills": 1,
+    "deaths": 3,
+    "assists": 1,
+    "result": "loss"
+  },
+  {
+    "player": "rre",
+    "team": "DetonatioN FocusMe Academy",
+    "champion": "Tryndamere",
+    "kills": 4,
+    "deaths": 0,
+    "assists": 6,
+    "result": "win"
+  },
+  {
+    "player": "sucuranbul",
+    "team": "V3 Esports",
+    "champion": "Azir",
+    "kills": 0,
+    "deaths": 6,
+    "assists": 3,
+    "result": "loss"
+  },
+  {
+    "player": "Alleycat",
+    "team": "Kareha Children",
+    "champion": "Galio",
+    "kills": 2,
+    "deaths": 6,
+    "assists": 9,
+    "result": "win"
+  },
+  {
+    "player": "Dragonblood",
+    "team": "Dream in 24",
+    "champion": "Yasuo",
+    "kills": 5,
+    "deaths": 4,
+    "assists": 5,
+    "result": "win"
+  },
+  {
+    "player": "BVL uwaaaa",
+    "team": "BraVeLY",
+    "champion": "Yone",
+    "kills": 3,
+    "deaths": 1,
+    "assists": 1,
+    "result": "loss"
+  },
+  {
+    "player": "DG hatinyang",
+    "team": "Deltan Gaming",
+    "champion": "Vladimir",
+    "kills": 2,
+    "deaths": 3,
+    "assists": 2,
+    "result": "loss"
+  },
+  {
+    "player": "DICE",
+    "team": "QT DIG∞",
+    "champion": "Jayce",
+    "kills": 5,
+    "deaths": 1,
+    "assists": 6,
+    "result": "win"
+  },
+  {
+    "player": "DG suyahime",
+    "team": "Deltan Gaming",
+    "champion": "Taliyah",
+    "kills": 6,
+    "deaths": 0,
+    "assists": 9,
+    "result": "win"
+  },
+  {
+    "player": "Sign",
+    "team": "Radical Pop Gaming",
+    "champion": "Azir",
+    "kills": 7,
+    "deaths": 3,
+    "assists": 5,
+    "result": "win"
+  },
+  {
+    "player": "VT Nangning",
+    "team": "Vortex (Japanese Team)",
+    "champion": "Zoe",
+    "kills": 3,
+    "deaths": 6,
+    "assists": 4,
+    "result": "loss"
+  },
+  {
+    "player": "Mutton",
+    "team": "VelbeliKaizokudan",
+    "champion": "Yone",
+    "kills": 6,
+    "deaths": 5,
+    "assists": 2,
+    "result": "loss"
+  },
+  {
+    "player": "RPG sign",
+    "team": "Radical Pop Gaming",
+    "champion": "Azir",
+    "kills": 1,
+    "deaths": 6,
+    "assists": 4,
+    "result": "loss"
+  },
+  {
+    "player": "SQG Lunatic",
+    "team": "Spirit Quartz Gaming",
+    "champion": "Azir",
+    "kills": 2,
+    "deaths": 2,
+    "assists": 8,
+    "result": "win"
+  }
+]

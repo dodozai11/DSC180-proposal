@@ -1,0 +1,47 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse the data from the text format into a list of dictionaries."""
+    lines = text.strip().split('\n')
+    # Skip header line
+    rows = []
+    for line in lines[1:]:
+        # Split by | and clean up whitespace
+        parts = [p.strip() for p in line.split('|')]
+        # Filter out empty parts (from leading/trailing |)
+        parts = [p for p in parts if p]
+        if len(parts) >= 5:
+            rows.append({
+                'game': parts[0],
+                'team': parts[1],
+                'side': parts[2],
+                'result': parts[3],
+                'gold_diff_15': int(parts[4])
+            })
+    return rows
+
+def q1(text):
+    """Return the average gold difference at 15 minutes of the winning teams."""
+    rows = parse_data(text)
+    winning_gold_diffs = [row['gold_diff_15'] for row in rows if row['result'] == 'win']
+    if not winning_gold_diffs:
+        return 0
+    return sum(winning_gold_diffs) / len(winning_gold_diffs)
+
+def q2(text):
+    """Return how many teams won despite a negative gold difference at 15 minutes."""
+    rows = parse_data(text)
+    count = sum(1 for row in rows if row['result'] == 'win' and row['gold_diff_15'] < 0)
+    return count
+
+def q3(text):
+    """Return the win rate of teams that were ahead in gold at 15 minutes."""
+    rows = parse_data(text)
+    ahead_teams = [row for row in rows if row['gold_diff_15'] > 0]
+    if not ahead_teams:
+        return 0
+    wins = sum(1 for row in ahead_teams if row['result'] == 'win')
+    return wins / len(ahead_teams)
+```

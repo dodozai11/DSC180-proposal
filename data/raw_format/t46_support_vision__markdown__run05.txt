@@ -1,0 +1,89 @@
+```python
+import re
+
+def q1(text):
+    """Returns the average vision score of winners minus average vision score of losers."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[2:]
+    
+    winners_vision = []
+    losers_vision = []
+    
+    for line in data_lines:
+        if not line.strip():
+            continue
+        
+        # Parse the line - split by |, strip whitespace, and filter empty strings
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        
+        if len(parts) >= 4:
+            player = parts[0]
+            team = parts[1]
+            result = parts[2]
+            vision_score = int(parts[3])
+            
+            if result == 'win':
+                winners_vision.append(vision_score)
+            elif result == 'loss':
+                losers_vision.append(vision_score)
+    
+    avg_winners = sum(winners_vision) / len(winners_vision) if winners_vision else 0
+    avg_losers = sum(losers_vision) / len(losers_vision) if losers_vision else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Returns the name of the player who placed the most wards."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[2:]
+    
+    max_wards = -1
+    max_player = None
+    
+    for line in data_lines:
+        if not line.strip():
+            continue
+        
+        # Parse the line
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        
+        if len(parts) >= 4:
+            player = parts[0]
+            wards_placed = int(parts[4])
+            
+            if wards_placed > max_wards:
+                max_wards = wards_placed
+                max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    """Returns how many players bought at least 15 control wards."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[2:]
+    
+    count = 0
+    
+    for line in data_lines:
+        if not line.strip():
+            continue
+        
+        # Parse the line
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        
+        if len(parts) >= 5:
+            control_wards = int(parts[5])
+            
+            if control_wards >= 15:
+                count += 1
+    
+    return count
+```

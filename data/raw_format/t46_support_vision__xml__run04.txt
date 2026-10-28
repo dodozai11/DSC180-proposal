@@ -1,0 +1,45 @@
+```python
+import re
+from xml.etree import ElementTree as ET
+
+def parse_data(text):
+    """Parse XML data and return list of player dictionaries"""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    players = []
+    for row in rows:
+        player_data = {}
+        player_data['player'] = re.search(r'<player>(.*?)</player>', row).group(1)
+        player_data['team'] = re.search(r'<team>(.*?)</team>', row).group(1)
+        player_data['result'] = re.search(r'<result>(.*?)</result>', row).group(1)
+        player_data['vision_score'] = int(re.search(r'<vision_score>(.*?)</vision_score>', row).group(1))
+        player_data['wards_placed'] = int(re.search(r'<wards_placed>(.*?)</wards_placed>', row).group(1))
+        player_data['control_wards'] = int(re.search(r'<control_wards>(.*?)</control_wards>', row).group(1))
+        players.append(player_data)
+    return players
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers"""
+    players = parse_data(text)
+    
+    winners = [p for p in players if p['result'] == 'win']
+    losers = [p for p in players if p['result'] == 'loss']
+    
+    avg_winner_vision = sum(p['vision_score'] for p in winners) / len(winners)
+    avg_loser_vision = sum(p['vision_score'] for p in losers) / len(losers)
+    
+    return avg_winner_vision - avg_loser_vision
+
+def q2(text):
+    """Return the name of the player who placed the most wards"""
+    players = parse_data(text)
+    
+    max_player = max(players, key=lambda p: p['wards_placed'])
+    return max_player['player']
+
+def q3(text):
+    """Return how many players bought at least 15 control wards"""
+    players = parse_data(text)
+    
+    count = sum(1 for p in players if p['control_wards'] >= 15)
+    return count
+```

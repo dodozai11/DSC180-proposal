@@ -1,0 +1,53 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse XML-like data and return list of dictionaries."""
+    rows = []
+    pattern = r'<row><player>(.+?)</player><champion>(.+?)</champion><result>(\w+)</result><cs_diff_10>(-?\d+)</cs_diff_10><kills_at_10>(\d+)</kills_at_10><assists_at_10>(\d+)</assists_at_10></row>'
+    
+    for match in re.finditer(pattern, text):
+        row = {
+            'player': match.group(1),
+            'champion': match.group(2),
+            'result': match.group(3),
+            'cs_diff_10': int(match.group(4)),
+            'kills_at_10': int(match.group(5)),
+            'assists_at_10': int(match.group(6))
+        }
+        rows.append(row)
+    
+    return rows
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    rows = parse_data(text)
+    
+    positive_cs_rows = [row for row in rows if row['cs_diff_10'] > 0]
+    
+    if not positive_cs_rows:
+        return 0
+    
+    wins = sum(1 for row in positive_cs_rows if row['result'] == 'win')
+    win_rate = wins / len(positive_cs_rows)
+    
+    return win_rate
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    rows = parse_data(text)
+    total_kills = sum(row['kills_at_10'] for row in rows)
+    return total_kills
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    rows = parse_data(text)
+    
+    champion_assists = defaultdict(int)
+    for row in rows:
+        champion_assists[row['champion']] += row['assists_at_10']
+    
+    champion_with_most_assists = max(champion_assists, key=champion_assists.get)
+    return champion_with_most_assists
+```

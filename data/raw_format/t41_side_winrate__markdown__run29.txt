@@ -1,0 +1,73 @@
+```python
+def q1(text):
+    """Returns the win rate of blue-side teams"""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    blue_wins = 0
+    blue_total = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty strings from split
+        if len(parts) >= 3:
+            side = parts[1]
+            result = parts[2]
+            
+            if side == 'blue':
+                blue_total += 1
+                if result == 'win':
+                    blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side team"""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    red_wins = []
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty strings from split
+        if len(parts) >= 4:
+            side = parts[1]
+            result = parts[2]
+            game_minutes = parts[3]
+            
+            if side == 'red' and result == 'win':
+                red_wins.append(float(game_minutes))
+    
+    if len(red_wins) == 0:
+        return 0
+    return sum(red_wins) / len(red_wins)
+
+
+def q3(text):
+    """Returns the name of the team with the most wins"""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    team_wins = {}
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|')[1:-1]]  # Remove empty strings from split
+        if len(parts) >= 3:
+            team = parts[0]
+            result = parts[2]
+            
+            if team not in team_wins:
+                team_wins[team] = 0
+            
+            if result == 'win':
+                team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)
+```

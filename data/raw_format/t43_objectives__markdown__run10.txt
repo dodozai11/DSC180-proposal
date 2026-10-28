@@ -1,0 +1,75 @@
+```python
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    first_dragon_wins = 0
+    first_dragon_total = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        # parts: [game, team, result, first_dragon, dragons, barons, towers]
+        
+        if len(parts) >= 4:
+            first_dragon = parts[3]
+            result = parts[2]
+            
+            if first_dragon == 'yes':
+                first_dragon_total += 1
+                if result == 'win':
+                    first_dragon_wins += 1
+    
+    if first_dragon_total == 0:
+        return 0
+    
+    return first_dragon_wins / first_dragon_total
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    winning_barons = []
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        # parts: [game, team, result, first_dragon, dragons, barons, towers]
+        
+        if len(parts) >= 6:
+            result = parts[2]
+            barons = int(parts[5])
+            
+            if result == 'win':
+                winning_barons.append(barons)
+    
+    if len(winning_barons) == 0:
+        return 0
+    
+    return sum(winning_barons) / len(winning_barons)
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[1:]
+    
+    total_towers = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        # parts: [game, team, result, first_dragon, dragons, barons, towers]
+        
+        if len(parts) >= 7:
+            towers = int(parts[6])
+            total_towers += towers
+    
+    return total_towers
+```

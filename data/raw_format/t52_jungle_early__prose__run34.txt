@@ -1,0 +1,65 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    lines = text.strip().split('\n')
+    
+    positive_cs_players = []
+    
+    for line in lines:
+        # Parse the line to extract relevant information
+        match = re.search(r'(\w+)\s+played\s+(\w+)\s+in\s+the\s+jungle\s+and\s+(won|lost);.*?CS difference of\s+(-?\d+),', line)
+        if match:
+            player_name = match.group(1)
+            result = match.group(3)
+            cs_diff = int(match.group(4))
+            
+            if cs_diff > 0:
+                positive_cs_players.append(result == 'won')
+    
+    if not positive_cs_players:
+        return 0
+    
+    win_count = sum(positive_cs_players)
+    return win_count / len(positive_cs_players)
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    lines = text.strip().split('\n')
+    
+    total_kills = 0
+    
+    for line in lines:
+        # Extract kills count
+        match = re.search(r'(\d+)\s+kills', line)
+        if match:
+            kills = int(match.group(1))
+            total_kills += kills
+    
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    lines = text.strip().split('\n')
+    
+    champion_assists = {}
+    
+    for line in lines:
+        # Parse the line to extract champion and assists
+        match = re.search(r'played\s+(\w+)\s+in\s+the\s+jungle.*?(\d+)\s+assists', line)
+        if match:
+            champion = match.group(1)
+            assists = int(match.group(2))
+            
+            if champion not in champion_assists:
+                champion_assists[champion] = 0
+            champion_assists[champion] += assists
+    
+    if not champion_assists:
+        return None
+    
+    return max(champion_assists, key=champion_assists.get)
+```

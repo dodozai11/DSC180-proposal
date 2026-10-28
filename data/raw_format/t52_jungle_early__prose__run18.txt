@@ -1,0 +1,61 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of players with a positive CS difference at 10 minutes."""
+    pattern = r'(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in\s+the\s+jungle\s+and\s+(won|lost);.*?CS\s+difference\s+of\s+([-\d]+),\s+(\d+)\s+kills\s+and\s+(\d+)\s+assists'
+    
+    matches = re.findall(pattern, text)
+    
+    positive_cs_count = 0
+    positive_cs_wins = 0
+    
+    for match in matches:
+        player, champion, result, cs_diff, kills, assists = match
+        cs_diff = int(cs_diff)
+        
+        if cs_diff > 0:
+            positive_cs_count += 1
+            if result == "won":
+                positive_cs_wins += 1
+    
+    if positive_cs_count == 0:
+        return 0
+    
+    return positive_cs_wins / positive_cs_count
+
+
+def q2(text):
+    """Returns the total number of kills at 10 minutes across all rows."""
+    pattern = r'(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in\s+the\s+jungle\s+and\s+(won|lost);.*?CS\s+difference\s+of\s+([-\d]+),\s+(\d+)\s+kills\s+and\s+(\d+)\s+assists'
+    
+    matches = re.findall(pattern, text)
+    
+    total_kills = 0
+    for match in matches:
+        player, champion, result, cs_diff, kills, assists = match
+        total_kills += int(kills)
+    
+    return total_kills
+
+
+def q3(text):
+    """Returns the name of the champion with the most assists at 10 minutes in total."""
+    pattern = r'(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in\s+the\s+jungle\s+and\s+(won|lost);.*?CS\s+difference\s+of\s+([-\d]+),\s+(\d+)\s+kills\s+and\s+(\d+)\s+assists'
+    
+    matches = re.findall(pattern, text)
+    
+    champion_assists = {}
+    for match in matches:
+        player, champion, result, cs_diff, kills, assists = match
+        assists = int(assists)
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        champion_assists[champion] += assists
+    
+    if not champion_assists:
+        return None
+    
+    return max(champion_assists, key=champion_assists.get)
+```

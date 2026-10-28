@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>DN Freecs</team><side>blue</side><result>loss</result><gold_diff_15>-224</gold_diff_15></row>
+  <row><game>G01</game><team>Dplus KIA</team><side>red</side><result>win</result><gold_diff_15>224</gold_diff_15></row>
+  <row><game>G02</game><team>BNK FEARX</team><side>blue</side><result>loss</result><gold_diff_15>293</gold_diff_15></row>
+  <row><game>G02</game><team>Gen.G</team><side>red</side><result>win</result><gold_diff_15>-293</gold_diff_15></row>
+  <row><game>G03</game><team>Dplus KIA</team><side>blue</side><result>win</result><gold_diff_15>-257</gold_diff_15></row>
+  <row><game>G03</game><team>BNK FEARX</team><side>red</side><result>loss</result><gold_diff_15>257</gold_diff_15></row>
+  <row><game>G04</game><team>DRX</team><side>blue</side><result>win</result><gold_diff_15>-443</gold_diff_15></row>
+  <row><game>G04</game><team>DN Freecs</team><side>red</side><result>loss</result><gold_diff_15>443</gold_diff_15></row>
+  <row><game>G05</game><team>Hanwha Life Esports</team><side>blue</side><result>win</result><gold_diff_15>2036</gold_diff_15></row>
+  <row><game>G05</game><team>Gen.G</team><side>red</side><result>loss</result><gold_diff_15>-2036</gold_diff_15></row>
+  <row><game>G06</game><team>Dplus KIA</team><side>blue</side><result>loss</result><gold_diff_15>-1583</gold_diff_15></row>
+  <row><game>G06</game><team>Nongshim RedForce</team><side>red</side><result>win</result><gold_diff_15>1583</gold_diff_15></row>
+  <row><game>G07</game><team>DN Freecs</team><side>blue</side><result>win</result><gold_diff_15>3185</gold_diff_15></row>
+  <row><game>G07</game><team>OKSavingsBank BRION</team><side>red</side><result>loss</result><gold_diff_15>-3185</gold_diff_15></row>
+  <row><game>G08</game><team>Dplus KIA</team><side>blue</side><result>win</result><gold_diff_15>1521</gold_diff_15></row>
+  <row><game>G08</game><team>KT Rolster</team><side>red</side><result>loss</result><gold_diff_15>-1521</gold_diff_15></row>
+  <row><game>G09</game><team>Gen.G</team><side>blue</side><result>win</result><gold_diff_15>4571</gold_diff_15></row>
+  <row><game>G09</game><team>Hanwha Life Esports</team><side>red</side><result>loss</result><gold_diff_15>-4571</gold_diff_15></row>
+  <row><game>G10</game><team>KT Rolster</team><side>blue</side><result>loss</result><gold_diff_15>-783</gold_diff_15></row>
+  <row><game>G10</game><team>Hanwha Life Esports</team><side>red</side><result>win</result><gold_diff_15>783</gold_diff_15></row>
+</rows>

@@ -1,0 +1,42 @@
+import re
+
+def q1(text):
+    """Returns the average number of inhibitors destroyed by winning teams."""
+    winning_inhibitors = []
+    
+    matches = re.findall(r'(\w+)\s+won\s+after\s+([\d.]+)\s+minutes,\s+destroying\s+(\d+)\s+inhibitors', text)
+    
+    for team, duration, inhibitors in matches:
+        winning_inhibitors.append(int(inhibitors))
+    
+    if winning_inhibitors:
+        return sum(winning_inhibitors) / len(winning_inhibitors)
+    return 0
+
+def q2(text):
+    """Returns the average damage to towers of losing teams."""
+    losing_damages = []
+    
+    matches = re.findall(r'(\w+)\s+lost\s+after\s+([\d.]+)\s+minutes,\s+destroying\s+\d+\s+inhibitors\s+and\s+dealing\s+(\d+)\s+damage\s+to\s+towers', text)
+    
+    for team, duration, damage in matches:
+        losing_damages.append(int(damage))
+    
+    if losing_damages:
+        return sum(losing_damages) / len(losing_damages)
+    return 0
+
+def q3(text):
+    """Returns the game label of the longest game."""
+    longest_game = None
+    longest_duration = -1
+    
+    matches = re.findall(r'In game (G\d+),\s+\w+\s+(won|lost)\s+after\s+([\d.]+)\s+minutes', text)
+    
+    for game_label, result, duration in matches:
+        duration_float = float(duration)
+        if duration_float > longest_duration:
+            longest_duration = duration_float
+            longest_game = game_label
+    
+    return longest_game

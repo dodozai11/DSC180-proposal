@@ -1,0 +1,57 @@
+```python
+import re
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    red_side_kills = []
+    
+    # Find all matches for red-side teams
+    pattern = r'In game \w+, (.+?) played on the red side and \w+, with (\d+) kills'
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        kills = int(match[1])
+        red_side_kills.append(kills)
+    
+    if red_side_kills:
+        return sum(red_side_kills) / len(red_side_kills)
+    return 0
+
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    teams_exp_diff = {}
+    
+    # Find all team entries with their experience difference
+    pattern = r'In game \w+, (.+?) played on the \w+ side and \w+, with \d+ kills and an experience difference of (-?\d+) at 15 minutes'
+    matches = re.findall(pattern, text)
+    
+    for team_name, exp_diff in matches:
+        exp_diff = int(exp_diff)
+        if team_name not in teams_exp_diff:
+            teams_exp_diff[team_name] = exp_diff
+        else:
+            # If team appears multiple times, we could sum or track separately
+            # Based on the requirement "largest", we'll track the maximum
+            teams_exp_diff[team_name] = max(teams_exp_diff[team_name], exp_diff)
+    
+    # Find team with largest experience difference
+    max_team = max(teams_exp_diff, key=teams_exp_diff.get)
+    return max_team
+
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    count = 0
+    
+    # Find all matches where a team won with negative experience difference
+    pattern = r'In game \w+, (.+?) played on the \w+ side and won, with \d+ kills and an experience difference of (-?\d+) at 15 minutes'
+    matches = re.findall(pattern, text)
+    
+    for team_name, exp_diff in matches:
+        exp_diff = int(exp_diff)
+        if exp_diff < 0:
+            count += 1
+    
+    return count
+```

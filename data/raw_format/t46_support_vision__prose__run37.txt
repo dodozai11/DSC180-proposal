@@ -1,0 +1,60 @@
+import re
+
+def q1(text):
+    """Return the average vision score of winners minus average vision score of losers."""
+    winners_vision = []
+    losers_vision = []
+    
+    # Pattern: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r'(\w+) of .+ (won|lost) with a vision score of (\d+),'
+    
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        name, result, vision_score = match
+        vision_score = int(vision_score)
+        
+        if result == "won":
+            winners_vision.append(vision_score)
+        else:
+            losers_vision.append(vision_score)
+    
+    avg_winners = sum(winners_vision) / len(winners_vision) if winners_vision else 0
+    avg_losers = sum(losers_vision) / len(losers_vision) if losers_vision else 0
+    
+    return avg_winners - avg_losers
+
+
+def q2(text):
+    """Return the name of the player who placed the most wards."""
+    # Pattern: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r'(\w+) of .+ (?:won|lost) with a vision score of \d+, (\d+) wards placed'
+    
+    matches = re.findall(pattern, text)
+    
+    max_wards = -1
+    max_player = None
+    
+    for name, wards in matches:
+        wards = int(wards)
+        if wards > max_wards:
+            max_wards = wards
+            max_player = name
+    
+    return max_player
+
+
+def q3(text):
+    """Return how many players bought at least 15 control wards."""
+    # Pattern: "Name of Team won/lost with a vision score of X, Y wards placed and Z control wards bought."
+    pattern = r'\w+ of .+ (?:won|lost) with a vision score of \d+, \d+ wards placed and (\d+) control wards bought'
+    
+    matches = re.findall(pattern, text)
+    
+    count = 0
+    for control_wards in matches:
+        control_wards = int(control_wards)
+        if control_wards >= 15:
+            count += 1
+    
+    return count

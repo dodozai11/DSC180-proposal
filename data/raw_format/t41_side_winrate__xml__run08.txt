@@ -1,0 +1,58 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Returns the win rate of blue-side teams"""
+    blue_games = []
+    
+    # Parse all rows
+    for match in re.finditer(r'<row>.*?<side>(\w+)</side>.*?<result>(\w+)</result>.*?</row>', text):
+        side = match.group(1)
+        result = match.group(2)
+        if side == 'blue':
+            blue_games.append(result)
+    
+    if not blue_games:
+        return 0
+    
+    blue_wins = sum(1 for result in blue_games if result == 'win')
+    return blue_wins / len(blue_games)
+
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side team"""
+    red_wins = []
+    
+    # Parse all rows
+    for match in re.finditer(r'<row>.*?<side>(\w+)</side>.*?<result>(\w+)</result>.*?<game_minutes>([\d.]+)</game_minutes>.*?</row>', text):
+        side = match.group(1)
+        result = match.group(2)
+        game_minutes = float(match.group(3))
+        
+        if side == 'red' and result == 'win':
+            red_wins.append(game_minutes)
+    
+    if not red_wins:
+        return 0
+    
+    return sum(red_wins) / len(red_wins)
+
+
+def q3(text):
+    """Returns the name of the team with the most wins"""
+    team_wins = defaultdict(int)
+    
+    # Parse all rows
+    for match in re.finditer(r'<row>.*?<team>(.*?)</team>.*?<result>(\w+)</result>.*?</row>', text):
+        team = match.group(1)
+        result = match.group(2)
+        
+        if result == 'win':
+            team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+```

@@ -1,0 +1,162 @@
+[
+  {
+    "game": "G01",
+    "team": "ULF Esports",
+    "result": "loss",
+    "first_tower": "yes",
+    "void_grubs": 4,
+    "heralds": 0
+  },
+  {
+    "game": "G01",
+    "team": "Beşiktaş Esports",
+    "result": "win",
+    "first_tower": "no",
+    "void_grubs": 2,
+    "heralds": 1
+  },
+  {
+    "game": "G02",
+    "team": "Bushido Wildcats",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 1,
+    "heralds": 0
+  },
+  {
+    "game": "G02",
+    "team": "Papara SuperMassive",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 5,
+    "heralds": 1
+  },
+  {
+    "game": "G03",
+    "team": "Misa Esports",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 6,
+    "heralds": 1
+  },
+  {
+    "game": "G03",
+    "team": "BoostGate Esports",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 0,
+    "heralds": 0
+  },
+  {
+    "game": "G04",
+    "team": "BBL Dark Passage",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 3,
+    "heralds": 1
+  },
+  {
+    "game": "G04",
+    "team": "Eternal Fire",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 3,
+    "heralds": 0
+  },
+  {
+    "game": "G05",
+    "team": "Papara SuperMassive",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 3,
+    "heralds": 0
+  },
+  {
+    "game": "G05",
+    "team": "ULF Esports",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 3,
+    "heralds": 1
+  },
+  {
+    "game": "G06",
+    "team": "BBL Dark Passage",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 6,
+    "heralds": 0
+  },
+  {
+    "game": "G06",
+    "team": "Beşiktaş Esports",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 0,
+    "heralds": 1
+  },
+  {
+    "game": "G07",
+    "team": "Papara SuperMassive",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 0,
+    "heralds": 1
+  },
+  {
+    "game": "G07",
+    "team": "ULF Esports",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 6,
+    "heralds": 0
+  },
+  {
+    "game": "G08",
+    "team": "ULF Esports",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 1,
+    "heralds": 0
+  },
+  {
+    "game": "G08",
+    "team": "BoostGate Esports",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 2,
+    "heralds": 1
+  },
+  {
+    "game": "G09",
+    "team": "Papara SuperMassive",
+    "result": "win",
+    "first_tower": "yes",
+    "void_grubs": 0,
+    "heralds": 1
+  },
+  {
+    "game": "G09",
+    "team": "BoostGate Esports",
+    "result": "loss",
+    "first_tower": "no",
+    "void_grubs": 3,
+    "heralds": 0
+  },
+  {
+    "game": "G10",
+    "team": "Bushido Wildcats",
+    "result": "loss",
+    "first_tower": "yes",
+    "void_grubs": 3,
+    "heralds": 0
+  },
+  {
+    "game": "G10",
+    "team": "Beşiktaş Esports",
+    "result": "win",
+    "first_tower": "no",
+    "void_grubs": 0,
+    "heralds": 1
+  }
+]

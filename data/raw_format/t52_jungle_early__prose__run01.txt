@@ -1,0 +1,54 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    pattern = r"(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in the jungle and (won|lost);.*?CS difference of (-?\d+),.*?(\d+) kills and (\d+) assists"
+    
+    matches = re.findall(pattern, text)
+    
+    positive_cs_players = []
+    for match in matches:
+        player, champion, result, cs_diff, kills, assists = match
+        cs_diff = int(cs_diff)
+        
+        if cs_diff > 0:
+            positive_cs_players.append(result == "won")
+    
+    if len(positive_cs_players) == 0:
+        return 0.0
+    
+    wins = sum(positive_cs_players)
+    win_rate = wins / len(positive_cs_players)
+    return win_rate
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    pattern = r"(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in the jungle and (won|lost);.*?CS difference of (-?\d+),.*?(\d+) kills and (\d+) assists"
+    
+    matches = re.findall(pattern, text)
+    
+    total_kills = 0
+    for match in matches:
+        player, champion, result, cs_diff, kills, assists = match
+        total_kills += int(kills)
+    
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    pattern = r"(\w+(?:\s+\w+)*?)\s+played\s+(\w+)\s+in the jungle and (won|lost);.*?CS difference of (-?\d+),.*?(\d+) kills and (\d+) assists"
+    
+    matches = re.findall(pattern, text)
+    
+    champion_assists = defaultdict(int)
+    for match in matches:
+        player, champion, result, cs_diff, kills, assists = match
+        champion_assists[champion] += int(assists)
+    
+    champion_with_most_assists = max(champion_assists, key=champion_assists.get)
+    return champion_with_most_assists
+```

@@ -1,0 +1,22 @@
+| game | team | side | result | gold_diff_15 |
+|---|---|---|---|---|
+| G01 | DN Freecs | blue | loss | -224 |
+| G01 | Dplus KIA | red | win | 224 |
+| G02 | BNK FEARX | blue | loss | 293 |
+| G02 | Gen.G | red | win | -293 |
+| G03 | Dplus KIA | blue | win | -257 |
+| G03 | BNK FEARX | red | loss | 257 |
+| G04 | DRX | blue | win | -443 |
+| G04 | DN Freecs | red | loss | 443 |
+| G05 | Hanwha Life Esports | blue | win | 2036 |
+| G05 | Gen.G | red | loss | -2036 |
+| G06 | Dplus KIA | blue | loss | -1583 |
+| G06 | Nongshim RedForce | red | win | 1583 |
+| G07 | DN Freecs | blue | win | 3185 |
+| G07 | OKSavingsBank BRION | red | loss | -3185 |
+| G08 | Dplus KIA | blue | win | 1521 |
+| G08 | KT Rolster | red | loss | -1521 |
+| G09 | Gen.G | blue | win | 4571 |
+| G09 | Hanwha Life Esports | red | loss | -4571 |
+| G10 | KT Rolster | blue | loss | -783 |
+| G10 | Hanwha Life Esports | red | win | 783 |

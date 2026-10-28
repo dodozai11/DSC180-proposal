@@ -1,0 +1,133 @@
+
+```python
+import anthropic
+
+
+def q1(text: str) -> int:
+    """Returns the number of different champions played."""
+    lines = text.strip().split('\n')
+    champions = set()
+    for line in lines[1:]:  # Skip header
+        if line.strip():
+            parts = line.split(',')
+            champion = parts[1]
+            champions.add(champion)
+    return len(champions)
+
+
+def q2(text: str) -> str | None:
+    """Returns the name of the champion with the best win rate among champions played at least twice."""
+    lines = text.strip().split('\n')
+    champion_stats = {}
+    
+    for line in lines[1:]:  # Skip header
+        if line.strip():
+            parts = line.split(',')
+            champion = parts[1]
+            result = parts[2]
+            
+            if champion not in champion_stats:
+                champion_stats[champion] = {'wins': 0, 'total': 0}
+            
+            champion_stats[champion]['total'] += 1
+            if result == 'win':
+                champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    eligible_champions = {champ: stats for champ, stats in champion_stats.items() if stats['total'] >= 2}
+    
+    if not eligible_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(eligible_champions.items(), key=lambda x: x[1]['wins'] / x[1]['total'])
+    return best_champion[0]
+
+
+def q3(text: str) -> float:
+    """Returns the average number of deaths in games that were lost."""
+    lines = text.strip().split('\n')
+    lost_games_deaths = []
+    
+    for line in lines[1:]:  # Skip header
+        if line.strip():
+            parts = line.split(',')
+            result = parts[2]
+            deaths = int(parts[3])
+            
+            if result == 'loss':
+                lost_games_deaths.append(deaths)
+    
+    if not lost_games_deaths:
+        return 0.0
+    
+    return sum(lost_games_deaths) / len(lost_games_deaths)
+
+
+# Use Claude to verify our implementations
+def verify_with_claude(text: str):
+    """Use Claude to verify the correctness of our functions."""
+    client = anthropic.Anthropic()
+    
+    # Test data
+    test_data = text
+    
+    # Get our results
+    q1_result = q1(test_data)
+    q2_result = q2(test_data)
+    q3_result = q3(test_data)
+    
+    # Create a prompt for Claude to verify
+    verification_prompt = f"""Given this League of Legends esports data:
+
+{test_data}
+
+Please verify these results:
+1. Number of different champions played: {q1_result}
+2. Champion with best win rate (played at least twice): {q2_result}
+3. Average deaths in lost games: {q3_result}
+
+For each, confirm if the answer is correct or provide the correct answer."""
+    
+    message = client.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        max_tokens=1024,
+        messages=[
+            {"role": "user", "content": verification_prompt}
+        ]
+    )
+    
+    return message.content[0].text
+
+
+# Test with the sample data
+if __name__ == "__main__":
+    sample_data = """player,champion,result,deaths
+Forest,Viego,win,3
+Popon,Vi,win,0
+Racon,Nocturne,win,1
+HALdesu,Bel'Veth,loss,4
+Norwegian,Viego,win,0
+VEL Skinny,Vi,loss,5
+Brucee,Skarner,win,1
+89,Vi,loss,6
+DM SUISEI,Mordekaiser,win,2
+RPG Shawshank,Xin Zhao,loss,5
+EL,Zyra,win,0
+DG hatinyang,Xin Zhao,win,4
+Sassappel,Vi,win,3
+Kiwi,Viego,win,3
+Mutton,Vi,loss,6
+DG socceryakyu,Nocturne,win,3
+HNS Skinny,Xin Zhao,loss,6
+VLY hachim1,Vi,win,5
+SQG Lunatic,Yone,loss,5
+QTD Van1,Vi,win,2"""
+    
+    print("Q1 (number of different champions):", q1(sample_data))
+    print("Q2 (champion with best win rate):", q2(sample_data))
+    print("Q3 (average deaths in lost games):", q3(sample_data))
+    
+    print("\nVerification with Claude:")
+    print(verify_with_claude(sample_data))
+```

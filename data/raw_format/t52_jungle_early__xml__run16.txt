@@ -1,0 +1,64 @@
+```python
+import re
+from collections import defaultdict
+
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    
+    positive_cs_wins = 0
+    positive_cs_total = 0
+    
+    for row in rows:
+        cs_diff_match = re.search(r'<cs_diff_10>(-?\d+)</cs_diff_10>', row)
+        result_match = re.search(r'<result>(win|loss)</result>', row)
+        
+        if cs_diff_match and result_match:
+            cs_diff = int(cs_diff_match.group(1))
+            result = result_match.group(1)
+            
+            if cs_diff > 0:
+                positive_cs_total += 1
+                if result == 'win':
+                    positive_cs_wins += 1
+    
+    if positive_cs_total == 0:
+        return 0
+    
+    return positive_cs_wins / positive_cs_total
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    
+    total_kills = 0
+    
+    for row in rows:
+        kills_match = re.search(r'<kills_at_10>(\d+)</kills_at_10>', row)
+        if kills_match:
+            total_kills += int(kills_match.group(1))
+    
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    rows = re.findall(r'<row>(.*?)</row>', text, re.DOTALL)
+    
+    champion_assists = defaultdict(int)
+    
+    for row in rows:
+        champion_match = re.search(r'<champion>(.*?)</champion>', row)
+        assists_match = re.search(r'<assists_at_10>(\d+)</assists_at_10>', row)
+        
+        if champion_match and assists_match:
+            champion = champion_match.group(1)
+            assists = int(assists_match.group(1))
+            champion_assists[champion] += assists
+    
+    if not champion_assists:
+        return None
+    
+    return max(champion_assists, key=champion_assists.get)
+```

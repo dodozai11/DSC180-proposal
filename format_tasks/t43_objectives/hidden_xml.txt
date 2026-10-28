@@ -1,0 +1,22 @@
+<rows>
+  <row><game>G01</game><team>GiantX</team><result>loss</result><first_dragon>yes</first_dragon><dragons>1</dragons><barons>1</barons><towers>5</towers></row>
+  <row><game>G01</game><team>Movistar KOI</team><result>win</result><first_dragon>no</first_dragon><dragons>4</dragons><barons>1</barons><towers>11</towers></row>
+  <row><game>G02</game><team>Movistar KOI</team><result>win</result><first_dragon>no</first_dragon><dragons>4</dragons><barons>1</barons><towers>8</towers></row>
+  <row><game>G02</game><team>GiantX</team><result>loss</result><first_dragon>yes</first_dragon><dragons>1</dragons><barons>0</barons><towers>1</towers></row>
+  <row><game>G03</game><team>Karmine Corp</team><result>win</result><first_dragon>yes</first_dragon><dragons>5</dragons><barons>1</barons><towers>10</towers></row>
+  <row><game>G03</game><team>Fnatic</team><result>loss</result><first_dragon>no</first_dragon><dragons>1</dragons><barons>0</barons><towers>3</towers></row>
+  <row><game>G04</game><team>Movistar KOI</team><result>win</result><first_dragon>yes</first_dragon><dragons>4</dragons><barons>2</barons><towers>9</towers></row>
+  <row><game>G04</game><team>Fnatic</team><result>loss</result><first_dragon>no</first_dragon><dragons>4</dragons><barons>2</barons><towers>9</towers></row>
+  <row><game>G05</game><team>SK Gaming</team><result>loss</result><first_dragon>yes</first_dragon><dragons>2</dragons><barons>0</barons><towers>2</towers></row>
+  <row><game>G05</game><team>Team Vitality</team><result>win</result><first_dragon>no</first_dragon><dragons>3</dragons><barons>1</barons><towers>9</towers></row>
+  <row><game>G06</game><team>Team Heretics</team><result>loss</result><first_dragon>no</first_dragon><dragons>0</dragons><barons>0</barons><towers>2</towers></row>
+  <row><game>G06</game><team>GiantX</team><result>win</result><first_dragon>yes</first_dragon><dragons>4</dragons><barons>1</barons><towers>11</towers></row>
+  <row><game>G07</game><team>Team Heretics</team><result>loss</result><first_dragon>no</first_dragon><dragons>1</dragons><barons>0</barons><towers>3</towers></row>
+  <row><game>G07</game><team>GiantX</team><result>win</result><first_dragon>yes</first_dragon><dragons>3</dragons><barons>1</barons><towers>9</towers></row>
+  <row><game>G08</game><team>GiantX</team><result>loss</result><first_dragon>yes</first_dragon><dragons>2</dragons><barons>1</barons><towers>5</towers></row>
+  <row><game>G08</game><team>Karmine Corp</team><result>win</result><first_dragon>no</first_dragon><dragons>4</dragons><barons>1</barons><towers>11</towers></row>
+  <row><game>G09</game><team>Team Heretics</team><result>loss</result><first_dragon>no</first_dragon><dragons>2</dragons><barons>0</barons><towers>3</towers></row>
+  <row><game>G09</game><team>Team Vitality</team><result>win</result><first_dragon>yes</first_dragon><dragons>3</dragons><barons>1</barons><towers>12</towers></row>
+  <row><game>G10</game><team>Movistar KOI</team><result>loss</result><first_dragon>no</first_dragon><dragons>1</dragons><barons>0</barons><towers>1</towers></row>
+  <row><game>G10</game><team>G2 Esports</team><result>win</result><first_dragon>yes</first_dragon><dragons>3</dragons><barons>1</barons><towers>11</towers></row>
+</rows>

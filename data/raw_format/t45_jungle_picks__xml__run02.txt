@@ -1,0 +1,69 @@
+```python
+import re
+from collections import defaultdict
+
+def parse_data(text):
+    """Parse the XML-like text and return a list of dictionaries."""
+    rows = []
+    pattern = r'<row><player>([^<]+)</player><champion>([^<]+)</champion><result>([^<]+)</result><deaths>(\d+)</deaths></row>'
+    matches = re.findall(pattern, text)
+    
+    for player, champion, result, deaths in matches:
+        rows.append({
+            'player': player,
+            'champion': champion,
+            'result': result,
+            'deaths': int(deaths)
+        })
+    
+    return rows
+
+def q1(text):
+    """Return the number of different champions played."""
+    rows = parse_data(text)
+    champions = set(row['champion'] for row in rows)
+    return len(champions)
+
+def q2(text):
+    """Return the name of the champion with the best win rate among champions played at least twice."""
+    rows = parse_data(text)
+    
+    champion_stats = defaultdict(lambda: {'wins': 0, 'total': 0})
+    
+    for row in rows:
+        champion = row['champion']
+        champion_stats[champion]['total'] += 1
+        if row['result'] == 'win':
+            champion_stats[champion]['wins'] += 1
+    
+    # Filter champions played at least twice
+    qualified_champions = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats['total'] >= 2
+    }
+    
+    if not qualified_champions:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        qualified_champions.items(),
+        key=lambda x: x[1]['wins'] / x[1]['total']
+    )
+    
+    return best_champion[0]
+
+def q3(text):
+    """Return the average number of deaths in games that were lost."""
+    rows = parse_data(text)
+    
+    lost_games = [row for row in rows if row['result'] == 'loss']
+    
+    if not lost_games:
+        return 0
+    
+    total_deaths = sum(row['deaths'] for row in lost_games)
+    average_deaths = total_deaths / len(lost_games)
+    
+    return average_deaths
+```

@@ -1,0 +1,71 @@
+```python
+def q1(text):
+    """Return the win rate of players with a positive CS difference at 10 minutes."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[2:]
+    
+    positive_cs_count = 0
+    positive_cs_wins = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        
+        player = parts[0]
+        champion = parts[1]
+        result = parts[2]
+        cs_diff_10 = int(parts[3])
+        
+        if cs_diff_10 > 0:
+            positive_cs_count += 1
+            if result == 'win':
+                positive_cs_wins += 1
+    
+    if positive_cs_count == 0:
+        return 0
+    
+    return positive_cs_wins / positive_cs_count
+
+
+def q2(text):
+    """Return the total number of kills at 10 minutes across all rows."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[2:]
+    
+    total_kills = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        
+        kills_at_10 = int(parts[4])
+        total_kills += kills_at_10
+    
+    return total_kills
+
+
+def q3(text):
+    """Return the name of the champion with the most assists at 10 minutes in total."""
+    lines = text.strip().split('\n')
+    
+    # Skip header row
+    data_lines = lines[2:]
+    
+    champion_assists = {}
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        
+        champion = parts[1]
+        assists_at_10 = int(parts[5])
+        
+        if champion not in champion_assists:
+            champion_assists[champion] = 0
+        
+        champion_assists[champion] += assists_at_10
+    
+    max_champion = max(champion_assists, key=champion_assists.get)
+    return max_champion
+```

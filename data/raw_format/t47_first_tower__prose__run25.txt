@@ -1,0 +1,66 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the text data into a list of dictionaries."""
+    matches = []
+    
+    # Pattern to match each game entry
+    # "In game G##, TEAM_NAME (won|lost); they (did|did not) take the first tower and finished with # void grubs and # heralds."
+    pattern = r"In game (G\d+), (.+?) (won|lost); they (did|did not) take the first tower and finished with (\d+) void grubs and (\d+) heralds\."
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team_name = match.group(2)
+        result = match.group(3)  # "won" or "lost"
+        first_tower = match.group(4) == "did"  # True if "did", False if "did not"
+        void_grubs = int(match.group(5))
+        heralds = int(match.group(6))
+        
+        matches.append({
+            'game_id': game_id,
+            'team_name': team_name,
+            'won': result == 'won',
+            'first_tower': first_tower,
+            'void_grubs': void_grubs,
+            'heralds': heralds
+        })
+    
+    return matches
+
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    matches = parse_data(text)
+    
+    first_tower_teams = [m for m in matches if m['first_tower']]
+    
+    if len(first_tower_teams) == 0:
+        return 0
+    
+    wins = sum(1 for m in first_tower_teams if m['won'])
+    win_rate = wins / len(first_tower_teams)
+    
+    return win_rate
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    matches = parse_data(text)
+    
+    winning_teams = [m for m in matches if m['won']]
+    
+    if len(winning_teams) == 0:
+        return 0
+    
+    total_void_grubs = sum(m['void_grubs'] for m in winning_teams)
+    average = total_void_grubs / len(winning_teams)
+    
+    return average
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    matches = parse_data(text)
+    
+    lost_with_herald = sum(1 for m in matches if not m['won'] and m['heralds'] >= 1)
+    
+    return lost_with_herald
+```

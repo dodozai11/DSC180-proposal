@@ -1,0 +1,69 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0]
+    
+    max_kda = -1
+    best_player = None
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) < 7:
+            continue
+        
+        player = parts[1]
+        kills = int(parts[4])
+        deaths = int(parts[5])
+        assists = int(parts[6])
+        
+        kda = (kills + assists) / max(deaths, 1)
+        
+        if kda > max_kda:
+            max_kda = kda
+            best_player = player
+    
+    return best_player
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    
+    total_kills = 0
+    win_count = 0
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) < 7:
+            continue
+        
+        kills = int(parts[4])
+        result = parts[7]
+        
+        if result == 'win':
+            total_kills += kills
+            win_count += 1
+    
+    if win_count == 0:
+        return 0
+    
+    return total_kills / win_count
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    
+    champion_counts = {}
+    
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|')]
+        if len(parts) < 4:
+            continue
+        
+        champion = parts[3]
+        
+        champion_counts[champion] = champion_counts.get(champion, 0) + 1
+    
+    most_picked = max(champion_counts, key=champion_counts.get)
+    
+    return most_picked
+```

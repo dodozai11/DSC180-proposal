@@ -1,0 +1,47 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    winning_gold_diffs = []
+    
+    for row in root.findall('row'):
+        if row.find('result').text == 'win':
+            gold_diff = int(row.find('gold_diff_15').text)
+            winning_gold_diffs.append(gold_diff)
+    
+    if winning_gold_diffs:
+        return sum(winning_gold_diffs) / len(winning_gold_diffs)
+    return 0
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    count = 0
+    
+    for row in root.findall('row'):
+        if row.find('result').text == 'win':
+            gold_diff = int(row.find('gold_diff_15').text)
+            if gold_diff < 0:
+                count += 1
+    
+    return count
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    ahead_total = 0
+    ahead_wins = 0
+    
+    for row in root.findall('row'):
+        gold_diff = int(row.find('gold_diff_15').text)
+        if gold_diff > 0:
+            ahead_total += 1
+            if row.find('result').text == 'win':
+                ahead_wins += 1
+    
+    if ahead_total == 0:
+        return 0
+    return ahead_wins / ahead_total
+```

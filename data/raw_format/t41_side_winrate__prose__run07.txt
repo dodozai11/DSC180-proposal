@@ -1,0 +1,53 @@
+import re
+
+def q1(text):
+    """Returns the win rate of blue-side teams"""
+    blue_wins = 0
+    blue_total = 0
+    
+    # Find all matches for blue side teams
+    blue_pattern = r'In game (\w+), (.+?) played on the blue side and (won|lost)'
+    matches = re.findall(blue_pattern, text)
+    
+    for match in matches:
+        blue_total += 1
+        if match[2] == 'won':
+            blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side teams"""
+    red_wins = []
+    
+    # Find all matches for red side teams
+    red_pattern = r'In game (\w+), (.+?) played on the red side and (won|lost); the game lasted ([\d.]+) minutes'
+    matches = re.findall(red_pattern, text)
+    
+    for match in matches:
+        if match[2] == 'won':
+            red_wins.append(float(match[3]))
+    
+    if len(red_wins) == 0:
+        return 0
+    return sum(red_wins) / len(red_wins)
+
+
+def q3(text):
+    """Returns the name of the team with the most wins"""
+    team_wins = {}
+    
+    # Find all matches where a team won
+    win_pattern = r'In game (\w+), (.+?) played on the (blue|red) side and won'
+    matches = re.findall(win_pattern, text)
+    
+    for match in matches:
+        team_name = match[1]
+        team_wins[team_name] = team_wins.get(team_name, 0) + 1
+    
+    if not team_wins:
+        return None
+    return max(team_wins, key=team_wins.get)

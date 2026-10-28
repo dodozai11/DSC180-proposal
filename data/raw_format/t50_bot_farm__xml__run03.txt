@@ -1,0 +1,38 @@
+```python
+import xml.etree.ElementTree as ET
+
+def q1(text):
+    """Returns the name of the player with the highest CS per minute."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    max_cs = -1
+    max_player = None
+    for row in root.findall('row'):
+        cs_per_min = float(row.find('cs_per_min').text)
+        if cs_per_min > max_cs:
+            max_cs = cs_per_min
+            max_player = row.find('player').text
+    return max_player
+
+def q2(text):
+    """Returns the average gold share of players who won."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    total_gold_share = 0
+    win_count = 0
+    for row in root.findall('row'):
+        result = row.find('result').text
+        if result == 'win':
+            gold_share = float(row.find('gold_share').text)
+            total_gold_share += gold_share
+            win_count += 1
+    return total_gold_share / win_count if win_count > 0 else 0
+
+def q3(text):
+    """Returns how many players had more than 9 CS per minute."""
+    root = ET.fromstring(f"<root>{text}</root>")
+    count = 0
+    for row in root.findall('row'):
+        cs_per_min = float(row.find('cs_per_min').text)
+        if cs_per_min > 9:
+            count += 1
+    return count
+```

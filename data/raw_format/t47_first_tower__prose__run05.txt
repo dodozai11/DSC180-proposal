@@ -1,0 +1,54 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of teams that took the first tower."""
+    first_tower_wins = 0
+    first_tower_total = 0
+    
+    # Find all game entries
+    pattern = r"In game (\w+), (.+?) (won|lost); they (took|did not take) the first tower"
+    matches = re.findall(pattern, text)
+    
+    for game_id, team, result, tower_status in matches:
+        if tower_status == "took":
+            first_tower_total += 1
+            if result == "won":
+                first_tower_wins += 1
+    
+    if first_tower_total == 0:
+        return 0
+    return first_tower_wins / first_tower_total
+
+
+def q2(text):
+    """Return the average number of void grubs taken by winning teams."""
+    winning_grubs = []
+    
+    # Find all game entries with void grubs and herald counts
+    pattern = r"In game (\w+), (.+?) (won|lost);.*?finished with (\d+) void grubs and (\d+) heralds"
+    matches = re.findall(pattern, text)
+    
+    for game_id, team, result, grubs, heralds in matches:
+        if result == "won":
+            winning_grubs.append(int(grubs))
+    
+    if len(winning_grubs) == 0:
+        return 0
+    return sum(winning_grubs) / len(winning_grubs)
+
+
+def q3(text):
+    """Return how many teams took at least one herald and still lost."""
+    count = 0
+    
+    # Find all game entries with void grubs and herald counts
+    pattern = r"In game (\w+), (.+?) (won|lost);.*?finished with (\d+) void grubs and (\d+) heralds"
+    matches = re.findall(pattern, text)
+    
+    for game_id, team, result, grubs, heralds in matches:
+        if result == "lost" and int(heralds) >= 1:
+            count += 1
+    
+    return count
+```

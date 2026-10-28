@@ -1,0 +1,65 @@
+```python
+import re
+
+def q1(text):
+    """Return the win rate of teams that took the first dragon."""
+    first_dragon_games = []
+    
+    # Parse all game data
+    pattern = r"In game (\w+), (.+?) (won|lost); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, first_dragon, dragons, barons, towers = match
+        took_first_dragon = (first_dragon == "took")
+        won = (result == "won")
+        
+        if took_first_dragon:
+            first_dragon_games.append(won)
+    
+    if len(first_dragon_games) == 0:
+        return 0
+    
+    wins = sum(first_dragon_games)
+    win_rate = wins / len(first_dragon_games)
+    return win_rate
+
+
+def q2(text):
+    """Return the average number of barons taken by winning teams."""
+    winning_barons = []
+    
+    # Parse all game data
+    pattern = r"In game (\w+), (.+?) (won|lost); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, first_dragon, dragons, barons, towers = match
+        won = (result == "won")
+        barons_count = int(barons)
+        
+        if won:
+            winning_barons.append(barons_count)
+    
+    if len(winning_barons) == 0:
+        return 0
+    
+    avg_barons = sum(winning_barons) / len(winning_barons)
+    return avg_barons
+
+
+def q3(text):
+    """Return the total number of towers destroyed across all rows."""
+    total_towers = 0
+    
+    # Parse all game data
+    pattern = r"In game (\w+), (.+?) (won|lost); they (took|did not take) the first dragon and finished with (\d+) dragons, (\d+) barons and (\d+) towers\."
+    matches = re.findall(pattern, text)
+    
+    for match in matches:
+        game_id, team, result, first_dragon, dragons, barons, towers = match
+        towers_count = int(towers)
+        total_towers += towers_count
+    
+    return total_towers
+```

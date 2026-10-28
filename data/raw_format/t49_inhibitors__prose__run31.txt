@@ -1,0 +1,45 @@
+```python
+import re
+
+def parse_data(text):
+    """Parse the match data and return a list of dictionaries."""
+    matches = []
+    pattern = r"In game (G\d+), (\w+(?:\s+\w+)*) (won|lost) after ([\d.]+) minutes, destroying (\d+) inhibitors and dealing (\d+) damage to towers"
+    
+    for match in re.finditer(pattern, text):
+        game_id = match.group(1)
+        team = match.group(2)
+        result = match.group(3)
+        duration = float(match.group(4))
+        inhibitors = int(match.group(5))
+        tower_damage = int(match.group(6))
+        
+        matches.append({
+            'game_id': game_id,
+            'team': team,
+            'result': result,
+            'duration': duration,
+            'inhibitors': inhibitors,
+            'tower_damage': tower_damage
+        })
+    
+    return matches
+
+def q1(text):
+    """Return the average number of inhibitors destroyed by winning teams."""
+    matches = parse_data(text)
+    winning_inhibitors = [m['inhibitors'] for m in matches if m['result'] == 'won']
+    return sum(winning_inhibitors) / len(winning_inhibitors) if winning_inhibitors else 0
+
+def q2(text):
+    """Return the average damage to towers of losing teams."""
+    matches = parse_data(text)
+    losing_damage = [m['tower_damage'] for m in matches if m['result'] == 'lost']
+    return sum(losing_damage) / len(losing_damage) if losing_damage else 0
+
+def q3(text):
+    """Return the game label of the longest game."""
+    matches = parse_data(text)
+    longest_match = max(matches, key=lambda m: m['duration'])
+    return longest_match['game_id']
+```

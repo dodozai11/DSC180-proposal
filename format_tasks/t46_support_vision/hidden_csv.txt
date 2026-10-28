@@ -1,0 +1,21 @@
+player,team,result,vision_score,wards_placed,control_wards
+Raina,REJECT,win,82,40,11
+koisi,Spirit Quartz Gaming,win,78,46,15
+OkerumoN,Kareha Children,win,76,34,8
+Osaki,VARREL YOUTH,loss,83,44,18
+Taiyaki,Yang Yang Gaming,win,111,47,12
+VEL fuki,VeLocitY (Japanese Team),loss,95,52,15
+VK EMPTY2,VelbeliKaizokudan,win,84,48,12
+JustFocus,Burning Core Toyama,win,101,52,14
+besu,We Can Win,win,111,51,16
+Kurahuto,DetonatioN FocusMe Academy,win,57,30,12
+Charley,Dream in 24,win,84,35,9
+BVL Snow Panda,BraVeLY,loss,61,25,4
+DG toraneko,Deltan Gaming,loss,62,31,10
+Hetel,QT DIG∞,win,69,33,14
+RPG Kikumin,Radical Pop Gaming,loss,68,26,7
+CK Ls ,Clocks,loss,51,22,5
+RPG McGrath,Radical Pop Gaming,win,104,45,13
+BOO Snow Panda,Bamboo Juice,win,100,35,7
+VT Magus,Vortex (Japanese Team),loss,70,40,11
+CK GOMAMUGICH4,Clocks,loss,98,47,16

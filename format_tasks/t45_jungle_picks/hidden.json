@@ -1,0 +1,122 @@
+[
+  {
+    "player": "shibi",
+    "champion": "Xin Zhao",
+    "result": "loss",
+    "deaths": 5
+  },
+  {
+    "player": "Zubac",
+    "champion": "Skarner",
+    "result": "loss",
+    "deaths": 5
+  },
+  {
+    "player": "Velja",
+    "champion": "Ivern",
+    "result": "win",
+    "deaths": 1
+  },
+  {
+    "player": "Mafro",
+    "champion": "Maokai",
+    "result": "win",
+    "deaths": 3
+  },
+  {
+    "player": "Anonymouss",
+    "champion": "Viego",
+    "result": "loss",
+    "deaths": 2
+  },
+  {
+    "player": "Afroboi",
+    "champion": "Ivern",
+    "result": "loss",
+    "deaths": 4
+  },
+  {
+    "player": "ISMA",
+    "champion": "Maokai",
+    "result": "win",
+    "deaths": 0
+  },
+  {
+    "player": "Yukino",
+    "champion": "Xin Zhao",
+    "result": "win",
+    "deaths": 3
+  },
+  {
+    "player": "Kireas",
+    "champion": "Wukong",
+    "result": "loss",
+    "deaths": 6
+  },
+  {
+    "player": "Own3r",
+    "champion": "Naafiri",
+    "result": "loss",
+    "deaths": 2
+  },
+  {
+    "player": "Jankos",
+    "champion": "Jarvan IV",
+    "result": "win",
+    "deaths": 1
+  },
+  {
+    "player": "Goliah",
+    "champion": "Sejuani",
+    "result": "loss",
+    "deaths": 4
+  },
+  {
+    "player": "Dean",
+    "champion": "Xin Zhao",
+    "result": "loss",
+    "deaths": 5
+  },
+  {
+    "player": "Oguzkhan",
+    "champion": "Nocturne",
+    "result": "win",
+    "deaths": 3
+  },
+  {
+    "player": "Fragola",
+    "champion": "Brand",
+    "result": "loss",
+    "deaths": 2
+  },
+  {
+    "player": "Djoko",
+    "champion": "Jarvan IV",
+    "result": "win",
+    "deaths": 0
+  },
+  {
+    "player": "Closer",
+    "champion": "Xin Zhao",
+    "result": "win",
+    "deaths": 2
+  },
+  {
+    "player": "Eckas",
+    "champion": "Xin Zhao",
+    "result": "win",
+    "deaths": 0
+  },
+  {
+    "player": "113",
+    "champion": "Qiyana",
+    "result": "win",
+    "deaths": 3
+  },
+  {
+    "player": "Silk",
+    "champion": "Jarvan IV",
+    "result": "loss",
+    "deaths": 3
+  }
+]

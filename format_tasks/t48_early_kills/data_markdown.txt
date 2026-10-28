@@ -1,0 +1,22 @@
+| game | team | side | result | kills_at_15 | xp_diff_15 |
+|---|---|---|---|---|---|
+| G01 | PSG Talon Academy | blue | loss | 9 | -2107 |
+| G01 | Deep Cross Gaming | red | win | 4 | 2107 |
+| G02 | CTBC Flying Oyster Academy | blue | win | 7 | 2072 |
+| G02 | Ground Zero Gaming | red | loss | 6 | -2072 |
+| G03 | PaiDA Miwan Bao | blue | loss | 5 | -886 |
+| G03 | Sponge Gaming | red | win | 7 | 886 |
+| G04 | West Point Esports | blue | loss | 4 | -4278 |
+| G04 | Deep Cross Gaming | red | win | 11 | 4278 |
+| G05 | PSG Talon Academy | blue | win | 5 | -251 |
+| G05 | Ground Zero Gaming | red | loss | 5 | 251 |
+| G06 | PSG Talon Academy | blue | win | 14 | 2498 |
+| G06 | Deep Cross Gaming | red | loss | 7 | -2498 |
+| G07 | wangting | blue | loss | 11 | -4961 |
+| G07 | Deep Cross Gaming | red | win | 15 | 4961 |
+| G08 | HELL PIGS | blue | loss | 5 | -2786 |
+| G08 | Ground Zero Gaming | red | win | 10 | 2786 |
+| G09 | CTBC Flying Oyster Academy | blue | loss | 1 | 214 |
+| G09 | Frank Esports | red | win | 5 | -214 |
+| G10 | Deep Cross Gaming | blue | loss | 5 | 216 |
+| G10 | PSG Talon Academy | red | win | 5 | -216 |

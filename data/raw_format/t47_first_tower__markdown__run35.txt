@@ -1,0 +1,70 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    # Skip header line
+    data = []
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        data.append(parts)
+    
+    first_tower_wins = 0
+    first_tower_total = 0
+    
+    for row in data:
+        if len(row) >= 3:
+            first_tower = row[2]
+            result = row[1]
+            
+            if first_tower == 'yes':
+                first_tower_total += 1
+                if result == 'win':
+                    first_tower_wins += 1
+    
+    if first_tower_total == 0:
+        return 0
+    return first_tower_wins / first_tower_total
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    # Skip header line
+    data = []
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        data.append(parts)
+    
+    winning_void_grubs = []
+    
+    for row in data:
+        if len(row) >= 5:
+            result = row[1]
+            void_grubs = int(row[3])
+            
+            if result == 'win':
+                winning_void_grubs.append(void_grubs)
+    
+    if len(winning_void_grubs) == 0:
+        return 0
+    return sum(winning_void_grubs) / len(winning_void_grubs)
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    # Skip header line
+    data = []
+    for line in lines[1:]:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        data.append(parts)
+    
+    count = 0
+    
+    for row in data:
+        if len(row) >= 5:
+            result = row[1]
+            heralds = int(row[4])
+            
+            if result == 'loss' and heralds >= 1:
+                count += 1
+    
+    return count
+```

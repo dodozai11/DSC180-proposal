@@ -1,0 +1,63 @@
+```python
+import re
+
+def q1(text):
+    """Returns the win rate of teams that took the first tower."""
+    first_tower_teams = []
+    
+    # Parse all game data
+    games = re.findall(r'In game (G\d+), (.+?) (won|lost); they (took|did not take) the first tower', text)
+    
+    for game_id, team_name, result, tower_status in games:
+        took_first_tower = tower_status == "took"
+        won = result == "won"
+        
+        if took_first_tower:
+            first_tower_teams.append(won)
+    
+    if len(first_tower_teams) == 0:
+        return 0
+    
+    win_rate = sum(first_tower_teams) / len(first_tower_teams)
+    return win_rate
+
+
+def q2(text):
+    """Returns the average number of void grubs taken by winning teams."""
+    winning_teams_void_grubs = []
+    
+    # Parse all game data with void grubs and heralds
+    pattern = r'In game (G\d+), (.+?) (won|lost); they (?:took|did not take) the first tower and finished with (\d+) void grubs'
+    matches = re.findall(pattern, text)
+    
+    for game_id, team_name, result, void_grubs in matches:
+        won = result == "won"
+        void_grubs_count = int(void_grubs)
+        
+        if won:
+            winning_teams_void_grubs.append(void_grubs_count)
+    
+    if len(winning_teams_void_grubs) == 0:
+        return 0
+    
+    average = sum(winning_teams_void_grubs) / len(winning_teams_void_grubs)
+    return average
+
+
+def q3(text):
+    """Returns how many teams took at least one herald and still lost."""
+    count = 0
+    
+    # Parse all game data with heralds
+    pattern = r'In game (G\d+), (.+?) (won|lost); they (?:took|did not take) the first tower and finished with \d+ void grubs and (\d+) heralds'
+    matches = re.findall(pattern, text)
+    
+    for game_id, team_name, result, heralds in matches:
+        lost = result == "lost"
+        heralds_count = int(heralds)
+        
+        if lost and heralds_count >= 1:
+            count += 1
+    
+    return count
+```

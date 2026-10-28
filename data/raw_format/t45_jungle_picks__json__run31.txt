@@ -1,0 +1,55 @@
+```python
+import json
+from collections import defaultdict
+
+def q1(text):
+    """Returns the number of different champions played."""
+    data = json.loads(text)
+    champions = set(player["champion"] for player in data)
+    return len(champions)
+
+
+def q2(text):
+    """Returns the name of the champion with the best win rate among champions played at least twice."""
+    data = json.loads(text)
+    
+    # Track wins and total games per champion
+    champion_stats = defaultdict(lambda: {"wins": 0, "total": 0})
+    
+    for player in data:
+        champion = player["champion"]
+        result = player["result"]
+        
+        champion_stats[champion]["total"] += 1
+        if result == "win":
+            champion_stats[champion]["wins"] += 1
+    
+    # Filter champions played at least twice
+    champions_played_twice = {
+        champ: stats for champ, stats in champion_stats.items()
+        if stats["total"] >= 2
+    }
+    
+    if not champions_played_twice:
+        return None
+    
+    # Find champion with best win rate
+    best_champion = max(
+        champions_played_twice.items(),
+        key=lambda x: x[1]["wins"] / x[1]["total"]
+    )[0]
+    
+    return best_champion
+
+
+def q3(text):
+    """Returns the average number of deaths in games that were lost."""
+    data = json.loads(text)
+    
+    losses = [player["deaths"] for player in data if player["result"] == "loss"]
+    
+    if not losses:
+        return 0
+    
+    return sum(losses) / len(losses)
+```

@@ -1,0 +1,71 @@
+```python
+def q1(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    damage_per_min_idx = header.index('damage_per_min')
+    result_idx = header.index('result')
+    
+    total_damage = 0
+    count = 0
+    
+    for line in lines[2:]:
+        if line.strip():
+            cols = line.split('|')[1:-1]
+            cols = [c.strip() for c in cols]
+            
+            result = cols[result_idx]
+            if result == 'loss':
+                damage = float(cols[damage_per_min_idx])
+                total_damage += damage
+                count += 1
+    
+    return total_damage / count if count > 0 else 0
+
+
+def q2(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    player_idx = header.index('player')
+    damage_taken_per_min_idx = header.index('damage_taken_per_min')
+    
+    max_damage = -1
+    max_player = None
+    
+    for line in lines[2:]:
+        if line.strip():
+            cols = line.split('|')[1:-1]
+            cols = [c.strip() for c in cols]
+            
+            player = cols[player_idx]
+            damage_taken = float(cols[damage_taken_per_min_idx])
+            
+            if damage_taken > max_damage:
+                max_damage = damage_taken
+                max_player = player
+    
+    return max_player
+
+
+def q3(text):
+    lines = text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    header = [h.strip() for h in header]
+    
+    team_idx = header.index('team')
+    
+    teams = set()
+    
+    for line in lines[2:]:
+        if line.strip():
+            cols = line.split('|')[1:-1]
+            cols = [c.strip() for c in cols]
+            
+            team = cols[team_idx]
+            teams.add(team)
+    
+    return len(teams)
+```

@@ -1,0 +1,24 @@
+```python
+import pandas as pd
+from io import StringIO
+
+def q1(text):
+    """Return the average damage per minute of players who lost."""
+    df = pd.read_csv(StringIO(text), sep="|", skipinitialspace=True)
+    df.columns = df.columns.str.strip()
+    df = df[df['result'].str.strip() == 'loss']
+    return df['damage_per_min'].mean()
+
+def q2(text):
+    """Return the name of the player who took the most damage per minute."""
+    df = pd.read_csv(StringIO(text), sep="|", skipinitialspace=True)
+    df.columns = df.columns.str.strip()
+    max_idx = df['damage_taken_per_min'].idxmax()
+    return df.loc[max_idx, 'player'].strip()
+
+def q3(text):
+    """Return the number of different teams."""
+    df = pd.read_csv(StringIO(text), sep="|", skipinitialspace=True)
+    df.columns = df.columns.str.strip()
+    return df['team'].nunique()
+```

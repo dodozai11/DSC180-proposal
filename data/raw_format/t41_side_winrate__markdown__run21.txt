@@ -1,0 +1,74 @@
+```python
+def q1(text):
+    """Returns the win rate of blue-side teams."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    blue_wins = 0
+    blue_total = 0
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 4:
+            side = parts[2]
+            result = parts[3]
+            
+            if side == 'blue':
+                blue_total += 1
+                if result == 'win':
+                    blue_wins += 1
+    
+    if blue_total == 0:
+        return 0
+    return blue_wins / blue_total
+
+
+def q2(text):
+    """Returns the average length in minutes of games won by red-side teams."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    red_win_lengths = []
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 5:
+            side = parts[2]
+            result = parts[3]
+            game_minutes = float(parts[4])
+            
+            if side == 'red' and result == 'win':
+                red_win_lengths.append(game_minutes)
+    
+    if len(red_win_lengths) == 0:
+        return 0
+    return sum(red_win_lengths) / len(red_win_lengths)
+
+
+def q3(text):
+    """Returns the name of the team with the most wins."""
+    lines = text.strip().split('\n')
+    # Skip header row
+    data_lines = lines[1:]
+    
+    team_wins = {}
+    
+    for line in data_lines:
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) >= 4:
+            team = parts[1]
+            result = parts[3]
+            
+            if team not in team_wins:
+                team_wins[team] = 0
+            
+            if result == 'win':
+                team_wins[team] += 1
+    
+    if not team_wins:
+        return None
+    
+    return max(team_wins, key=team_wins.get)
+```

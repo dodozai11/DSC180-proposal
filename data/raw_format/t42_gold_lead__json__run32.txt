@@ -1,0 +1,25 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Returns the average gold difference at 15 minutes of the winning teams."""
+    data = json.loads(text)
+    winning_gold_diffs = [row['gold_diff_15'] for row in data if row['result'] == 'win']
+    return sum(winning_gold_diffs) / len(winning_gold_diffs) if winning_gold_diffs else 0
+
+def q2(text):
+    """Returns how many teams won despite a negative gold difference at 15 minutes."""
+    data = json.loads(text)
+    count = sum(1 for row in data if row['result'] == 'win' and row['gold_diff_15'] < 0)
+    return count
+
+def q3(text):
+    """Returns the win rate of teams that were ahead in gold at 15 minutes."""
+    data = json.loads(text)
+    ahead_in_gold = [row for row in data if row['gold_diff_15'] > 0]
+    if not ahead_in_gold:
+        return 0
+    wins = sum(1 for row in ahead_in_gold if row['result'] == 'win')
+    return wins / len(ahead_in_gold)
+```

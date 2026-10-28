@@ -1,0 +1,63 @@
+```python
+import re
+
+def q1(text):
+    """Return the average number of kills at 15 minutes of red-side teams."""
+    red_kills = []
+    
+    # Find all lines with red side teams
+    lines = text.split('. ')
+    for line in lines:
+        if 'red side' in line:
+            # Extract kills from the line
+            match = re.search(r'with (\d+) kills', line)
+            if match:
+                red_kills.append(int(match.group(1)))
+    
+    if red_kills:
+        return sum(red_kills) / len(red_kills)
+    return 0
+
+def q2(text):
+    """Return the name of the team with the largest experience difference at 15 minutes."""
+    teams_exp_diff = {}
+    
+    lines = text.split('. ')
+    for line in lines:
+        # Extract team name
+        match = re.search(r'([A-Za-z0-9 ]+) played on the', line)
+        if match:
+            team_name = match.group(1).strip()
+            
+            # Extract experience difference
+            exp_match = re.search(r'experience difference of ([+-]?\d+)', line)
+            if exp_match:
+                exp_diff = int(exp_match.group(1))
+                
+                # Store the absolute value to find the largest difference
+                if team_name not in teams_exp_diff or abs(exp_diff) > abs(teams_exp_diff[team_name]):
+                    teams_exp_diff[team_name] = exp_diff
+    
+    # Find team with largest absolute experience difference
+    if teams_exp_diff:
+        return max(teams_exp_diff.items(), key=lambda x: abs(x[1]))[0]
+    return None
+
+def q3(text):
+    """Return how many teams won despite a negative experience difference at 15 minutes."""
+    count = 0
+    
+    lines = text.split('. ')
+    for line in lines:
+        # Check if team won
+        if 'won' in line:
+            # Extract experience difference
+            exp_match = re.search(r'experience difference of ([+-]?\d+)', line)
+            if exp_match:
+                exp_diff = int(exp_match.group(1))
+                # Count if experience difference is negative
+                if exp_diff < 0:
+                    count += 1
+    
+    return count
+```

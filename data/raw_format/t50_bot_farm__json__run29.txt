@@ -1,0 +1,25 @@
+```python
+import json
+import re
+
+def q1(text):
+    """Return the name of the player with the highest CS per minute."""
+    data = json.loads(text)
+    player_with_highest_cs = max(data, key=lambda x: x['cs_per_min'])
+    return player_with_highest_cs['player']
+
+def q2(text):
+    """Return the average gold share of players who won."""
+    data = json.loads(text)
+    winners = [player for player in data if player['result'] == 'win']
+    if not winners:
+        return 0
+    average_gold_share = sum(player['gold_share'] for player in winners) / len(winners)
+    return average_gold_share
+
+def q3(text):
+    """Return how many players had more than 9 CS per minute."""
+    data = json.loads(text)
+    count = sum(1 for player in data if player['cs_per_min'] > 9)
+    return count
+```
