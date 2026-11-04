@@ -4,6 +4,8 @@ An exploratory study of how the **format of data in a prompt** relates to the to
 
 **Question:** when someone pastes a dataset into a prompt and asks for a script, does writing the data as CSV, XML, or prose change the number of input and output tokens? Each prompt was written in two instruction styles (structured and informal); the analysis pools them and compares data formats only. The experiment measures **token usage only**: answers aren't graded, and a validity check flags responses that skipped the work.
 
+**AI and human contributions:** We (the authors) designed the experiments, chose the research questions, tasks and data, and reviewed, ran and checked all code and results. Most of the code, notebooks and documentation in this repo was written by Claude Code, an AI coding assistant, under our direction. No other AI tools were used.
+
 ## Design
 
 | | |
