@@ -224,6 +224,13 @@ Keep `claude-haiku-4-5`. Newer Claude models always use extended thinking and re
 
 Your results in `data/results.csv` and the notebook aren't affected.
 
+## Major AI prompts
+
+- Research question: does prompt format (structured vs. informal) affect token usage when an LLM writes Python code for the same requirements? Conduct experiment using League of Legends Oracle 2025 dataset, comparing input and output token usage and accuracy on data retrieval tasks of the data formats csv, xml and prose.
+- Add a section near the top of the notebook that shows one full example task pair, then a table of all tasks with their requirement counts and prompt lengths.
+- Remove all the informal vs. structured instruction comparisons and work only on the data formats
+- Repeat the data-format experiment with CSV, JSON, XML, Markdown and prose as input. Focus on output tokens, with more repetitions, parse-only, since that's what models do in real life. Use Claude API calls
+
 ## Limitations
 
 - One small open-source model at one temperature. Larger commercial models may respond differently (see the optional Claude run above).
