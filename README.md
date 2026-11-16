@@ -71,6 +71,8 @@ python src/run_format_batch.py collect          # saves replies, grades them, wr
 python src/run_format_batch.py submit --retry-failed   # only if collect reports failed requests
 python scripts/make_notebook_test4.py
 jupyter nbconvert --to notebook --execute --inplace notebooks/test4.ipynb
+python scripts/make_notebook_test4_stats.py     # the statistical analysis of the same data
+jupyter nbconvert --to notebook --execute --inplace notebooks/test4_stats.ipynb
 ```
 
 Batch ids are saved in `data/format_batch.json`, so every step can be re-run: `submit` never resends a request, and `collect` skips rows already in the CSV. `collect` grades one reply at a time, and the API key is removed from the environment before any model-written code runs. `data/format_results.csv` has the same columns as `results.csv` plus `response_chars`, `code_chars` (the code inside the reply's code block) and `cache_tokens` (should be 0).
@@ -112,6 +114,8 @@ scripts/make_format_tasks.py   builds format_tasks/ (t41-t46 from the parse task
 src/run_format_batch.py    sends format_tasks/ to Claude as a Message Batch, grades results into data/format_results.csv
 notebooks/test4.ipynb      data format v2: input, output tokens, what the output goes to, significance, cost
 scripts/make_notebook_test4.py builds notebooks/test4.ipynb (reads data/format_results.csv, data/raw_format/, format_tasks/)
+notebooks/test4_stats.ipynb    statistical analysis of test4: ANOVA, paired t-tests, chi-square and regression, what each test means, JSON outliers
+scripts/make_notebook_test4_stats.py builds notebooks/test4_stats.ipynb (same inputs as test4)
 ```
 
 ## Setup
